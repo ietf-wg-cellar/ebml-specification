@@ -27,7 +27,7 @@ The known basic types are:
     needed ([RFC 2279](http://www.faqs.org/rfcs/rfc2279.html))
 -   Date - signed 8 octets integer in nanoseconds with 0 indicating the
     precise beginning of the millennium (at
-    2001-01-01T00:00:00,000000000 UTC)
+    2001-01-01T00:00:00.000000000 UTC)
 -   master-element - contains other EBML sub-elements of the next lower
     level
 -   Binary - not interpreted by the parser
