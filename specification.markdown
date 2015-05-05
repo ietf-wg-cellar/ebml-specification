@@ -19,18 +19,21 @@ outlines general data types and ID's.
 
 The known basic types are:
 
--   Signed Integer - Big-endian, any size from 1 to 8 octets
--   Unsigned Integer - Big-endian, any size from 1 to 8 octets
--   Float - Big-endian, defined for 4 and 8 octets (32, 64 bits)
--   String - Printable ASCII (0x20 to 0x7E), zero-padded when needed
--   UTF-8 - [Unicode string](http://www.unicode.org/), zero padded when
-    needed ([RFC 2279](http://www.faqs.org/rfcs/rfc2279.html))
--   Date - signed 8 octets integer in nanoseconds with 0 indicating the
-    precise beginning of the millennium (at
-    2001-01-01T00:00:00.000000000 UTC)
--   master-element - contains other EBML sub-elements of the next lower
-    level
--   Binary - not interpreted by the parser
+Data Type        | Definition
+-----------------|----------------------------------------------------
+Signed Integer   | Big-endian, any size from 1 to 8 octets
+Unsigned Integer | Big-endian, any size from 1 to 8 octets
+Float            | Big-endian, defined for 4 and 8 octets (32, 64 bits)
+String           | Printable ASCII (0x20 to 0x7E), zero-padded when
+                 | needed
+UTF-8            | [Unicode string](http://www.unicode.org/), zero
+                 | padded when needed ([RFC 2279](http://www.faqs.org/rfcs/rfc2279.html))
+Date             | signed 8 octets integer in nanoseconds with 0
+                 | indicating the precise beginning of the
+                 | millennium (at 2001-01-01T00:00:00.000000000 UTC)
+Master-element   | contains other EBML sub-elements of the next lower
+                 | level
+Binary           | not interpreted by the parser
 
 As well as defining standard data types, EBML uses a system of Elements
 to make up an EBML "document." Elements incorporate an Element ID, a
