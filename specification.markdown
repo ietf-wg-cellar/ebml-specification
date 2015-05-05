@@ -36,9 +36,9 @@ Master-element   | contains other EBML sub-elements of the next lower
 Binary           | not interpreted by the parser
 
 As well as defining standard data types, EBML uses a system of Elements
-to make up an EBML "document." Elements incorporate an Element ID, a
+to make up an EBML "document". Elements incorporate an Element ID, a
 descriptor for the size of the element, and the binary data itself.
-Futher, Elements can be nested or contain Elements of a lower "level."
+Futher, Elements can be nested or contain Elements of a lower "level".
 
 Element IDs are outlined as follows, beginning with the ID itself,
 followed by the Data Size, and then the non-interpreted Binary itself:
