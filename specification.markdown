@@ -60,8 +60,6 @@ followed by the Data Size, and then the non-interpreted Binary itself:
     -   The Reserved IDs (all x set to 1) are the only IDs that may
         change the Length Descriptor.
 
-    \
-
 -   Data size, in octets, is also coded with an UTF-8 like system :
 
         bits, big-endian
