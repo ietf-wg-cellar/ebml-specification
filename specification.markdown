@@ -62,6 +62,24 @@ followed by the Data Size, and then the non-interpreted Binary itself:
     -   The Reserved IDs (all x set to 1) are the only IDs that may
         change the Length Descriptor.
 
+### Element Data Size
+
+The EBML Element Data Size is encoded as a variable size integer.
+Another maximum width value can be set by setting another value to
+EBMLMaxSizeLength in the EBML header. There is a range overlap between
+all different lengths, so that 1 encoded with a width of 1 byte (0x81)
+is semantically equal to 1 encoded with width of 8 bytes
+(0x1000000000000001). This allows for the Element Data Size to shrink
+without having to shrink the width of the size descriptor.
+
+An EBML Element Data Size with all data bits set to 1 indicates that the
+data size is unknown. This allows for dynamically generated EBML
+streams where the final size isn't known beforehand. The element with
+unknown size MUST be an element with an element list as data payload.
+The end of the element list is determined by the ID of the element. 
+When an element that isn't a sub-element of the element with unknown
+size arrives, the element list is ended.
+
 -   Data size, in octets, is also coded with an UTF-8 like system :
 
         bits, big-endian
