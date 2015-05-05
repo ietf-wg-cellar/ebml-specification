@@ -1,6 +1,6 @@
-### EBML specifications
+# EBML specifications
 
-#### EBML principle
+## EBML principle
 
 EBML is short for Extensible Binary Meta Language. EBML specifies a
 binary and octet (byte) aligned format inspired by the principle of XML.
@@ -97,7 +97,7 @@ followed by the Data Size, and then the non-interpreted Binary itself:
         For example -2 can be coded as 0xFFFFFFFFFFFFFE or 0xFFFE or
         0xFE and 5 can be coded 0x000000000005 or 0x0005 or 0x05.
 
-#### Elements semantic
+## Elements semantic
 
 <table class="techdef">
  <tbody>
