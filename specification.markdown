@@ -121,7 +121,7 @@ Element Name:   EBML
     Multiple:       Yes
     Range:          -
     Default:        -
-    Element Type:   sub-elements
+    Element Type:   Sub-element
     Description:    Set the EBML characteristics of the data to follow.
                     Each EBML document has to start with this.
 
@@ -133,7 +133,7 @@ Element Name:   EBMLVersion
     Multiple:       No
     Range:          -
     Default:        1
-    Element Type:   u-integer
+    Element Type:   Unsigned Integer
     Description:    The version of EBML parser used to create the file.
 
 Element Name:   EBMLReadVersion
@@ -144,7 +144,7 @@ Element Name:   EBMLReadVersion
     Multiple:       No
     Range:          -
     Default:        1
-    Element Type:   u-integer
+    Element Type:   Unsigned Integer
     Description:    The minimum EBML version a parser has to support to
                     read this file.
 
@@ -156,8 +156,8 @@ Element Name:   EBMLMaxIDLength
     Multiple:       No
     Range:          -
     Default:        4
-    Element Type:   u-integer
-    Description:    The maximum length of the IDs you'll find in this
+    Element Type:   Unsigned Integer
+    Description:    The maximum length of the IDs you'll find in this 
                     file (4 or less in Matroska).
 
 Element Name:   EBMLMaxSizeLength
@@ -168,7 +168,7 @@ Element Name:   EBMLMaxSizeLength
     Multiple:       No
     Range:          -
     Default:        8
-    Element Type:   u-integer
+    Element Type:   Unsigned Integer
     Description:    The maximum length of the sizes you'll find in this
                     file (8 or less in Matroska). This does not
                     override the element size indicated at the
@@ -184,7 +184,7 @@ Element Name:   DocType
     Multiple:       No
     Range:          -
     Default:        -
-    Element Type:   string
+    Element Type:   String
     Description:    A string that describes the type of document that
                     follows this EBML header ('matroska' in our case).
 
@@ -196,7 +196,7 @@ Element Name:   DocTypeVersion
     Multiple:       No
     Range:          -
     Default:        1
-    Element Type:   u-integer
+    Element Type:   Unsigned Integer
     Description:    The version of DocType interpreter used to create
                     the file.
 
@@ -208,7 +208,7 @@ Element Name:   DocTypeReadVersion
     Multiple:       No
     Range:          -
     Default:        1
-    Element Type:   u-integer
+    Element Type:   Unsigned Integer
     Description:    The minimum DocType version an interpreter has to
                     support to read this file.
 
@@ -222,7 +222,7 @@ Element Name:   CRC-32
     Multiple:       No
     Range:          -
     Default:        -
-    Element Type:   binary
+    Element Type:   Binary
     Description:    The CRC is computed on all the data from the last
                     CRC element (or start of the upper level element),
                     up to the CRC element, including other previous CRC
@@ -237,7 +237,7 @@ Element Name:   Void
     Multiple:       No
     Range:          -
     Default:        -
-    Element Type:   binary
+    Element Type:   Binary
     Description:    Used to void damaged data, to avoid unexpected
                     behaviors when using damaged data. The content is
                     discarded. Also used to reserve space in a
@@ -253,7 +253,7 @@ Element Name:   SignatureSlot
     Multiple:       Yes
     Range:          -
     Default:        -
-    Element Type:   sub-elements
+    Element Type:   Sub-element
     Description:    Contain signature of some (coming) elements in the
                     stream.
 
@@ -265,7 +265,7 @@ Element Name:   SignatureAlgo
     Multiple:       No
     Range:          -
     Default:        -
-    Element Type:   u-integer
+    Element Type:   Unsigned Integer
     Description:    Signature algorithm used (1=RSA, 2=elliptic).
 
 Element Name:   SignatureHash
@@ -276,7 +276,7 @@ Element Name:   SignatureHash
     Multiple:       No
     Range:          -
     Default:        -
-    Element Type:   u-integer
+    Element Type:   Unsigned Integer
     Description:    Hash algorithm used (1=SHA1-160, 2=MD5).
 
 Element Name:   SignaturePublicKey
@@ -287,7 +287,7 @@ Element Name:   SignaturePublicKey
     Multiple:       No
     Range:          -
     Default:        -
-    Element Type:   binary
+    Element Type:   Binary
     Description:    The public key to use with the algorithm (in the
                     case of a PKI-based signature).
 
@@ -299,7 +299,7 @@ Element Name:   Signature
     Multiple:       No
     Range:          -
     Default:        -
-    Element Type:   binary
+    Element Type:   Binary
     Description:    The signature of the data (until a new.
 
 Element Name:   SignatureElements
@@ -310,7 +310,7 @@ Element Name:   SignatureElements
     Multiple:       No
     Range:          -
     Default:        -
-    Element Type:   sub-elements
+    Element Type:   Sub-element
     Description:    Contains elements that will be used to compute the
                     signature.
 
@@ -322,7 +322,7 @@ Element Name:   SignatureElementList
     Multiple:       Yes
     Range:          -
     Default:        -
-    Element Type:   sub-elements
+    Element Type:   Sub-element
     Description:    A list consists of a number of consecutive elements
                     that represent one case where data is used in
                     signature. Ex: <i>Cluster|Block|BlockAdditional</i>
@@ -337,6 +337,6 @@ Element Name:   SignedElement
     Multiple:       Yes
     Range:          -
     Default:        -
-    Element Type:   binary
+    Element Type:   Binary
     Description:    An element ID whose data will be used to compute
                     the signature.
