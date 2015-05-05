@@ -103,7 +103,7 @@ followed by the Data Size, and then the non-interpreted Binary itself:
 Element Name:
 
     Level:
-    Class-ID:   [EBML ID]
+    EBML ID:    []
     Mandatory:  [Mandatory]
     Multiple:   [Can be found multiple times at the same level]
     Range:
@@ -116,7 +116,7 @@ Element Name:
 Element Name:   EBML
 
     Level:          0
-    Class-ID:       [1A][45][DF][A3]
+    EBML ID:        [1A][45][DF][A3]
     Mandatory:      Yes
     Multiple:       Yes
     Range:          -
@@ -128,7 +128,7 @@ Element Name:   EBML
 Element Name:   EBMLVersion
 
     Level:          1
-    Class-ID:       [42][86]
+    EBML ID:        [42][86]
     Mandatory:      Yes
     Multiple:       No
     Range:          -
@@ -139,7 +139,7 @@ Element Name:   EBMLVersion
 Element Name:   EBMLReadVersion
 
     Level:          1
-    Class-ID:       [42][F7]
+    EBML ID:        [42][F7]
     Mandatory:      Yes
     Multiple:       No
     Range:          -
@@ -151,7 +151,7 @@ Element Name:   EBMLReadVersion
 Element Name:   EBMLMaxIDLength
 
     Level:          1
-    Class-ID:       [42][F2]
+    EBML ID:        [42][F2]
     Mandatory:      Yes
     Multiple:       No
     Range:          -
@@ -163,7 +163,7 @@ Element Name:   EBMLMaxIDLength
 Element Name:   EBMLMaxSizeLength
 
     Level:          1
-    Class-ID:       [42][F3]
+    EBML ID:        [42][F3]
     Mandatory:      Yes
     Multiple:       No
     Range:          -
@@ -179,7 +179,7 @@ Element Name:   EBMLMaxSizeLength
 Element Name:   DocType
 
     Level:          1
-    Class-ID:       [42][82]
+    EBML ID:        [42][82]
     Mandatory:      Yes
     Multiple:       No
     Range:          -
@@ -191,7 +191,7 @@ Element Name:   DocType
 Element Name:   DocTypeVersion
 
     Level:          1
-    Class-ID:       [42][87]
+    EBML ID:        [42][87]
     Mandatory:      Yes
     Multiple:       No
     Range:          -
@@ -203,7 +203,7 @@ Element Name:   DocTypeVersion
 Element Name:   DocTypeReadVersion
 
     Level:          1
-    Class-ID:       [42][85]
+    EBML ID:        [42][85]
     Mandatory:      Yes
     Multiple:       No
     Range:          -
@@ -217,7 +217,7 @@ Element Name:   DocTypeReadVersion
 Element Name:   CRC-32
 
     Level:          1+
-    Class-ID:       [BF]
+    EBML ID:        [BF]
     Mandatory:      No
     Multiple:       No
     Range:          -
@@ -232,7 +232,7 @@ Element Name:   CRC-32
 Element Name:   Void
 
     Level:          1+
-    Class-ID:       [EC]
+    EBML ID:        [EC]
     Mandatory:      No
     Multiple:       No
     Range:          -
@@ -248,7 +248,7 @@ Element Name:   Void
 Element Name:   SignatureSlot
 
     Level:          1+
-    Class-ID:       [1B][53][86][67]
+    EBML ID:        [1B][53][86][67]
     Mandatory:      No
     Multiple:       Yes
     Range:          -
@@ -260,7 +260,7 @@ Element Name:   SignatureSlot
 Element Name:   SignatureAlgo
 
     Level:          2+
-    Class-ID:       [7E][8A]
+    EBML ID:        [7E][8A]
     Mandatory:      No
     Multiple:       No
     Range:          -
@@ -271,7 +271,7 @@ Element Name:   SignatureAlgo
 Element Name:   SignatureHash
 
     Level:          2+
-    Class-ID:       [7E][9A]
+    EBML ID:        [7E][9A]
     Mandatory:      No
     Multiple:       No
     Range:          -
@@ -282,7 +282,7 @@ Element Name:   SignatureHash
 Element Name:   SignaturePublicKey
 
     Level:          2+
-    Class-ID:       [7E][A5]
+    EBML ID:        [7E][A5]
     Mandatory:      No
     Multiple:       No
     Range:          -
@@ -294,7 +294,7 @@ Element Name:   SignaturePublicKey
 Element Name:   Signature
 
     Level:          2+
-    Class-ID:       [7E][B5]
+    EBML ID:        [7E][B5]
     Mandatory:      No
     Multiple:       No
     Range:          -
@@ -305,7 +305,7 @@ Element Name:   Signature
 Element Name:   SignatureElements
 
     Level:          2+
-    Class-ID:       [7E][5B]
+    EBML ID:        [7E][5B]
     Mandatory:      No
     Multiple:       No
     Range:          -
@@ -317,7 +317,7 @@ Element Name:   SignatureElements
 Element Name:   SignatureElementList
 
     Level:          3+
-    Class-ID:       [7E][7B]
+    EBML ID:        [7E][7B]
     Mandatory:      No
     Multiple:       Yes
     Range:          -
@@ -332,7 +332,7 @@ Element Name:   SignatureElementList
 Element Name:   SignedElement
 
     Level:          4+
-    Class-ID:       [65][32]
+    EBML ID:        [65][32]
     Mandatory:      No
     Multiple:       Yes
     Range:          -
