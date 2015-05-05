@@ -121,7 +121,7 @@ Element Name:   EBML
     Multiple:       Yes
     Range:          -
     Default:        -
-    Element Type:   Sub-element
+    Element Type:   Master-element
     Description:    Set the EBML characteristics of the data to follow.
                     Each EBML document has to start with this.
 
@@ -253,7 +253,7 @@ Element Name:   SignatureSlot
     Multiple:       Yes
     Range:          -
     Default:        -
-    Element Type:   Sub-element
+    Element Type:   Master-element
     Description:    Contain signature of some (coming) elements in the
                     stream.
 
@@ -310,7 +310,7 @@ Element Name:   SignatureElements
     Multiple:       No
     Range:          -
     Default:        -
-    Element Type:   Sub-element
+    Element Type:   Master-element
     Description:    Contains elements that will be used to compute the
                     signature.
 
@@ -322,7 +322,7 @@ Element Name:   SignatureElementList
     Multiple:       Yes
     Range:          -
     Default:        -
-    Element Type:   Sub-element
+    Element Type:   Master-element
     Description:    A list consists of a number of consecutive elements
                     that represent one case where data is used in
                     signature. Ex: <i>Cluster|Block|BlockAdditional</i>
