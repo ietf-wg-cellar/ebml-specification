@@ -44,14 +44,14 @@ Futher, Elements can be nested or contain Elements of a lower "level".
 
 The EBML Element ID is encoded as a variable size integer with, by
 default, widths up to 4. Another maximum width value can be set by
-setting another value to EBMLMaxIDLength in the EBML header. Element
-IDs are always encoded in their shortest form, e.g. 1 is always encoded
-as 0x81 and never as 0x4001. This limits the number of IDs in every
-class with the number of IDs in the previous classes. Furthermore,
-values with all data bits set to 1 and all data bits set to 0 are
-reserved, hence the effective number of IDs are as follows for
-different widths. Note that the shortest encoding form for 127 is
-0x407f since 0x7f is reserved.
+assigning that value to EBMLMaxIDLength in the EBML header. Element IDs
+are always encoded in their shortest form, e.g. 1 is always encoded as
+0x81 and never as 0x4001. This limits the number of IDs in every class
+with the number of IDs in the previous classes. Furthermore, values
+with all data bits set to 1 and all data bits set to 0 are reserved,
+hence the effective number of IDs are as follows for different widths.
+Note that the shortest encoding form for 127 is 0x407f since 0x7f is
+reserved.
 
 Width | Class ID | Number of Element IDs
 ------|----------|------------------------
