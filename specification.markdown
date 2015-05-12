@@ -103,7 +103,7 @@ followed by the Data Size, and then the non-interpreted Binary itself:
 Element Name:
 
     Level:
-    Class-ID:   [EBML ID]
+    EBML ID:    []
     Mandatory:  [Mandatory]
     Multiple:   [Can be found multiple times at the same level]
     Range:
@@ -116,59 +116,59 @@ Element Name:
 Element Name:   EBML
 
     Level:          0
-    Class-ID:       [1A][45][DF][A3]
+    EBML ID:        [1A][45][DF][A3]
     Mandatory:      Yes
     Multiple:       Yes
     Range:          -
     Default:        -
-    Element Type:   sub-elements
+    Element Type:   Master-element
     Description:    Set the EBML characteristics of the data to follow.
                     Each EBML document has to start with this.
 
 Element Name:   EBMLVersion
 
     Level:          1
-    Class-ID:       [42][86]
+    EBML ID:        [42][86]
     Mandatory:      Yes
     Multiple:       No
     Range:          -
     Default:        1
-    Element Type:   u-integer
+    Element Type:   Unsigned Integer
     Description:    The version of EBML parser used to create the file.
 
 Element Name:   EBMLReadVersion
 
     Level:          1
-    Class-ID:       [42][F7]
+    EBML ID:        [42][F7]
     Mandatory:      Yes
     Multiple:       No
     Range:          -
     Default:        1
-    Element Type:   u-integer
+    Element Type:   Unsigned Integer
     Description:    The minimum EBML version a parser has to support to
                     read this file.
 
 Element Name:   EBMLMaxIDLength
 
     Level:          1
-    Class-ID:       [42][F2]
+    EBML ID:        [42][F2]
     Mandatory:      Yes
     Multiple:       No
     Range:          -
     Default:        4
-    Element Type:   u-integer
-    Description:    The maximum length of the IDs you'll find in this
+    Element Type:   Unsigned Integer
+    Description:    The maximum length of the IDs you'll find in this 
                     file (4 or less in Matroska).
 
 Element Name:   EBMLMaxSizeLength
 
     Level:          1
-    Class-ID:       [42][F3]
+    EBML ID:        [42][F3]
     Mandatory:      Yes
     Multiple:       No
     Range:          -
     Default:        8
-    Element Type:   u-integer
+    Element Type:   Unsigned Integer
     Description:    The maximum length of the sizes you'll find in this
                     file (8 or less in Matroska). This does not
                     override the element size indicated at the
@@ -179,36 +179,36 @@ Element Name:   EBMLMaxSizeLength
 Element Name:   DocType
 
     Level:          1
-    Class-ID:       [42][82]
+    EBML ID:        [42][82]
     Mandatory:      Yes
     Multiple:       No
     Range:          -
     Default:        -
-    Element Type:   string
+    Element Type:   String
     Description:    A string that describes the type of document that
                     follows this EBML header ('matroska' in our case).
 
 Element Name:   DocTypeVersion
 
     Level:          1
-    Class-ID:       [42][87]
+    EBML ID:        [42][87]
     Mandatory:      Yes
     Multiple:       No
     Range:          -
     Default:        1
-    Element Type:   u-integer
+    Element Type:   Unsigned Integer
     Description:    The version of DocType interpreter used to create
                     the file.
 
 Element Name:   DocTypeReadVersion
 
     Level:          1
-    Class-ID:       [42][85]
+    EBML ID:        [42][85]
     Mandatory:      Yes
     Multiple:       No
     Range:          -
     Default:        1
-    Element Type:   u-integer
+    Element Type:   Unsigned Integer
     Description:    The minimum DocType version an interpreter has to
                     support to read this file.
 
@@ -217,12 +217,12 @@ Element Name:   DocTypeReadVersion
 Element Name:   CRC-32
 
     Level:          1+
-    Class-ID:       [BF]
+    EBML ID:        [BF]
     Mandatory:      No
     Multiple:       No
     Range:          -
     Default:        -
-    Element Type:   binary
+    Element Type:   Binary
     Description:    The CRC is computed on all the data from the last
                     CRC element (or start of the upper level element),
                     up to the CRC element, including other previous CRC
@@ -232,12 +232,12 @@ Element Name:   CRC-32
 Element Name:   Void
 
     Level:          1+
-    Class-ID:       [EC]
+    EBML ID:        [EC]
     Mandatory:      No
     Multiple:       No
     Range:          -
     Default:        -
-    Element Type:   binary
+    Element Type:   Binary
     Description:    Used to void damaged data, to avoid unexpected
                     behaviors when using damaged data. The content is
                     discarded. Also used to reserve space in a
@@ -248,81 +248,81 @@ Element Name:   Void
 Element Name:   SignatureSlot
 
     Level:          1+
-    Class-ID:       [1B][53][86][67]
+    EBML ID:        [1B][53][86][67]
     Mandatory:      No
     Multiple:       Yes
     Range:          -
     Default:        -
-    Element Type:   sub-elements
+    Element Type:   Master-element
     Description:    Contain signature of some (coming) elements in the
                     stream.
 
 Element Name:   SignatureAlgo
 
     Level:          2+
-    Class-ID:       [7E][8A]
+    EBML ID:        [7E][8A]
     Mandatory:      No
     Multiple:       No
     Range:          -
     Default:        -
-    Element Type:   u-integer
+    Element Type:   Unsigned Integer
     Description:    Signature algorithm used (1=RSA, 2=elliptic).
 
 Element Name:   SignatureHash
 
     Level:          2+
-    Class-ID:       [7E][9A]
+    EBML ID:        [7E][9A]
     Mandatory:      No
     Multiple:       No
     Range:          -
     Default:        -
-    Element Type:   u-integer
+    Element Type:   Unsigned Integer
     Description:    Hash algorithm used (1=SHA1-160, 2=MD5).
 
 Element Name:   SignaturePublicKey
 
     Level:          2+
-    Class-ID:       [7E][A5]
+    EBML ID:        [7E][A5]
     Mandatory:      No
     Multiple:       No
     Range:          -
     Default:        -
-    Element Type:   binary
+    Element Type:   Binary
     Description:    The public key to use with the algorithm (in the
                     case of a PKI-based signature).
 
 Element Name:   Signature
 
     Level:          2+
-    Class-ID:       [7E][B5]
+    EBML ID:        [7E][B5]
     Mandatory:      No
     Multiple:       No
     Range:          -
     Default:        -
-    Element Type:   binary
+    Element Type:   Binary
     Description:    The signature of the data (until a new.
 
 Element Name:   SignatureElements
 
     Level:          2+
-    Class-ID:       [7E][5B]
+    EBML ID:        [7E][5B]
     Mandatory:      No
     Multiple:       No
     Range:          -
     Default:        -
-    Element Type:   sub-elements
+    Element Type:   Master-element
     Description:    Contains elements that will be used to compute the
                     signature.
 
 Element Name:   SignatureElementList
 
     Level:          3+
-    Class-ID:       [7E][7B]
+    EBML ID:        [7E][7B]
     Mandatory:      No
     Multiple:       Yes
     Range:          -
     Default:        -
-    Element Type:   sub-elements
+    Element Type:   Master-element
     Description:    A list consists of a number of consecutive elements
                     that represent one case where data is used in
                     signature. Ex: <i>Cluster|Block|BlockAdditional</i>
@@ -332,11 +332,11 @@ Element Name:   SignatureElementList
 Element Name:   SignedElement
 
     Level:          4+
-    Class-ID:       [65][32]
+    EBML ID:        [65][32]
     Mandatory:      No
     Multiple:       Yes
     Range:          -
     Default:        -
-    Element Type:   binary
+    Element Type:   Binary
     Description:    An element ID whose data will be used to compute
                     the signature.
