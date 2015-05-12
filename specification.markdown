@@ -76,9 +76,8 @@ An EBML Element Data Size with all data bits set to 1 indicates that the
 data size is unknown. This allows for dynamically generated EBML
 streams where the final size isn't known beforehand. The element with
 unknown size MUST be an element with an element list as data payload.
-The end of the element list is determined by the ID of the element. 
-When an element that isn't a sub-element of the element with unknown
-size arrives, the element list is ended.
+The end of the element list is signalled by the arrival of the first
+element that isn't a sub-element of the element with unknown size.
 
 -   Data size, in octets, is also coded with an UTF-8 like system :
 
