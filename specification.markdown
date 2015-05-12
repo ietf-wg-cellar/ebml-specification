@@ -40,6 +40,26 @@ to make up an EBML "document". Elements incorporate an Element ID, a
 descriptor for the size of the element, and the binary data itself.
 Futher, Elements can be nested or contain Elements of a lower "level".
 
+### Element ID
+
+The EBML Element ID is encoded as a variable size integer with, by
+default, widths up to 4. Another maximum width value can be set by
+assigning that value to EBMLMaxIDLength in the EBML header. Element IDs
+are always encoded in their shortest form, e.g. 1 is always encoded as
+0x81 and never as 0x4001. This limits the number of IDs in every class
+with the number of IDs in the previous classes. Furthermore, values
+with all data bits set to 1 and all data bits set to 0 are reserved,
+hence the effective number of IDs are as follows for different widths.
+Note that the shortest encoding form for 127 is 0x407f since 0x7f is
+reserved.
+
+Width | Class ID | Number of Element IDs
+------|----------|------------------------
+1     | Class A  | 2^7-2     = 126
+2     | Class B  | 2^14-2^7  = 16,256
+3     | Class C  | 2^21-2^14 = 2,080,768
+4     | Class D  | 2^28-2^21 = 266,338,304
+
 Element IDs are outlined as follows, beginning with the ID itself,
 followed by the Data Size, and then the non-interpreted Binary itself:
 
