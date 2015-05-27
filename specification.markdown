@@ -40,6 +40,76 @@ to make up an EBML "document". Elements incorporate an Element ID, a
 descriptor for the size of the element, and the binary data itself.
 Futher, Elements can be nested or contain Elements of a lower "level".
 
+## Variable Size Integer
+
+The Element ID and Element Data Size are both encoded as a Variable
+Size Integer, developed according to a UTF-8 like system. The Variable
+Size Integer is composed of a VINT\_WIDTH, VINT\_MARKER, and VINT\_DATA,
+in that order. Variable Size Integers shall be referred to as VINT for
+shorthand.
+
+### VINT_WIDTH
+
+Each Variable Size Integer begins with a VINT\_WIDTH which consists of
+zero or many zero-value bits. The count of consecutive zero-values of 
+the VINT\_WIDTH plus one equals the length in octets of the Variable
+Size Integer. For example, a Variable Size Integer that starts with a
+VINT\_WIDTH which contains zero consecutive zero-value bits is one octet
+in length and a Variable Size Integer that starts with one consecutive
+zero-value bit is two octets in length. The VINT\_WIDTH may only contain
+zero-value bits or be empty.
+
+### VINT_MARKER
+
+The VINT\_MARKER serves as a separator between the VINT\_WIDTH and
+VINT_DATA. Each Variable Size Integer MUST contain exactly one
+VINT\_MARKER. The VINT\_MARKER MUST be one bit in length and contain a
+bit with a value of one. The first bit with a value of one within the
+Variable Size Integer is the VINT\_MARKER.
+
+### VINT_DATA
+
+The VINT\_DATA portion of the Variable Size Integer includes all data
+that follows (but not including) the VINT\_MARKER until end of the
+Variable Size Integer whose length is derived from the VINT\_WIDTH.
+The bits required for the VINT\_WIDTH and the VINT\_MARKER combined use
+one bit of each octet of Variable Size Integer length. Thus a Variable
+Size Integer of 1 octet length supplies 7 bits for VINT\_DATA, a 2 octet
+length supplies 14 bits for VINT\_DATA, and a 3 octet length supplies 21
+bits for VINT\_DATA. If the number of bits required for VINT\_DATA are
+less than the bit size of VINT\_DATA, then VINT\_DATA may be zero-padded
+to the left to a size that fits. The VINT\_DATA value MUST be expressed
+a big-endian unsigned integer.
+
+### VINT Examples
+
+This table shows examples of Variable Size Integers at widths of 1 to 5
+octets. The Representation column depicts a binary expression of
+Variable Size Integers where VINT\_WIDTH is depicted by '0', the
+VINT\_MARKER as '1', and the VINT\_DATA as 'x'.
+
+Octet Width | Size | Representation
+------------|------|--------------------------------------------------
+1           | 2^7  | 1xxx xxxx
+2           | 2^14 | 01xx xxxx xxxx xxxx
+3           | 2^21 | 001x xxxx xxxx xxxx xxxx xxxx
+4           | 2^28 | 0001 xxxx xxxx xxxx xxxx xxxx xxxx xxxx
+5           | 2^35 | 0000 1xxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx
+
+Note that data encoded as a Variable Size Integer may be rendered at
+octet widths larger than needed to store the data. In this table a
+binary value of 0b10 is shown encoded as different Variable Size
+Integers with widths from one octet to four octet. All four encoded
+examples have identical semantic meaning though the VINT\_WIDTH and the
+padding of the VINT\_DATA vary.
+
+Binary Value | Octet Width | As Represented in Variable Size Integer
+-------------|-------------|----------------------------------------
+10           | 1           | 1000 0010
+10           | 2           | 0100 0000 0000 0010
+10           | 3           | 0010 0000 0000 0000 0000 0010
+10           | 4           | 0001 0000 0000 0000 0000 0000 0000 0010
+
 Element IDs are outlined as follows, beginning with the ID itself,
 followed by the Data Size, and then the non-interpreted Binary itself:
 
