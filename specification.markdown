@@ -6,12 +6,9 @@ EBML is short for Extensible Binary Meta Language. EBML specifies a
 binary and octet (byte) aligned format inspired by the principle of XML.
 EBML itself is a generalized description of the technique of binary
 markup. Like XML, it is completely agnostic to any data that it might
-contain. Therein, the Matroska project is a specific implementation
-using the rules of EBML: It seeks to define a subset of the EBML
-language in the context of audio and video data (though it obviously
-isn't limited to this purpose). The format is made of 2 parts: the
-semantic and the syntax. The semantic specifies a number of IDs and
-their basic type and is not included in the data file/stream.
+contain. The format is made of 2 parts: the semantic and the syntax.
+The semantic specifies a number of IDs and their basic type and is not
+included in the data file/stream.
 
 Just like XML, the specific "tags" (IDs in EBML parlance) used in an
 EBML implementation are arbitrary. However, the semantic of EBML
@@ -229,8 +226,8 @@ Element Name:   EBMLMaxIDLength
     Range:          -
     Default:        4
     Element Type:   Unsigned Integer
-    Description:    The maximum length of the IDs you'll find in this 
-                    file (4 or less in Matroska).
+    Description:    The maximum length of the IDs you'll find in this
+                    file.
 
 Element Name:   EBMLMaxSizeLength
 
@@ -242,11 +239,11 @@ Element Name:   EBMLMaxSizeLength
     Default:        8
     Element Type:   Unsigned Integer
     Description:    The maximum length of the sizes you'll find in this
-                    file (8 or less in Matroska). This does not
-                    override the element size indicated at the
-                    beginning of an element. Elements that have an
-                    indicated size which is larger than what is allowed
-                    by EBMLMaxSizeLength SHALL be considered invalid.
+                    file. This does not override the element size
+                    indicated at the beginning of an element. Elements
+                    that have an indicated size which is larger than
+                    what is allowed by EBMLMaxSizeLength SHALL be
+                    considered invalid.
 
 Element Name:   DocType
 
@@ -258,7 +255,7 @@ Element Name:   DocType
     Default:        -
     Element Type:   String
     Description:    A string that describes the type of document that
-                    follows this EBML header ('matroska' in our case).
+                    follows this EBML header.
 
 Element Name:   DocTypeVersion
 
