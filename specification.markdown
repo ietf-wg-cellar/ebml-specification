@@ -109,18 +109,36 @@ Binary Value | Octet Width | As Represented in Variable Size Integer
 10           | 3           | 0010 0000 0000 0000 0000 0010
 10           | 4           | 0001 0000 0000 0000 0000 0000 0000 0010
 
-Element IDs are outlined as follows, beginning with the ID itself,
-followed by the Data Size, and then the non-interpreted Binary itself:
+## Element ID
 
--   Element ID coded with an UTF-8 like system :
+The Element ID MUST be encoded as a Variable Size Integer. By default,
+EBML Element IDs may be encoded in lengths from one octet to four
+octets, although Element IDs of greater lengths may be used if the
+octet length of the EBML document's longest Element ID is declared in
+the EBMLMaxIDLength Element of the EBML Header. The VINT\_DATA component
+of the Element ID MUST NOT be set to either all zero values or all one
+values. The VINT\_DATA component of the Element ID MUST be encoded at
+the shortest valid length. For example, an Element ID with binary
+encoding of 1011 1111 is valid, whereas an Element ID with binary
+encoding of 0100 0000 0011 1111 stores a semantically equal VINT\_DATA
+but is invalid because a shorter VINT encoding is possible. The
+following table details this specific example further:
 
-        bits, big-endian
-        1xxx xxxx                                  - Class A IDs (2^7 -1 possible values) (base 0x8X)
-        01xx xxxx  xxxx xxxx                       - Class B IDs (2^14-1 possible values) (base 0x4X 0xXX)
-        001x xxxx  xxxx xxxx  xxxx xxxx            - Class C IDs (2^21-1 possible values) (base 0x2X 0xXX 0xXX)
-        0001 xxxx  xxxx xxxx  xxxx xxxx  xxxx xxxx - Class D IDs (2^28-1 possible values) (base 0x1X 0xXX 0xXX 0xXX)
+VINT\_WIDTH | VINT\_MARKER | VINT\_DATA     | Element ID Status
+-----------:|-------------:|---------------:|------------------
+            | 1            |        0111111 | Valid
+0           | 1            | 00000000111111 | Invalid
 
-    Some Notes:
+The octet length of an Element ID determines its EBML Class.
+
+EBML Class | Octet Length | Number of Possible Element IDs
+:---------:|:------------:|:------------------------------
+Class A    | 1            | 2^7  - 2        =         126
+Class B    | 2            | 2^14 - 2^7  - 1 =      16,255
+Class C    | 3            | 2^21 - 2^14 - 1 =   2,080,767
+Class D    | 4            | 2^28 - 2^21 - 1 = 266,388,303
+
+-    Some Notes:
 
     -   The leading bits of the Class IDs are used to identify the
         length of the ID. The number of leading 0's + 1 is the length of
