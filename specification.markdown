@@ -79,9 +79,18 @@ encoding of 1011 1111 or a binary encoding of 0100 0000 0011 1111 are
 both valid Element Data Sizes and both store a semantically equal value.
 
 Although an Element ID with all VINT\_DATA bits set to zero is invalid,
-an Element Data Size with all VINT\_DATA bits set to zero is allowed.
-This indicates that the Element Data of the Element is zero octets in
-length. Such an Element is referred to as an Empty Element.
+an Element Data Size with all VINT\_DATA bits set to zero is allowed
+for EBML Data Types which do not mandate a non-zero length. In
+particular the Signed Integer, Unsigned Integer, Float, and Date EBML
+Element Data Types have definitions which require a length of at least
+one octet and thus in these cases an Element Data Size with all
+VINT\_DATA bits set to zero is invalid. EBML Element Data Types such as
+String, UTF-8, Master-element, and Binary do not have definitions that
+include minimum lengths greater than one octet and thus Elements of
+these Data Types may include an Element Data Size with all VINT\_DATA
+bits set to zero. This indicates that the Element Data of the Element
+is zero octets in length. Such an Element is referred to as an Empty
+Element.
 
 An Element Data Size with all VINT\_DATA bits set to one is reserved as
 an indicator that the size of the Element is unknown. The only reserved
