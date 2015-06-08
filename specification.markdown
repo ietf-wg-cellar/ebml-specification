@@ -169,16 +169,18 @@ This indicates that the Element Data of the Element is zero octets in
 length. Such an Element is referred to as an Empty Element.
 
 An Element Data Size with all VINT\_DATA bits set to one is reserved as
-an indicator that the size of the Element is unknown. This rule allows
-for an Element to be written and read before the size of the Element is
-known; however unknown Element Data Size values SHOULD NOT be used
-unnecessarily. An Element with an unknown Element Data Size MUST be a
-Master-element in that it contains other EBML Elements as sub-elements.
-The end of the Master-element is determined by the beginning of the next
-element that is not a valid sub-element of the Master-element. The use
-of Elements of unknown size is dependent on the definition of the EBML
-Schema declared in DocType, because an Element of unknown size can not
-be parsed without a complete list of all possible sub-elements.
+an indicator that the size of the Element is unknown. The only reserved
+value for the VINT\_DATA of Element Data Size is all bits set to one.
+This rule allows for an Element to be written and read before the size
+of the Element is known; however unknown Element Data Size values SHOULD
+NOT be used unnecessarily. An Element with an unknown Element Data Size
+MUST be a Master-element in that it contains other EBML Elements as
+sub-elements. The end of the Master-element is determined by the
+beginning of the next element that is not a valid sub-element of the
+Master-element. The use of Elements of unknown size is dependent on the
+definition of the EBML Schema declared in DocType, because an Element of
+unknown size can not be parsed without a complete list of all possible
+sub-elements.
 
 For Element Data Sizes encoded at octet lengths from one to eight, this
 table depicts the range of possible values that can be encoded as an
