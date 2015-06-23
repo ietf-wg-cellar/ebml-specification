@@ -101,10 +101,7 @@ NOT be used unnecessarily. An Element with an unknown Element Data Size
 MUST be a Master-element in that it contains other EBML Elements as
 sub-elements. The end of the Master-element is determined by the
 beginning of the next element that is not a valid sub-element of the
-Master-element. The use of Elements of unknown size is dependent on the
-definition of the EBML Schema declared in DocType, because an Element of
-unknown size can not be parsed without a complete list of all possible
-sub-elements.
+Master-element.
 
 For Element Data Sizes encoded at octet lengths from one to eight, this
 table depicts the range of possible values that can be encoded as an
