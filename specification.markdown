@@ -149,30 +149,75 @@ Class D    | 4            | 2^28 - 2^21 - 1 = 266,388,303
     -   The Reserved IDs (all x set to 1) are the only IDs that may
         change the Length Descriptor.
 
--   Data size, in octets, is also coded with an UTF-8 like system :
+## Element Data Size
 
-        bits, big-endian
-        1xxx xxxx                                                                              - value 0 to  2^7-2
-        01xx xxxx  xxxx xxxx                                                                   - value 0 to 2^14-2
-        001x xxxx  xxxx xxxx  xxxx xxxx                                                        - value 0 to 2^21-2
-        0001 xxxx  xxxx xxxx  xxxx xxxx  xxxx xxxx                                             - value 0 to 2^28-2
-        0000 1xxx  xxxx xxxx  xxxx xxxx  xxxx xxxx  xxxx xxxx                                  - value 0 to 2^35-2
-        0000 01xx  xxxx xxxx  xxxx xxxx  xxxx xxxx  xxxx xxxx  xxxx xxxx                       - value 0 to 2^42-2
-        0000 001x  xxxx xxxx  xxxx xxxx  xxxx xxxx  xxxx xxxx  xxxx xxxx  xxxx xxxx            - value 0 to 2^49-2
-        0000 0001  xxxx xxxx  xxxx xxxx  xxxx xxxx  xxxx xxxx  xxxx xxxx  xxxx xxxx  xxxx xxxx - value 0 to 2^56-2
+The Element Data Size expresses the length in octets of Element Data.
+The Element Data Size itself MUST be encoded as a Variable Size Integer.
+By default, EBML Element Data Sizes can be encoded in lengths from one
+octet to eight octets, although Element Data Sizes of greater lengths
+MAY be used if the octet length of the EBML document's longest Element
+Data Size is declared in the EBMLMaxSizeLength Element of the EBML
+Header. Unlike the VINT\_DATA of the Element ID, the VINT\_DATA
+component of the Element Data Size is NOT REQUIRED to be encoded at the
+shortest valid length. For example, an Element Data Size with binary
+encoding of 1011 1111 or a binary encoding of 0100 0000 0011 1111 are
+both valid Element Data Sizes and both store a semantically equal value.
 
-    Since modern computers do not easily deal with data coded in sizes
-    greater than 64 bits, any larger Element Sizes are left undefined at
-    the moment. Currently, the Element Size coding allows for an Element
-    to grow to 72000 To, i.e. 7x10\^16 octets or 72000 terabytes, which
-    will be sufficient for the time being.
+Although an Element ID with all VINT\_DATA bits set to zero is invalid,
+an Element Data Size with all VINT\_DATA bits set to zero is allowed
+for EBML Data Types which do not mandate a non-zero length. In
+particular the Signed Integer, Unsigned Integer, Float, and Date EBML
+Element Data Types have definitions which require a length of at least
+one octet and thus in these cases an Element Data Size with all
+VINT\_DATA bits set to zero is invalid. EBML Element Data Types such as
+String, UTF-8, Master-element, and Binary do not have definitions that
+include minimum lengths greater than one octet and thus Elements of
+these Data Types may include an Element Data Size with all VINT\_DATA
+bits set to zero. This indicates that the Element Data of the Element
+is zero octets in length. Such an Element is referred to as an Empty
+Element.
 
-    There is only one reserved word for Element Size encoding, which is
-    an Element Size encoded to all 1's. Such a coding indicates that the
-    size of the Element is unknown, which is a special case that we
-    believe will be useful for live streaming purposes. However, avoid
-    using this reserved word unnecessarily, because it makes parsing
-    slower and more difficult to implement.
+An Element Data Size with all VINT\_DATA bits set to one is reserved as
+an indicator that the size of the Element is unknown. The only reserved
+value for the VINT\_DATA of Element Data Size is all bits set to one.
+This rule allows for an Element to be written and read before the size
+of the Element is known; however unknown Element Data Size values SHOULD
+NOT be used unnecessarily. An Element with an unknown Element Data Size
+MUST be a Master-element in that it contains other EBML Elements as
+sub-elements. The end of the Master-element is determined by the
+beginning of the next element that is not a valid sub-element of the
+Master-element.
+
+For Element Data Sizes encoded at octet lengths from one to eight, this
+table depicts the range of possible values that can be encoded as an
+Element Data Size. An Element Data Size with an octet length of 8 is
+able to express a size of 2^56-2 or 72,057,594,037,927,934 octets (or
+about 72 petabytes).
+
+Octet Length | Possible Value Range
+-------------|---------------------
+1            | 0 to  2^7-2
+2            | 0 to 2^14-2
+3            | 0 to 2^21-2
+4            | 0 to 2^28-2
+5            | 0 to 2^35-2
+6            | 0 to 2^42-2
+7            | 0 to 2^49-2
+8            | 0 to 2^56-2
+
+If the length of Element Data equals 2^(n*7)-1 then the octet length of
+the Element Data Size MUST be at least n+1. This rule prevents an
+Element Data Size from being expressed as a reserved value. For example,
+an Element with an octet length of 127 MUST NOT be encoded in an Element
+Data Size encoding with a one octet length. The following table
+clarifies this rule by showing a valid and invalid expression of an
+Element Data Size with a VINT\_DATA of 127 (which is equal to
+2^(1*7)-1).
+
+VINT\_WIDTH | VINT\_MARKER | VINT\_DATA     | Element Data Size Status
+-----------:|-------------:|---------------:|---------------------------
+            | 1            |        1111111 | Reserved (meaning Unknown)
+0           | 1            | 00000001111111 | Valid (meaning 127 octets)
 
 -   Data
     -   Integers are stored in their standard big-endian form (no
