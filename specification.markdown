@@ -217,8 +217,10 @@ Each defined EBML Element MUST have a declared Element Type. The Element Type de
 Element Data Type:   Signed Integer
 
     Endianness:     Big-endian
-    Length:         A Signed Integer Element MUST at least 1 octet in
-                    length and no more than 8 octets in length.
+    Length:         A Signed Integer Element MUST be no greater than 8
+                    octets in length. An Signed Integer Element with a
+                    zero-octet length represents an integer value of
+                    zero.
     Definition:     A Signed Integer stores an integer (meaning that it
                     can be written without a fractional component) which
                     may be negative, positive, or zero. Because EBML
@@ -230,8 +232,10 @@ Element Data Type:   Signed Integer
 Element Data Type:   Unsigned Integer
 
     Endianness:     Big-endian
-    Length:         An Unsigned Integer Element MUST at least 1 octet in
-                    length and no more than 8 octets in length.
+    Length:         A Unsigned Integer Element MUST be no greater than 8
+                    octets in length. An Unsigned Integer Element with a
+                    zero-octet length represents an integer value of
+                    zero.
     Definition:     An Unsigned Integer stores an integer (meaning that
                     it can be written without a fractional component)
                     which may be positive or zero. Because EBML limits
@@ -242,8 +246,9 @@ Element Data Type:   Unsigned Integer
 Element Data Type:   Float
 
     Endianness:     Big-endian
-    Length:         A Float Element MUST either 4 octets (32 bit) or 8
-                    octets (64 bit) in length.
+    Length:         A Float Element MUST either 0 octets (0 bit), 4 octets (32
+                    bit) or 8 octets (64 bit) in length. A Float Element with a
+                    zero-octet length represents a numerical value of zero.
     Definition:     A Float Elements stores a floating-point number as
                     defined in IEEE 754.
 
@@ -270,7 +275,9 @@ Element Data Type:   UTF-8
 Element Data Type:   Date
 
     Endianness:     None
-    Length:         A Date Element MUST be 8 octets in length.
+    Length:         A Date Element MUST be either 0 octets or 8 octets in
+                    length. A Date Element with a zero-octet length represents
+                    2001-01-01T00:00:00.000000000 UTC.
     Definition:     The Date Element MUST contain a Signed Integer that
                     expresses a point in time referenced in nanoseconds
                     from the precise beginning of the third millennium
