@@ -217,10 +217,9 @@ Each defined EBML Element MUST have a declared Element Type. The Element Type de
 Element Data Type:   Signed Integer
 
     Endianness:     Big-endian
-    Length:         A Signed Integer Element MUST be no greater than 8
-                    octets in length. An Signed Integer Element with a
-                    zero-octet length represents an integer value of
-                    zero.
+    Length:         A Signed Integer Element MUST declare a length that is no
+                    greater than 8 octets. An Signed Integer Element with a
+                    zero-octet length represents an integer value of zero.
     Definition:     A Signed Integer stores an integer (meaning that it
                     can be written without a fractional component) which
                     may be negative, positive, or zero. Because EBML
@@ -232,10 +231,9 @@ Element Data Type:   Signed Integer
 Element Data Type:   Unsigned Integer
 
     Endianness:     Big-endian
-    Length:         A Unsigned Integer Element MUST be no greater than 8
-                    octets in length. An Unsigned Integer Element with a
-                    zero-octet length represents an integer value of
-                    zero.
+    Length:         A Unsigned Integer Element MUST declare a length that is no
+                    greater than 8 octets. An Unsigned Integer Element with a
+                    zero-octet length represents an integer value of zero.
     Definition:     An Unsigned Integer stores an integer (meaning that
                     it can be written without a fractional component)
                     which may be positive or zero. Because EBML limits
@@ -246,16 +244,17 @@ Element Data Type:   Unsigned Integer
 Element Data Type:   Float
 
     Endianness:     Big-endian
-    Length:         A Float Element MUST either 0 octets (0 bit), 4 octets (32
-                    bit) or 8 octets (64 bit) in length. A Float Element with a
-                    zero-octet length represents a numerical value of zero.
+    Length:         A Float Element MUST declare of length of either 0 octets
+                    (0 bit), 4 octets (32 bit) or 8 octets (64 bit). A Float
+                    Element with a zero-octet length represents a numerical
+                    value of zero.
     Definition:     A Float Elements stores a floating-point number as
                     defined in IEEE 754.
 
 Element Data Type:   String
 
     Endianness:     None
-    Length:         A String Element may use any length (included zero)
+    Length:         A String Element may declare any length (included zero)
                     up to the maximum Element Data Size value permitted.
     Definition:     A String Element may either be empty (zero-length)
                     or contain Printable ASCII characters in the range
@@ -265,7 +264,7 @@ Element Data Type:   String
 Element Data Type:   UTF-8
 
     Endianness:     None
-    Length:         A UTF-8 Element may use any length (included zero)
+    Length:         A UTF-8 Element may declare any length (included zero)
                     up to the maximum Element Data Size value permitted.
     Definition:     A UTF-8 Element shall contain only a valid Unicode
                     string as defined in [RFC 2279](http://www.faqs.org/rfcs/rfc2279.html).
@@ -275,9 +274,9 @@ Element Data Type:   UTF-8
 Element Data Type:   Date
 
     Endianness:     None
-    Length:         A Date Element MUST be either 0 octets or 8 octets in
-                    length. A Date Element with a zero-octet length represents
-                    2001-01-01T00:00:00.000000000 UTC.
+    Length:         A Date Element MUST declare a length of either 0 octets or 8
+                    octets. A Date Element with a zero-octet length represents
+                    a timestamp of 2001-01-01T00:00:00.000000000 UTC.
     Definition:     The Date Element MUST contain a Signed Integer that
                     expresses a point in time referenced in nanoseconds
                     from the precise beginning of the third millennium
@@ -290,7 +289,7 @@ Element Data Type:   Date
 Element Data Type:   Master-element
 
     Endianness:     None
-    Length:         A Master-element may use any length (included zero)
+    Length:         A Master-element may declare any length (included zero)
                     up to the maximum Element Data Size value permitted. The
                     Master-element may also use an unknown length. See the
                     section on Element Data Size for rules that apply to
@@ -305,7 +304,7 @@ Element Data Type:   Master-element
 Element Data Type:   Binary
 
     Endianness:     None
-    Length:         A Master-element may use any length (included zero)
+    Length:         A Master-element may declare any length (included zero)
                     up to the maximum Element Data Size value permitted.
     Definition:     Binary data is not interpreted by the parser.
 
