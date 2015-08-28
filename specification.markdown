@@ -291,7 +291,10 @@ Element Data Type:   Master-element
 
     Endianness:     None
     Length:         A Master-element may use any length (included zero)
-                    up to the maximum Element Data Size value permitted.
+                    up to the maximum Element Data Size value permitted. The
+                    Master-element may also use an unknown length. See the
+                    section on Element Data Size for rules that apply to
+                    elements of unknown length.
     Definition:     The Master-element contains zero, one, or many other
                     elements. Elements contained within a Master-element
                     must be defined for use at levels greater than the
