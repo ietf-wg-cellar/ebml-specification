@@ -14,24 +14,6 @@ Just like XML, the specific "tags" (IDs in EBML parlance) used in an
 EBML implementation are arbitrary. However, the semantic of EBML
 outlines general data types and ID's.
 
-The known basic types are:
-
-Data Type        | Definition
------------------|----------------------------------------------------
-Signed Integer   | Big-endian, any size from 1 to 8 octets
-Unsigned Integer | Big-endian, any size from 1 to 8 octets
-Float            | Big-endian, defined for 4 and 8 octets (32, 64 bits)
-String           | Printable ASCII (0x20 to 0x7E), zero-padded when
-                 | needed
-UTF-8            | [Unicode string](http://www.unicode.org/), zero
-                 | padded when needed ([RFC 2279](http://www.faqs.org/rfcs/rfc2279.html))
-Date             | signed 8 octets integer in nanoseconds with 0
-                 | indicating the precise beginning of the
-                 | millennium (at 2001-01-01T00:00:00.000000000 UTC)
-Master-element   | contains other EBML sub-elements of the next lower
-                 | level
-Binary           | not interpreted by the parser
-
 ## Structure
 
 EBML uses a system of Elements to compose an EBML "document". Elements
@@ -227,6 +209,104 @@ VINT\_WIDTH | VINT\_MARKER | VINT\_DATA     | Element Data Size Status
         from some 0x00 and 0xFF where they are not meaningful (sign).
         For example -2 can be coded as 0xFFFFFFFFFFFFFE or 0xFFFE or
         0xFE and 5 can be coded 0x000000000005 or 0x0005 or 0x05.
+
+## EBML Element Types
+
+Each defined EBML Element MUST have a declared Element Type. The Element Type defines a concept for storing data that may be constrained by length, endianness, and purpose.
+
+Element Data Type:   Signed Integer
+
+    Endianness:     Big-endian
+    Length:         A Signed Integer Element MUST declare a length that is no
+                    greater than 8 octets. An Signed Integer Element with a
+                    zero-octet length represents an integer value of zero.
+    Definition:     A Signed Integer stores an integer (meaning that it
+                    can be written without a fractional component) which
+                    may be negative, positive, or zero. Because EBML
+                    limits Signed Integers to 8 octets in length a
+                    Signed Element may store a number from
+                    −9,223,372,036,854,775,808 to
+                    +9,223,372,036,854,775,807.
+
+Element Data Type:   Unsigned Integer
+
+    Endianness:     Big-endian
+    Length:         A Unsigned Integer Element MUST declare a length that is no
+                    greater than 8 octets. An Unsigned Integer Element with a
+                    zero-octet length represents an integer value of zero.
+    Definition:     An Unsigned Integer stores an integer (meaning that
+                    it can be written without a fractional component)
+                    which may be positive or zero. Because EBML limits
+                    Unsigned Integers to 8 octets in length an unsigned
+                    Element may store a number from 0 to
+                    18,446,744,073,709,551,615.
+
+Element Data Type:   Float
+
+    Endianness:     Big-endian
+    Length:         A Float Element MUST declare of length of either 0 octets
+                    (0 bit), 4 octets (32 bit) or 8 octets (64 bit). A Float
+                    Element with a zero-octet length represents a numerical
+                    value of zero.
+    Definition:     A Float Elements stores a floating-point number as
+                    defined in IEEE 754.
+
+Element Data Type:   String
+
+    Endianness:     None
+    Length:         A String Element may declare any length (included zero)
+                    up to the maximum Element Data Size value permitted.
+    Definition:     A String Element may either be empty (zero-length)
+                    or contain Printable ASCII characters in the range
+                    of 0x20 to 0x7E. Octets with all bits set to zero
+                    may follow the string value when needed.
+
+Element Data Type:   UTF-8
+
+    Endianness:     None
+    Length:         A UTF-8 Element may declare any length (included zero)
+                    up to the maximum Element Data Size value permitted.
+    Definition:     A UTF-8 Element shall contain only a valid Unicode
+                    string as defined in [RFC 2279](http://www.faqs.org/rfcs/rfc2279.html).
+                    Octets with all bits set to zero may follow the
+                    UTF-8 value when needed.
+
+Element Data Type:   Date
+
+    Endianness:     None
+    Length:         A Date Element MUST declare a length of either 0 octets or 8
+                    octets. A Date Element with a zero-octet length represents
+                    a timestamp of 2001-01-01T00:00:00.000000000 UTC.
+    Definition:     The Date Element MUST contain a Signed Integer that
+                    expresses a point in time referenced in nanoseconds
+                    from the precise beginning of the third millennium
+                    of the Gregorian Calendar in Coordinated Universal
+                    Time (also known as 2001-01-01T00:00:00.000000000
+                    UTC). This provides a possible expression of time
+                    from 1708-09-11T00:12:44.854775808 UTC to
+                    2293-04-11T11:47:16.854775807 UTC.
+
+Element Data Type:   Master-element
+
+    Endianness:     None
+    Length:         A Master-element may declare any length (included zero)
+                    up to the maximum Element Data Size value permitted. The
+                    Master-element may also use an unknown length. See the
+                    section on Element Data Size for rules that apply to
+                    elements of unknown length.
+    Definition:     The Master-element contains zero, one, or many other
+                    elements. Elements contained within a Master-element
+                    must be defined for use at levels greater than the
+                    level of the Master-element. For instance is a
+                    Master-element occurs on level 2 then all contained
+                    Elements must be valid at levels 3.
+
+Element Data Type:   Binary
+
+    Endianness:     None
+    Length:         A Master-element may declare any length (included zero)
+                    up to the maximum Element Data Size value permitted.
+    Definition:     Binary data is not interpreted by the parser.
 
 ## Elements semantic
 
