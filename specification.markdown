@@ -37,8 +37,8 @@ the VINT\_WIDTH plus one equals the length in octets of the Variable
 Size Integer. For example, a Variable Size Integer that starts with a
 VINT\_WIDTH which contains zero consecutive zero-value bits is one octet
 in length and a Variable Size Integer that starts with one consecutive
-zero-value bit is two octets in length. The VINT\_WIDTH may only contain
-zero-value bits or be empty.
+zero-value bit is two octets in length. The VINT\_WIDTH MUST only
+contain zero-value bits or be empty.
 
 ### VINT_MARKER
 
