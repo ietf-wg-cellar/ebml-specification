@@ -443,7 +443,7 @@ Element Name:   CRC-32
 
 Element Name:   Void
 
-    Level:          1+
+    Level:          0+
     EBML ID:        [EC]
     Mandatory:      No
     Multiple:       No
