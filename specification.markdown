@@ -395,7 +395,7 @@ Element Name:   DocType
     Mandatory:      Yes
     Multiple:       No
     Range:          -
-    Default:        -
+    Default:        matroska
     Element Type:   String
     Description:    A string that describes the type of document that
                     follows this EBML header.
