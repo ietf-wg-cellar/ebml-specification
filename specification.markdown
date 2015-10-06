@@ -122,14 +122,10 @@ Class D    | 4            | 2^28 - 2^21 - 1 = 266,388,303
 
 -    Some Notes:
 
-    -   The leading bits of the Class IDs are used to identify the
-        length of the ID. The number of leading 0's + 1 is the length of
-        the ID in octets. We will refer to the leading bits as the
-        Length Descriptor.
     -   Any ID where all x's are composed entirely of 1's is a Reserved
         ID, thus the -1 in the definitions above.
-    -   The Reserved IDs (all x set to 1) are the only IDs that may
-        change the Length Descriptor.
+    -   The Reserved IDs (all bits of VINT_DATA set to 1) are the only
+        IDs that may change the VINT_WIDTH.
 
 ## Element Data Size
 
