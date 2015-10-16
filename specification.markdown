@@ -362,11 +362,16 @@ Element Name:   EBMLMaxIDLength
     EBML ID:        [42][F2]
     Mandatory:      Yes
     Multiple:       No
-    Range:          -
+    Range:          >3
     Default:        4
     Element Type:   Unsigned Integer
-    Description:    The maximum length of the IDs you'll find in this
-                    file.
+    Description:    The EBMLMaxIDLength is the maximum length in octets
+                    of the Element IDs to be found within the EBML
+                    Document. An EBMLMaxIDLength value of four is
+                    recommended, though larger values are allowed. Since
+                    each EBML Document MUST start with the EBML element
+                    and the EBML element ID has a length of 4 octets, an
+                    EBMLMaxIDLength value less than four is not valid.
 
 Element Name:   EBMLMaxSizeLength
 
