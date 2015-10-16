@@ -320,7 +320,9 @@ more Master-element (at Level 0).
 ### EBML Header
 
 The EBML Header is a declaration that provides processing instructions
-and identification of the contents of an EBML Document. The EBML Header may be considered as analogous to an XML Declaration. A valid EBML Document must start with a valid EBML Header.
+and identification of the contents of an EBML Document. The EBML Header
+may be considered as analogous to an XML Declaration. A valid EBML
+Document must start with a valid EBML Header.
 
 The EBML Header documents the EBML Schema (also known as the EBML
 DocType) that may be used to semantically interpret the structure and
