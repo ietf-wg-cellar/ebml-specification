@@ -120,13 +120,6 @@ Class B    | 2            | 2^14 - 2^7  - 1 =      16,255
 Class C    | 3            | 2^21 - 2^14 - 1 =   2,080,767
 Class D    | 4            | 2^28 - 2^21 - 1 = 266,388,303
 
--    Some Notes:
-
-    -   Any ID where all x's are composed entirely of 1's is a Reserved
-        ID, thus the -1 in the definitions above.
-    -   The Reserved IDs (all bits of VINT_DATA set to 1) are the only
-        IDs that may change the VINT_WIDTH.
-
 ## Element Data Size
 
 The Element Data Size expresses the length in octets of Element Data.
