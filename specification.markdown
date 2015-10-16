@@ -16,7 +16,7 @@ outlines general data types and ID's.
 
 ## Structure
 
-EBML uses a system of Elements to compose an EBML "document". Elements
+EBML uses a system of Elements to compose an EBML "Document". Elements
 incorporate three parts: an Element ID, an Element Data Size, and
 Element Data. The Element Data, which is described by the Element ID, 
 may include either binary data or one or many other Elements.
@@ -96,7 +96,7 @@ Binary Value | Octet Width | As Represented in Variable Size Integer
 The Element ID MUST be encoded as a Variable Size Integer. By default,
 EBML Element IDs may be encoded in lengths from one octet to four
 octets, although Element IDs of greater lengths may be used if the
-octet length of the EBML document's longest Element ID is declared in
+octet length of the EBML Document's longest Element ID is declared in
 the EBMLMaxIDLength Element of the EBML Header. The VINT\_DATA component
 of the Element ID MUST NOT be set to either all zero values or all one
 values. The VINT\_DATA component of the Element ID MUST be encoded at
@@ -133,7 +133,7 @@ The Element Data Size expresses the length in octets of Element Data.
 The Element Data Size itself MUST be encoded as a Variable Size Integer.
 By default, EBML Element Data Sizes can be encoded in lengths from one
 octet to eight octets, although Element Data Sizes of greater lengths
-MAY be used if the octet length of the EBML document's longest Element
+MAY be used if the octet length of the EBML Document's longest Element
 Data Size is declared in the EBMLMaxSizeLength Element of the EBML
 Header. Unlike the VINT\_DATA of the Element ID, the VINT\_DATA
 component of the Element Data Size is NOT REQUIRED to be encoded at the
@@ -304,6 +304,47 @@ Element Data Type:   Binary
                     up to the maximum Element Data Size value permitted.
     Definition:     Binary data is not interpreted by the parser.
 
+## EBML Document
+
+An EBML Document MUST start with an EBML Header which declares
+significant characteristics of the entire EBML Document. An EBML
+Document MAY only consist of EBML Elements and MUST NOT contain any
+data that is not part of an EBML Element. The initial EBML Element of
+an EBML Document and the Elements that follow it are considered Level 0
+Elements. If an EBML Master-element is considered to be at level N and
+it contains one or many other EBML Elements then the contained Elements
+shall be considered at Level N+1. Thus a Level 2 Element would have to
+be contained by a Master-element (at Level 1) that is contained by one
+more Master-element (at Level 0).
+
+### EBML Header
+
+The EBML Header is a declaration that provides processing instructions
+and identification of the contents of an EBML Document. The EBML Header
+may be considered as analogous to an XML Declaration. A valid EBML
+Document must start with a valid EBML Header.
+
+The EBML Header documents the EBML Schema (also known as the EBML
+DocType) that may be used to semantically interpret the structure and
+meaning of the EBML Document. Additionally the EBML Header documents
+the versions of both EBML and the EBML Schema that were used to write
+the EBML Document and the versions required to read the EBML Document.
+
+The EBML Header consists of a single Master-elemtent with an Element ID
+of 'EBML'. The EBML Header MUST ONLY contain EBML Elements that are
+defined as part of the EBML Specification.
+
+All EBML Elements within the EBML Header MUST NOT utilize any Element ID
+with a length greater than 4 octets. All EBML Elements within the EBML
+Header MUST NOT utilize any Element Data Size with a length greater
+than 4 octets.
+
+## EBML Stream
+
+An EBML Stream is a file that consists of one or many EBML Documents
+that are concatenated together. An occurrence of a Level 0 EBML Header
+marks the beginning of an EBML Document.
+
 ## Elements semantic
 
 ### Element Template
@@ -319,7 +360,7 @@ Element Name:
     Element Type:
     Description:
 
-### EBML Basics
+### EBML Header Elements
 
 Element Name:   EBML
 
@@ -331,7 +372,7 @@ Element Name:   EBML
     Default:        -
     Element Type:   Master-element
     Description:    Set the EBML characteristics of the data to follow.
-                    Each EBML document has to start with this.
+                    Each EBML Document has to start with this.
 
 Element Name:   EBMLVersion
 
@@ -403,7 +444,7 @@ Element Name:   DocType
     Default:        matroska
     Element Type:   String
     Description:    A string that describes the type of document that
-                    follows this EBML header.
+                    follows this EBML Header.
 
 Element Name:   DocTypeVersion
 
