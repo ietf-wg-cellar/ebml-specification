@@ -300,7 +300,7 @@ Element Data Type:   Master-element
 Element Data Type:   Binary
 
     Endianness:     None
-    Length:         A Master-element may declare any length (included zero)
+    Length:         A binary element may declare any length (included zero)
                     up to the maximum Element Data Size value permitted.
     Definition:     Binary data is not interpreted by the parser.
 
