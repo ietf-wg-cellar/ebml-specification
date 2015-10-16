@@ -298,15 +298,19 @@ Element Name:   EBMLMaxSizeLength
     EBML ID:        [42][F3]
     Mandatory:      Yes
     Multiple:       No
-    Range:          -
+    Range:          >0
     Default:        8
     Element Type:   Unsigned Integer
-    Description:    The maximum length of the sizes you'll find in this
-                    file. This does not override the element size
-                    indicated at the beginning of an element. Elements
-                    that have an indicated size which is larger than
-                    what is allowed by EBMLMaxSizeLength SHALL be
-                    considered invalid.
+    Description:    The EBMLMaxSizeLength is the maximum length in
+                    octets of the expression of all Element Data Sizes
+                    to be found within the EBML Document. To be clear
+                    EBMLMaxSizeLength documents the maximum 'length' of
+                    all Element Data Size expressions within the EBML
+                    Document and not the maximum 'value' of all Element
+                    Data Size expressions within the EBML Document.
+                    Elements that have a Element Data Size expression
+                    which is larger in octets than what is expressed by
+                    EBMLMaxSizeLength SHALL be considered invalid.
 
 Element Name:   DocType
 
