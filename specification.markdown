@@ -143,17 +143,11 @@ both valid Element Data Sizes and both store a semantically equal value.
 
 Although an Element ID with all VINT\_DATA bits set to zero is invalid,
 an Element Data Size with all VINT\_DATA bits set to zero is allowed
-for EBML Data Types which do not mandate a non-zero length. In
-particular the Signed Integer, Unsigned Integer, Float, and Date EBML
-Element Data Types have definitions which require a length of at least
-one octet and thus in these cases an Element Data Size with all
-VINT\_DATA bits set to zero is invalid. EBML Element Data Types such as
-String, UTF-8, Master-element, and Binary do not have definitions that
-include minimum lengths greater than one octet and thus Elements of
-these Data Types may include an Element Data Size with all VINT\_DATA
-bits set to zero. This indicates that the Element Data of the Element
-is zero octets in length. Such an Element is referred to as an Empty
-Element.
+for EBML Data Types which do not mandate a non-zero length. An Element
+Data Size with all VINT\_DATA bits set to zero indicates that the
+Element Data of the Element is zero octets in length. Such an Element
+is referred to as an Empty Element. The semantic meaning of Empty
+Elements is defined as part of the definition of the EBML Element Types.
 
 An Element Data Size with all VINT\_DATA bits set to one is reserved as
 an indicator that the size of the Element is unknown. The only reserved
