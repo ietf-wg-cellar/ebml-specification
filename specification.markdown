@@ -300,9 +300,11 @@ Element Data Type:   Master-element
 Element Data Type:   Binary
 
     Endianness:     None
-    Length:         A binary element may declare any length (included zero)
-                    up to the maximum Element Data Size value permitted.
-    Definition:     Binary data is not interpreted by the parser.
+    Length:         A binary element may declare any length (including
+                    zero) up to the maximum Element Data Size value
+                    permitted.
+    Definition:     The contents of a Binary element should not be
+                    interpreted by the EBML parser.
 
 ## Elements semantic
 
