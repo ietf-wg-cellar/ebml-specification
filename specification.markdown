@@ -332,6 +332,11 @@ The EBML Header consists of a single Master-elemtent with an Element ID
 of 'EBML'. The EBML Header MUST ONLY contain EBML Elements that are
 defined as part of the EBML Specification.
 
+All EBML Elements within the EBML Header MUST NOT utilize any Element ID
+with a length greater than 4 octets. All EBML Elements within the EBML
+Header MUST NOT utilize any Element Data Size with a length greater
+than 4 octets.
+
 ## EBML Stream
 
 An EBML Stream is a file that consists of one or many EBML Documents
