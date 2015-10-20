@@ -413,11 +413,8 @@ Element Name:   EBMLMaxIDLength
     Element Type:   Unsigned Integer
     Description:    The EBMLMaxIDLength is the maximum length in octets
                     of the Element IDs to be found within the EBML
-                    Document. An EBMLMaxIDLength value of four is
-                    recommended, though larger values are allowed. Since
-                    each EBML Document MUST start with the EBML element
-                    and the EBML element ID has a length of 4 octets, an
-                    EBMLMaxIDLength value less than four is not valid.
+                    Body. An EBMLMaxIDLength value of four is
+                    recommended, though larger values are allowed.
 
 Element Name:   EBMLMaxSizeLength
 
@@ -430,11 +427,11 @@ Element Name:   EBMLMaxSizeLength
     Element Type:   Unsigned Integer
     Description:    The EBMLMaxSizeLength is the maximum length in
                     octets of the expression of all Element Data Sizes
-                    to be found within the EBML Document. To be clear
+                    to be found within the EBML Body. To be clear
                     EBMLMaxSizeLength documents the maximum 'length' of
                     all Element Data Size expressions within the EBML
-                    Document and not the maximum 'value' of all Element
-                    Data Size expressions within the EBML Document.
+                    Body and not the maximum 'value' of all Element
+                    Data Size expressions within the EBML Body.
                     Elements that have a Element Data Size expression
                     which is larger in octets than what is expressed by
                     EBMLMaxSizeLength SHALL be considered invalid.
@@ -448,8 +445,8 @@ Element Name:   DocType
     Range:          -
     Default:        matroska
     Element Type:   String
-    Description:    A string that describes the type of document that
-                    follows this EBML Header.
+    Description:    A string that describes and identifies the content
+                    of the EBML Body that follows this EBML Header.
 
 Element Name:   DocTypeVersion
 
