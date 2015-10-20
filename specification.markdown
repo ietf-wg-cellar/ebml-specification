@@ -295,8 +295,9 @@ Element Data Type:   Binary
 
 ## EBML Document
 
-An EBML Document MUST start with an EBML Header which declares
-significant characteristics of the entire EBML Document. An EBML
+An EBML Document is comprised of only two components, an EBML Header
+and an EBML Body. An EBML Document MUST start with an EBML Header which
+declares significant characteristics of the entire EBML Body. An EBML
 Document MAY only consist of EBML Elements and MUST NOT contain any
 data that is not part of an EBML Element. The initial EBML Element of
 an EBML Document and the Elements that follow it are considered Level 0
@@ -309,9 +310,9 @@ more Master-element (at Level 0).
 ### EBML Header
 
 The EBML Header is a declaration that provides processing instructions
-and identification of the contents of an EBML Document. The EBML Header
-may be considered as analogous to an XML Declaration. A valid EBML
-Document must start with a valid EBML Header.
+and identification of the EBML Body. The EBML Header may be considered
+as analogous to an XML Declaration. A valid EBML Document must start
+with a valid EBML Header.
 
 The EBML Header documents the EBML Schema (also known as the EBML
 DocType) that may be used to semantically interpret the structure and
@@ -319,7 +320,7 @@ meaning of the EBML Document. Additionally the EBML Header documents
 the versions of both EBML and the EBML Schema that were used to write
 the EBML Document and the versions required to read the EBML Document.
 
-The EBML Header consists of a single Master-elemtent with an Element ID
+The EBML Header consists of a single Master-element with an Element ID
 of 'EBML'. The EBML Header MUST ONLY contain EBML Elements that are
 defined as part of the EBML Specification.
 
@@ -327,6 +328,20 @@ All EBML Elements within the EBML Header MUST NOT utilize any Element ID
 with a length greater than 4 octets. All EBML Elements within the EBML
 Header MUST NOT utilize any Element Data Size with a length greater
 than 4 octets.
+
+### EBML Body
+
+All data of an EBML Document following the EBML Header may be considered
+the EBML Body. The end of the EBML Body, as well as the end of the EBML
+Document that contains the EBML Body, is considered as whichever comes
+first: the beginning of a new level 0 EBML Header or the end of the
+file. The EBML Body MAY only consist of EBML Elements and MUST NOT
+contain any data that is not part of an EBML Element. Although the EBML
+specification itself defines precisely what EBML Elements are to be
+used within the EBML Header, the EBML specification does not name or
+define what EBML Elements are to be used within the EBML Body. The
+definition of what EBML Elements are to be used within the EBML Body is
+defined by an EBML Schema.
 
 ## EBML Stream
 
@@ -372,7 +387,8 @@ Element Name:   EBMLVersion
     Range:          -
     Default:        1
     Element Type:   Unsigned Integer
-    Description:    The version of EBML parser used to create the file.
+    Description:    The version of EBML parser used to create the EBML
+                    Document.
 
 Element Name:   EBMLReadVersion
 
@@ -384,7 +400,7 @@ Element Name:   EBMLReadVersion
     Default:        1
     Element Type:   Unsigned Integer
     Description:    The minimum EBML version a parser has to support to
-                    read this file.
+                    read this EBML Document.
 
 Element Name:   EBMLMaxIDLength
 
@@ -445,7 +461,7 @@ Element Name:   DocTypeVersion
     Default:        1
     Element Type:   Unsigned Integer
     Description:    The version of DocType interpreter used to create
-                    the file.
+                    the EBML Document.
 
 Element Name:   DocTypeReadVersion
 
@@ -457,7 +473,7 @@ Element Name:   DocTypeReadVersion
     Default:        1
     Element Type:   Unsigned Integer
     Description:    The minimum DocType version an interpreter has to
-                    support to read this file.
+                    support to read this EBML Document.
 
 ### Global elements (used everywhere in the format)
 
