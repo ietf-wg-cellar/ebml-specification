@@ -295,8 +295,9 @@ Element Data Type:   Binary
 
 ## EBML Document
 
-An EBML Document MUST start with an EBML Header which declares
-significant characteristics of the entire EBML Document. An EBML
+An EBML Document is comprised of only two components, an EBML Header
+and an EBML Body. An EBML Document MUST start with an EBML Header which
+declares significant characteristics of the entire EBML Body. An EBML
 Document MAY only consist of EBML Elements and MUST NOT contain any
 data that is not part of an EBML Element. The initial EBML Element of
 an EBML Document and the Elements that follow it are considered Level 0
@@ -309,9 +310,9 @@ more Master-element (at Level 0).
 ### EBML Header
 
 The EBML Header is a declaration that provides processing instructions
-and identification of the contents of an EBML Document. The EBML Header
-may be considered as analogous to an XML Declaration. A valid EBML
-Document must start with a valid EBML Header.
+and identification of the EBML Body. The EBML Header may be considered
+as analogous to an XML Declaration. A valid EBML Document must start
+with a valid EBML Header.
 
 The EBML Header documents the EBML Schema (also known as the EBML
 DocType) that may be used to semantically interpret the structure and
@@ -327,6 +328,20 @@ All EBML Elements within the EBML Header MUST NOT utilize any Element ID
 with a length greater than 4 octets. All EBML Elements within the EBML
 Header MUST NOT utilize any Element Data Size with a length greater
 than 4 octets.
+
+### EBML Body
+
+All data of an EBML Document following the EBML Header may be considered
+the EBML Body. The end of the EBML Body, as well as the end of the EBML
+Document that it is contained within, may be considered as whichever
+comes first: the beginning of a new level 0 EBML Header or the end of
+the file. The EBML Body MAY only consist of EBML Elements and MUST NOT
+contain any data that is not part of an EBML Element. Although the EBML
+specification itself defines precisely what EBML Elements are to be
+used within the EBML Header, the EBML specification does not name or
+define what EBML Elements are to be used within the EBML Body. The
+definition of what EBML Elements are to be used within the EBML Body is
+defined by an EBML Schema.
 
 ## EBML Stream
 
