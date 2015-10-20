@@ -387,7 +387,8 @@ Element Name:   EBMLVersion
     Range:          -
     Default:        1
     Element Type:   Unsigned Integer
-    Description:    The version of EBML parser used to create the file.
+    Description:    The version of EBML parser used to create the EBML
+                    Document.
 
 Element Name:   EBMLReadVersion
 
@@ -399,7 +400,7 @@ Element Name:   EBMLReadVersion
     Default:        1
     Element Type:   Unsigned Integer
     Description:    The minimum EBML version a parser has to support to
-                    read this file.
+                    read this EBML Document.
 
 Element Name:   EBMLMaxIDLength
 
@@ -460,7 +461,7 @@ Element Name:   DocTypeVersion
     Default:        1
     Element Type:   Unsigned Integer
     Description:    The version of DocType interpreter used to create
-                    the file.
+                    the EBML Document.
 
 Element Name:   DocTypeReadVersion
 
@@ -472,7 +473,7 @@ Element Name:   DocTypeReadVersion
     Default:        1
     Element Type:   Unsigned Integer
     Description:    The minimum DocType version an interpreter has to
-                    support to read this file.
+                    support to read this EBML Document.
 
 ### Global elements (used everywhere in the format)
 
