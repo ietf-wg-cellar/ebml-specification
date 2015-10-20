@@ -333,9 +333,9 @@ than 4 octets.
 
 All data of an EBML Document following the EBML Header may be considered
 the EBML Body. The end of the EBML Body, as well as the end of the EBML
-Document that it is contained within, may be considered as whichever
-comes first: the beginning of a new level 0 EBML Header or the end of
-the file. The EBML Body MAY only consist of EBML Elements and MUST NOT
+Document that contains the EBML Body, is considered as whichever comes
+first: the beginning of a new level 0 EBML Header or the end of the
+file. The EBML Body MAY only consist of EBML Elements and MUST NOT
 contain any data that is not part of an EBML Element. Although the EBML
 specification itself defines precisely what EBML Elements are to be
 used within the EBML Header, the EBML specification does not name or
