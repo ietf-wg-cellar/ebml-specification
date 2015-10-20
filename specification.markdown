@@ -320,7 +320,7 @@ meaning of the EBML Document. Additionally the EBML Header documents
 the versions of both EBML and the EBML Schema that were used to write
 the EBML Document and the versions required to read the EBML Document.
 
-The EBML Header consists of a single Master-elemtent with an Element ID
+The EBML Header consists of a single Master-element with an Element ID
 of 'EBML'. The EBML Header MUST ONLY contain EBML Elements that are
 defined as part of the EBML Specification.
 
