@@ -180,7 +180,7 @@ Element Name:
     Level:
     EBML ID:    []
     Mandatory:  [Mandatory]
-    Multiple:   [Can be found multiple times at the same level]
+    Multiple:   [For level 0 Elements, this attribute defines whether or not the Element may be used multiple times within an EBML Document. For Elements at Level 1 or greater, this attribute defines whether or not the Element may be used multiple times within its parent Element.]
     Range:
     Default:    [Default value if the element is not found]
     Element Type:
@@ -193,7 +193,7 @@ Element Name:   EBML
     Level:          0
     EBML ID:        [1A][45][DF][A3]
     Mandatory:      Yes
-    Multiple:       Yes
+    Multiple:       No
     Range:          -
     Default:        -
     Element Type:   Master-element
