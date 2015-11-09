@@ -193,7 +193,7 @@ Element Name:   EBML
     Level:          0
     EBML ID:        [1A][45][DF][A3]
     Mandatory:      Yes
-    Multiple:       Yes
+    Multiple:       No
     Range:          -
     Default:        -
     Element Type:   Master-element
