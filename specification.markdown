@@ -173,18 +173,30 @@ An EBML Stream is a file that consists of one or many EBML Documents that are co
 
 ## Elements semantic
 
-### Element Template
+### EBML Schema
 
-Element Name:
+An EBML Schema is an XML Document that defines the properties, arrangement, and usage of EBML Elements that compose a specific EBML Document Type. The relationship of an EBML Schema to an EBML Document may be considered analogous to the relationship of an XML Schema to an XML Document. An EBML Schema MUST be clearly associated with one or many EBML Document Types. An EBML Schema must be expressed as well-formed XML. An EBML Document Type is identified by a unique string stored within the EBML Header element called DocType; for example `matroska` or `webm`.
 
-    Level:
-    EBML ID:    []
-    Mandatory:  [Mandatory]
-    Multiple:   [For level 0 Elements, this attribute defines whether or not the Element may be used multiple times within an EBML Document. For Elements at Level 1 or greater, this attribute defines whether or not the Element may be used multiple times within its parent Element.]
-    Range:
-    Default:    [Default value if the element is not found]
-    Element Type:
-    Description:
+As an XML Document the EBML Schema MUST use `<table>` as the top level element. The `<table>` element may contain `<element>` sub-elements. Each `<element>` node defines one EBML Element through the use of several attributes. Each attribute of the `<element>` node of the EBML Schema is defined here along with a note to say if the attribute is mandatory of not. EBML Schemas many contain additional attributes to extend the semantics but MUST not conflict is the definitions of the `<element>` attributes defined here.
+
+Within the EBML Schema each EBML Element is defined to occur at a specific level. For any specificied EBML Element that is not at level 0, the Parent EBML Element refers to the EBML Master-element that that EBML Element is contained within. For any specifiied EBML Master-element the Child EBML Element refers to the EBML Elements that may be immediately contained within that Master-element. For any EBML Element that is not defined at level 0, the Parent EBML Element may be identified by the preceding `<element>` node which has a lower value as the defined `level` attribute. The only exception for this rule are Global EBML Elements which may occur within any Parent EBML Element within the restriction of the Global EBML Element's range declaration.
+
+#### EBML Schema Element Attributes
+
+Within an EBML Schema the `<element>` uses the following attributes to define an EBML Element.
+
+| attribute name | required | definition |
+|----------------|----------|------------|
+| name           | Yes      | The official human-readable name of the EBML Element. The value of the name MUST be in the form of an NCName as defined by the [XML Schema specification](http://www.w3.org/TR/1999/REC-xml-names-19990114/#ns-decl). |
+| level          | Yes      | The level notes at what hierarchical depth the EBML Element may occur within an EBML Document. The initial EBML Element of an EBML Document is at level 0 and the Elements that it may contain are at level 1. The level MUST be expressed as an integer; however, the integer may be followed by a '+' symbol to indicate that the EBML Element is allow valid at any higher level.  |
+| id             | Yes      | The Element ID expressed in hexadecimal notation prefixed by a '0x'. |
+| mandatory      | No       | A boolean to express if the EBML Element MUST occur if the Parent EBML Element is used. If the mandatory attribute is not expressed for that Element then that element is to be considered not mandatory. |
+| multiple       | No       | A boolean to express if the EBML Element may occur within its Parent EBML Element more than once. If the multiple attribute is false or the  multiple attribute is not used to define the Element then that EBML Element MUST not occur more than once with that Element's Parent EBML Element. |
+| range          | No       | For Elements which are of numerical types (Unsigned Integer, Signed Integer, Float, and Date) a numerical range may be specified. If specified that the value of the EBML Element MUST be within the defined range inclusively. |
+| default        | No       | A default value may be provided. If an Element is mandatory but not written within its Parent EBML Element, then the reader of EBML Docuemnt MUST consider the defined default value of the Element. EBML Elements that are Master-elements MUST NOT declare a default value. |
+| type           | Yes      | As defined within the (##EBML-Element-Types) section, the type MUST be set to one of the following values: 'integer' (signed integer), 'uinteger' (unsigned integer), 'float', 'string', 'date', 'utf-8', 'master', or 'binary'. |
+
+The value of the `<element>` shall contain a description that of the meaning and use of the EBML Element.
 
 ### EBML Header Elements
 
