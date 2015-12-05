@@ -199,6 +199,25 @@ Within an EBML Schema the `<element>` uses the following attributes to define an
 
 The value of the `<element>` shall contain a description that of the meaning and use of the EBML Element.
 
+#### Note on the Use of mandatory and default attributes to define EBML Elements
+
+If an EBML Element has a default value declared by an EBML Schema and the EBML Element's value is equal to the declared default value then that Element is not required to be present within the EBML Document if its Parent EBML Element is present. In this case, the default value of the EBML Element may be assumed although the EBML Element is not present within its Parent EBML Element.
+
+If an EBML Element has no default value declared by an EBML Schema and its Parent EBML Element is present than the EBML Element must be present as well. If an EBML Element has a default value declared by an EBML Schema and its Parent EBML Element is present and the EBML Element's value is NOT equal to the declared default value then the EBML Element MUST be used.
+
+This table clarifies is an EBML Element which is defined as mandatory MUST be written, according to if the default value is declared, is the value of the EBML Element is equal to the declared default value, and if the Parent EBML Element is used.
+
+| Is the default value declared? | Is the value equal to default? | Is the Parent Element used? | Then is storing the EBML Element required? |
+|:-----------------:|:-----------------------:|:--------------------:|:------------------------------------------:|
+| Yes               | Yes                     | Yes                  | No                                         |
+| Yes               | Yes                     | No                   | No                                         |
+| Yes               | No                      | Yes                  | Yes                                        |
+| Yes               | No                      | No                   | No                                         |
+| No                | n/a                     | Yes                  | Yes                                        |
+| No                | n/a                     | No                   | No                                         |
+| No                | n/a                     | Yes                  | Yes                                        |
+| No                | n/a                     | No                   | No                                         |
+
 ### EBML Header Elements
 
 This specification here contains definitions of all EBML Elements of the EBML Header.
