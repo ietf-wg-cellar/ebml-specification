@@ -195,7 +195,7 @@ Within an EBML Schema the `<element>` uses the following attributes to define an
 | multiple       | No       | A boolean to express if the EBML Element may occur within its Parent EBML Element more than once. If the multiple attribute is false or the  multiple attribute is not used to define the Element then that EBML Element MUST not occur more than once with that Element's Parent EBML Element. |
 | range          | No       | For Elements which are of numerical types (Unsigned Integer, Signed Integer, Float, and Date) a numerical range may be specified. If specified that the value of the EBML Element MUST be within the defined range inclusively. See the [section of Expressions of range](#expression-of-range) for rules applied to expression of range values. |
 | default        | No       | A default value may be provided. If an Element is mandatory but not written within its Parent EBML Element, then the reader of EBML Document MUST consider the defined default value of the Element. EBML Elements that are Master-elements MUST NOT declare a default value. |
-| type           | Yes      | As defined within the (##EBML-Element-Types) section, the type MUST be set to one of the following values: 'integer' (signed integer), 'uinteger' (unsigned integer), 'float', 'string', 'date', 'utf-8', 'master', or 'binary'. |
+| type           | Yes      | As defined within the [section on EBML Element Types](#ebml-element-types), the type MUST be set to one of the following values: 'integer' (signed integer), 'uinteger' (unsigned integer), 'float', 'string', 'date', 'utf-8', 'master', or 'binary'. |
 
 The value of the `<element>` shall contain a description that of the meaning and use of the EBML Element.
 
