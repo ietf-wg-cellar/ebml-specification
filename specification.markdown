@@ -201,6 +201,8 @@ The value of the `<element>` shall contain a description that of the meaning and
 
 ### EBML Header Elements
 
+This specification here contains definitions of all EBML Elements of the EBML Header.
+
 Element Name:   EBML
 
     Level:          0
