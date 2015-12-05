@@ -199,6 +199,16 @@ Within an EBML Schema the `<element>` uses the following attributes to define an
 
 The value of the `<element>` shall contain a description that of the meaning and use of the EBML Element.
 
+#### Expression of range
+
+The `range` attribute MUST only be used with EBML Elements that are either `signed integer` or `unsigned integer`. The `range` attribute does not support date or float EBML Elements. The `range` expression may contain whitespace for readability but whitespace within a `range` expression MUST NOT convey meaning. The expression of the `range` MUST adhere to one of the following forms:
+
+    - `x-y` where x and y are integers and `y` must be greater than `x`, meaning that the value must be greater than or equal to `x` and less than or equal to `y`.
+    - `>x` where `x` is an integer, meaning that the value MUST be greater than `x`.
+    - `x` where `x` is an integer, meaning that the value MUST be equal `x`.
+
+The `range` may use the prefix `not ` to indicate that the expressed range is negated.
+
 #### Note on the Use of mandatory and default attributes to define EBML Elements
 
 If an EBML Element has a default value declared by an EBML Schema and the EBML Element's value is equal to the declared default value then that Element is not required to be present within the EBML Document if its Parent EBML Element is present. In this case, the default value of the EBML Element may be assumed although the EBML Element is not present within its Parent EBML Element.
