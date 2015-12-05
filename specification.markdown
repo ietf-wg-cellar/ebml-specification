@@ -189,6 +189,7 @@ Within an EBML Schema the `<element>` uses the following attributes to define an
 |----------------|----------|------------|
 | name           | Yes      | The official human-readable name of the EBML Element. The value of the name MUST be in the form of an NCName as defined by the [XML Schema specification](http://www.w3.org/TR/1999/REC-xml-names-19990114/#ns-decl). |
 | level          | Yes      | The level notes at what hierarchical depth the EBML Element may occur within an EBML Document. The initial EBML Element of an EBML Document is at level 0 and the Elements that it may contain are at level 1. The level MUST be expressed as an integer; however, the integer may be followed by a '+' symbol to indicate that the EBML Element is allow valid at any higher level.  |
+| global         | No       | A boolean to express if an EBML Element MUST occur at its defined level be may occur within any Parent EBML Element. |
 | id             | Yes      | The Element ID expressed in hexadecimal notation prefixed by a '0x'. |
 | mandatory      | No       | A boolean to express if the EBML Element MUST occur if the Parent EBML Element is used. If the mandatory attribute is not expressed for that Element then that element is to be considered not mandatory. |
 | multiple       | No       | A boolean to express if the EBML Element may occur within its Parent EBML Element more than once. If the multiple attribute is false or the  multiple attribute is not used to define the Element then that EBML Element MUST not occur more than once with that Element's Parent EBML Element. |
@@ -293,6 +294,7 @@ Element Name:   DocTypeReadVersion
 Element Name:   CRC-32
 
     Level:          1+
+    Global:         Yes
     EBML ID:        [BF]
     Mandatory:      No
     Multiple:       No
@@ -304,6 +306,7 @@ Element Name:   CRC-32
 Element Name:   Void
 
     Level:          0+
+    Global:         Yes
     EBML ID:        [EC]
     Mandatory:      No
     Multiple:       No
