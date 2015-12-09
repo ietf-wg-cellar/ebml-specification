@@ -8,7 +8,7 @@ Just like XML, the specific "tags" (IDs in EBML parlance) used in an EBML implem
 
 ## Structure
 
-EBML uses a system of Elements to compose an EBML "Document". Elements incorporate three parts: an Element ID, an Element Data Size, and Element Data. The Element Data, which is described by the Element ID,  may include either binary data or one or many other Elements.
+EBML uses a system of Elements to compose an EBML "Document". Elements incorporate three parts: an Element ID, an Element Data Size, and Element Data. The Element Data, which is described by the Element ID, may include either binary data or one or many other Elements.
 
 ## Variable Size Integer
 
@@ -94,7 +94,7 @@ VINT\_WIDTH | VINT\_MARKER | VINT\_DATA     | Element Data Size Status
 0           | 1            | 00000001111111 | Valid (meaning 127 octets)
 
 -   Data
-    -   Integers are stored in their standard big-endian form (no UTF-like encoding), only the size may differ from their usual   form (24 or 40 bits for example).
+    -   Integers are stored in their standard big-endian form (no UTF-like encoding), only the size may differ from their usual form (24 or 40 bits for example).
     -   The Signed Integer is just the big-endian representation trimmed from some 0x00 and 0xFF where they are not meaningful (sign). For example -2 can be coded as 0xFFFFFFFFFFFFFE or 0xFFFE or 0xFE and 5 can be coded 0x000000000005 or 0x0005 or 0x05.
 
 ## EBML Element Types
@@ -192,7 +192,7 @@ Within an EBML Schema the `<element>` uses the following attributes to define an
 | global         | No       | A boolean to express if an EBML Element MUST occur at its defined level or may occur within any Parent EBML Element. |
 | id             | Yes      | The Element ID expressed in hexadecimal notation prefixed by a '0x'. |
 | mandatory      | No       | A boolean to express if the EBML Element MUST occur if the Parent EBML Element is used. If the mandatory attribute is not expressed for that Element then that element is to be considered not mandatory. |
-| multiple       | No       | A boolean to express if the EBML Element may occur within its Parent EBML Element more than once. If the multiple attribute is false or the  multiple attribute is not used to define the Element then that EBML Element MUST not occur more than once with that Element's Parent EBML Element. |
+| multiple       | No       | A boolean to express if the EBML Element may occur within its Parent EBML Element more than once. If the multiple attribute is false or the multiple attribute is not used to define the Element then that EBML Element MUST not occur more than once with that Element's Parent EBML Element. |
 | range          | No       | For Elements which are of numerical types (Unsigned Integer, Signed Integer, Float, and Date) a numerical range may be specified. If specified that the value of the EBML Element MUST be within the defined range inclusively. See the [section of Expressions of range](#expression-of-range) for rules applied to expression of range values. |
 | default        | No       | A default value may be provided. If an Element is mandatory but not written within its Parent EBML Element, then the reader of EBML Document MUST consider the defined default value of the Element. EBML Elements that are Master-elements MUST NOT declare a default value. |
 | type           | Yes      | As defined within the [section on EBML Element Types](#ebml-element-types), the type MUST be set to one of the following values: 'integer' (signed integer), 'uinteger' (unsigned integer), 'float', 'string', 'date', 'utf-8', 'master', or 'binary'. |
