@@ -209,13 +209,13 @@ The `range` attribute MUST only be used with EBML Elements that are either `sign
 
 The `range` may use the prefix `not ` to indicate that the expressed range is negated.
 
-#### Note on the Use of mandatory and default attributes to define EBML Elements
+#### Note on the Use of default attributes to define Mandatory EBML Elements
 
-If an EBML Element has a default value declared by an EBML Schema and the EBML Element's value is equal to the declared default value then that Element is not required to be present within the EBML Document if its Parent EBML Element is present. In this case, the default value of the EBML Element may be assumed although the EBML Element is not present within its Parent EBML Element.
+If a Mandatory EBML Element has a default value declared by an EBML Schema and the EBML Element's value is equal to the declared default value then that Element is not required to be present within the EBML Document if its Parent EBML Element is present. In this case, the default value of the Mandatory EBML Element may be assumed although the EBML Element is not present within its Parent EBML Element. Also in this case the parser of the EBML Document MUST insert the defined default value of the Element.
 
-If an EBML Element has no default value declared by an EBML Schema and its Parent EBML Element is present than the EBML Element must be present as well. If an EBML Element has a default value declared by an EBML Schema and its Parent EBML Element is present and the EBML Element's value is NOT equal to the declared default value then the EBML Element MUST be used.
+If a Mandatory EBML Element has no default value declared by an EBML Schema and its Parent EBML Element is present than the EBML Element must be present as well. If a Mandatory EBML Element has a default value declared by an EBML Schema and its Parent EBML Element is present and the EBML Element's value is NOT equal to the declared default value then the EBML Element MUST be used.
 
-This table clarifies if an EBML Element which is defined as mandatory MUST be written, according to if the default value is declared, if the value of the EBML Element is equal to the declared default value, and if the Parent EBML Element is used.
+This table clarifies if a Mandatory EBML Element MUST be written, according to if the default value is declared, if the value of the EBML Element is equal to the declared default value, and if the Parent EBML Element is used.
 
 | Is the default value declared? | Is the value equal to default? | Is the Parent Element used? | Then is storing the EBML Element required? |
 |:-----------------:|:-----------------------:|:--------------------:|:------------------------------------------:|
