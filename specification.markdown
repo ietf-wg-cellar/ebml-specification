@@ -69,7 +69,7 @@ Class D    | 4            | 2^28 - 2^21 - 1 = 266,388,303
 
 The Element Data Size expresses the length in octets of Element Data. The Element Data Size itself MUST be encoded as a Variable Size Integer. By default, EBML Element Data Sizes can be encoded in lengths from one octet to eight octets, although Element Data Sizes of greater lengths MAY be used if the octet length of the EBML Document's longest Element Data Size is declared in the EBMLMaxSizeLength Element of the EBML Header. Unlike the VINT\_DATA of the Element ID, the VINT\_DATA component of the Element Data Size is NOT REQUIRED to be encoded at the shortest valid length. For example, an Element Data Size with binary encoding of 1011 1111 or a binary encoding of 0100 0000 0011 1111 are both valid Element Data Sizes and both store a semantically equal value.
 
-Although an Element ID with all VINT\_DATA bits set to zero is invalid, an Element Data Size with all VINT\_DATA bits set to zero is allowed for EBML Data Types which do not mandate a non-zero length. An Element Data Size with all VINT\_DATA bits set to zero indicates that the Element Data of the Element is zero octets in length. Such an Element is referred to as an Empty Element. The semantic meaning of Empty Elements is defined as part of the definition of the EBML Element Types.
+Although an Element ID with all VINT\_DATA bits set to zero is invalid, an Element Data Size with all VINT\_DATA bits set to zero is allowed for EBML Data Types which do not mandate a non-zero length. An Element Data Size with all VINT\_DATA bits set to zero indicates that the Element Data of the Element is zero octets in length. Such an Element is referred to as an Empty Element. If an Empty Element has a `default` value declared then that default value MUST be interpreted as the value of the Empty Element. If an Empty Element has no `default` value declared then the semantic meaning of Empty Element is defined as part of the definition of the EBML Element Types.
 
 An Element Data Size with all VINT\_DATA bits set to one is reserved as an indicator that the size of the Element is unknown. The only reserved value for the VINT\_DATA of Element Data Size is all bits set to one. This rule allows for an Element to be written and read before the size of the Element is known; however unknown Element Data Size values SHOULD NOT be used unnecessarily. An Element with an unknown Element Data Size MUST be a Master-element in that it contains other EBML Elements as sub-elements. The end of the Master-element is determined by the beginning of the next element that is not a valid sub-element of the Master-element.
 
@@ -227,6 +227,10 @@ This table clarifies if a Mandatory EBML Element MUST be written, according to i
 | No                | n/a                     | No                   | No                                         |
 | No                | n/a                     | Yes                  | Yes                                        |
 | No                | n/a                     | No                   | No                                         |
+
+#### Note on the Use of default attributes to define non-Mandatory EBML Elements
+
+If an EBML Element is not Mandatory, has a defined default value, and is an Empty EBML Element then the EBML Element MUST be interpreted as expressing the default value.
 
 ### EBML Header Elements
 
