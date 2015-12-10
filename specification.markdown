@@ -8,7 +8,7 @@ Just like XML, the specific "tags" (IDs in EBML parlance) used in an EBML implem
 
 ## Structure
 
-EBML uses a system of Elements to compose an EBML "Document". Elements incorporate three parts: an Element ID, an Element Data Size, and Element Data. The Element Data, which is described by the Element ID,  may include either binary data or one or many other Elements.
+EBML uses a system of Elements to compose an EBML "Document". Elements incorporate three parts: an Element ID, an Element Data Size, and Element Data. The Element Data, which is described by the Element ID, may include either binary data or one or many other Elements.
 
 ## Variable Size Integer
 
@@ -69,7 +69,7 @@ Class D    | 4            | 2^28 - 2^21 - 1 = 266,388,303
 
 The Element Data Size expresses the length in octets of Element Data. The Element Data Size itself MUST be encoded as a Variable Size Integer. By default, EBML Element Data Sizes can be encoded in lengths from one octet to eight octets, although Element Data Sizes of greater lengths MAY be used if the octet length of the EBML Document's longest Element Data Size is declared in the EBMLMaxSizeLength Element of the EBML Header. Unlike the VINT\_DATA of the Element ID, the VINT\_DATA component of the Element Data Size is NOT REQUIRED to be encoded at the shortest valid length. For example, an Element Data Size with binary encoding of 1011 1111 or a binary encoding of 0100 0000 0011 1111 are both valid Element Data Sizes and both store a semantically equal value.
 
-Although an Element ID with all VINT\_DATA bits set to zero is invalid, an Element Data Size with all VINT\_DATA bits set to zero is allowed for EBML Data Types which do not mandate a non-zero length. An Element Data Size with all VINT\_DATA bits set to zero indicates that the Element Data of the Element is zero octets in length. Such an Element is referred to as an Empty Element. The semantic meaning of Empty Elements is defined as part of the definition of the EBML Element Types.
+Although an Element ID with all VINT\_DATA bits set to zero is invalid, an Element Data Size with all VINT\_DATA bits set to zero is allowed for EBML Data Types which do not mandate a non-zero length. An Element Data Size with all VINT\_DATA bits set to zero indicates that the Element Data of the Element is zero octets in length. Such an Element is referred to as an Empty Element. If an Empty Element has a `default` value declared then that default value MUST be interpreted as the value of the Empty Element. If an Empty Element has no `default` value declared then the semantic meaning of Empty Element is defined as part of the definition of the EBML Element Types.
 
 An Element Data Size with all VINT\_DATA bits set to one is reserved as an indicator that the size of the Element is unknown. The only reserved value for the VINT\_DATA of Element Data Size is all bits set to one. This rule allows for an Element to be written and read before the size of the Element is known; however unknown Element Data Size values SHOULD NOT be used unnecessarily. An Element with an unknown Element Data Size MUST be a Master-element in that it contains other EBML Elements as sub-elements. The end of the Master-element is determined by the beginning of the next element that is not a valid sub-element of the Master-element.
 
@@ -94,7 +94,7 @@ VINT\_WIDTH | VINT\_MARKER | VINT\_DATA     | Element Data Size Status
 0           | 1            | 00000001111111 | Valid (meaning 127 octets)
 
 -   Data
-    -   Integers are stored in their standard big-endian form (no UTF-like encoding), only the size may differ from their usual   form (24 or 40 bits for example).
+    -   Integers are stored in their standard big-endian form (no UTF-like encoding), only the size may differ from their usual form (24 or 40 bits for example).
     -   The Signed Integer is just the big-endian representation trimmed from some 0x00 and 0xFF where they are not meaningful (sign). For example -2 can be coded as 0xFFFFFFFFFFFFFE or 0xFFFE or 0xFE and 5 can be coded 0x000000000005 or 0x0005 or 0x05.
 
 ## EBML Element Types
@@ -173,20 +173,68 @@ An EBML Stream is a file that consists of one or many EBML Documents that are co
 
 ## Elements semantic
 
-### Element Template
+### EBML Schema
 
-Element Name:
+An EBML Schema is an XML Document that defines the properties, arrangement, and usage of EBML Elements that compose a specific EBML Document Type. The relationship of an EBML Schema to an EBML Document may be considered analogous to the relationship of an [XML Schema](http://www.w3.org/XML/Schema#dev) to an [XML Document](http://www.w3.org/TR/xml/). An EBML Schema MUST be clearly associated with one or many EBML Document Types. An EBML Schema must be expressed as well-formed XML. An EBML Document Type is identified by a unique string stored within the EBML Header element called DocType; for example `matroska` or `webm`.
 
-    Level:
-    EBML ID:    []
-    Mandatory:  [Mandatory]
-    Multiple:   [For level 0 Elements, this attribute defines whether or not the Element may be used multiple times within an EBML Document. For Elements at Level 1 or greater, this attribute defines whether or not the Element may be used multiple times within its parent Element.]
-    Range:
-    Default:    [Default value if the element is not found]
-    Element Type:
-    Description:
+As an XML Document the EBML Schema MUST use `<table>` as the top level element. The `<table>` element may contain `<element>` sub-elements. Each `<element>` node defines one EBML Element through the use of several attributes. Each attribute of the `<element>` node of the EBML Schema is defined here along with a note to say if the attribute is mandatory or not. EBML Schemas many contain additional attributes to extend the semantics but MUST not conflict is the definitions of the `<element>` attributes defined here.
+
+Within the EBML Schema each EBML Element is defined to occur at a specific level. For any specificied EBML Element that is not at level 0, the Parent EBML Element refers to the EBML Master-element that that EBML Element is contained within. For any specifiied EBML Master-element the Child EBML Element refers to the EBML Elements that may be immediately contained within that Master-element. For any EBML Element that is not defined at level 0, the Parent EBML Element may be identified by the preceding `<element>` node which has a lower value as the defined `level` attribute. The only exception for this rule are Global EBML Elements which may occur within any Parent EBML Element within the restriction of the Global EBML Element's range declaration.
+
+#### EBML Schema Element Attributes
+
+Within an EBML Schema the `<element>` uses the following attributes to define an EBML Element.
+
+| attribute name | required | definition |
+|----------------|----------|------------|
+| name           | Yes      | The official human-readable name of the EBML Element. The value of the name MUST be in the form of an NCName as defined by the [XML Schema specification](http://www.w3.org/TR/1999/REC-xml-names-19990114/#ns-decl). |
+| level          | Yes      | The level notes at what hierarchical depth the EBML Element may occur within an EBML Document. The initial EBML Element of an EBML Document is at level 0 and the Elements that it may contain are at level 1. The level MUST be expressed as an integer; however, the integer may be followed by a '+' symbol to indicate that the EBML Element is valid at any higher level.  |
+| global         | No       | A boolean to express if an EBML Element MUST occur at its defined level or may occur within any Parent EBML Element. If the `global` attribute is not expressed for that Element then that element is to be considered not global. |
+| id             | Yes      | The Element ID expressed in hexadecimal notation prefixed by a '0x'. |
+| mandatory      | No       | A boolean to express if the EBML Element MUST occur if the Parent EBML Element is used. If the mandatory attribute is not expressed for that Element then that element is to be considered not mandatory. |
+| multiple       | No       | A boolean to express if the EBML Element may occur within its Parent EBML Element more than once. If the multiple attribute is false or the multiple attribute is not used to define the Element then that EBML Element MUST not occur more than once with that Element's Parent EBML Element. |
+| range          | No       | For Elements which are of numerical types (Unsigned Integer, Signed Integer, Float, and Date) a numerical range may be specified. If specified that the value of the EBML Element MUST be within the defined range inclusively. See the [section of Expressions of range](#expression-of-range) for rules applied to expression of range values. |
+| default        | No       | A default value may be provided. If an Element is mandatory but not written within its Parent EBML Element, then the parser of the EBML Document MUST insert the defined default value of the Element. EBML Elements that are Master-elements MUST NOT declare a default value. |
+| type           | Yes      | As defined within the [section on EBML Element Types](#ebml-element-types), the type MUST be set to one of the following values: 'integer' (signed integer), 'uinteger' (unsigned integer), 'float', 'string', 'date', 'utf-8', 'master', or 'binary'. |
+
+The value of the `<element>` shall contain a description that of the meaning and use of the EBML Element.
+
+#### Expression of range
+
+The `range` attribute MUST only be used with EBML Elements that are either `signed integer` or `unsigned integer`. The `range` attribute does not support date or float EBML Elements. The `range` expression may contain whitespace for readability but whitespace within a `range` expression MUST NOT convey meaning. The expression of the `range` MUST adhere to one of the following forms:
+
+    - `x-y` where x and y are integers and `y` must be greater than `x`, meaning that the value must be greater than or equal to `x` and less than or equal to `y`.
+    - `>x` where `x` is an integer, meaning that the value MUST be greater than `x`.
+    - `x` where `x` is an integer, meaning that the value MUST be equal `x`.
+
+The `range` may use the prefix `not ` to indicate that the expressed range is negated.
+
+#### Note on the Use of default attributes to define Mandatory EBML Elements
+
+If a Mandatory EBML Element has a default value declared by an EBML Schema and the EBML Element's value is equal to the declared default value then that Element is not required to be present within the EBML Document if its Parent EBML Element is present. In this case, the default value of the Mandatory EBML Element may be assumed although the EBML Element is not present within its Parent EBML Element. Also in this case the parser of the EBML Document MUST insert the defined default value of the Element.
+
+If a Mandatory EBML Element has no default value declared by an EBML Schema and its Parent EBML Element is present than the EBML Element must be present as well. If a Mandatory EBML Element has a default value declared by an EBML Schema and its Parent EBML Element is present and the EBML Element's value is NOT equal to the declared default value then the EBML Element MUST be used.
+
+This table clarifies if a Mandatory EBML Element MUST be written, according to if the default value is declared, if the value of the EBML Element is equal to the declared default value, and if the Parent EBML Element is used.
+
+| Is the default value declared? | Is the value equal to default? | Is the Parent Element used? | Then is storing the EBML Element required? |
+|:-----------------:|:-----------------------:|:--------------------:|:------------------------------------------:|
+| Yes               | Yes                     | Yes                  | No                                         |
+| Yes               | Yes                     | No                   | No                                         |
+| Yes               | No                      | Yes                  | Yes                                        |
+| Yes               | No                      | No                   | No                                         |
+| No                | n/a                     | Yes                  | Yes                                        |
+| No                | n/a                     | No                   | No                                         |
+| No                | n/a                     | Yes                  | Yes                                        |
+| No                | n/a                     | No                   | No                                         |
+
+#### Note on the Use of default attributes to define non-Mandatory EBML Elements
+
+If an EBML Element is not Mandatory, has a defined default value, and is an Empty EBML Element then the EBML Element MUST be interpreted as expressing the default value.
 
 ### EBML Header Elements
+
+This specification here contains definitions of all EBML Elements of the EBML Header.
 
 Element Name:   EBML
 
@@ -281,6 +329,7 @@ Element Name:   DocTypeReadVersion
 Element Name:   CRC-32
 
     Level:          1+
+    Global:         Yes
     EBML ID:        [BF]
     Mandatory:      No
     Multiple:       No
@@ -292,6 +341,7 @@ Element Name:   CRC-32
 Element Name:   Void
 
     Level:          0+
+    Global:         Yes
     EBML ID:        [EC]
     Mandatory:      No
     Multiple:       No
