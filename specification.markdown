@@ -344,7 +344,7 @@ Element Name:   Void
     Global:         Yes
     EBML ID:        [EC]
     Mandatory:      No
-    Multiple:       No
+    Multiple:       Yes
     Range:          -
     Default:        -
     Element Type:   Binary
