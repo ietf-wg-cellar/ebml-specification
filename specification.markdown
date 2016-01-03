@@ -141,7 +141,7 @@ Element Data Type:   Master-element
 
     Endianness:     None
     Length:         A Master-element may declare any length (included zero) up to the maximum Element Data Size value permitted. The Master-element may also use an unknown length. See the section on Element Data Size for rules that apply to elements of unknown length.
-    Definition:     The Master-element contains zero, one, or many other elements. Elements contained within a Master-element must be defined for use at levels greater than the level of the Master-element. For instance is a Master-element occurs on level 2 then all contained Elements must be valid at levels 3.
+    Definition:     The Master-element contains zero, one, or many other elements. The Element Data stored within Master-elements MUST only consist of EBML Elements and MUST NOT contain any data that is not part of an EBML Element. Elements contained within a Master-element must be defined for use at levels greater than the level of the Master-element. For instance is a Master-element occurs on level 2 then all contained Elements must be valid at levels 3.
 
 Element Data Type:   Binary
 
