@@ -71,7 +71,7 @@ The Element Data Size expresses the length in octets of Element Data. The Elemen
 
 Although an Element ID with all VINT\_DATA bits set to zero is invalid, an Element Data Size with all VINT\_DATA bits set to zero is allowed for EBML Data Types which do not mandate a non-zero length. An Element Data Size with all VINT\_DATA bits set to zero indicates that the Element Data of the Element is zero octets in length. Such an Element is referred to as an Empty Element. If an Empty Element has a `default` value declared then that default value MUST be interpreted as the value of the Empty Element. If an Empty Element has no `default` value declared then the semantic meaning of Empty Element is defined as part of the definition of the EBML Element Types.
 
-An Element Data Size with all VINT\_DATA bits set to one is reserved as an indicator that the size of the Element is unknown. The only reserved value for the VINT\_DATA of Element Data Size is all bits set to one. This rule allows for an Element to be written and read before the size of the Element is known; however unknown Element Data Size values SHOULD NOT be used unnecessarily. An Element with an unknown Element Data Size MUST be a Master-element in that it contains other EBML Elements as sub-elements. The end of the Master-element is determined by the beginning of the next element that is not a valid sub-element of the Master-element.
+An Element Data Size with all VINT\_DATA bits set to one is reserved as an indicator that the size of the Element is unknown. The only reserved value for the VINT\_DATA of Element Data Size is all bits set to one. This rule allows for an Element to be written and read before the size of the Element is known; however unknown Element Data Size values SHOULD NOT be used unnecessarily. An Element with an unknown Element Data Size MUST be a Master-element in that it contains other EBML Elements as sub-elements. The end of a Master-element with unknown size is determined by the beginning of the next element that is not a valid sub-element of that Master-element.
 
 For Element Data Sizes encoded at octet lengths from one to eight, this table depicts the range of possible values that can be encoded as an Element Data Size. An Element Data Size with an octet length of 8 is able to express a size of 2^56-2 or 72,057,594,037,927,934 octets (or about 72 petabytes).
 
@@ -141,7 +141,7 @@ Element Data Type:   Master-element
 
     Endianness:     None
     Length:         A Master-element may declare any length (included zero) up to the maximum Element Data Size value permitted. The Master-element may also use an unknown length. See the section on Element Data Size for rules that apply to elements of unknown length.
-    Definition:     The Master-element contains zero, one, or many other elements. Elements contained within a Master-element must be defined for use at levels greater than the level of the Master-element. For instance is a Master-element occurs on level 2 then all contained Elements must be valid at levels 3.
+    Definition:     The Master-element contains zero, one, or many other elements. The Element Data stored within Master-elements MUST only consist of EBML Elements and MUST NOT contain any data that is not part of an EBML Element. Elements contained within a Master-element must be defined for use at levels greater than the level of the Master-element. For instance is a Master-element occurs on level 2 then all contained Elements must be valid at levels 3.
 
 Element Data Type:   Binary
 
