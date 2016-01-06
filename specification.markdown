@@ -336,7 +336,7 @@ Element Name:   CRC-32
     Range:          -
     Default:        -
     Element Type:   Binary
-    Description:    The CRC is computed on all the data from the last CRC element (or start of the upper level element), up to the CRC element, including other previous CRC elements. All level 1 elements SHOULD include a CRC-32.
+    Description:    The CRC is computed on all the data of the Master element it's in. The CRC element should be the first in it's parent master for easier reading. All level 1 elements should include a CRC-32. The CRC in use is the IEEE CRC32 Little Endian.
 
 Element Name:   Void
 
