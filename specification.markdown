@@ -337,7 +337,7 @@ Element Name:   CRC-32
     Range:          -
     Default:        -
     Element Type:   Binary
-    Description:    The CRC is computed on all the data from the last CRC element (or start of the upper level element), up to the CRC element, including other previous CRC elements. All level 1 elements SHOULD include a CRC-32.
+    Description:    The CRC-32 Element contains a 32 bit Cyclic Redundancy Check value of all the Element Data of the Parent Element as stored except for the CRC-32 Element itself. When the CRC-32 Element is present, the CRC-32 Element MUST be the first ordered Element within its Parent Element for easier reading. All Elements at Level 1 of an EBML Document SHOULD include a CRC-32 Element as a Child Element. The CRC in use is the IEEE-CRC-32 algorithm as used in the ISO 3309 standard and in section 8.1.1.6.2 of ITU-T recommendation V.42, with initial value of 0xFFFFFFFF. The CRC value MUST be computed on a little endian bitstream and MUST use little endian storage.
 
 Element Name:   Void
 
