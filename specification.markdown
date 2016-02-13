@@ -6,6 +6,10 @@ EBML is short for Extensible Binary Meta Language. EBML specifies a binary and o
 
 Just like XML, the specific "tags" (IDs in EBML parlance) used in an EBML implementation are arbitrary. However, the semantic of EBML outlines general data types and ID's.
 
+## Notation and Conventions
+
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC 2119](https://tools.ietf.org/html/rfc2119).
+
 ## Structure
 
 EBML uses a system of Elements to compose an EBML "Document". Elements incorporate three parts: an Element ID, an Element Data Size, and Element Data. The Element Data, which is described by the Element ID, may include either binary data or one or many other Elements.
