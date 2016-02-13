@@ -1,10 +1,12 @@
 # EBML specifications
 
-## EBML principle
+## Introduction
 
-EBML is short for Extensible Binary Meta Language. EBML specifies a binary and octet (byte) aligned format inspired by the principle of XML. EBML itself is a generalized description of the technique of binary markup. Like XML, it is completely agnostic to any data that it might contain. The format is made of 2 parts: the semantic and the syntax. The semantic specifies a number of IDs and their basic type and is not included in the data file/stream.
+EBML, short for Extensible Binary Meta Language, specifies a binary and octet (byte) aligned format inspired by the principle of XML.
 
-Just like XML, the specific "tags" (IDs in EBML parlance) used in an EBML implementation are arbitrary. However, the semantic of EBML outlines general data types and ID's.
+The goal of the EBML Specification is to define a generic, binary, space-efficient format that may be utilized to define more complex formats (such as containers for multimedia content) using an EBML Schema. The definition of the EBML format recognizes the idea behind HTML and XML as a good one: separate structure and semantics allowing the same structural layer to be used with multiple, possibly widely differing semantic layers. Except for the EBML Header and a few global elements this specification does not define particular EBML format semantics; however this specification is intended to define how other EBML-based formats may be defined.
+
+EBML uses a simple approach of building Elements upon three pieces of data (tag, length, and value) as this approach is well known, easy to parse, and allows selective data parsing. The EBML structure additionally allows for hierarchical arrangement to support complex structural formats in an efficient manner.
 
 ## Notation and Conventions
 
