@@ -159,7 +159,7 @@ An EBML Document is comprised of only two components, an EBML Header and an EBML
 
 ### EBML Header
 
-The EBML Header is a declaration that provides processing instructions and identification of the EBML Body. The EBML Header may be considered as analogous to an XML Declaration. A valid EBML Document must start with a valid EBML Header.
+The EBML Header is a declaration that provides processing instructions and identification of the EBML Body. The EBML Header may be considered as analogous to an XML Declaration. All EBML Documents MUST begin with a valid EBML Header.
 
 The EBML Header documents the EBML Schema (also known as the EBML DocType) that may be used to semantically interpret the structure and meaning of the EBML Document. Additionally the EBML Header documents the versions of both EBML and the EBML Schema that were used to write the EBML Document and the versions required to read the EBML Document.
 
@@ -181,11 +181,20 @@ An EBML Stream is a file that consists of one or many EBML Documents that are co
 
 An EBML Schema is an XML Document that defines the properties, arrangement, and usage of EBML Elements that compose a specific EBML Document Type. The relationship of an EBML Schema to an EBML Document may be considered analogous to the relationship of an [XML Schema](http://www.w3.org/XML/Schema#dev) to an [XML Document](http://www.w3.org/TR/xml/). An EBML Schema MUST be clearly associated with one or many EBML Document Types. An EBML Schema must be expressed as well-formed XML. An EBML Document Type is identified by a unique string stored within the EBML Header element called DocType; for example `matroska` or `webm`.
 
-As an XML Document the EBML Schema MUST use `<table>` as the top level element. The `<table>` element may contain `<element>` sub-elements. Each `<element>` node defines one EBML Element through the use of several attributes. Each attribute of the `<element>` node of the EBML Schema is defined here along with a note to say if the attribute is mandatory or not. EBML Schemas many contain additional attributes to extend the semantics but MUST not conflict is the definitions of the `<element>` attributes defined here.
+As an XML Document, the EBML Schema MUST use `<EBMLSchema>` as the top level element. The `<EBMLSchema>` element MAY contain `<element>` sub-elements. Each `<element>` defines one EBML Element through the use of several attributes which are defined in the section on [EBML Schema Element Attributes](#ebml-schema-element-attributes). EBML Schemas MAY contain additional attributes to extend the semantics but MUST not conflict is the definitions of the `<element>` attributes defined within this specification.
 
 Within the EBML Schema each EBML Element is defined to occur at a specific level. For any specificied EBML Element that is not at level 0, the Parent EBML Element refers to the EBML Master-element that that EBML Element is contained within. For any specifiied EBML Master-element the Child EBML Element refers to the EBML Elements that may be immediately contained within that Master-element. For any EBML Element that is not defined at level 0, the Parent EBML Element may be identified by the preceding `<element>` node which has a lower value as the defined `level` attribute. The only exception for this rule are Global EBML Elements which may occur within any Parent EBML Element within the restriction of the Global EBML Element's range declaration.
 
+The EBML Schema does not itself document the EBML Header, but documents all data of the EBML Document that follows the EBML Header. The EBML Header itself is documented by this specification in the [EBML Header Elements](#ebml-header-elements) section.
+
 #### EBML Schema Element Attributes
+
+Within an EBML Schema the `<EBMLSchema>` uses the following attributes to define the EBML Schema:
+
+| attribute name | required | definition |
+|----------------|----------|------------|
+| docType        | Yes      | The `docType` lists the official name of the EBML Document Type that is defined by the EBML Schema; for example, `<EBMLSchema docType="matroska">`. |
+| version        | Yes      | The `version` lists an incremental non-negative integer that specifies the version of the docType documented by the EBML Schema. Unlike XML Schemas, an EBML Schema documents all versions of a docType's definition rather than using separate EBML Schemas for each version of a docType. Elements may be introduced and deprecated by using the `minver` and `maxver` attributes of <element>. |
 
 Within an EBML Schema the `<element>` uses the following attributes to define an EBML Element.
 
@@ -195,14 +204,47 @@ Within an EBML Schema the `<element>` uses the following attributes to define an
 | level          | Yes      | The level notes at what hierarchical depth the EBML Element may occur within an EBML Document. The initial EBML Element of an EBML Document is at level 0 and the Elements that it may contain are at level 1. The level MUST be expressed as an integer; however, the integer may be followed by a '+' symbol to indicate that the EBML Element is valid at any higher level.  |
 | global         | No       | A boolean to express if an EBML Element MUST occur at its defined level or may occur within any Parent EBML Element. If the `global` attribute is not expressed for that Element then that element is to be considered not global. |
 | id             | Yes      | The Element ID expressed in hexadecimal notation prefixed by a '0x'. To reduce the risk of false positives while parsing EBML Streams, Level 1 EBML Element IDs SHOULD be at least 4 octets in length. To reduce the risk of false positives while parsing EBML Streams, EBML Element IDs defined for use at Level 0 or Level 1 SHOULD be at least 4 octets in length. Element IDs defined for use at Level 0 or Level 1 MAY use shorter octet lengths to facilitate padding and optimize edits to EBML Documents; for instance, the EBML Void Element uses an Element ID with a one octet length to allow its usage in more writing and editing scenarios. |
-| mandatory      | No       | A boolean to express if the EBML Element MUST occur if the Parent EBML Element is used. If the mandatory attribute is not expressed for that Element then that element is to be considered not mandatory. |
-| multiple       | No       | A boolean to express if the EBML Element may occur within its Parent EBML Element more than once. If the multiple attribute is false or the multiple attribute is not used to define the Element then that EBML Element MUST not occur more than once with that Element's Parent EBML Element. |
-| identical      | No       | A boolean to express if the EBML Element may occur within its Parent Element more than once but that each recurrence within that Parent Element MUST be identical both in storage and semantics. Such Elements are referred to as Identically-Recurring Elements. In this case, identical copies of an EBML Element are permitted to be stored multiple times within the same Parent Element in order to increase data resilience and optimize the use of EBML in transmission. Identically-Recurring Elements SHOULD include a CRC-32 Element as a Child Element; this is especially recommended when EBML is used for long-term storage or transmission. If a Parent Element contains more than one copy of an Identically-Recurring Element which includes a CRC-32 Child Element then the first instance of the Identically-Recurring Element with a valid CRC-32 value should be used for interpretation. If a Parent Element contains more than one copy of an Identically-Recurring Element which does not contain a CRC-32 Child Element or if CRC-32 Child Elements are present but none are valid then the first instance of the Identically-Recurring Element should be used for interpretation. If the `identical` attribute is not expressed for that Element then that Element is considered to not have a requirement for identical expression within the same Parent Element. The `identical` attribute is only valid if the Element is not set to `multiple`, otherwise the `identical` attribute shall be ignored. |
+| minOccurs      | No       | An integer to express the minimal number of occurrences that the EBML Element MUST occur within its Parent Element if its Parent Element is used. If the minOccurs attribute is not expressed for that Element then that Element shall be considered to have a minOccurs value of 0. This value of minOccurs MUST be a positive integer. The semantic meaning of minOccurs within an EBML Schema is considered analogous to the meaning of minOccurs within an [XML Schema](https://www.w3.org/TR/xmlschema-0/#ref6). Note that Elements with minOccurs set to "1" that also have a default value declared are not required to be stored but are required to be interpretted, see the [Note on the Use of default attributes to define Mandatory EBML Elements](#note-on-the-use-of-default-attributes-to-define-mandatory-ebml-elements). |
+| maxOccurs       | No       | A value to express the maximum number of occurrences that the EBML Element MAY occur within its Parent Element if its Parent Element is used. This value may be either a positive integer or the term `unbounded` to indicate there is no maximum number of occurrences or the term `identical` to indicate that the Element is an [Identically-Recurring Element](#identically-recurring-elements). If the maxOccurs attribute is not expressed for that Element then that Element shall be considered to have a maxOccurs value of 1. The semantic meaning of maxOccurs within an EBML Schema is considered analogous to the meaning of minOccurs within an [XML Schema](https://www.w3.org/TR/xmlschema-0/#ref6), with EBML Schema adding the concept of Identically-Recurring Elements. |
 | range          | No       | For Elements which are of numerical types (Unsigned Integer, Signed Integer, Float, and Date) a numerical range may be specified. If specified that the value of the EBML Element MUST be within the defined range inclusively. See the [section of Expressions of range](#expression-of-range) for rules applied to expression of range values. |
 | default        | No       | A default value may be provided. If an Element is mandatory but not written within its Parent EBML Element, then the parser of the EBML Document MUST insert the defined default value of the Element. EBML Elements that are Master-elements MUST NOT declare a default value. |
 | type           | Yes      | As defined within the [section on EBML Element Types](#ebml-element-types), the type MUST be set to one of the following values: 'integer' (signed integer), 'uinteger' (unsigned integer), 'float', 'string', 'date', 'utf-8', 'master', or 'binary'. |
+| minver         | No       | The `minver` (minimum version) attribute stores a non-negative integer that represents the first version of the docType to support the element. If the `minver` attribute is not used it is assumed that the element has a minimum version of "1". |
+| maxver         | No       | The `maxver` (maximum version) attribute stores a non-negative integer that represents the last or most recent version of the docType to support the element. If the `maxver` attribute is not used it is assumed that the element has a maximum version equal to the value stored in the `version` attribute of <EBMLSchema>. |
 
-The value of the `<element>` shall contain a description that of the meaning and use of the EBML Element.
+The `<element>` nodes shall contain a description of the meaning and use of the EBML Element stored within one or many `<documentation>` sub-elements. The `<documentation>` sub-element may use a `lang` attribute which may be set to the RFC 5646 value of the language of the element's documentation.
+
+The `<element>` nodes MUST be arranged hierarchically according to the permitted structure of the EBML Document Type. An `<element>` node that defines an EBML Element which is a Child Element of another Parent Element MUST be stored as an immediate sub-element of the `<element>` node that defines the Parent Element. `<element>` nodes that define Level 0 Elements and Global Elements should be sub-elements of `<EBMLSchema>`.
+
+#### EBML Schema Example
+
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<EBMLSchema docType="files-in-ebml-demo" version="1">
+  <element name="Files" level="0" id="0x1946696C" type="master">
+    <documentation lang="en">Container of data and attributes representing one or many files.</documentation>
+    <element name="File" level="1" id="0x6146" type="master" minOccurs="1" maxOccurs="unbounded">
+      <documentation lang="en">An attached file.</documentation>
+      <element name="FileName" level="2" id="0x614E" type="utf-8" minOccurs="1">
+        <documentation lang="en">Filename of the attached file.</documentation>
+      </element>
+      <element name="MimeType" level="2" id="0x464D" type="string" minOccurs="1">
+        <documentation lang="en">MIME type of the file.</documentation>
+      </element>
+      <element name="ModificationTimestamp" level="2" id="0x4654" type="date" minOccurs="1">
+        <documentation lang="en">Modification timestamp of the file.</documentation>
+      </element>
+      <element name="Data" level="2" id="0x4664" type="binary" minOccurs="1">
+        <documentation lang="en">The data of the file.</documentation>
+      </element>
+    </element>
+  </element>
+</EBMLSchema>
+```
+
+#### Identically-Recurring Elements
+
+An Identically-Recurring Element is an Element that may occur within its Parent Element more than once but that each recurrence within that Parent Element MUST be identical both in storage and semantics. Identically-Recurring Elements are permitted to be stored multiple times within the same Parent Element in order to increase data resilience and optimize the use of EBML in transmission. Identically-Recurring Elements SHOULD include a CRC-32 Element as a Child Element; this is especially recommended when EBML is used for long-term storage or transmission. If a Parent Element contains more than one copy of an Identically-Recurring Element which includes a CRC-32 Child Element then the first instance of the Identically-Recurring Element with a valid CRC-32 value should be used for interpretation. If a Parent Element contains more than one copy of an Identically-Recurring Element which does not contain a CRC-32 Child Element or if CRC-32 Child Elements are present but none are valid then the first instance of the Identically-Recurring Element should be used for interpretation.
 
 #### Expression of range
 
