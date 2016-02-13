@@ -12,6 +12,26 @@ EBML uses a simple approach of building Elements upon three pieces of data (tag,
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC 2119](https://tools.ietf.org/html/rfc2119).
 
+## Security Considerations
+
+EBML itself does not offer any kind of security. It has nothing to do with authentication, it does not provide confidentiality, only marginally useful and effective data integrity options (CRC elements).
+
+EBML does not provide any kind of authorization.
+
+Even if the semantic layer offers any kind of encryption, EBML itself may leak information at both the semantic layer (as declared via the DocType element) and within the EBML structure (you can derive the presence of EBML elements even with an unknown semantic layer with a heuristic approach; not without errors, of course, but with a certain degree of confidence).
+
+Attacks on an EBML reader may include:
+- Invalid Element IDs that are longer than the limit stated in the EBMLMaxIDLength Element of the EBML Header.
+- Invalid Element IDs that are not encoded in the shortest-possible way.
+- Invalid Element IDs comprised of reserved values.
+- Invalid Element Data Size values that are longer than the limit stated in the EBMLMaxSizeLength Element of the EBML Header.
+- Invalid Element Data Size values (e.g. extending the length of the Element beyond the scope of the Parent Element; possibly triggering access-out-of-bounds issues).
+- Very high lengths in order to force out-of-memory situations resulting in a denial of service, access-out-of-bounds issues etc.
+- Missing Elements that are mandatory and have no declared default value.
+- Usage of 0x00 octets in EBML Elements with a string type.
+- Usage of invalid UTF-8 encoding in EBML Elements of UTF-8 type (e.g. in order to trigger access-out-of-bounds or buffer overflow issues).
+- Usage of invalid data in EBML Elements with a date type.
+
 ## Structure
 
 EBML uses a system of Elements to compose an EBML "Document". Elements incorporate three parts: an Element ID, an Element Data Size, and Element Data. The Element Data, which is described by the Element ID, may include either binary data or one or many other Elements.
