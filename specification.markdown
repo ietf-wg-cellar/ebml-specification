@@ -6,6 +6,10 @@ EBML is short for Extensible Binary Meta Language. EBML specifies a binary and o
 
 Just like XML, the specific "tags" (IDs in EBML parlance) used in an EBML implementation are arbitrary. However, the semantic of EBML outlines general data types and ID's.
 
+## Notation and Conventions
+
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC 2119](https://tools.ietf.org/html/rfc2119).
+
 ## Structure
 
 EBML uses a system of Elements to compose an EBML "Document". Elements incorporate three parts: an Element ID, an Element Data Size, and Element Data. The Element Data, which is described by the Element ID, may include either binary data or one or many other Elements.
@@ -73,7 +77,7 @@ Although an Element ID with all VINT\_DATA bits set to zero is invalid, an Eleme
 
 An Element Data Size with all VINT\_DATA bits set to one is reserved as an indicator that the size of the Element is unknown. The only reserved value for the VINT\_DATA of Element Data Size is all bits set to one. This rule allows for an Element to be written and read before the size of the Element is known; however unknown Element Data Size values SHOULD NOT be used unnecessarily. An Element with an unknown Element Data Size MUST be a Master-element in that it contains other EBML Elements as sub-elements. The end of a Master-element with unknown size is determined by the beginning of the next element that is not a valid sub-element of that Master-element.
 
-For Element Data Sizes encoded at octet lengths from one to eight, this table depicts the range of possible values that can be encoded as an Element Data Size. An Element Data Size with an octet length of 8 is able to express a size of 2^56-2 or 72,057,594,037,927,934 octets (or about 72 petabytes).
+For Element Data Sizes encoded at octet lengths from one to eight, this table depicts the range of possible values that can be encoded as an Element Data Size. An Element Data Size with an octet length of 8 is able to express a size of 2^56-2 or 72,057,594,037,927,934 octets (or about 72 petabytes). The maximum possible value that can be stored as Element Data Size is referred to as `VINTMAX`.
 
 Octet Length | Possible Value Range
 -------------|---------------------
@@ -122,13 +126,13 @@ Element Data Type:   Float
 Element Data Type:   String
 
     Endianness:     None
-    Length:         A String Element may declare any length (included zero) up to the maximum Element Data Size value permitted.
+    Length:         A String Element may declare any length (included zero) to `VINTMAX`.
     Definition:     A String Element may either be empty (zero-length) or contain Printable ASCII characters in the range of 0x20 to 0x7E. Octets with all bits set to zero may follow the string value when needed.
 
 Element Data Type:   UTF-8
 
     Endianness:     None
-    Length:         A UTF-8 Element may declare any length (included zero) up to the maximum Element Data Size value permitted.
+    Length:         A UTF-8 Element may declare any length (included zero) to `VINTMAX`.
     Definition:     A UTF-8 Element shall contain only a valid Unicode string as defined in [RFC 2279](http://www.faqs.org/rfcs/rfc2279.html). Octets with all bits set to zero may follow the UTF-8 value when needed.
 
 Element Data Type:   Date
@@ -140,13 +144,13 @@ Element Data Type:   Date
 Element Data Type:   Master-element
 
     Endianness:     None
-    Length:         A Master-element may declare any length (included zero) up to the maximum Element Data Size value permitted. The Master-element may also use an unknown length. See the section on Element Data Size for rules that apply to elements of unknown length.
+    Length:         A Master-element may declare any length (included zero) to `VINTMAX`. The Master-element may also use an unknown length. See the section on Element Data Size for rules that apply to elements of unknown length.
     Definition:     The Master-element contains zero, one, or many other elements. Elements contained within a Master-element must be defined for use at levels greater than the level of the Master-element. For instance is a Master-element occurs on level 2 then all contained Elements must be valid at level 3. Element Data stored within Master-elements SHOULD only consist of EBML Elements and SHOULD NOT contain any data that is not part of an EBML Element. When EBML is used in transmission or streaming, data that is not part of an EBML Element is permitted to be present within a Master-element. In this case, the reader should skip data until a valid Element ID of the same level or the next greater level of the Master-element is found. What Element IDs are considered valid within a Master-element is identified by the EBML Schema for that version of the EBML Document Type. Any data contained with a Master-element that is not part of an Element SHOULD be ignored.
 
 Element Data Type:   Binary
 
     Endianness:     None
-    Length:         A binary element may declare any length (including zero) up to the maximum Element Data Size value permitted.
+    Length:         A binary element may declare any length (including zero) to `VINTMAX`.
     Definition:     The contents of a Binary element should not be interpreted by the EBML parser.
 
 ## EBML Document
