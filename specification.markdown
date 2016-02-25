@@ -128,13 +128,13 @@ Element Data Type:   Float
 Element Data Type:   String
 
     Endianness:     None
-    Length:         A String Element may declare any length (included zero) to `VINTMAX`.
+    Length:         A String Element may declare any length from zero to `VINTMAX`.
     Definition:     A String Element may either be empty (zero-length) or contain Printable ASCII characters in the range of 0x20 to 0x7E. Octets with all bits set to zero may follow the string value when needed.
 
 Element Data Type:   UTF-8
 
     Endianness:     None
-    Length:         A UTF-8 Element may declare any length (included zero) to `VINTMAX`.
+    Length:         A UTF-8 Element may declare any length from zero to `VINTMAX`.
     Definition:     A UTF-8 Element shall contain only a valid Unicode string as defined in [RFC 2279](http://www.faqs.org/rfcs/rfc2279.html). Octets with all bits set to zero may follow the UTF-8 value when needed.
 
 Element Data Type:   Date
@@ -146,13 +146,13 @@ Element Data Type:   Date
 Element Data Type:   Master-element
 
     Endianness:     None
-    Length:         A Master-element may declare any length (included zero) to `VINTMAX`. The Master-element may also use an unknown length. See the section on Element Data Size for rules that apply to elements of unknown length.
+    Length:         A Master-element may declare any length from zero to `VINTMAX`. The Master-element may also use an unknown length. See the section on Element Data Size for rules that apply to elements of unknown length.
     Definition:     The Master-element contains zero, one, or many other elements. Elements contained within a Master-element must be defined for use at levels greater than the level of the Master-element. For instance is a Master-element occurs on level 2 then all contained Elements must be valid at level 3. Element Data stored within Master-elements SHOULD only consist of EBML Elements and SHOULD NOT contain any data that is not part of an EBML Element. When EBML is used in transmission or streaming, data that is not part of an EBML Element is permitted to be present within a Master-element if `unknownsizeallowed` is enabled within that Master-element's definition. In this case, the reader should skip data until a valid Element ID of the same level or the next greater level of the Master-element is found. What Element IDs are considered valid within a Master-element is identified by the EBML Schema for that version of the EBML Document Type. Any data contained with a Master-element that is not part of an Element SHOULD be ignored.
 
 Element Data Type:   Binary
 
     Endianness:     None
-    Length:         A binary element may declare any length (including zero) to `VINTMAX`.
+    Length:         A binary element may declare any length from zero to `VINTMAX`.
     Definition:     The contents of a Binary element should not be interpreted by the EBML parser.
 
 ## EBML Document
