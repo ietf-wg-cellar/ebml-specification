@@ -203,6 +203,8 @@ As an XML Document, the EBML Schema MUST use `<EBMLSchema>` as the top level ele
 
 Within the EBML Schema each EBML Element is defined to occur at a specific level. For any specificied EBML Element that is not at level 0, the Parent EBML Element refers to the EBML Master-element that that EBML Element is contained within. For any specifiied EBML Master-element the Child EBML Element refers to the EBML Elements that may be immediately contained within that Master-element. For any EBML Element that is not defined at level 0, the Parent EBML Element may be identified by the preceding `<element>` node which has a lower value as the defined `level` attribute. The only exception for this rule are Global EBML Elements which may occur within any Parent EBML Element within the restriction of the Global EBML Element's range declaration.
 
+An EBML Schema MUST declare exactly one Element at Level 0 (referred to as the Root Element) that MUST occur exactly once within an EBML Document. The Root Element MUST be mandatory (with minOccurs set to 1) and MUST be defined to occur exactly once (maxOccurs set to 1). Note that the EBML and Void Elements may also occur at Level 0 but are not considered to be Root Elements.
+
 The EBML Schema does not itself document the EBML Header, but documents all data of the EBML Document that follows the EBML Header. The EBML Header itself is documented by this specification in the [EBML Header Elements](#ebml-header-elements) section.
 
 #### EBML Schema Element Attributes
@@ -240,7 +242,7 @@ The `<element>` nodes MUST be arranged hierarchically according to the permitted
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <EBMLSchema docType="files-in-ebml-demo" version="1">
-  <element name="Files" level="0" id="0x1946696C" type="master">
+  <element name="Files" level="0" id="0x1946696C" type="master"><!-- Root Element-->
     <documentation lang="en">Container of data and attributes representing one or many files.</documentation>
     <element name="File" level="1" id="0x6146" type="master" minOccurs="1" maxOccurs="unbounded">
       <documentation lang="en">An attached file.</documentation>
