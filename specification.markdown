@@ -271,13 +271,26 @@ An Identically-Recurring Element is an Element that may occur within its Parent 
 
 #### Expression of range
 
-The `range` attribute MUST only be used with EBML Elements that are either `signed integer` or `unsigned integer`. The `range` attribute does not support date or float EBML Elements. The `range` expression may contain whitespace for readability but whitespace within a `range` expression MUST NOT convey meaning. The expression of the `range` MUST adhere to one of the following forms:
+The `range` attribute MUST only be used with EBML Elements that are either `signed integer`, `unsigned integer`, or `float`. The `range` attribute does not support date EBML Elements. The `range` expression may contain whitespace for readability but whitespace within a `range` expression MUST NOT convey meaning. The expression of the `range` MUST adhere to one of the following forms:
 
-    - `x-y` where x and y are integers and `y` must be greater than `x`, meaning that the value must be greater than or equal to `x` and less than or equal to `y`.
-    - `>x` where `x` is an integer, meaning that the value MUST be greater than `x`.
-    - `x` where `x` is an integer, meaning that the value MUST be equal `x`.
+    - `x-y` where x and y are integers or floats and `y` must be greater than `x`, meaning that the value must be greater than or equal to `x` and less than or equal to `y`.
+    - `>x` where `x` is an integer or float, meaning that the value MUST be greater than `x`.
+    - `x` where `x` is an integer or float, meaning that the value MUST be equal `x`.
 
-The `range` may use the prefix `not ` to indicate that the expressed range is negated.
+The `range` may use the prefix `not ` to indicate that the expressed range is negated. Please also see the section on [textual expression of floats](#textual-expression-of-floats).
+
+#### Textual expression of Floats
+
+When a float value is represented textually in an EBML Schema, such as within a `default` or `range` value, the float values MUST be expressed as a Hexadecimal Floating-Point Constants as defined in the C11 standard [ISO/IEC 9899:2011](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf) (see section 6.4.4.2 on Floating Constants). The following table provides examples of expressions of float ranges.
+
+| as decimal        | as Hexadecimal Floating-Point Constants | 
+|-------------------|-----------------------------------------|
+| 0.0-1.0           | 0x0p+1-0x1p+0                           |
+| 1.0-256.0         | 0x1p+0-0x1p+8                           |
+| 0.857421875       | 0x1.b7p-1                               |
+| -1.0--0.857421875 | -0x1p+0--0x1.b7p-1                      |
+
+Within an expression of a float range, as in an integer range, the `-` (hyphen) character is the separator between the minimal and maximum value permitted by the range. Note that Hexadecimal Floating-Point Constants also use a `-` (hyphen) when indicating a negative binary power. Within a float range, when a `-` (hyphen) is immediately preceded by a letter `p`, then the `-` (hyphen) is a part of the Hexadecimal Floating-Point Constant which notes negative binary power. Within a float range, when a `-` (hyphen) is immediately preceded by a letter `p`, then the `-` (hyphen) represents the separator between the minimal and maximum value permitted by the range.
 
 #### Note on the Use of default attributes to define Mandatory EBML Elements
 
