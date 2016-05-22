@@ -207,7 +207,7 @@ An EBML Schema MUST declare exactly one Element at Level 0 (referred to as the R
 
 Elements defined to only occur at Level 1 are known as Top-Level Elements.
 
-The EBML Schema does not itself document the EBML Header, but documents all data of the EBML Document that follows the EBML Header. The EBML Header itself is documented by this specification in the [EBML Header Elements](#ebml-header-elements) section.
+The EBML Schema does not itself document the EBML Header, but documents all data of the EBML Document that follows the EBML Header. The EBML Header itself is documented by this specification in the [EBML Header Elements](#ebml-header-elements) section. The EBML Schema also does not document Global Elements that are defined by the EBML Specification (namely Void and CRC-32).
 
 #### EBML Schema Element Attributes
 
