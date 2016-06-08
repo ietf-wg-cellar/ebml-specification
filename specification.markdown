@@ -336,7 +336,7 @@ Element Name:   EBMLVersion
     EBML ID:        [42][86]
     Mandatory:      Yes
     Multiple:       No
-    Range:          -
+    Range:          1
     Default:        1
     Element Type:   Unsigned Integer
     Description:    The version of EBML parser used to create the EBML Document.
@@ -347,7 +347,7 @@ Element Name:   EBMLReadVersion
     EBML ID:        [42][F7]
     Mandatory:      Yes
     Multiple:       No
-    Range:          -
+    Range:          1
     Default:        1
     Element Type:   Unsigned Integer
     Description:    The minimum EBML version a parser has to support to read this EBML Document.
