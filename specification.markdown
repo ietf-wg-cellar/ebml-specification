@@ -236,7 +236,7 @@ Within an EBML Schema the `<element>` uses the following attributes to define an
 | minver         | No       | The `minver` (minimum version) attribute stores a non-negative integer that represents the first version of the docType to support the element. If the `minver` attribute is not used it is assumed that the element has a minimum version of "1". |
 | maxver         | No       | The `maxver` (maximum version) attribute stores a non-negative integer that represents the last or most recent version of the docType to support the element. If the `maxver` attribute is not used it is assumed that the element has a maximum version equal to the value stored in the `version` attribute of <EBMLSchema>. |
 
-The `<element>` nodes shall contain a description of the meaning and use of the EBML Element stored within one or many `<documentation>` sub-elements. The `<documentation>` sub-element may use a `lang` attribute which may be set to the RFC 5646 value of the language of the element's documentation.
+The `<element>` nodes shall contain a description of the meaning and use of the EBML Element stored within one or many `<documentation>` sub-elements. The `<documentation>` sub-element may use a `lang` attribute which may be set to the RFC 5646 value of the language of the element's documentation. The `<documentation>` sub-element may use a `type` attribute to distinguish the meaning of the documentation. Recommended values for the `<documentation>` sub-element's `type` attribute include: `definition`, `rationale`, `usage notes`, and `references`.
 
 The `<element>` nodes MUST be arranged hierarchically according to the permitted structure of the EBML Document Type. An `<element>` node that defines an EBML Element which is a Child Element of another Parent Element MUST be stored as an immediate sub-element of the `<element>` node that defines the Parent Element. `<element>` nodes that define Level 0 Elements and Global Elements should be sub-elements of `<EBMLSchema>`.
 
@@ -246,20 +246,22 @@ The `<element>` nodes MUST be arranged hierarchically according to the permitted
 <?xml version="1.0" encoding="utf-8"?>
 <EBMLSchema docType="files-in-ebml-demo" version="1">
   <element name="Files" level="0" id="0x1946696C" type="master"><!-- Root Element-->
-    <documentation lang="en">Container of data and attributes representing one or many files.</documentation>
+    <documentation lang="en" type="definition">Container of data and attributes representing one or many files.</documentation>
     <element name="File" level="1" id="0x6146" type="master" minOccurs="1" maxOccurs="unbounded">
-      <documentation lang="en">An attached file.</documentation>
+      <documentation lang="en" type="definition">An attached file.</documentation>
       <element name="FileName" level="2" id="0x614E" type="utf-8" minOccurs="1">
-        <documentation lang="en">Filename of the attached file.</documentation>
+        <documentation lang="en" type="definition">Filename of the attached file.</documentation>
       </element>
       <element name="MimeType" level="2" id="0x464D" type="string" minOccurs="1">
-        <documentation lang="en">MIME type of the file.</documentation>
+        <documentation lang="en" type="definition">MIME type of the file.</documentation>
+      </element>
+        <documentation lang="en" type="usage notes">IANA defined MIME types are preferred.</documentation>
       </element>
       <element name="ModificationTimestamp" level="2" id="0x4654" type="date" minOccurs="1">
-        <documentation lang="en">Modification timestamp of the file.</documentation>
+        <documentation lang="en" type="definition">Modification timestamp of the file.</documentation>
       </element>
       <element name="Data" level="2" id="0x4664" type="binary" minOccurs="1">
-        <documentation lang="en">The data of the file.</documentation>
+        <documentation lang="en" type="definition">The data of the file.</documentation>
       </element>
     </element>
   </element>
