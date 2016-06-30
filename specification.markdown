@@ -245,24 +245,33 @@ The `<element>` nodes MUST be arranged hierarchically according to the permitted
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <EBMLSchema docType="files-in-ebml-demo" version="1">
-  <element name="Files" level="0" id="0x1946696C" type="master"><!-- Root Element-->
-    <documentation lang="en">Container of data and attributes representing one or many files.</documentation>
-    <element name="File" level="1" id="0x6146" type="master" minOccurs="1" maxOccurs="unbounded">
-      <documentation lang="en">An attached file.</documentation>
-      <element name="FileName" level="2" id="0x614E" type="utf-8" minOccurs="1">
-        <documentation lang="en">Filename of the attached file.</documentation>
-      </element>
-      <element name="MimeType" level="2" id="0x464D" type="string" minOccurs="1">
-        <documentation lang="en">MIME type of the file.</documentation>
-      </element>
-      <element name="ModificationTimestamp" level="2" id="0x4654" type="date" minOccurs="1">
-        <documentation lang="en">Modification timestamp of the file.</documentation>
-      </element>
-      <element name="Data" level="2" id="0x4664" type="binary" minOccurs="1">
-        <documentation lang="en">The data of the file.</documentation>
-      </element>
-    </element>
+ <!-- Root Element-->
+ <element name="Files" level="0" id="0x1946696C" type="master">
+  <documentation lang="en">Container of data and attributes representing
+  one or many files.</documentation>
+  <element name="File" level="1" id="0x6146" type="master" minOccurs="1"
+  maxOccurs="unbounded">
+   <documentation lang="en">An attached file.</documentation>
+   <element name="FileName" level="2" id="0x614E" type="utf-8"
+   minOccurs="1">
+    <documentation lang="en">Filename of the attached file.
+    </documentation>
+   </element>
+   <element name="MimeType" level="2" id="0x464D" type="string"
+     minOccurs="1">
+    <documentation lang="en">MIME type of the file.</documentation>
+   </element>
+   <element name="ModificationTimestamp" level="2" id="0x4654"
+     type="date" minOccurs="1">
+    <documentation lang="en">Modification timestamp of the file.
+    </documentation>
+   </element>
+   <element name="Data" level="2" id="0x4664" type="binary"
+     minOccurs="1">
+    <documentation lang="en">The data of the file.</documentation>
+   </element>
   </element>
+ </element>
 </EBMLSchema>
 ```
 
