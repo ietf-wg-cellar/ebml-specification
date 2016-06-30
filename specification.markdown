@@ -57,7 +57,7 @@ The VINT\_DATA portion of the Variable Size Integer includes all data that follo
 This table shows examples of Variable Size Integers at widths of 1 to 5 octets. The Representation column depicts a binary expression of Variable Size Integers where VINT\_WIDTH is depicted by '0', the VINT\_MARKER as '1', and the VINT\_DATA as 'x'.
 
 Octet Width | Size | Representation
-------------|------|--------------------------------------------------
+------------|------|:-------------------------------------------------
 1           | 2^7  | 1xxx xxxx
 2           | 2^14 | 01xx xxxx xxxx xxxx
 3           | 2^21 | 001x xxxx xxxx xxxx xxxx xxxx
@@ -67,7 +67,7 @@ Octet Width | Size | Representation
 Note that data encoded as a Variable Size Integer may be rendered at octet widths larger than needed to store the data. In this table a binary value of 0b10 is shown encoded as different Variable Size Integers with widths from one octet to four octet. All four encoded examples have identical semantic meaning though the VINT\_WIDTH and the padding of the VINT\_DATA vary.
 
 Binary Value | Octet Width | As Represented in Variable Size Integer
--------------|-------------|----------------------------------------
+-------------|-------------|:---------------------------------------
 10           | 1           | 1000 0010
 10           | 2           | 0100 0000 0000 0010
 10           | 3           | 0010 0000 0000 0000 0000 0010
@@ -78,7 +78,7 @@ Binary Value | Octet Width | As Represented in Variable Size Integer
 The Element ID MUST be encoded as a Variable Size Integer. By default, EBML Element IDs may be encoded in lengths from one octet to four octets, although Element IDs of greater lengths may be used if the octet length of the EBML Document's longest Element ID is declared in the EBMLMaxIDLength Element of the EBML Header. The VINT\_DATA component of the Element ID MUST NOT be set to either all zero values or all one values. The VINT\_DATA component of the Element ID MUST be encoded at the shortest valid length. For example, an Element ID with binary encoding of 1011 1111 is valid, whereas an Element ID with binary encoding of 0100 0000 0011 1111 stores a semantically equal VINT\_DATA but is invalid because a shorter VINT encoding is possible. The following table details this specific example further:
 
 VINT\_WIDTH | VINT\_MARKER | VINT\_DATA     | Element ID Status
------------:|-------------:|---------------:|------------------
+-----------:|-------------:|---------------:|:-----------------
             | 1            |        0111111 | Valid
 0           | 1            | 00000000111111 | Invalid
 
@@ -123,53 +123,53 @@ VINT\_WIDTH | VINT\_MARKER | VINT\_DATA     | Element Data Size Status
 
 Each defined EBML Element MUST have a declared Element Type. The Element Type defines a concept for storing data that may be constrained by length, endianness, and purpose.
 
-Element Data Type:   Signed Integer
+Element Data Type | Signed Integer
+:-----------------|:--------------
+Endianness        | Big-endian
+Length            | A Signed Integer Element MUST declare a length that is no greater than 8 octets. An Signed Integer Element with a zero-octet length represents an integer value of zero.
+Definition        | A Signed Integer stores an integer (meaning that it can be written without a fractional component) which may be negative, positive, or zero. Because EBML limits Signed Integers to 8 octets in length a Signed Element may store a number from −9,223,372,036,854,775,808 to +9,223,372,036,854,775,807.
 
-    Endianness:     Big-endian
-    Length:         A Signed Integer Element MUST declare a length that is no greater than 8 octets. An Signed Integer Element with a zero-octet length represents an integer value of zero.
-    Definition:     A Signed Integer stores an integer (meaning that it can be written without a fractional component) which may be negative, positive, or zero. Because EBML limits Signed Integers to 8 octets in length a Signed Element may store a number from −9,223,372,036,854,775,808 to +9,223,372,036,854,775,807.
+Element Data Type | Unsigned Integer
+:-----------------|:-----------------
+Endianness        | Big-endian
+Length            | A Unsigned Integer Element MUST declare a length that is no greater than 8 octets. An Unsigned Integer Element with a zero-octet length represents an integer value of zero.
+Definition        | An Unsigned Integer stores an integer (meaning that it can be written without a fractional component) which may be positive or zero. Because EBML limits Unsigned Integers to 8 octets in length an unsigned Element may store a number from 0 to 18,446,744,073,709,551,615.
 
-Element Data Type:   Unsigned Integer
+Element Data Type | Float
+:-----------------|:------
+Endianness        | Big-endian
+Length            | A Float Element MUST declare of length of either 0 octets (0 bit), 4 octets (32 bit) or 8 octets (64 bit). A Float Element with a zero-octet length represents a numerical value of zero.
+Definition        | A Float Elements stores a floating-point number as defined in IEEE 754.
 
-    Endianness:     Big-endian
-    Length:         A Unsigned Integer Element MUST declare a length that is no greater than 8 octets. An Unsigned Integer Element with a zero-octet length represents an integer value of zero.
-    Definition:     An Unsigned Integer stores an integer (meaning that it can be written without a fractional component) which may be positive or zero. Because EBML limits Unsigned Integers to 8 octets in length an unsigned Element may store a number from 0 to 18,446,744,073,709,551,615.
+Element Data Type | String
+:-----------------|:-------
+Endianness        | None
+Length            | A String Element may declare any length from zero to `VINTMAX`.
+Definition        | A String Element may either be empty (zero-length) or contain Printable ASCII characters in the range of 0x20 to 0x7E. Octets with all bits set to zero may follow the string value when needed.
 
-Element Data Type:   Float
+Element Data Type | UTF-8
+:-----------------|:------
+Endianness        | None
+Length            | A UTF-8 Element may declare any length from zero to `VINTMAX`.
+Definition        | A UTF-8 Element shall contain only a valid Unicode string as defined in [RFC 2279](http://www.faqs.org/rfcs/rfc2279.html). Octets with all bits set to zero may follow the UTF-8 value when needed.
 
-    Endianness:     Big-endian
-    Length:         A Float Element MUST declare of length of either 0 octets (0 bit), 4 octets (32 bit) or 8 octets (64 bit). A Float Element with a zero-octet length represents a numerical value of zero.
-    Definition:     A Float Elements stores a floating-point number as defined in IEEE 754.
+Element Data Type | Date
+:-----------------|:-----
+Endianness        | None
+Length            | A Date Element MUST declare a length of either 0 octets or 8 octets. A Date Element with a zero-octet length represents a timestamp of 2001-01-01T00:00:00.000000000 UTC.
+Definition        | The Date Element MUST contain a Signed Integer that expresses a point in time referenced in nanoseconds from the precise beginning of the third millennium of the Gregorian Calendar in Coordinated Universal Time (also known as 2001-01-01T00:00:00.000000000 UTC). This provides a possible expression of time from 1708-09-11T00:12:44.854775808 UTC to 2293-04-11T11:47:16.854775807 UTC.
 
-Element Data Type:   String
+Element Data Type | Master-element
+:-----------------|:---------------
+Endianness        | None
+Length            | A Master-element may declare any length from zero to `VINTMAX`. The Master-element may also use an unknown length. See the section on Element Data Size for rules that apply to elements of unknown length.
+Definition        | The Master-element contains zero, one, or many other elements. Elements contained within a Master-element must be defined for use at levels greater than the level of the Master-element. For instance is a Master-element occurs on level 2 then all contained Elements must be valid at level 3. Element Data stored within Master-elements SHOULD only consist of EBML Elements and SHOULD NOT contain any data that is not part of an EBML Element. When EBML is used in transmission or streaming, data that is not part of an EBML Element is permitted to be present within a Master-element if `unknownsizeallowed` is enabled within that Master-element's definition. In this case, the reader should skip data until a valid Element ID of the same level or the next greater level of the Master-element is found. What Element IDs are considered valid within a Master-element is identified by the EBML Schema for that version of the EBML Document Type. Any data contained with a Master-element that is not part of an Element SHOULD be ignored.
 
-    Endianness:     None
-    Length:         A String Element may declare any length from zero to `VINTMAX`.
-    Definition:     A String Element may either be empty (zero-length) or contain Printable ASCII characters in the range of 0x20 to 0x7E. Octets with all bits set to zero may follow the string value when needed.
-
-Element Data Type:   UTF-8
-
-    Endianness:     None
-    Length:         A UTF-8 Element may declare any length from zero to `VINTMAX`.
-    Definition:     A UTF-8 Element shall contain only a valid Unicode string as defined in [RFC 2279](http://www.faqs.org/rfcs/rfc2279.html). Octets with all bits set to zero may follow the UTF-8 value when needed.
-
-Element Data Type:   Date
-
-    Endianness:     None
-    Length:         A Date Element MUST declare a length of either 0 octets or 8 octets. A Date Element with a zero-octet length represents a timestamp of 2001-01-01T00:00:00.000000000 UTC.
-    Definition:     The Date Element MUST contain a Signed Integer that expresses a point in time referenced in nanoseconds from the precise beginning of the third millennium of the Gregorian Calendar in Coordinated Universal Time (also known as 2001-01-01T00:00:00.000000000 UTC). This provides a possible expression of time from 1708-09-11T00:12:44.854775808 UTC to 2293-04-11T11:47:16.854775807 UTC.
-
-Element Data Type:   Master-element
-
-    Endianness:     None
-    Length:         A Master-element may declare any length from zero to `VINTMAX`. The Master-element may also use an unknown length. See the section on Element Data Size for rules that apply to elements of unknown length.
-    Definition:     The Master-element contains zero, one, or many other elements. Elements contained within a Master-element must be defined for use at levels greater than the level of the Master-element. For instance is a Master-element occurs on level 2 then all contained Elements must be valid at level 3. Element Data stored within Master-elements SHOULD only consist of EBML Elements and SHOULD NOT contain any data that is not part of an EBML Element. When EBML is used in transmission or streaming, data that is not part of an EBML Element is permitted to be present within a Master-element if `unknownsizeallowed` is enabled within that Master-element's definition. In this case, the reader should skip data until a valid Element ID of the same level or the next greater level of the Master-element is found. What Element IDs are considered valid within a Master-element is identified by the EBML Schema for that version of the EBML Document Type. Any data contained with a Master-element that is not part of an Element SHOULD be ignored.
-
-Element Data Type:   Binary
-
-    Endianness:     None
-    Length:         A binary element may declare any length from zero to `VINTMAX`.
-    Definition:     The contents of a Binary element should not be interpreted by the EBML parser.
+Element Data Type | Binary
+:-----------------|:-------
+Endianness        | None
+Length            | A binary element may declare any length from zero to `VINTMAX`.
+Definition        | The contents of a Binary element should not be interpreted by the EBML parser.
 
 ## EBML Document
 
@@ -214,14 +214,14 @@ The EBML Schema does not itself document the EBML Header, but documents all data
 Within an EBML Schema the `<EBMLSchema>` uses the following attributes to define the EBML Schema:
 
 | attribute name | required | definition |
-|----------------|----------|------------|
+|:---------------|:---------|:-----------|
 | docType        | Yes      | The `docType` lists the official name of the EBML Document Type that is defined by the EBML Schema; for example, `<EBMLSchema docType="matroska">`. |
 | version        | Yes      | The `version` lists an incremental non-negative integer that specifies the version of the docType documented by the EBML Schema. Unlike XML Schemas, an EBML Schema documents all versions of a docType's definition rather than using separate EBML Schemas for each version of a docType. Elements may be introduced and deprecated by using the `minver` and `maxver` attributes of <element>. |
 
 Within an EBML Schema the `<element>` uses the following attributes to define an EBML Element.
 
 | attribute name | required | definition |
-|----------------|----------|------------|
+|:---------------|:---------|:-----------|
 | name           | Yes      | The official human-readable name of the EBML Element. The value of the name MUST be in the form of an NCName as defined by the [XML Schema specification](http://www.w3.org/TR/1999/REC-xml-names-19990114/#ns-decl). |
 | level          | Yes      | The level notes at what hierarchical depth the EBML Element may occur within an EBML Document. The Root Element of an EBML Document is at level 0 and the Elements that it may contain are at level 1. The level MUST be expressed as an integer. Note that for Elements defined as `global` and `recursive` the Element MAY occur at a level greater than or equal to the defined `level`.|
 | global         | No       | A boolean to express if an EBML Element MUST occur at its defined level or may occur within any Parent EBML Element. If the `global` attribute is not expressed for that Element then that element is to be considered not global. |
@@ -274,9 +274,9 @@ An Identically Recurring Element is an Element that may occur within its Parent 
 
 The `range` attribute MUST only be used with EBML Elements that are either `signed integer`, `unsigned integer`, or `float`. The `range` attribute does not support date EBML Elements. The `range` expression may contain whitespace for readability but whitespace within a `range` expression MUST NOT convey meaning. The expression of the `range` MUST adhere to one of the following forms:
 
-    - `x-y` where x and y are integers or floats and `y` must be greater than `x`, meaning that the value must be greater than or equal to `x` and less than or equal to `y`.
-    - `>x` where `x` is an integer or float, meaning that the value MUST be greater than `x`.
-    - `x` where `x` is an integer or float, meaning that the value MUST be equal `x`.
+- `x-y` where x and y are integers or floats and `y` must be greater than `x`, meaning that the value must be greater than or equal to `x` and less than or equal to `y`.
+- `>x` where `x` is an integer or float, meaning that the value MUST be greater than `x`.
+- `x` where `x` is an integer or float, meaning that the value MUST be equal `x`.
 
 The `range` may use the prefix `not ` to indicate that the expressed range is negated. Please also see the section on [textual expression of floats](#textual-expression-of-floats).
 
@@ -284,8 +284,8 @@ The `range` may use the prefix `not ` to indicate that the expressed range is ne
 
 When a float value is represented textually in an EBML Schema, such as within a `default` or `range` value, the float values MUST be expressed as a Hexadecimal Floating-Point Constants as defined in the C11 standard [ISO/IEC 9899:2011](http://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf) (see section 6.4.4.2 on Floating Constants). The following table provides examples of expressions of float ranges.
 
-| as decimal        | as Hexadecimal Floating-Point Constants | 
-|-------------------|-----------------------------------------|
+| as decimal        | as Hexadecimal Floating-Point Constants |
+|:------------------|:----------------------------------------|
 | 0.0-1.0           | 0x0p+1-0x1p+0                           |
 | 1.0-256.0         | 0x1p+0-0x1p+8                           |
 | 0.857421875       | 0x1.b7p-1                               |
@@ -320,116 +320,115 @@ If an EBML Element is not Mandatory, has a defined default value, and is an Empt
 
 This specification here contains definitions of all EBML Elements of the EBML Header.
 
-Element Name:   EBML
+Name         | EBML
+:------------|:----
+Level        | 0
+EBML ID      | [1A][45][DF][A3]
+Mandatory    | Yes
+Multiple     | No
+Range        | -
+Default      | -
+Type         | Master-element
+Description  | Set the EBML characteristics of the data to follow. Each EBML Document has to start with this.
 
-    Level:          0
-    EBML ID:        [1A][45][DF][A3]
-    Mandatory:      Yes
-    Multiple:       No
-    Range:          -
-    Default:        -
-    Element Type:   Master-element
-    Description:    Set the EBML characteristics of the data to follow. Each EBML Document has to start with this.
+Name         | EBMLVersion
+:------------|:-----------
+Level        | 1
+EBML ID      | [42][86]
+Mandatory    | Yes
+Multiple     | No
+Range        | 1
+Default      | 1
+Type         | Unsigned Integer
+Description  | The version of EBML parser used to create the EBML Document.
 
-Element Name:   EBMLVersion
+Name         | EBMLReadVersion
+:------------|:---------------
+Level        | 1
+EBML ID      | [42][F7]
+Mandatory    | Yes
+Multiple     | No
+Range        | 1
+Default      | 1
+Type         | Unsigned Integer
+Description  | The minimum EBML version a parser has to support to read this EBML Document.
 
-    Level:          1
-    EBML ID:        [42][86]
-    Mandatory:      Yes
-    Multiple:       No
-    Range:          1
-    Default:        1
-    Element Type:   Unsigned Integer
-    Description:    The version of EBML parser used to create the EBML Document.
+Name         | EBMLMaxIDLength
+:------------|:---------------
+Level        | 1
+EBML ID      | [42][F2]
+Mandatory    | Yes
+Multiple     | No
+Range        | >3
+Default      | 4
+Type         | Unsigned Integer
+Description  | The EBMLMaxIDLength is the maximum length in octets of the Element IDs to be found within the EBML Body. An EBMLMaxIDLength value of four is recommended, though larger values are allowed.
 
-Element Name:   EBMLReadVersion
+Name         | EBMLMaxSizeLength
+:------------|:-----------------
+Level        | 1
+EBML ID      | [42][F3]
+Mandatory    | Yes
+Multiple     | No
+Range        | >0
+Default      | 8
+Type         | Unsigned Integer
+Description  | The EBMLMaxSizeLength is the maximum length in octets of the expression of all Element Data Sizes to be found within the EBML Body. To be clear EBMLMaxSizeLength documents the maximum 'length' of all Element Data Size expressions within the EBML Body and not the maximum 'value' of all Element Data Size expressions within the EBML Body. Elements that have a Element Data Size expression which is larger in octets than what is expressed by EBMLMaxSizeLength SHALL be considered invalid.
 
-    Level:          1
-    EBML ID:        [42][F7]
-    Mandatory:      Yes
-    Multiple:       No
-    Range:          1
-    Default:        1
-    Element Type:   Unsigned Integer
-    Description:    The minimum EBML version a parser has to support to read this EBML Document.
+Name         | DocType
+:------------|:-------
+Level        | 1
+EBML ID      | [42][82]
+Mandatory    | Yes
+Multiple     | No
+Range        | -
+Default      | matroska
+Type         | String
+Description  | A string that describes and identifies the content of the EBML Body that follows this EBML Header.
 
-Element Name:   EBMLMaxIDLength
+Name         | DocTypeVersion
+:------------|:--------------
+Level        | 1
+EBML ID      | [42][87]
+Mandatory    | Yes
+Multiple     | No
+Range        | -
+Default      | 1
+Type         | Unsigned Integer
+Description  | The version of DocType interpreter used to create the EBML Document.
 
-    Level:          1
-    EBML ID:        [42][F2]
-    Mandatory:      Yes
-    Multiple:       No
-    Range:          >3
-    Default:        4
-    Element Type:   Unsigned Integer
-    Description:    The EBMLMaxIDLength is the maximum length in octets of the Element IDs to be found within the EBML Body. An EBMLMaxIDLength value of four is recommended, though larger values are allowed.
-
-Element Name:   EBMLMaxSizeLength
-
-    Level:          1
-    EBML ID:        [42][F3]
-    Mandatory:      Yes
-    Multiple:       No
-    Range:          >0
-    Default:        8
-    Element Type:   Unsigned Integer
-    Description:    The EBMLMaxSizeLength is the maximum length in octets of the expression of all Element Data Sizes to be found within the EBML Body. To be clear EBMLMaxSizeLength documents the maximum 'length' of all Element Data Size expressions within the EBML Body and not the maximum 'value' of all Element Data Size expressions within the EBML Body. Elements that have a Element Data Size expression which is larger in octets than what is expressed by EBMLMaxSizeLength SHALL be considered invalid.
-
-Element Name:   DocType
-
-    Level:          1
-    EBML ID:        [42][82]
-    Mandatory:      Yes
-    Multiple:       No
-    Range:          -
-    Default:        matroska
-    Element Type:   String
-    Description:    A string that describes and identifies the content of the EBML Body that follows this EBML Header.
-
-Element Name:   DocTypeVersion
-
-    Level:          1
-    EBML ID:        [42][87]
-    Mandatory:      Yes
-    Multiple:       No
-    Range:          -
-    Default:        1
-    Element Type:   Unsigned Integer
-    Description:    The version of DocType interpreter used to create the EBML Document.
-
-Element Name:   DocTypeReadVersion
-
-    Level:          1
-    EBML ID:        [42][85]
-    Mandatory:      Yes
-    Multiple:       No
-    Range:          -
-    Default:        1
-    Element Type:   Unsigned Integer
-    Description:    The minimum DocType version an interpreter has to support to read this EBML Document.
+Name         | DocTypeReadVersion
+:------------|:------------------
+Level        | 1
+EBML ID      | [42][85]
+Mandatory    | Yes
+Multiple     | No
+Range        | -
+Default      | 1
+Type         | Unsigned Integer
+Description  | The minimum DocType version an interpreter has to support to read this EBML Document.
 
 ### Global elements (used everywhere in the format)
 
-Element Name:   CRC-32
+Name         | CRC-32
+:------------|:------
+Level        | 1+
+Global       | Yes
+EBML ID      | [BF]
+Mandatory    | No
+Range        | -
+Default      | -
+Type         | Binary
+Description  | The CRC-32 Element contains a 32 bit Cyclic Redundancy Check value of all the Element Data of the Parent Element as stored except for the CRC-32 Element itself. When the CRC-32 Element is present, the CRC-32 Element MUST be the first ordered Element within its Parent Element for easier reading. All Top-Level Elements of an EBML Document SHOULD include a CRC-32 Element as a Child Element. The CRC in use is the IEEE-CRC-32 algorithm as used in the ISO 3309 standard and in section 8.1.1.6.2 of ITU-T recommendation V.42, with initial value of 0xFFFFFFFF. The CRC value MUST be computed on a little endian bitstream and MUST use little endian storage.
 
-    Level:          1+
-    Global:         Yes
-    EBML ID:        [BF]
-    Mandatory:      No
-    Multiple:       No
-    Range:          -
-    Default:        -
-    Element Type:   Binary
-    Description:    The CRC-32 Element contains a 32 bit Cyclic Redundancy Check value of all the Element Data of the Parent Element as stored except for the CRC-32 Element itself. When the CRC-32 Element is present, the CRC-32 Element MUST be the first ordered Element within its Parent Element for easier reading. All Top-Level Elements of an EBML Document SHOULD include a CRC-32 Element as a Child Element. The CRC in use is the IEEE-CRC-32 algorithm as used in the ISO 3309 standard and in section 8.1.1.6.2 of ITU-T recommendation V.42, with initial value of 0xFFFFFFFF. The CRC value MUST be computed on a little endian bitstream and MUST use little endian storage.
-
-Element Name:   Void
-
-    Level:          0+
-    Global:         Yes
-    EBML ID:        [EC]
-    Mandatory:      No
-    Multiple:       Yes
-    Range:          -
-    Default:        -
-    Element Type:   Binary
-    Description:    Used to void damaged data, to avoid unexpected behaviors when using damaged data. The content is discarded. Also used to reserve space in a sub-element for later use.
+Name         | Void
+:------------|:----
+Level        | 0+
+Global       | Yes
+EBML ID      | [EC]
+Mandatory    | No
+Multiple     | Yes
+Range        | -
+Default      | -
+Type         | Binary
+Description  | Used to void damaged data, to avoid unexpected behaviors when using damaged data. The content is discarded. Also used to reserve space in a sub-element for later use.
