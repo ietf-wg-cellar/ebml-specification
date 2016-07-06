@@ -17,4 +17,8 @@
 % surname="Rice"
 % fullname="Dave Rice"
 
+.# Abstract
+
+This document defines the Extensible Binary Meta Language (EBML) format as a genearlized file format for any type of data in a hierarchical form. EBML is designed as a binary equivalent to XML and utilizes a storage-efficient approach to building nested Elements with identifiers, lengths, and values. Similar to how an XML Schema defines the structure and semantics of an XML Document, this document defines an EBML Schema to convey the semantics of an EBML Document.
+
 {mainmatter}
