@@ -335,7 +335,7 @@ This specification here contains definitions of all EBML Elements of the EBML He
 Name         | EBML
 :------------|:----
 Level        | 0
-EBML ID      | [1A][45][DF][A3]
+EBML ID      | `0x1A45DFA3`
 Mandatory    | Yes
 Multiple     | No
 Range        | -
@@ -346,7 +346,7 @@ Description  | Set the EBML characteristics of the data to follow. Each EBML Doc
 Name         | EBMLVersion
 :------------|:-----------
 Level        | 1
-EBML ID      | [42][86]
+EBML ID      | `0x4286`
 Mandatory    | Yes
 Multiple     | No
 Range        | 1
@@ -357,7 +357,7 @@ Description  | The version of EBML parser used to create the EBML Document.
 Name         | EBMLReadVersion
 :------------|:---------------
 Level        | 1
-EBML ID      | [42][F7]
+EBML ID      | `0x42F7`
 Mandatory    | Yes
 Multiple     | No
 Range        | 1
@@ -368,7 +368,7 @@ Description  | The minimum EBML version a parser has to support to read this EBM
 Name         | EBMLMaxIDLength
 :------------|:---------------
 Level        | 1
-EBML ID      | [42][F2]
+EBML ID      | `0x42F2`
 Mandatory    | Yes
 Multiple     | No
 Range        | >3
@@ -379,7 +379,7 @@ Description  | The EBMLMaxIDLength is the maximum length in octets of the Elemen
 Name         | EBMLMaxSizeLength
 :------------|:-----------------
 Level        | 1
-EBML ID      | [42][F3]
+EBML ID      | `0x42F3`
 Mandatory    | Yes
 Multiple     | No
 Range        | >0
@@ -390,7 +390,7 @@ Description  | The EBMLMaxSizeLength is the maximum length in octets of the expr
 Name         | DocType
 :------------|:-------
 Level        | 1
-EBML ID      | [42][82]
+EBML ID      | `0x4282`
 Mandatory    | Yes
 Multiple     | No
 Range        | -
@@ -401,7 +401,7 @@ Description  | A string that describes and identifies the content of the EBML Bo
 Name         | DocTypeVersion
 :------------|:--------------
 Level        | 1
-EBML ID      | [42][87]
+EBML ID      | `0x4287`
 Mandatory    | Yes
 Multiple     | No
 Range        | -
@@ -412,7 +412,7 @@ Description  | The version of DocType interpreter used to create the EBML Docume
 Name         | DocTypeReadVersion
 :------------|:------------------
 Level        | 1
-EBML ID      | [42][85]
+EBML ID      | `0x4285`
 Mandatory    | Yes
 Multiple     | No
 Range        | -
@@ -426,7 +426,7 @@ Name         | CRC-32
 :------------|:------
 Level        | 1+
 Global       | Yes
-EBML ID      | [BF]
+EBML ID      | `0xBF`
 Mandatory    | No
 Range        | -
 Default      | -
@@ -437,7 +437,7 @@ Name         | Void
 :------------|:----
 Level        | 0+
 Global       | Yes
-EBML ID      | [EC]
+EBML ID      | `0xEC`
 Mandatory    | No
 Multiple     | Yes
 Range        | -
