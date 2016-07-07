@@ -16,6 +16,11 @@
 % initials="D."
 % surname="Rice"
 % fullname="Dave Rice"
+%
+% [[author]]
+% initials="M."
+% surname="Bunkus"
+% fullname="Moritz Bunkus"
 
 .# Abstract
 
