@@ -10,7 +10,7 @@ EBML uses a simple approach of building Elements upon three pieces of data (tag,
 
 ## Notation and Conventions
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC 2119](https://tools.ietf.org/html/rfc2119).
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [@!RFC2119](https://tools.ietf.org/html/rfc2119).
 
 ## Security Considerations
 
@@ -151,7 +151,7 @@ Element Data Type | UTF-8
 :-----------------|:------
 Endianness        | None
 Length            | A UTF-8 Element may declare any length from zero to `VINTMAX`.
-Definition        | A UTF-8 Element shall contain only a valid Unicode string as defined in [RFC 2279](http://www.faqs.org/rfcs/rfc2279.html). Octets with all bits set to zero may follow the UTF-8 value when needed.
+Definition        | A UTF-8 Element shall contain only a valid Unicode string as defined in [@?RFC2279](http://www.faqs.org/rfcs/rfc2279.html). Octets with all bits set to zero may follow the UTF-8 value when needed.
 
 Element Data Type | Date
 :-----------------|:-----
