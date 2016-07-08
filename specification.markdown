@@ -394,7 +394,7 @@ EBML ID      | [42][82]
 Mandatory    | Yes
 Multiple     | No
 Range        | -
-Default      | matroska
+Default      | -
 Type         | String
 Description  | A string that describes and identifies the content of the EBML Body that follows this EBML Header.
 
