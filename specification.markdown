@@ -10,7 +10,7 @@ EBML uses a simple approach of building Elements upon three pieces of data (tag,
 
 ## Notation and Conventions
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC 2119](https://tools.ietf.org/html/rfc2119).
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [@!RFC2119](https://tools.ietf.org/html/rfc2119).
 
 ## Security Considerations
 
@@ -28,7 +28,7 @@ Attacks on an EBML reader may include:
 - Invalid Element Data Size values (e.g. extending the length of the Element beyond the scope of the Parent Element; possibly triggering access-out-of-bounds issues).
 - Very high lengths in order to force out-of-memory situations resulting in a denial of service, access-out-of-bounds issues etc.
 - Missing Elements that are mandatory and have no declared default value.
-- Usage of 0x00 octets in EBML Elements with a string type.
+- Usage of `0x00` octets in EBML Elements with a string type.
 - Usage of invalid UTF-8 encoding in EBML Elements of UTF-8 type (e.g. in order to trigger access-out-of-bounds or buffer overflow issues).
 - Usage of invalid data in EBML Elements with a date type.
 
@@ -145,13 +145,13 @@ Element Data Type | String
 :-----------------|:-------
 Endianness        | None
 Length            | A String Element may declare any length from zero to `VINTMAX`.
-Definition        | A String Element may either be empty (zero-length) or contain Printable ASCII characters in the range of 0x20 to 0x7E. Octets with all bits set to zero may follow the string value when needed.
+Definition        | A String Element may either be empty (zero-length) or contain Printable ASCII characters in the range of `0x20` to `0x7E`. Octets with all bits set to zero may follow the string value when needed.
 
 Element Data Type | UTF-8
 :-----------------|:------
 Endianness        | None
 Length            | A UTF-8 Element may declare any length from zero to `VINTMAX`.
-Definition        | A UTF-8 Element shall contain only a valid Unicode string as defined in [RFC 2279](http://www.faqs.org/rfcs/rfc2279.html). Octets with all bits set to zero may follow the UTF-8 value when needed.
+Definition        | A UTF-8 Element shall contain only a valid Unicode string as defined in [@?RFC2279](http://www.faqs.org/rfcs/rfc2279.html). Octets with all bits set to zero may follow the UTF-8 value when needed.
 
 Element Data Type | Date
 :-----------------|:-----
@@ -225,7 +225,7 @@ Within an EBML Schema the `<element>` uses the following attributes to define an
 | name           | Yes      | The official human-readable name of the EBML Element. The value of the name MUST be in the form of an NCName as defined by the [XML Schema specification](http://www.w3.org/TR/1999/REC-xml-names-19990114/#ns-decl). |
 | level          | Yes      | The level notes at what hierarchical depth the EBML Element may occur within an EBML Document. The Root Element of an EBML Document is at level 0 and the Elements that it may contain are at level 1. The level MUST be expressed as an integer. Note that Elements defined as `global` and `recursive` MAY occur at a level greater than or equal to the defined `level`.|
 | global         | No       | A boolean to express if an EBML Element MUST occur at its defined level or may occur within any Parent EBML Element. If the `global` attribute is not expressed for that Element then that element is to be considered not global. |
-| id             | Yes      | The Element ID expressed in hexadecimal notation prefixed by a '0x'. To reduce the risk of false positives while parsing EBML Streams, the IDs of the Root Element and Top-Level Elements SHOULD be at least 4 octets in length. Element IDs defined for use at Level 0 or Level 1 MAY use shorter octet lengths to facilitate padding and optimize edits to EBML Documents; for instance, the EBML Void Element uses an Element ID with a one octet length to allow its usage in more writing and editing scenarios. |
+| id             | Yes      | The Element ID expressed in hexadecimal notation prefixed by a `0x` that is read and stored in big-endian order. To reduce the risk of false positives while parsing EBML Streams, the IDs of the Root Element and Top-Level Elements SHOULD be at least 4 octets in length. Element IDs defined for use at Level 0 or Level 1 MAY use shorter octet lengths to facilitate padding and optimize edits to EBML Documents; for instance, the EBML Void Element uses an Element ID with a one octet length to allow its usage in more writing and editing scenarios. |
 | minOccurs      | No       | An integer to express the minimal number of occurrences that the EBML Element MUST occur within its Parent Element if its Parent Element is used. If the Element has no Parent Level (as is the case with Elements at Level 0), then minOccurs refers to constaints on the Element's occurrence within the EBML Document. If the minOccurs attribute is not expressed for that Element then that Element shall be considered to have a minOccurs value of 0. This value of minOccurs MUST be a positive integer. The semantic meaning of minOccurs within an EBML Schema is considered analogous to the meaning of minOccurs within an [XML Schema](https://www.w3.org/TR/xmlschema-0/#ref6). Note that Elements with minOccurs set to "1" that also have a default value declared are not required to be stored but are required to be interpretted, see the [Note on the Use of default attributes to define Mandatory EBML Elements](#note-on-the-use-of-default-attributes-to-define-mandatory-ebml-elements). |
 | maxOccurs       | No       | A value to express the maximum number of occurrences that the EBML Element MAY occur within its Parent Element if its Parent Element is used. If the Element has no Parent Level (as is the case with Elements at Level 0), then maxOccurs refers to constaints on the Element's occurrence within the EBML Document. This value may be either a positive integer or the term `unbounded` to indicate there is no maximum number of occurrences or the term `identical` to indicate that the Element is an [Identically Recurring Element](#identically-recurring-elements). If the maxOccurs attribute is not expressed for that Element then that Element shall be considered to have a maxOccurs value of 1. The semantic meaning of maxOccurs within an EBML Schema is considered analogous to the meaning of minOccurs within an [XML Schema](https://www.w3.org/TR/xmlschema-0/#ref6), with EBML Schema adding the concept of Identically Recurring Elements. |
 | range          | No       | For Elements which are of numerical types (Unsigned Integer, Signed Integer, Float, and Date) a numerical range may be specified. If specified that the value of the EBML Element MUST be within the defined range inclusively. See the [section of Expressions of range](#expression-of-range) for rules applied to expression of range values. |
@@ -298,10 +298,10 @@ When a float value is represented textually in an EBML Schema, such as within a 
 
 | as decimal        | as Hexadecimal Floating-Point Constants |
 |:------------------|:----------------------------------------|
-| 0.0-1.0           | 0x0p+1-0x1p+0                           |
-| 1.0-256.0         | 0x1p+0-0x1p+8                           |
-| 0.857421875       | 0x1.b7p-1                               |
-| -1.0--0.857421875 | -0x1p+0--0x1.b7p-1                      |
+| 0.0-1.0           | `0x0p+1-0x1p+0`                         |
+| 1.0-256.0         | `0x1p+0-0x1p+8`                         |
+| 0.857421875       | `0x1.b7p-1`                             |
+| -1.0--0.857421875 | `-0x1p+0--0x1.b7p-1`                    |
 
 Within an expression of a float range, as in an integer range, the `-` (hyphen) character is the separator between the minimal and maximum value permitted by the range. Note that Hexadecimal Floating-Point Constants also use a `-` (hyphen) when indicating a negative binary power. Within a float range, when a `-` (hyphen) is immediately preceded by a letter `p`, then the `-` (hyphen) is a part of the Hexadecimal Floating-Point Constant which notes negative binary power. Within a float range, when a `-` (hyphen) is not immediately preceded by a letter `p`, then the `-` (hyphen) represents the separator between the minimal and maximum value permitted by the range.
 
@@ -335,7 +335,7 @@ This specification here contains definitions of all EBML Elements of the EBML He
 Name         | EBML
 :------------|:----
 Level        | 0
-EBML ID      | [1A][45][DF][A3]
+EBML ID      | `0x1A45DFA3`
 Mandatory    | Yes
 Multiple     | No
 Range        | -
@@ -346,7 +346,7 @@ Description  | Set the EBML characteristics of the data to follow. Each EBML Doc
 Name         | EBMLVersion
 :------------|:-----------
 Level        | 1
-EBML ID      | [42][86]
+EBML ID      | `0x4286`
 Mandatory    | Yes
 Multiple     | No
 Range        | 1
@@ -357,7 +357,7 @@ Description  | The version of EBML parser used to create the EBML Document.
 Name         | EBMLReadVersion
 :------------|:---------------
 Level        | 1
-EBML ID      | [42][F7]
+EBML ID      | `0x42F7`
 Mandatory    | Yes
 Multiple     | No
 Range        | 1
@@ -368,7 +368,7 @@ Description  | The minimum EBML version a parser has to support to read this EBM
 Name         | EBMLMaxIDLength
 :------------|:---------------
 Level        | 1
-EBML ID      | [42][F2]
+EBML ID      | `0x42F2`
 Mandatory    | Yes
 Multiple     | No
 Range        | >3
@@ -379,7 +379,7 @@ Description  | The EBMLMaxIDLength is the maximum length in octets of the Elemen
 Name         | EBMLMaxSizeLength
 :------------|:-----------------
 Level        | 1
-EBML ID      | [42][F3]
+EBML ID      | `0x42F3`
 Mandatory    | Yes
 Multiple     | No
 Range        | >0
@@ -390,7 +390,7 @@ Description  | The EBMLMaxSizeLength is the maximum length in octets of the expr
 Name         | DocType
 :------------|:-------
 Level        | 1
-EBML ID      | [42][82]
+EBML ID      | `0x4282`
 Mandatory    | Yes
 Multiple     | No
 Range        | -
@@ -401,7 +401,7 @@ Description  | A string that describes and identifies the content of the EBML Bo
 Name         | DocTypeVersion
 :------------|:--------------
 Level        | 1
-EBML ID      | [42][87]
+EBML ID      | `0x4287`
 Mandatory    | Yes
 Multiple     | No
 Range        | -
@@ -412,7 +412,7 @@ Description  | The version of DocType interpreter used to create the EBML Docume
 Name         | DocTypeReadVersion
 :------------|:------------------
 Level        | 1
-EBML ID      | [42][85]
+EBML ID      | `0x4285`
 Mandatory    | Yes
 Multiple     | No
 Range        | -
@@ -426,18 +426,18 @@ Name         | CRC-32
 :------------|:------
 Level        | 1+
 Global       | Yes
-EBML ID      | [BF]
+EBML ID      | `0xBF`
 Mandatory    | No
 Range        | -
 Default      | -
 Type         | Binary
-Description  | The CRC-32 Element contains a 32 bit Cyclic Redundancy Check value of all the Element Data of the Parent Element as stored except for the CRC-32 Element itself. When the CRC-32 Element is present, the CRC-32 Element MUST be the first ordered Element within its Parent Element for easier reading. All Top-Level Elements of an EBML Document SHOULD include a CRC-32 Element as a Child Element. The CRC in use is the IEEE-CRC-32 algorithm as used in the ISO 3309 standard and in section 8.1.1.6.2 of ITU-T recommendation V.42, with initial value of 0xFFFFFFFF. The CRC value MUST be computed on a little endian bitstream and MUST use little endian storage.
+Description  | The CRC-32 Element contains a 32 bit Cyclic Redundancy Check value of all the Element Data of the Parent Element as stored except for the CRC-32 Element itself. When the CRC-32 Element is present, the CRC-32 Element MUST be the first ordered Element within its Parent Element for easier reading. All Top-Level Elements of an EBML Document SHOULD include a CRC-32 Element as a Child Element. The CRC in use is the IEEE-CRC-32 algorithm as used in the ISO 3309 standard and in section 8.1.1.6.2 of ITU-T recommendation V.42, with initial value of `0xFFFFFFFF`. The CRC value MUST be computed on a little endian bitstream and MUST use little endian storage.
 
 Name         | Void
 :------------|:----
 Level        | 0+
 Global       | Yes
-EBML ID      | [EC]
+EBML ID      | `0xEC`
 Mandatory    | No
 Multiple     | Yes
 Range        | -
