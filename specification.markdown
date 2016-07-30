@@ -10,7 +10,7 @@ EBML uses a simple approach of building Elements upon three pieces of data (tag,
 
 ## Notation and Conventions
 
-The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [@!RFC2119](https://tools.ietf.org/html/rfc2119).
+The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [RFC2119](https://tools.ietf.org/html/rfc2119).
 
 ## Security Considerations
 
@@ -38,7 +38,7 @@ EBML uses a system of Elements to compose an EBML Document. Elements incorporate
 
 ## Variable Size Integer
 
-The Element ID and Element Data Size are both encoded as a Variable Size Integer, developed according to a UTF-8 like system. The Variable Size Integer is composed of a VINT\_WIDTH, VINT\_MARKER, and VINT\_DATA, in that order. Variable Size Integers shall be referred to as VINT for shorthand.
+The Element ID and Element Data Size are both encoded as a Variable Size Integer, developed according to a UTF-8 like system. The Variable Size Integer is composed of a VINT\_WIDTH, VINT\_MARKER, and VINT\_DATA, in that order. Variable Size Integers SHALL be referred to as VINT for shorthand.
 
 ### VINT_WIDTH
 
@@ -89,7 +89,7 @@ EBML Class | Octet Length | Number of Possible Element IDs
 Class A    | 1            | 2^7  - 2        =         126
 Class B    | 2            | 2^14 - 2^7  - 1 =      16,255
 Class C    | 3            | 2^21 - 2^14 - 1 =   2,080,767
-Class D    | 4            | 2^28 - 2^21 - 1 = 266,388,303
+Class D    | 4            | 2^28 - 2^21 - 1 = 266,338,303
 
 ## Element Data Size
 
