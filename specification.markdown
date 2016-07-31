@@ -223,6 +223,7 @@ Within an EBML Schema the `<element>` uses the following attributes to define an
 | attribute name | required | definition |
 |:---------------|:---------|:-----------|
 | name           | Yes      | The official human-readable name of the EBML Element. The value of the name MUST be in the form of an NCName as defined by the [XML Schema specification](http://www.w3.org/TR/1999/REC-xml-names-19990114/#ns-decl). |
+| parent         | Yes      | The name of the parent EBML Elements. This value MUST be defined with the full hierarchy of EBML Elements separated with a dot. The top EBML Element in the hierarchy being the first in the value. Elements at the top level MUST use the 'none' parent value. Elements that can be found anywhere in the EBML Body or Header MUST use the 'any' parent value. |
 | level          | Yes      | The level notes at what hierarchical depth the EBML Element may occur within an EBML Document. The Root Element of an EBML Document is at level 0 and the Elements that it may contain are at level 1. The level MUST be expressed as an integer. Note that Elements defined as `global` and `recursive` MAY occur at a level greater than or equal to the defined `level`.|
 | global         | No       | A boolean to express if an EBML Element MUST occur at its defined level or may occur within any Parent EBML Element. If the `global` attribute is not expressed for that Element then that element is to be considered not global. |
 | id             | Yes      | The Element ID expressed in hexadecimal notation prefixed by a `0x` that is read and stored in big-endian order. To reduce the risk of false positives while parsing EBML Streams, the IDs of the Root Element and Top-Level Elements SHOULD be at least 4 octets in length. Element IDs defined for use at Level 0 or Level 1 MAY use shorter octet lengths to facilitate padding and optimize edits to EBML Documents; for instance, the EBML Void Element uses an Element ID with a one octet length to allow its usage in more writing and editing scenarios. |
@@ -247,29 +248,29 @@ The `<element>` nodes MUST be arranged hierarchically according to the permitted
 <?xml version="1.0" encoding="utf-8"?>
 <EBMLSchema docType="files-in-ebml-demo" version="1">
  <!-- Root Element-->
- <element name="Files" level="0" id="0x1946696C" type="master">
+ <element name="Files" parent="none" level="0" id="0x1946696C" type="master">
   <documentation lang="en" type="definition">Container of data and
   attributes representing one or many files.</documentation>
-  <element name="File" level="1" id="0x6146" type="master" minOccurs="1"
+  <element name="File" parent="Files" level="1" id="0x6146" type="master" minOccurs="1"
   maxOccurs="unbounded">
    <documentation lang="en" type="definition">An attached file.
    </documentation>
-   <element name="FileName" level="2" id="0x614E" type="utf-8"
+   <element name="FileName" parent="Files.File" level="2" id="0x614E" type="utf-8"
    minOccurs="1">
     <documentation lang="en" type="definition">Filename of the attached
     file.</documentation>
    </element>
-   <element name="MimeType" level="2" id="0x464D" type="string"
+   <element name="MimeType" parent="Files.File" level="2" id="0x464D" type="string"
      minOccurs="1">
     <documentation lang="en" type="definition">MIME type of the
     file.</documentation>
    </element>
-   <element name="ModificationTimestamp" level="2" id="0x4654"
+   <element name="ModificationTimestamp" parent="Files.File" level="2" id="0x4654"
      type="date" minOccurs="1">
     <documentation lang="en" type="definition">Modification timestamp of
     the file.</documentation>
    </element>
-   <element name="Data" level="2" id="0x4664" type="binary"
+   <element name="Data" parent="Files.File" level="2" id="0x4664" type="binary"
      minOccurs="1">
     <documentation lang="en" type="definition">The data of the
     file.</documentation>
@@ -335,6 +336,7 @@ This specification here contains definitions of all EBML Elements of the EBML He
 
 Name         | EBML
 :------------|:----
+Parent       | none
 Level        | 0
 EBML ID      | `0x1A45DFA3`
 Mandatory    | Yes
@@ -346,6 +348,7 @@ Description  | Set the EBML characteristics of the data to follow. Each EBML Doc
 
 Name         | EBMLVersion
 :------------|:-----------
+Parent       | EBML
 Level        | 1
 EBML ID      | `0x4286`
 Mandatory    | Yes
@@ -357,6 +360,7 @@ Description  | The version of EBML parser used to create the EBML Document.
 
 Name         | EBMLReadVersion
 :------------|:---------------
+Parent       | EBML
 Level        | 1
 EBML ID      | `0x42F7`
 Mandatory    | Yes
@@ -368,6 +372,7 @@ Description  | The minimum EBML version a parser has to support to read this EBM
 
 Name         | EBMLMaxIDLength
 :------------|:---------------
+Parent       | EBML
 Level        | 1
 EBML ID      | `0x42F2`
 Mandatory    | Yes
@@ -379,6 +384,7 @@ Description  | The EBMLMaxIDLength is the maximum length in octets of the Elemen
 
 Name         | EBMLMaxSizeLength
 :------------|:-----------------
+Parent       | EBML
 Level        | 1
 EBML ID      | `0x42F3`
 Mandatory    | Yes
@@ -390,6 +396,7 @@ Description  | The EBMLMaxSizeLength is the maximum length in octets of the expr
 
 Name         | DocType
 :------------|:-------
+Parent       | EBML
 Level        | 1
 EBML ID      | `0x4282`
 Mandatory    | Yes
@@ -401,6 +408,7 @@ Description  | A string that describes and identifies the content of the EBML Bo
 
 Name         | DocTypeVersion
 :------------|:--------------
+Parent       | EBML
 Level        | 1
 EBML ID      | `0x4287`
 Mandatory    | Yes
@@ -412,6 +420,7 @@ Description  | The version of DocType interpreter used to create the EBML Docume
 
 Name         | DocTypeReadVersion
 :------------|:------------------
+Parent       | EBML
 Level        | 1
 EBML ID      | `0x4285`
 Mandatory    | Yes
@@ -425,6 +434,7 @@ Description  | The minimum DocType version an interpreter has to support to read
 
 Name         | CRC-32
 :------------|:------
+Parent       | any
 Level        | 1
 Global       | Yes
 EBML ID      | `0xBF`
@@ -437,6 +447,7 @@ Description  | The CRC-32 Element contains a 32 bit Cyclic Redundancy Check valu
 
 Name         | Void
 :------------|:----
+Parent       | any
 Level        | 0
 Global       | Yes
 EBML ID      | `0xEC`
