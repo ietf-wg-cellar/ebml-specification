@@ -223,7 +223,7 @@ Within an EBML Schema the `<element>` uses the following attributes to define an
 | attribute name | required | definition |
 |:---------------|:---------|:-----------|
 | name           | Yes      | The official human-readable name of the EBML Element. The value of the name MUST be in the form of an NCName as defined by the [XML Schema specification](http://www.w3.org/TR/1999/REC-xml-names-19990114/#ns-decl). |
-| parent         | Yes      | The path to the parent EBML Element. This path MUST be defined with the full hierarchy of EBML Elements separated with a `/`. The top EBML Element in the path hierarchy being the first in the value. Elements that can be found anywhere in the EBML Body or Header MUST use the `*` value. |
+| parent         | Yes      | The path to the parent EBML Element. This path MUST be defined with the full hierarchy of EBML Elements separated with a `/`. The top EBML Element in the path hierarchy being the first in the value. Elements that can be found anywhere inside en EBML Element and its children MUST use the `*` (wildcard) value after the path of the first parent allowed. |
 | level          | Yes      | The level notes at what hierarchical depth the EBML Element may occur within an EBML Document. The Root Element of an EBML Document is at level 0 and the Elements that it may contain are at level 1. The level MUST be expressed as an integer. Note that Elements defined as `global` and `recursive` MAY occur at a level greater than or equal to the defined `level`.|
 | global         | No       | A boolean to express if an EBML Element MUST occur at its defined level or may occur within any Parent EBML Element. If the `global` attribute is not expressed for that Element then that element is to be considered not global. |
 | id             | Yes      | The Element ID expressed in hexadecimal notation prefixed by a `0x` that is read and stored in big-endian order. To reduce the risk of false positives while parsing EBML Streams, the IDs of the Root Element and Top-Level Elements SHOULD be at least 4 octets in length. Element IDs defined for use at Level 0 or Level 1 MAY use shorter octet lengths to facilitate padding and optimize edits to EBML Documents; for instance, the EBML Void Element uses an Element ID with a one octet length to allow its usage in more writing and editing scenarios. |
@@ -434,7 +434,7 @@ Description  | The minimum DocType version an interpreter has to support to read
 
 Name         | CRC-32
 :------------|:------
-Parent       | *
+Parent       | /*
 Level        | 1
 Global       | Yes
 EBML ID      | `0xBF`
