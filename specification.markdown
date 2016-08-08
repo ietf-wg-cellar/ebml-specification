@@ -425,7 +425,7 @@ Description  | The minimum DocType version an interpreter has to support to read
 
 Name         | CRC-32
 :------------|:------
-Level        | 1+
+Level        | 1
 Global       | Yes
 EBML ID      | `0xBF`
 Mandatory    | No
@@ -437,7 +437,7 @@ Description  | The CRC-32 Element contains a 32 bit Cyclic Redundancy Check valu
 
 Name         | Void
 :------------|:----
-Level        | 0+
+Level        | 0
 Global       | Yes
 EBML ID      | `0xEC`
 Mandatory    | No
