@@ -17,6 +17,7 @@ EBML itself does not offer any kind of security and does not provide confidentia
 Even if the semantic layer offers any kind of encryption, EBML itself may leak information at both the semantic layer (as declared via the DocType element) and within the EBML structure (you can derive the presence of EBML elements even with an unknown semantic layer with a heuristic approach; not without errors, of course, but with a certain degree of confidence).
 
 Attacks on an EBML reader may include:
+
 - Invalid Element IDs that are longer than the limit stated in the EBMLMaxIDLength Element of the EBML Header.
 - Invalid Element IDs that are not encoded in the shortest-possible way.
 - Invalid Element IDs comprised of reserved values.
