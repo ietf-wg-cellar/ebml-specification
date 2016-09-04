@@ -12,7 +12,58 @@ EBML uses a simple approach of building Elements upon three pieces of data (tag,
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [@!RFC2119](https://tools.ietf.org/html/rfc2119).
 
-## Security Considerations
+This document defines specific terms in order to define the format and application of EBML. Specific terms are defined below:
+
+`Child Element`: A Child Element is a relative term to describe the EBML Elements immediately contained within a Master Element.
+
+`EBML`: Extensible Binary Meta Language
+
+`Element Data`: The value(s) of the `EBML Element` which is identified by its `Element ID` and `Element Data Size`. The form of the `Element Data` is defined by this document and the corresponding `EBML Schema` of the Element's `EBML Document Type`.
+
+`Element Data Size`: An expression, encoded as a `Variable Size Integer`, of the length in octets of `Element Data`.
+
+`EBML Body`: All data of an `EBML Document` following the `EBML Header` may be considered the `EBML Body`.
+
+`EBML Class`: An representation of the octet length of an `Element ID`.
+
+`EBML Document`: An `EBML Document` is a datastream comprised of only two components, an `EBML Header` and an `EBML Body`.
+
+`EBML Document Type`: An `EBML Document Type` is a name provided by an `EBML Schema` for a particular implementation of `EBML` for a data format (examples: matroska and webm).
+
+`EBML Element`: A foundation block of data that contains three parts: an `Element ID`, an `Element Data Size`, and `Element Data`.
+
+`EBML Header`: The `EBML Header` is a declaration that provides processing instructions and identification of the `EBML Body`. The `EBML Header` may be considered as analogous to an XML Declaration.
+
+`EBML Schema`: A standardized definition for the structure of an `EBML Document Type`.
+
+`EBML Stream`: An `EBML Stream` is a file that consists of one or many `EBML Documents` that are concatenated together.
+
+`Element ID`: The `Element ID` is a binary value, encoded as a `Variable Size Integer`, used to uniquely identify a defined `EBML Element` within a specific `EBML Schema`.
+
+`Element Name`: The official human-readable name of the `EBML Element`.
+
+`Empty Element`: An `Empty Element` is an `EBML Element` that has an `Element Data Size` with all VINT\_DATA bits set to zero which indicates that the `Element Data` of the Element is zero octets in length.
+
+`Level`: `Level` notes at what hierarchical depth the `EBML Element` may occur within an `EBML Document`, starting from zero.
+
+`Master Element`: The `Master Element` contains zero, one, or many other `EBML Elements`.
+
+`Parent Element`: A relative term to describe the `Master Element` which contains a specified element.
+
+`Root Element`: A mandatory, non-repeating EBML Element which occurs within an `EBML Document` at `Level 0` and contains all other `EBML Elements` of the `EBML 
+Document`, excepting the `EBML Header` and optional Void Elements.
+
+`Top-Level Element`: An elements defined to only occur at `Level 1` within the `Root Element`.
+
+`Unknown-Sized Element`: An Element with an unknown `Element Data Size`.
+
+`Variable Size Integer`: A compact variable-length binary value which defines its own length.
+
+`VINT`: Also known as `Variable Size Integer`.
+
+`VINTMAX`: The maximum possible value that can be stored as `Element Data Size`.
+
+# Security Considerations
 
 EBML itself does not offer any kind of security. It has nothing to do with authentication and does not provide confidentiality. It only offers marginally useful and effective data integrity options (CRC elements).
 
