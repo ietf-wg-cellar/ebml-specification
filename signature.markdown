@@ -67,7 +67,7 @@ Element Name:   Signature
     Range:          -
     Default:        -
     Element Type:   Binary
-    Description:    The signature of the data (until a new.
+    Description:    The signature of the data.
 
 Element Name:   SignatureElements
 
