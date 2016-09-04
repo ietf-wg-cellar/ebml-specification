@@ -12,9 +12,7 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 # Security Considerations
 
-EBML itself does not offer any kind of security. It has nothing to do with authentication and does not provide confidentiality. It only offers marginally useful and effective data integrity options (CRC elements).
-
-EBML does not provide any kind of authorization.
+EBML itself does not offer any kind of security and does not provide confidentiality. EBML does not provide any kind of authorization. EBML only offers marginally useful and effective data integrity options, such as CRC elements.
 
 Even if the semantic layer offers any kind of encryption, EBML itself may leak information at both the semantic layer (as declared via the DocType element) and within the EBML structure (you can derive the presence of EBML elements even with an unknown semantic layer with a heuristic approach; not without errors, of course, but with a certain degree of confidence).
 
