@@ -74,12 +74,20 @@ Binary Value | Octet Length | As Represented in Variable Size Integer
 
 # Element ID
 
-The Element ID MUST be encoded as a Variable Size Integer. By default, EBML Element IDs are encoded in lengths from one octet to four octets, although Element IDs of greater lengths are used if the octet length of the EBML Document's longest Element ID is declared in the EBMLMaxIDLength Element of the EBML Header. The VINT\_DATA component of the Element ID MUST NOT be set to either all zero values or all one values. The VINT\_DATA component of the Element ID MUST be encoded at the shortest valid length. For example, an Element ID with binary encoding of 1011 1111 is valid, whereas an Element ID with binary encoding of 0100 0000 0011 1111 stores a semantically equal VINT\_DATA but is invalid because a shorter VINT encoding is possible. The following table details this specific example further:
+The Element ID MUST be encoded as a Variable Size Integer. By default, EBML Element IDs are encoded in lengths from one octet to four octets, although Element IDs of greater lengths are used if the octet length of the EBML Document's longest Element ID is declared in the EBMLMaxIDLength Element of the EBML Header. The VINT\_DATA component of the Element ID MUST NOT be set to either all zero values or all one values. The VINT\_DATA component of the Element ID MUST be encoded at the shortest valid length. For example, an Element ID with binary encoding of 1011 1111 is valid, whereas an Element ID with binary encoding of 0100 0000 0011 1111 stores a semantically equal VINT\_DATA but is invalid because a shorter VINT encoding is possible. Additionally, an Element ID with binary encoding of 1111 1111 is invalid since the VINT\_DATA section is set to all one values, whereas an Element ID with binary encoding of 0100 0000 0111 1111 stores a semantically equal VINT\_DATA and is the shortest VINT encoding is possible.
+
+ The following table details these specific examples further:
 
 VINT\_WIDTH | VINT\_MARKER | VINT\_DATA     | Element ID Status
 -----------:|-------------:|---------------:|:-----------------
+            | 1            |        0000000 | Invalid: VINT\_DATA MUST NOT be set to all 0
+0           | 1            | 00000000000000 | Invalid: VINT\_DATA MUST NOT be set to all 0
+            | 1            |        0000001 | Valid
+0           | 1            | 00000000000001 | Invalid: A shorter VINT\_DATA encoding is available.
             | 1            |        0111111 | Valid
-0           | 1            | 00000000111111 | Invalid
+0           | 1            | 00000000111111 | Invalid: A shorter VINT\_DATA encoding is available.
+            | 1            |        1111111 | Invalid: VINT\_DATA MUST NOT be set to all 1
+0           | 1            | 00000001111111 | Valid
 
 The octet length of an Element ID determines its EBML Class.
 
