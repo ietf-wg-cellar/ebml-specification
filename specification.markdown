@@ -133,19 +133,19 @@ EBML Element are defined by an EBML Schema which MUST declare one of the follow 
 EBML Element Type | Signed Integer
 :-----------------|:--------------
 Endianness        | Big-endian
-Length            | A Signed Integer Element MUST declare a length that is no greater than 8 octets. A Signed Integer Element with a zero-octet length represents an integer value of zero.
 Definition        | A Signed Integer stores an integer (meaning that it can be written without a fractional component) which may be negative, positive, or zero. Because EBML limits Signed Integers to 8 octets in length a Signed Element may store a number from −9,223,372,036,854,775,808 to +9,223,372,036,854,775,807.
+Length            | A Signed Integer Element MUST declare a length that is no greater than 8 octets. If the EBML Element is not defined to have a `default` value, then a Signed Integer Element with a zero-octet length represents an integer value of zero.
 
 EBML Element Type | Unsigned Integer
 :-----------------|:-----------------
 Endianness        | Big-endian
-Length            | A Unsigned Integer Element MUST declare a length that is no greater than 8 octets. An Unsigned Integer Element with a zero-octet length represents an integer value of zero.
+Length            | A Unsigned Integer Element MUST declare a length that is no greater than 8 octets. If the EBML Element is not defined to have a `default` value, then an Unsigned Integer Element with a zero-octet length represents an integer value of zero.
 Definition        | An Unsigned Integer stores an integer (meaning that it can be written without a fractional component) which may be positive or zero. Because EBML limits Unsigned Integers to 8 octets in length an unsigned Element may store a number from 0 to 18,446,744,073,709,551,615.
 
 EBML Element Type | Float
 :-----------------|:------
 Endianness        | Big-endian
-Length            | A Float Element MUST declare a length of either 0 octets (0 bit), 4 octets (32 bit) or 8 octets (64 bit). A Float Element with a zero-octet length represents a numerical value of zero.
+Length            | A Float Element MUST declare a length of either 0 octets (0 bit), 4 octets (32 bit) or 8 octets (64 bit). If the EBML Element is not defined to have a `default` value, then a Float Element with a zero-octet length represents a numerical value of zero.
 Definition        | A Float Element stores a floating-point number as defined in IEEE 754.
 
 EBML Element Type | String
@@ -163,7 +163,7 @@ Definition        | A UTF-8 Element contains only a valid Unicode string as defi
 EBML Element Type | Date
 :-----------------|:-----
 Endianness        | None
-Length            | A Date Element MUST declare a length of either 0 octets or 8 octets. A Date Element with a zero-octet length represents a timestamp of 2001-01-01T00:00:00.000000000 UTC.
+Length            | A Date Element MUST declare a length of either 0 octets or 8 octets. If the EBML Element is not defined to have a `default` value, then a Date Element with a zero-octet length represents a timestamp of 2001-01-01T00:00:00.000000000 UTC.
 Definition        | The Date Element MUST contain a Signed Integer that expresses a point in time referenced in nanoseconds from the precise beginning of the third millennium of the Gregorian Calendar in Coordinated Universal Time (also known as 2001-01-01T00:00:00.000000000 UTC). This provides a possible expression of time from 1708-09-11T00:12:44.854775808 UTC to 2293-04-11T11:47:16.854775807 UTC.
 
 EBML Element Type | Master Element
