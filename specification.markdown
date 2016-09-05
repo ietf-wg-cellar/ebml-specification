@@ -133,8 +133,8 @@ EBML Element are defined by an EBML Schema which MUST declare one of the follow 
 EBML Element Type | Signed Integer
 :-----------------|:--------------
 Endianness        | Big-endian
-Definition        | A Signed Integer stores an integer (meaning that it can be written without a fractional component) which may be negative, positive, or zero. Because EBML limits Signed Integers to 8 octets in length a Signed Element may store a number from −9,223,372,036,854,775,808 to +9,223,372,036,854,775,807.
 Length            | A Signed Integer Element MUST declare a length that is no greater than 8 octets. If the EBML Element is not defined to have a `default` value, then a Signed Integer Element with a zero-octet length represents an integer value of zero.
+Definition        | A Signed Integer stores an integer (meaning that it can be written without a fractional component) which may be negative, positive, or zero. Signed Integers MUST be stored with two's complement notation with the leftmost bit being the sign bit. Because EBML limits Signed Integers to 8 octets in length a Signed Element may store a number from −9,223,372,036,854,775,808 to +9,223,372,036,854,775,807.
 
 EBML Element Type | Unsigned Integer
 :-----------------|:-----------------
