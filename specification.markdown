@@ -146,7 +146,7 @@ EBML Element Type | Float
 :-----------------|:------
 Endianness        | Big-endian
 Length            | A Float Element MUST declare a length of either 0 octets (0 bit), 4 octets (32 bit) or 8 octets (64 bit). If the EBML Element is not defined to have a `default` value, then a Float Element with a zero-octet length represents a numerical value of zero.
-Definition        | A Float Element stores a floating-point number as defined in IEEE 754.
+Definition        | A Float Element stores a floating-point number as defined in [@!IEEE.754.1985].
 
 EBML Element Type | String
 :-----------------|:-------
