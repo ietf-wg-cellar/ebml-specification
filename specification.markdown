@@ -53,24 +53,24 @@ The VINT\_DATA portion of the Variable Size Integer includes all data that follo
 
 ## VINT Examples
 
-This table shows examples of Variable Size Integers at widths of 1 to 5 octets. The Representation column depicts a binary expression of Variable Size Integers where VINT\_WIDTH is depicted by '0', the VINT\_MARKER as '1', and the VINT\_DATA as 'x'.
+This table shows examples of Variable Size Integers with lengths from 1 to 5 octets. The Representation column depicts a binary expression of Variable Size Integers where VINT\_WIDTH is depicted by '0', the VINT\_MARKER as '1', and the VINT\_DATA as 'x'.
 
-Octet Width | Size | Representation
-------------|------|:-------------------------------------------------
-1           | 2^7  | 1xxx xxxx
-2           | 2^14 | 01xx xxxx xxxx xxxx
-3           | 2^21 | 001x xxxx xxxx xxxx xxxx xxxx
-4           | 2^28 | 0001 xxxx xxxx xxxx xxxx xxxx xxxx xxxx
-5           | 2^35 | 0000 1xxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx
+Octet Length | Size | Representation
+-------------|------|:-------------------------------------------------
+1            | 2^7  | 1xxx xxxx
+2            | 2^14 | 01xx xxxx xxxx xxxx
+3            | 2^21 | 001x xxxx xxxx xxxx xxxx xxxx
+4            | 2^28 | 0001 xxxx xxxx xxxx xxxx xxxx xxxx xxxx
+5            | 2^35 | 0000 1xxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx
 
-Note that data encoded as a Variable Size Integer may be rendered at octet widths larger than needed to store the data. In this table a binary value of 0b10 is shown encoded as different Variable Size Integers with widths from one octet to four octet. All four encoded examples have identical semantic meaning though the VINT\_WIDTH and the padding of the VINT\_DATA vary.
+Note that data encoded as a Variable Size Integer may be rendered at octet lengths larger than needed to store the data. In this table a binary value of 0b10 is shown encoded as different Variable Size Integers with lengths from one octet to four octet. All four encoded examples have identical semantic meaning though the VINT\_WIDTH and the padding of the VINT\_DATA vary.
 
-Binary Value | Octet Width | As Represented in Variable Size Integer
--------------|-------------|:---------------------------------------
-10           | 1           | 1000 0010
-10           | 2           | 0100 0000 0000 0010
-10           | 3           | 0010 0000 0000 0000 0000 0010
-10           | 4           | 0001 0000 0000 0000 0000 0000 0000 0010
+Binary Value | Octet Length | As Represented in Variable Size Integer
+-------------|--------------|:---------------------------------------
+10           | 1            | 1000 0010
+10           | 2            | 0100 0000 0000 0010
+10           | 3            | 0010 0000 0000 0000 0000 0010
+10           | 4            | 0001 0000 0000 0000 0000 0000 0000 0010
 
 # Element ID
 
