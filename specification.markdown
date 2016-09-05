@@ -128,7 +128,7 @@ VINT\_WIDTH | VINT\_MARKER | VINT\_DATA     | Element Data Size Status
 
 # EBML Element Types
 
-Each defined EBML Element MUST have a declared EBML Element Type. The EBML Element Type defines a concept for storing data that may be constrained by length, endianness, and purpose.
+EBML Element are defined by an EBML Schema which MUST declare one of the follow EBML Element Types for each EBML Element. The EBML Element Type defines a concept for storing data that may be constrained by length, endianness, and purpose.
 
 EBML Element Type | Signed Integer
 :-----------------|:--------------
