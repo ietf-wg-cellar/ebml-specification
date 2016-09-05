@@ -102,7 +102,7 @@ Class D    | 4            | 2^28 - 2^21 - 1 = 266,338,303
 
 The Element Data Size expresses the length in octets of Element Data. The Element Data Size itself MUST be encoded as a Variable Size Integer. By default, EBML Element Data Sizes can be encoded in lengths from one octet to eight octets, although Element Data Sizes of greater lengths MAY be used if the octet length of the EBML Document's longest Element Data Size is declared in the EBMLMaxSizeLength Element of the EBML Header. Unlike the VINT\_DATA of the Element ID, the VINT\_DATA component of the Element Data Size is not mandated to be encoded at the shortest valid length. For example, an Element Data Size with binary encoding of 1011 1111 or a binary encoding of 0100 0000 0011 1111 are both valid Element Data Sizes and both store a semantically equal value (both 0b00000000111111 and 0b0111111, the VINT\_DATA sections of the examples, represent the integer 63).
 
-Although an Element ID with all VINT\_DATA bits set to zero is invalid, an Element Data Size with all VINT\_DATA bits set to zero is allowed for EBML Data Types which do not mandate a non-zero length. An Element Data Size with all VINT\_DATA bits set to zero indicates that the Element Data of the Element is zero octets in length. Such an Element is referred to as an Empty Element. If an Empty Element has a `default` value declared then the EBML Reader MUST interpret the value of the Empty Element as the `default` value. If an Empty Element has no `default` value declared then the EBML Reader MUST interpret the value of the Empty Element as defined as part of the definition of the corresponding EBML Element Type associated with the Element ID.
+Although an Element ID with all VINT\_DATA bits set to zero is invalid, an Element Data Size with all VINT\_DATA bits set to zero is allowed for EBML Element Types which do not mandate a non-zero length. An Element Data Size with all VINT\_DATA bits set to zero indicates that the Element Data of the Element is zero octets in length. Such an Element is referred to as an Empty Element. If an Empty Element has a `default` value declared then the EBML Reader MUST interpret the value of the Empty Element as the `default` value. If an Empty Element has no `default` value declared then the EBML Reader MUST interpret the value of the Empty Element as defined as part of the definition of the corresponding EBML Element Type associated with the Element ID.
 
 An Element Data Size with all VINT\_DATA bits set to one is reserved as an indicator that the size of the Element is unknown. The only reserved value for the VINT\_DATA of Element Data Size is all bits set to one. An Element with an unknown Element Data Size is referred to as an `Unknown-Sized Element`. Only Master Elements SHALL be Unknown-Sized Elements. Master Elements MUST NOT use an unknown size unless the `unknownsizeallowed` attribute of their EBML Schema is set to true. The use of Unknown-Sized Elements allows for an Element to be written and read before the size of the Element is known. Unknown-Sized Element MUST NOT be used or defined unnecessarily; however if the Element Data Size is not known before the Element Data is written, such as in some cases of data streaming, then Unknown-Sized Elements MAY be used. The end of an Unknown-Sized Element is determined by the beginning of the next element, defined by this document or the corresponding EBML Schema, that is not a valid sub-element of the Unknown-Sized Element.
 
@@ -128,51 +128,51 @@ VINT\_WIDTH | VINT\_MARKER | VINT\_DATA     | Element Data Size Status
 
 # EBML Element Types
 
-Each defined EBML Element MUST have a declared Element Type. The Element Type defines a concept for storing data that may be constrained by length, endianness, and purpose.
+Each defined EBML Element MUST have a declared EBML Element Type. The EBML Element Type defines a concept for storing data that may be constrained by length, endianness, and purpose.
 
-Element Data Type | Signed Integer
+EBML Element Type | Signed Integer
 :-----------------|:--------------
 Endianness        | Big-endian
 Length            | A Signed Integer Element MUST declare a length that is no greater than 8 octets. A Signed Integer Element with a zero-octet length represents an integer value of zero.
 Definition        | A Signed Integer stores an integer (meaning that it can be written without a fractional component) which may be negative, positive, or zero. Because EBML limits Signed Integers to 8 octets in length a Signed Element may store a number from −9,223,372,036,854,775,808 to +9,223,372,036,854,775,807.
 
-Element Data Type | Unsigned Integer
+EBML Element Type | Unsigned Integer
 :-----------------|:-----------------
 Endianness        | Big-endian
 Length            | A Unsigned Integer Element MUST declare a length that is no greater than 8 octets. An Unsigned Integer Element with a zero-octet length represents an integer value of zero.
 Definition        | An Unsigned Integer stores an integer (meaning that it can be written without a fractional component) which may be positive or zero. Because EBML limits Unsigned Integers to 8 octets in length an unsigned Element may store a number from 0 to 18,446,744,073,709,551,615.
 
-Element Data Type | Float
+EBML Element Type | Float
 :-----------------|:------
 Endianness        | Big-endian
 Length            | A Float Element MUST declare a length of either 0 octets (0 bit), 4 octets (32 bit) or 8 octets (64 bit). A Float Element with a zero-octet length represents a numerical value of zero.
 Definition        | A Float Element stores a floating-point number as defined in IEEE 754.
 
-Element Data Type | String
+EBML Element Type | String
 :-----------------|:-------
 Endianness        | None
 Length            | A String Element may declare any length from zero to `VINTMAX`.
 Definition        | A String Element may either be empty (zero-length) or contain Printable ASCII characters in the range of `0x20` to `0x7E`. Octets with all bits set to zero may follow the string value when needed.
 
-Element Data Type | UTF-8
+EBML Element Type | UTF-8
 :-----------------|:------
 Endianness        | None
 Length            | A UTF-8 Element may declare any length from zero to `VINTMAX`.
 Definition        | A UTF-8 Element contains only a valid Unicode string as defined in [@?RFC2279](http://www.faqs.org/rfcs/rfc2279.html). Octets with all bits set to zero may follow the UTF-8 value when needed.
 
-Element Data Type | Date
+EBML Element Type | Date
 :-----------------|:-----
 Endianness        | None
 Length            | A Date Element MUST declare a length of either 0 octets or 8 octets. A Date Element with a zero-octet length represents a timestamp of 2001-01-01T00:00:00.000000000 UTC.
 Definition        | The Date Element MUST contain a Signed Integer that expresses a point in time referenced in nanoseconds from the precise beginning of the third millennium of the Gregorian Calendar in Coordinated Universal Time (also known as 2001-01-01T00:00:00.000000000 UTC). This provides a possible expression of time from 1708-09-11T00:12:44.854775808 UTC to 2293-04-11T11:47:16.854775807 UTC.
 
-Element Data Type | Master Element
+EBML Element Type | Master Element
 :-----------------|:---------------
 Endianness        | None
 Length            | A Master Element may declare any length from zero to `VINTMAX`. The Master Element may also use an unknown length. See the section on Element Data Size for rules that apply to elements of unknown length.
 Definition        | The Master Element contains zero, one, or many other elements. Elements contained within a Master Element must be defined for use at levels greater than the level of the Master Element. For instance, if a Master Element occurs on level 2 then all contained Elements must be valid at level 3. Element Data stored within Master Elements SHOULD only consist of EBML Elements and SHOULD NOT contain any data that is not part of an EBML Element. When EBML is used in transmission or streaming, data that is not part of an EBML Element is permitted to be present within a Master Element if `unknownsizeallowed` is enabled within that Master Element's definition. In this case, the reader should skip data until a valid Element ID of the same level or the next greater level of the Master Element is found. What Element IDs are considered valid within a Master Element is identified by the EBML Schema for that version of the EBML Document Type. Any data contained with a Master Element that is not part of an Element SHOULD be ignored.
 
-Element Data Type | Binary
+EBML Element Type | Binary
 :-----------------|:-------
 Endianness        | None
 Length            | A binary element may declare any length from zero to `VINTMAX`.
@@ -236,7 +236,7 @@ Within an EBML Schema the `<element>` uses the following attributes to define an
 | minOccurs      | No       | An integer to express the minimal number of occurrences that the EBML Element MUST occur within its Parent Element if its Parent Element is used. If the Element has no Parent Level (as is the case with Elements at Level 0), then minOccurs refers to constaints on the Element's occurrence within the EBML Document. If the minOccurs attribute is not expressed for that Element then that Element is considered to have a minOccurs value of 0. This value of minOccurs MUST be a positive integer. The semantic meaning of minOccurs within an EBML Schema is considered analogous to the meaning of minOccurs within an [XML Schema](https://www.w3.org/TR/xmlschema-0/#ref6). Note that Elements with minOccurs set to "1" that also have a default value declared are not required to be stored but are required to be interpreted, see [Note on the Use of default attributes to define Mandatory EBML Elements](#note-on-the-use-of-default-attributes-to-define-mandatory-ebml-elements). |
 | maxOccurs       | No       | A value to express the maximum number of occurrences that the EBML Element MAY occur within its Parent Element if its Parent Element is used. If the Element has no Parent Level (as is the case with Elements at Level 0), then maxOccurs refers to constaints on the Element's occurrence within the EBML Document. This value may be either a positive integer or the term `unbounded` to indicate there is no maximum number of occurrences or the term `identical` to indicate that the Element is an [Identically Recurring Element](#identically-recurring-elements). If the maxOccurs attribute is not expressed for that Element then that Element is considered to have a maxOccurs value of 1. The semantic meaning of maxOccurs within an EBML Schema is considered analogous to the meaning of minOccurs within an [XML Schema](https://www.w3.org/TR/xmlschema-0/#ref6), with EBML Schema adding the concept of Identically Recurring Elements. |
 | range          | No       | For Elements which are of numerical types (Unsigned Integer, Signed Integer, Float, and Date) a numerical range may be specified. If specified the value of the EBML Element MUST be within the defined range inclusively. See [section of Expressions of range](#expression-of-range) for rules applied to expression of range values. |
-| size           | No       | A value to express the valid length of the Element Data as written measured in octets. The value provides a constraint in addition to the Length value of the definition of the corresponding Element Data Type. This value MUST be expressed as either a non-negative integer or an [expression of range](#expression-of-range) that consists of only non-negative integers and valid operators. If the size attribute is not expressed for that Element then that Element is only limited in size by the definition of the associated Element Data Type. |
+| size           | No       | A value to express the valid length of the Element Data as written measured in octets. The value provides a constraint in addition to the Length value of the definition of the corresponding EBML Element Type. This value MUST be expressed as either a non-negative integer or an [expression of range](#expression-of-range) that consists of only non-negative integers and valid operators. If the size attribute is not expressed for that Element then that Element is only limited in size by the definition of the associated EBML Element Type. |
 | default        | No       | A default value may be provided. If an Element is mandatory but not written within its Parent EBML Element, then the parser of the EBML Document MUST insert the defined default value of the Element. EBML Elements that are Master Elements MUST NOT declare a default value. |
 | type           | Yes      | As defined within [section on EBML Element Types](#ebml-element-types), the type MUST be set to one of the following values: 'integer' (signed integer), 'uinteger' (unsigned integer), 'float', 'string', 'date', 'utf-8', 'master', or 'binary'. |
 | unknownsizeallowed | No       | A boolean to express if an EBML Element MAY be used as an `Unknown-Sized Element` (having all VINT\_DATA bits of Element Data Size set to 1). The `unknownsizeallowed` attribute only applies to Master Elements. If the `unknownsizeallowed` attribute is not used it is assumed that the element is not allowed to use an unknown Element Data Size. |
