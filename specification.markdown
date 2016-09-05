@@ -41,6 +41,8 @@ The Element ID and Element Data Size are both encoded as a Variable Size Integer
 
 Each Variable Size Integer begins with a VINT\_WIDTH which consists of zero or many zero-value bits. The count of consecutive zero-values of the VINT\_WIDTH plus one equals the length in octets of the Variable Size Integer. For example, a Variable Size Integer that starts with a VINT\_WIDTH which contains zero consecutive zero-value bits is one octet in length and a Variable Size Integer that starts with one consecutive zero-value bit is two octets in length. The VINT\_WIDTH MUST only contain zero-value bits or be empty.
 
+Within the EBML Header the VINT\_WIDTH MUST NOT exceed three bits in length (meaning that the Variable Size Integer MUST NOT exceed four octets in length). Within the EBML Body, when VINTs are used to express an Element ID, the maximum length allowed for the VINT\_WIDTH is one less than the value set in EBMLMaxIDLength. Within the EBML Body, when VINTs are used to express an Element Data Size, the maximum length allowed for the VINT\_WIDTH is one less than the value set in EBMLMaxSizeLength.
+
 ## VINT_MARKER
 
 The VINT\_MARKER serves as a separator between the VINT\_WIDTH and VINT_DATA. Each Variable Size Integer MUST contain exactly one VINT\_MARKER. The VINT\_MARKER MUST be one bit in length and contain a bit with a value of one. The first bit with a value of one within the Variable Size Integer is the VINT\_MARKER.
