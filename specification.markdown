@@ -152,7 +152,7 @@ EBML Element Type | String
 :-----------------|:-------
 Endianness        | None
 Length            | A String Element may declare any length from zero to `VINTMAX`. If the EBML Element is not defined to have a `default` value, then a String Element with a zero-octet length represents an empty string.
-Definition        | A String Element may either be empty (zero-length) or contain Printable ASCII characters in the range of `0x20` to `0x7E`. Octets with all bits set to zero may follow the string value when needed.
+Definition        | A String Element may either be empty (zero-length) or contain Printable ASCII characters [@!RFC0020] in the range of `0x20` to `0x7E`. Octets with all bits set to zero may follow the string value when needed.
 
 EBML Element Type | UTF-8
 :-----------------|:------
