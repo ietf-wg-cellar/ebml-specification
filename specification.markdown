@@ -185,7 +185,7 @@ EBML Element Type | Binary
 :-----------------|:-------
 Endianness        | None
 Length            | A binary element MUST declare a length in octets from zero to `VINTMAX`.
-Definition        | The contents of a Binary element should not be interpreted by the EBML parser.
+Definition        | The contents of a Binary element should not be interpreted by the EBML Reader.
 
 # EBML Document
 
@@ -246,7 +246,7 @@ Within an EBML Schema the `<element>` uses the following attributes to define an
 | maxOccurs       | No       | A value to express the maximum number of occurrences that the EBML Element MAY occur within its Parent Element if its Parent Element is used. If the Element has no Parent Level (as is the case with Elements at Level 0), then maxOccurs refers to constaints on the Element's occurrence within the EBML Document. This value may be either a positive integer or the term `unbounded` to indicate there is no maximum number of occurrences or the term `identical` to indicate that the Element is an [Identically Recurring Element](#identically-recurring-elements). If the maxOccurs attribute is not expressed for that Element then that Element is considered to have a maxOccurs value of 1. The semantic meaning of maxOccurs within an EBML Schema is considered analogous to the meaning of minOccurs within an [XML Schema](https://www.w3.org/TR/xmlschema-0/#ref6), with EBML Schema adding the concept of Identically Recurring Elements. |
 | range          | No       | For Elements which are of numerical types (Unsigned Integer, Signed Integer, Float, and Date) a numerical range may be specified. If specified the value of the EBML Element MUST be within the defined range inclusively. See [section of Expressions of range](#expression-of-range) for rules applied to expression of range values. |
 | size           | No       | A value to express the valid length of the Element Data as written measured in octets. The value provides a constraint in addition to the Length value of the definition of the corresponding EBML Element Type. This value MUST be expressed as either a non-negative integer or an [expression of range](#expression-of-range) that consists of only non-negative integers and valid operators. If the size attribute is not expressed for that Element then that Element is only limited in size by the definition of the associated EBML Element Type. |
-| default        | No       | A default value may be provided. If an Element is mandatory but not written within its Parent EBML Element, then the parser of the EBML Document MUST insert the defined default value of the Element. EBML Elements that are Master Elements MUST NOT declare a default value. |
+| default        | No       | A default value may be provided. If an Element is mandatory but not written within its Parent EBML Element, then the EBML Reader of the EBML Document MUST insert the defined default value of the Element. EBML Elements that are Master Elements MUST NOT declare a default value. |
 | type           | Yes      | As defined within [section on EBML Element Types](#ebml-element-types), the type MUST be set to one of the following values: 'integer' (signed integer), 'uinteger' (unsigned integer), 'float', 'string', 'date', 'utf-8', 'master', or 'binary'. |
 | unknownsizeallowed | No       | A boolean to express if an EBML Element MAY be used as an `Unknown-Sized Element` (having all VINT\_DATA bits of Element Data Size set to 1). The `unknownsizeallowed` attribute only applies to Master Elements. If the `unknownsizeallowed` attribute is not used it is assumed that the element is not allowed to use an unknown Element Data Size. |
 | recursive | No       | A boolean to express if an EBML Element MAY be stored recursively. In this case the Element MAY be stored at levels greater that defined in the `level` attribute if the Element is a Child Element of a Parent Element with the same Element ID. The `recursive` attribute only applies to Master Elements. If the `recursive` attribute is not used it is assumed that the element is not allowed to be used recursively.|
@@ -324,7 +324,7 @@ Within an expression of a float range, as in an integer range, the `-` (hyphen) 
 
 ### Note on the Use of default attributes to define Mandatory EBML Elements
 
-If a Mandatory EBML Element has a default value declared by an EBML Schema and the EBML Element's value is equal to the declared default value then that Element is not required to be present within the EBML Document if its Parent EBML Element is present. In this case, the default value of the Mandatory EBML Element may be assumed although the EBML Element is not present within its Parent EBML Element. Also in this case the parser of the EBML Document MUST insert the defined default value of the Element.
+If a Mandatory EBML Element has a default value declared by an EBML Schema and the EBML Element's value is equal to the declared default value then that Element is not required to be present within the EBML Document if its Parent EBML Element is present. In this case, the default value of the Mandatory EBML Element may be assumed although the EBML Element is not present within its Parent EBML Element. Also in this case the EBML Reader of the EBML Document MUST insert the defined default value of the Element.
 
 If a Mandatory EBML Element has no default value declared by an EBML Schema and its Parent EBML Element is present then the EBML Element must be present as well. If a Mandatory EBML Element has a default value declared by an EBML Schema and its Parent EBML Element is present and the EBML Element's value is NOT equal to the declared default value then the EBML Element MUST be used.
 
@@ -369,7 +369,7 @@ Multiple     | No
 Range        | 1
 Default      | 1
 Type         | Unsigned Integer
-Description  | The version of EBML parser used to create the EBML Document.
+Description  | The version of EBML Writer used to create the EBML Document.
 
 Name         | EBMLReadVersion
 :------------|:---------------
@@ -380,7 +380,7 @@ Multiple     | No
 Range        | 1
 Default      | 1
 Type         | Unsigned Integer
-Description  | The minimum EBML version a parser has to support to read this EBML Document.
+Description  | The minimum EBML version an EBML Reader has to support to read this EBML Document.
 
 Name         | EBMLMaxIDLength
 :------------|:---------------
