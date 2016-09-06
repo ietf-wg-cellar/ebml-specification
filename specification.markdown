@@ -29,6 +29,15 @@ Attacks on an EBML reader may include:
 - Usage of invalid UTF-8 encoding in EBML Elements of UTF-8 type (e.g. in order to trigger access-out-of-bounds or buffer overflow issues).
 - Usage of invalid data in EBML Elements with a date type.
 
+Side channel attacks could exploit:
+
+- The semantic equivalence of the same string stored in an EBML String Element with and without zero-bit padding.
+- The semantic equilvance of VINT\_DATA within Element Data Size VINTs with to different lengths due to left-padding zero bits.
+- Data contained within a Master Element which is not itself part of an EBML Element.
+- Extraneous copies of Identically Recurring Element.
+- Copies of Identically Recurring Element within a Parent Element that contains an invalid CRC-32 Elements.
+- Use of Void Elements.
+
 # Structure
 
 EBML uses a system of Elements to compose an EBML Document. Elements incorporate three parts: an Element ID, an Element Data Size, and Element Data. The Element Data, which is described by the Element ID, may include either binary data or one or many other Elements.
