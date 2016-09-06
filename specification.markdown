@@ -2,7 +2,7 @@
 
 EBML, short for Extensible Binary Meta Language, specifies a binary and octet (byte) aligned format inspired by the principle of XML (a framework for structuring data).
 
-The goal of the EBML Specification is to define a generic, binary, space-efficient format that may be used to define more complex formats (such as containers for multimedia content) using an EBML Schema. The definition of the EBML format recognizes the idea behind HTML and XML as a good one: separate structure and semantics allowing the same structural layer to be used with multiple, possibly widely differing semantic layers. Except for the EBML Header and a few global elements this specification does not define particular EBML format semantics; however this specification is intended to define how other EBML-based formats may be defined.
+The goal of the EBML Specification is to define a generic, binary, space-efficient format that can be used to define more complex formats (such as containers for multimedia content) using an EBML Schema. The definition of the EBML format recognizes the idea behind HTML and XML as a good one: separate structure and semantics allowing the same structural layer to be used with multiple, possibly widely differing semantic layers. Except for the EBML Header and a few global elements this specification does not define particular EBML format semantics; however this specification is intended to define how other EBML-based formats can be defined.
 
 EBML uses a simple approach of building Elements upon three pieces of data (tag, length, and value) as this approach is well known, easy to parse, and allows selective data parsing. The EBML structure additionally allows for hierarchical arrangement to support complex structural formats in an efficient manner.
 
@@ -14,9 +14,9 @@ The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "S
 
 EBML itself does not offer any kind of security and does not provide confidentiality. EBML does not provide any kind of authorization. EBML only offers marginally useful and effective data integrity options, such as CRC elements.
 
-Even if the semantic layer offers any kind of encryption, EBML itself may leak information at both the semantic layer (as declared via the DocType element) and within the EBML structure (you can derive the presence of EBML elements even with an unknown semantic layer with a heuristic approach; not without errors, of course, but with a certain degree of confidence).
+Even if the semantic layer offers any kind of encryption, EBML itself could leak information at both the semantic layer (as declared via the DocType element) and within the EBML structure (you can derive the presence of EBML elements even with an unknown semantic layer with a heuristic approach; not without errors, of course, but with a certain degree of confidence).
 
-Attacks on an EBML reader may include:
+Attacks on an EBML reader could include:
 
 - Invalid Element IDs that are longer than the limit stated in the EBMLMaxIDLength Element of the EBML Header.
 - Invalid Element IDs that are not encoded in the shortest-possible way.
@@ -72,7 +72,7 @@ Octet Length | Size | Representation
 4            | 2^28 | 0001 xxxx xxxx xxxx xxxx xxxx xxxx xxxx
 5            | 2^35 | 0000 1xxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx
 
-Note that data encoded as a Variable Size Integer may be rendered at octet lengths larger than needed to store the data. In this table a binary value of 0b10 is shown encoded as different Variable Size Integers with lengths from one octet to four octet. All four encoded examples have identical semantic meaning though the VINT\_WIDTH and the padding of the VINT\_DATA vary.
+Note that data encoded as a Variable Size Integer MAY be rendered at octet lengths larger than needed to store the data. In this table a binary value of 0b10 is shown encoded as different Variable Size Integers with lengths from one octet to four octet. All four encoded examples have identical semantic meaning though the VINT\_WIDTH and the padding of the VINT\_DATA vary.
 
 Binary Value | Octet Length | As Represented in Variable Size Integer
 -------------|--------------|:---------------------------------------
@@ -142,14 +142,14 @@ EBML Element are defined by an EBML Schema which MUST declare one of the follow 
 EBML Element Type | Signed Integer
 :-----------------|:--------------
 Endianness        | Big-endian
-Definition        | A Signed Integer stores an integer (meaning that it can be written without a fractional component) which may be negative, positive, or zero. Signed Integers MUST be stored with two's complement notation with the leftmost bit being the sign bit. Because EBML limits Signed Integers to 8 octets in length a Signed Element may store a number from −9,223,372,036,854,775,808 to +9,223,372,036,854,775,807.
 Length            | A Signed Integer Element MUST declare a length from zero to eight octets. If the EBML Element is not defined to have a `default` value, then a Signed Integer Element with a zero-octet length represents an integer value of zero.
+Definition        | A Signed Integer stores an integer (meaning that it can be written without a fractional component) which could be negative, positive, or zero. Signed Integers MUST be stored with two's complement notation with the leftmost bit being the sign bit. Because EBML limits Signed Integers to 8 octets in length a Signed Element stores a number from −9,223,372,036,854,775,808 to +9,223,372,036,854,775,807.
 
 EBML Element Type | Unsigned Integer
 :-----------------|:-----------------
 Endianness        | Big-endian
-Definition        | An Unsigned Integer stores an integer (meaning that it can be written without a fractional component) which may be positive or zero. Because EBML limits Unsigned Integers to 8 octets in length an unsigned Element may store a number from 0 to 18,446,744,073,709,551,615.
 Length            | A Unsigned Integer Element MUST declare a length from zero to eight octets. If the EBML Element is not defined to have a `default` value, then an Unsigned Integer Element with a zero-octet length represents an integer value of zero.
+Definition        | An Unsigned Integer stores an integer (meaning that it can be written without a fractional component) which could be positive or zero. Because EBML limits Unsigned Integers to 8 octets in length an unsigned Element stores a number from 0 to 18,446,744,073,709,551,615.
 
 EBML Element Type | Float
 :-----------------|:------
@@ -160,14 +160,14 @@ Definition        | A Float Element stores a floating-point number as defined in
 EBML Element Type | String
 :-----------------|:-------
 Endianness        | None
-Definition        | A String Element may either be empty (zero-length) or contain Printable ASCII characters [@!RFC0020] in the range of `0x20` to `0x7E`. Octets with all bits set to zero may follow the string value when needed, such as reducing the length of a stored string while maintaining the same Element Data Size. A string with one or more octets with all bits set to zero and a string without one or more octets with all bits set to zero are semantically equal.
 Length            | A String Element MUST declare a length in octets from zero to `VINTMAX`. If the EBML Element is not defined to have a `default` value, then a String Element with a zero-octet length represents an empty string.
+Definition        | A String Element MUST either be empty (zero-length) or contain Printable ASCII characters [@!RFC0020] in the range of `0x20` to `0x7E`. Octets with all bits set to zero MAY follow the string value when needed, such as reducing the length of a stored string while maintaining the same Element Data Size. A string with one or more octets with all bits set to zero and a string without one or more octets with all bits set to zero are semantically equal.
 
 EBML Element Type | UTF-8
 :-----------------|:------
 Endianness        | None
-Definition        | A UTF-8 Element contains only a valid Unicode string as defined in [@!RFC2279]. Octets with all bits set to zero may follow the string value when needed, such as reducing the length of a stored UTF-8 data while maintaining the same Element Data Size. A UTF-8 value with one or more octets with all bits set to zero and a UTF-8 value without one or more octets with all bits set to zero are semantically equal.
 Length            | A UTF-8 Element MUST declare a length in octets from zero to `VINTMAX`. If the EBML Element is not defined to have a `default` value, then a UTF-8 Element with a zero-octet length represents an empty string.
+Definition        | A UTF-8 Element contains only a valid Unicode string as defined in [@!RFC2279]. Octets with all bits set to zero MAY follow the string value when needed, such as reducing the length of a stored UTF-8 data while maintaining the same Element Data Size. A UTF-8 value with one or more octets with all bits set to zero and a UTF-8 value without one or more octets with all bits set to zero are semantically equal.
 
 EBML Element Type | Date
 :-----------------|:-----
@@ -178,7 +178,7 @@ Definition        | The Date Element stores an integer in the same format as the
 EBML Element Type | Master Element
 :-----------------|:---------------
 Endianness        | None
-Length            | A Master Element MUST declare a length in octets from zero to `VINTMAX`. The Master Element can also use an unknown length. See the section on Element Data Size for rules that apply to elements of unknown length.
+Length            | A Master Element MUST declare a length in octets from zero to `VINTMAX`. The Master Element MAY also use an unknown length. See the section on Element Data Size for rules that apply to elements of unknown length.
 Definition        | The Master Element contains zero, one, or many other elements. Elements contained within a Master Element must be defined for use at levels greater than the level of the Master Element. For instance, if a Master Element occurs on level 2 then all contained Elements must be valid at level 3. Element Data stored within Master Elements SHOULD only consist of EBML Elements and SHOULD NOT contain any data that is not part of an EBML Element. When EBML is used in transmission or streaming, data that is not part of an EBML Element is permitted to be present within a Master Element if `unknownsizeallowed` is enabled within that Master Element's definition. In this case, the reader should skip data until a valid Element ID of the same level or the next greater level of the Master Element is found. What Element IDs are considered valid within a Master Element is identified by the EBML Schema for that version of the EBML Document Type. Any data contained with a Master Element that is not part of an Element SHOULD be ignored.
 
 EBML Element Type | Binary
