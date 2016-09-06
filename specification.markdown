@@ -171,7 +171,7 @@ Definition        | A UTF-8 Element contains only a valid Unicode string as defi
 
 EBML Element Type | Date
 :-----------------|:-----
-Endianness        | None
+Endianness        | Big-endian
 Length            | A Date Element MUST declare a length of either 0 octets or 8 octets. If the EBML Element is not defined to have a `default` value, then a Date Element with a zero-octet length represents a timestamp of 2001-01-01T00:00:00.000000000 UTC.
 Definition        | The Date Element MUST contain a Signed Integer that expresses a point in time referenced in nanoseconds from the precise beginning of the third millennium of the Gregorian Calendar in Coordinated Universal Time (also known as 2001-01-01T00:00:00.000000000 UTC). This provides a possible expression of time from 1708-09-11T00:12:44.854775808 UTC to 2293-04-11T11:47:16.854775807 UTC.
 
