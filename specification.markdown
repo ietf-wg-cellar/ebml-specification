@@ -142,49 +142,49 @@ EBML Element are defined by an EBML Schema which MUST declare one of the follow 
 EBML Element Type | Signed Integer
 :-----------------|:--------------
 Endianness        | Big-endian
-Length            | A Signed Integer Element MUST declare a length that is no greater than 8 octets. If the EBML Element is not defined to have a `default` value, then a Signed Integer Element with a zero-octet length represents an integer value of zero.
 Definition        | A Signed Integer stores an integer (meaning that it can be written without a fractional component) which may be negative, positive, or zero. Signed Integers MUST be stored with two's complement notation with the leftmost bit being the sign bit. Because EBML limits Signed Integers to 8 octets in length a Signed Element may store a number from −9,223,372,036,854,775,808 to +9,223,372,036,854,775,807.
+Length            | A Signed Integer Element MUST declare a length from zero to eight octets. If the EBML Element is not defined to have a `default` value, then a Signed Integer Element with a zero-octet length represents an integer value of zero.
 
 EBML Element Type | Unsigned Integer
 :-----------------|:-----------------
 Endianness        | Big-endian
-Length            | A Unsigned Integer Element MUST declare a length that is no greater than 8 octets. If the EBML Element is not defined to have a `default` value, then an Unsigned Integer Element with a zero-octet length represents an integer value of zero.
 Definition        | An Unsigned Integer stores an integer (meaning that it can be written without a fractional component) which may be positive or zero. Because EBML limits Unsigned Integers to 8 octets in length an unsigned Element may store a number from 0 to 18,446,744,073,709,551,615.
+Length            | A Unsigned Integer Element MUST declare a length from zero to eight octets. If the EBML Element is not defined to have a `default` value, then an Unsigned Integer Element with a zero-octet length represents an integer value of zero.
 
 EBML Element Type | Float
 :-----------------|:------
 Endianness        | Big-endian
-Length            | A Float Element MUST declare a length of either 0 octets (0 bit), 4 octets (32 bit) or 8 octets (64 bit). If the EBML Element is not defined to have a `default` value, then a Float Element with a zero-octet length represents a numerical value of zero.
+Length            | A Float Element MUST declare a length of either zero octets (0 bit), four octets (32 bit) or eight octets (64 bit). If the EBML Element is not defined to have a `default` value, then a Float Element with a zero-octet length represents a numerical value of zero.
 Definition        | A Float Element stores a floating-point number as defined in [@!IEEE.754.1985].
 
 EBML Element Type | String
 :-----------------|:-------
 Endianness        | None
-Length            | A String Element may declare any length from zero to `VINTMAX`. If the EBML Element is not defined to have a `default` value, then a String Element with a zero-octet length represents an empty string.
 Definition        | A String Element may either be empty (zero-length) or contain Printable ASCII characters [@!RFC0020] in the range of `0x20` to `0x7E`. Octets with all bits set to zero may follow the string value when needed, such as reducing the length of a stored string while maintaining the same Element Data Size. A string with one or more octets with all bits set to zero and a string without one or more octets with all bits set to zero are semantically equal.
+Length            | A String Element MUST declare a length in octets from zero to `VINTMAX`. If the EBML Element is not defined to have a `default` value, then a String Element with a zero-octet length represents an empty string.
 
 EBML Element Type | UTF-8
 :-----------------|:------
 Endianness        | None
-Length            | A UTF-8 Element may declare any length from zero to `VINTMAX`. If the EBML Element is not defined to have a `default` value, then a UTF-8 Element with a zero-octet length represents an empty string.
 Definition        | A UTF-8 Element contains only a valid Unicode string as defined in [@!RFC2279]. Octets with all bits set to zero may follow the string value when needed, such as reducing the length of a stored UTF-8 data while maintaining the same Element Data Size. A UTF-8 value with one or more octets with all bits set to zero and a UTF-8 value without one or more octets with all bits set to zero are semantically equal.
+Length            | A UTF-8 Element MUST declare a length in octets from zero to `VINTMAX`. If the EBML Element is not defined to have a `default` value, then a UTF-8 Element with a zero-octet length represents an empty string.
 
 EBML Element Type | Date
 :-----------------|:-----
 Endianness        | Big-endian
-Length            | A Date Element MUST declare a length of either 0 octets or 8 octets. If the EBML Element is not defined to have a `default` value, then a Date Element with a zero-octet length represents a timestamp of 2001-01-01T00:00:00.000000000 UTC [@!RFC3339].
+Length            | A Date Element MUST declare a length of either zero octets or eight octets. If the EBML Element is not defined to have a `default` value, then a Date Element with a zero-octet length represents a timestamp of 2001-01-01T00:00:00.000000000 UTC [@!RFC3339].
 Definition        | The Date Element stores an integer in the same format as the Signed Integer Element that expresses a point in time referenced in nanoseconds from the precise beginning of the third millennium of the Gregorian Calendar in Coordinated Universal Time (also known as 2001-01-01T00:00:00.000000000 UTC). This provides a possible expression of time from 1708-09-11T00:12:44.854775808 UTC to 2293-04-11T11:47:16.854775807 UTC.
 
 EBML Element Type | Master Element
 :-----------------|:---------------
 Endianness        | None
-Length            | A Master Element may declare any length from zero to `VINTMAX`. The Master Element may also use an unknown length. See the section on Element Data Size for rules that apply to elements of unknown length.
+Length            | A Master Element MUST declare a length in octets from zero to `VINTMAX`. The Master Element can also use an unknown length. See the section on Element Data Size for rules that apply to elements of unknown length.
 Definition        | The Master Element contains zero, one, or many other elements. Elements contained within a Master Element must be defined for use at levels greater than the level of the Master Element. For instance, if a Master Element occurs on level 2 then all contained Elements must be valid at level 3. Element Data stored within Master Elements SHOULD only consist of EBML Elements and SHOULD NOT contain any data that is not part of an EBML Element. When EBML is used in transmission or streaming, data that is not part of an EBML Element is permitted to be present within a Master Element if `unknownsizeallowed` is enabled within that Master Element's definition. In this case, the reader should skip data until a valid Element ID of the same level or the next greater level of the Master Element is found. What Element IDs are considered valid within a Master Element is identified by the EBML Schema for that version of the EBML Document Type. Any data contained with a Master Element that is not part of an Element SHOULD be ignored.
 
 EBML Element Type | Binary
 :-----------------|:-------
 Endianness        | None
-Length            | A binary element may declare any length from zero to `VINTMAX`.
+Length            | A binary element MUST declare a length in octets from zero to `VINTMAX`.
 Definition        | The contents of a Binary element should not be interpreted by the EBML parser.
 
 # EBML Document
