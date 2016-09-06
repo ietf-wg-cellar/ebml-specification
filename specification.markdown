@@ -158,7 +158,7 @@ EBML Element Type | UTF-8
 :-----------------|:------
 Endianness        | None
 Length            | A UTF-8 Element may declare any length from zero to `VINTMAX`. If the EBML Element is not defined to have a `default` value, then a UTF-8 Element with a zero-octet length represents an empty string.
-Definition        | A UTF-8 Element contains only a valid Unicode string as defined in [@?RFC2279](http://www.faqs.org/rfcs/rfc2279.html). Octets with all bits set to zero may follow the UTF-8 value when needed.
+Definition        | A UTF-8 Element contains only a valid Unicode string as defined in [@?RFC2279]. Octets with all bits set to zero may follow the UTF-8 value when needed.
 
 EBML Element Type | Date
 :-----------------|:-----
