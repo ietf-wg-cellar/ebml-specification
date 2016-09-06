@@ -31,7 +31,7 @@ Attacks on an EBML reader may include:
 
 Side channel attacks could exploit:
 
-- The semantic equivalence of the same string stored in an EBML String Element with and without zero-bit padding.
+- The semantic equivalence of the same string stored in an EBML String Element or EBML UTF-8 Element with and without zero-bit padding.
 - The semantic equilvance of VINT\_DATA within Element Data Size VINTs with to different lengths due to left-padding zero bits.
 - Data contained within a Master Element which is not itself part of an EBML Element.
 - Extraneous copies of Identically Recurring Element.
@@ -167,7 +167,7 @@ EBML Element Type | UTF-8
 :-----------------|:------
 Endianness        | None
 Length            | A UTF-8 Element may declare any length from zero to `VINTMAX`. If the EBML Element is not defined to have a `default` value, then a UTF-8 Element with a zero-octet length represents an empty string.
-Definition        | A UTF-8 Element contains only a valid Unicode string as defined in [@?RFC2279]. Octets with all bits set to zero may follow the UTF-8 value when needed.
+Definition        | A UTF-8 Element contains only a valid Unicode string as defined in [@?RFC2279]. Octets with all bits set to zero may follow the string value when needed, such as reducing the length of a stored UTF-8 data while maintaining the same Element Data Size. A UTF-8 value with one or more octets with all bits set to zero and a UTF-8 value without one or more octets with all bits set to zero are semantically equal.
 
 EBML Element Type | Date
 :-----------------|:-----
