@@ -219,7 +219,7 @@ As an XML Document, the EBML Schema MUST use `<EBMLSchema>` as the top level ele
 
 Within the EBML Schema each EBML Element is defined to occur at a specific level. For any specified EBML Element that is not at level 0, the Parent EBML Element refers to the EBML Master Element that that EBML Element is contained within. For any specified EBML Master Element the Child EBML Element refers to the EBML Element that is immediately contained within that Master Element. For any EBML Element that is not defined at level 0, the Parent EBML Element is identified by the preceding `<element>` node which has a lower value as the defined `level` attribute. The only exception for this rule are Global EBML Elements which MAY occur within any Parent EBML Element within the restriction of the Global EBML Element's range declaration.
 
-An EBML Schema MUST declare exactly one Element at Level 0 (referred to as the Root Element) that MUST occur exactly once within an EBML Document. The Root Element MUST be mandatory (with minOccurs set to 1) and MUST be defined to occur exactly once (maxOccurs set to 1). The EBML and Void Elements may also occur at Level 0 but are not considered to be Root Elements.
+An EBML Schema MUST declare exactly one Element at Level 0 (referred to as the Root Element) that MUST occur exactly once within an EBML Document. The EBML and Void Elements may also occur at Level 0 but are not considered to be Root Elements.
 
 Elements defined to only occur at Level 1 are known as Top-Level Elements.
 
