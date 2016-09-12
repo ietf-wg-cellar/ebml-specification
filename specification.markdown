@@ -377,7 +377,7 @@ Multiple     | No
 Range        | 1
 Default      | 1
 Type         | Unsigned Integer
-Description  | The minimum EBML version an EBML Reader has to support to read this EBML Document.
+Description  | The minimum EBML version an EBML Reader has to support to read this EBML Document. The EBMLReadVersion MUST be less than or equal to EBMLVersion.
 
 Name         | EBMLMaxIDLength
 :------------|:---------------
@@ -432,7 +432,7 @@ Multiple     | No
 Range        | -
 Default      | 1
 Type         | Unsigned Integer
-Description  | The minimum DocType version an interpreter has to support to read this EBML Document.
+Description  | The minimum DocType version an interpreter has to support to read this EBML Document. The DocTypeReadVersion MUST be less than or equal to DocTypeVersion.
 
 ## Global elements (used everywhere in the format)
 
