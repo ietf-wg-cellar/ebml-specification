@@ -329,11 +329,11 @@ Within an expression of a float range, as in an integer range, the `-` (hyphen) 
 
 If a Mandatory EBML Element has a default value declared by an EBML Schema and the EBML Element's value is equal to the declared default value then that Element is not required to be present within the EBML Document if its Parent EBML Element is present. In this case, the default value of the Mandatory EBML Element MUST be interpretted by the EBML Reader although the EBML Element is not present within its Parent EBML Element.
 
-If a Mandatory EBML Element has no default value declared by an EBML Schema and its Parent EBML Element is present then the EBML Element must be present as well. If a Mandatory EBML Element has a default value declared by an EBML Schema and its Parent EBML Element is present and the EBML Element's value is NOT equal to the declared default value then the EBML Element MUST be used.
+If a Mandatory EBML Element has no default value declared by an EBML Schema and its Parent EBML Element is present then the EBML Element MUST be present as well. If a Mandatory EBML Element has a default value declared by an EBML Schema and its Parent EBML Element is present and the EBML Element's value is NOT equal to the declared default value then the EBML Element MUST be used.
 
 This table clarifies if a Mandatory EBML Element MUST be written, according to if the default value is declared, if the value of the EBML Element is equal to the declared default value, and if the Parent EBML Element is used.
 
-| Is the default value declared? | Is the value equal to default? | Is the Parent Element used? | Then is storing the EBML Element required? |
+| Is the default value declared? | Is the value equal to default? | Is the Parent Element used? | Then is storing the EBML Element REQUIRED? |
 |:-----------------:|:-----------------------:|:--------------------:|:------------------------------------------:|
 | Yes               | Yes                     | Yes                  | No                                         |
 | Yes               | Yes                     | No                   | No                                         |
