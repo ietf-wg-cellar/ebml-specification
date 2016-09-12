@@ -342,10 +342,6 @@ This table clarifies if a Mandatory EBML Element MUST be written, according to i
 | No                | n/a                     | Yes                  | Yes                                        |
 | No                | n/a                     | No                   | No                                         |
 
-### Note on the Use of default attributes to define non-Mandatory EBML Elements
-
-If an EBML Element is not Mandatory, has a defined default value, and is an Empty EBML Element then the EBML Element MUST be interpreted as expressing the default value.
-
 ## EBML Header Elements
 
 This specification here contains definitions of all EBML Elements of the EBML Header.
