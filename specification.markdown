@@ -341,8 +341,6 @@ This table clarifies if a Mandatory EBML Element MUST be written, according to i
 | Yes               | No                      | No                   | No                                         |
 | No                | n/a                     | Yes                  | Yes                                        |
 | No                | n/a                     | No                   | No                                         |
-| No                | n/a                     | Yes                  | Yes                                        |
-| No                | n/a                     | No                   | No                                         |
 
 ### Note on the Use of default attributes to define non-Mandatory EBML Elements
 
