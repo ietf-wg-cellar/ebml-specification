@@ -301,7 +301,7 @@ An Identically Recurring Element is an Element that MAY occur within its Parent 
 
 ### Expression of range
 
-The `range` attribute MUST only be used with EBML Elements that are either `signed integer`, `unsigned integer`, or `float`. The `range` attribute does not support date EBML Elements. The `range` expression may contain whitespace for readability but whitespace within a `range` expression MUST NOT convey meaning. The expression of the `range` MUST adhere to one of the following forms:
+The `range` attribute MUST only be used with EBML Elements that are either `signed integer`, `unsigned integer`, `float`, or `date`. The `range` expression may contain whitespace for readability but whitespace within a `range` expression MUST NOT convey meaning. The expression of the `range` MUST adhere to one of the following forms:
 
 - `x-y` where x and y are integers or floats and `y` must be greater than `x`, meaning that the value must be greater than or equal to `x` and less than or equal to `y`.
 - `>x` where `x` is an integer or float, meaning that the value MUST be greater than `x`.
