@@ -305,6 +305,9 @@ The `range` attribute MUST only be used with EBML Elements that are either `sign
 
 - `x-y` where x and y are integers or floats and `y` MUST be greater than `x`, meaning that the value MUST be greater than or equal to `x` and less than or equal to `y`. `x` MUST be less than `y`.
 - `>x` where `x` is an integer or float, meaning that the value MUST be greater than `x`.
+- `>=x` where `x` is an integer or float, meaning that the value MUST be greater than or equal to `x`.
+- `<x` where `x` is an integer or float, meaning that the value MUST be less than `x`.
+- `<=x` where `x` is an integer or float, meaning that the value MUST be less than or equal to `x`.
 - `x` where `x` is an integer or float, meaning that the value MUST be equal `x`.
 
 The `range` may use the prefix `not ` to indicate that the expressed range is negated. Please also see [textual expression of floats](#textual-expression-of-floats).
