@@ -314,7 +314,7 @@ The `range` may use the prefix `not ` to indicate that the expressed range is ne
 
 ### Textual expression of Floats
 
-When a float value is represented textually in an EBML Schema, such as within a `default` or `range` value, the float values MUST be expressed as Hexadecimal Floating-Point Constants as defined in the C11 standard [@!ISO.9899.1990] (see section 6.4.4.2 on Floating Constants). The following table provides examples of expressions of float ranges.
+When a float value is represented textually in an EBML Schema, such as within a `default` or `range` value, the float values MUST be expressed as Hexadecimal Floating-Point Constants as defined in the C11 standard [@!ISO.9899.2011] (see section 6.4.4.2 on Floating Constants). The following table provides examples of expressions of float ranges.
 
 | as decimal        | as Hexadecimal Floating-Point Constants |
 |:------------------|:----------------------------------------|
