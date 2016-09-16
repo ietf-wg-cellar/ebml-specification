@@ -448,116 +448,191 @@ This table clarifies if a Mandatory EBML Element MUST be written, according to i
 
 This specification here contains definitions of all EBML Elements of the EBML Header.
 
-Name         | EBML
-:------------|:----
-Level        | 0
-EBML ID      | `0x1A45DFA3`
-Mandatory    | Yes
-Multiple     | No
-Range        | -
-Default      | -
-Type         | Master Element
-Description  | Set the EBML characteristics of the data to follow. Each EBML Document has to start with this.
+### EBML Element
 
-Name         | EBMLVersion
-:------------|:-----------
-Level        | 1
-EBML ID      | `0x4286`
-Mandatory    | Yes
-Multiple     | No
-Range        | 1
-Default      | 1
-Type         | Unsigned Integer
-Description  | The version of EBML Writer used to create the EBML Document.
+name: `EBML`
 
-Name         | EBMLReadVersion
-:------------|:---------------
-Level        | 1
-EBML ID      | `0x42F7`
-Mandatory    | Yes
-Multiple     | No
-Range        | 1
-Default      | 1
-Type         | Unsigned Integer
-Description  | The minimum EBML version an EBML Reader has to support to read this EBML Document. The EBMLReadVersion MUST be less than or equal to EBMLVersion.
+level: 0
 
-Name         | EBMLMaxIDLength
-:------------|:---------------
-Level        | 1
-EBML ID      | `0x42F2`
-Mandatory    | Yes
-Multiple     | No
-Range        | >3
-Default      | 4
-Type         | Unsigned Integer
-Description  | The EBMLMaxIDLength is the maximum length in octets of the Element IDs to be found within the EBML Body. An EBMLMaxIDLength value of four is recommended, though larger values are allowed.
+id: `0x1A45DFA3`
 
-Name         | EBMLMaxSizeLength
-:------------|:-----------------
-Level        | 1
-EBML ID      | `0x42F3`
-Mandatory    | Yes
-Multiple     | No
-Range        | >0
-Default      | 8
-Type         | Unsigned Integer
-Description  | The EBMLMaxSizeLength is the maximum length in octets of the expression of all Element Data Sizes to be found within the EBML Body. To be clear EBMLMaxSizeLength documents the maximum 'length' of all Element Data Size expressions within the EBML Body and not the maximum 'value' of all Element Data Size expressions within the EBML Body. Elements that have an Element Data Size expression which is larger in octets than what is expressed by EBMLMaxSizeLength SHALL be considered invalid.
+minOccurs: 1
 
-Name         | DocType
-:------------|:-------
-Level        | 1
-EBML ID      | `0x4282`
-Mandatory    | Yes
-Multiple     | No
-Range        | -
-Default      | -
-Type         | String
-Description  | A string that describes and identifies the content of the EBML Body that follows this EBML Header.
+maxOccurs: 1
 
-Name         | DocTypeVersion
-:------------|:--------------
-Level        | 1
-EBML ID      | `0x4287`
-Mandatory    | Yes
-Multiple     | No
-Range        | -
-Default      | 1
-Type         | Unsigned Integer
-Description  | The version of DocType interpreter used to create the EBML Document.
+type: `Master Element`
 
-Name         | DocTypeReadVersion
-:------------|:------------------
-Level        | 1
-EBML ID      | `0x4285`
-Mandatory    | Yes
-Multiple     | No
-Range        | -
-Default      | 1
-Type         | Unsigned Integer
-Description  | The minimum DocType version an interpreter has to support to read this EBML Document. The DocTypeReadVersion MUST be less than or equal to DocTypeVersion.
+description: Set the `EBML` characteristics of the data to follow. Each `EBML Document` has to start with this.
+
+### EBMLVersion Element
+
+name: `EBMLVersion`
+
+level: 1
+
+id `0x4286`
+
+minOccurs: 1
+
+maxOccurs: 1
+
+range:  1
+
+default: 1
+
+type: Unsigned Integer
+
+description: The version of `EBML Writer` used to create the `EBML Document`.
+
+### EBMLReadVersion Element
+
+name: `EBMLReadVersion`
+
+level: 1
+
+id: `0x42F7`
+
+minOccurs: 1
+
+maxOccurs: 1
+
+range:  1
+
+default: 1
+
+type: Unsigned Integer
+
+description: The minimum `EBML` version an `EBML Reader` has to support to read this `EBML Document`. The `EBMLReadVersion Element` MUST be less than or equal to `EBMLVersion`.
+
+### EBMLMaxIDLength Element
+
+name: `EBMLMaxIDLength`
+
+level:  1
+
+id `0x42F2`
+
+minOccurs: 1
+
+maxOccurs: 1
+
+range:  >3
+
+default: 4
+
+type: Unsigned Integer
+
+description: The `EBMLMaxIDLength Element` stores the maximum length in octets of the `Element IDs` to be found within the `EBML Body`. An `EBMLMaxIDLength Element` value of four is RECOMMENDED, though larger values are allowed.
+
+### EBMLMaxSizeLength Element
+
+name: `EBMLMaxSizeLength`
+
+level: 1
+
+id `0x42F3`
+
+minOccurs: 1
+
+maxOccurs: 1
+
+range:  >0
+
+default: 8
+
+type: Unsigned Integer
+
+description: The `EBMLMaxSizeLength Element` stores the maximum length in octets of the expression of all `Element Data Sizes` to be found within the `EBML Body`. To be clear the `EBMLMaxSizeLength Element` documents the maximum 'length' of all `Element Data Size` expressions within the `EBML Body` and not the maximum 'value' of all `Element Data Size` expressions within the `EBML Body`. `EBML Elements` that have an `Element Data Size` expression which is larger in octets than what is expressed by `EBMLMaxSizeLength ELEMENT` SHALL be considered invalid.
+
+### DocType Element
+
+name: `DocType`
+
+level: 1
+
+id `0x4282`
+
+minOccurs: 1
+
+maxOccurs: 1
+
+type: String
+
+description: A string that describes and identifies the content of the `EBML Body` that follows this `EBML Header`.
+
+### DocTypeVersion Element
+
+name: `DocTypeVersion`
+
+level: 1
+
+id `0x4287`
+
+minOccurs: 1
+
+maxOccurs: 1
+
+range:  -
+
+default: 1
+
+type: Unsigned Integer
+
+description: The version of `DocType` interpreter used to create the `EBML Document`.
+
+### DocTypeReadVersion Element
+
+name: DocTypeReadVersion
+
+level: 1
+
+id `0x4285`
+
+minOccurs: 1
+
+maxOccurs: 1
+
+default: 1
+
+type: Unsigned Integer
+
+description: The minimum `DocType` version an `EBML Reader` has to support to read this `EBML Document`. The value of the `DocTypeReadVersion Element` MUST be less than or equal to the value of the `DocTypeVersion Element`.
 
 ## Global elements (used everywhere in the format)
 
-Name         | CRC-32
-:------------|:------
-Level        | 1
-Global       | Yes
-EBML ID      | `0xBF`
-Mandatory    | No
-Range        | -
-Size         | 4
-Default      | -
-Type         | Binary
-Description  | The CRC-32 Element contains a 32 bit Cyclic Redundancy Check value of all the Element Data of the Parent Element as stored except for the CRC-32 Element itself. When the CRC-32 Element is present, the CRC-32 Element MUST be the first ordered Element within its Parent Element for easier reading. All Top-Level Elements of an EBML Document SHOULD include a CRC-32 Element as a Child Element. The CRC in use is the IEEE-CRC-32 algorithm as used in the [@!ISO.3309.1979] standard and in section 8.1.1.6.2 of [@!ITU.V42.1994], with initial value of `0xFFFFFFFF`. The CRC value MUST be computed on a little endian bitstream and MUST use little endian storage.
 
-Name         | Void
-:------------|:----
-Level        | 0
-Global       | Yes
-EBML ID      | `0xEC`
-Mandatory    | No
-Multiple     | Yes
-Range        | -
-Default      | -
-Type         | Binary
-Description  | Used to void damaged data, to avoid unexpected behaviors when using damaged data. The content is discarded. Also used to reserve space in a sub-element for later use.
+name: CRC-32
+
+level: 1
+
+global: true
+
+id: `0xBF`
+
+minOccurs: 0
+
+maxOccurs: 1
+
+size: 4
+
+type: Binary
+
+description: The `CRC-32 Element` contains a 32-bit Cyclic Redundancy Check value of all the `Element Data` of the `Parent Element` as stored except for the `CRC-32 Element` itself. When the `CRC-32 Element` is present, the `CRC-32 Element` MUST be the first ordered `EBML Element` within its `Parent Element` for easier reading. All `Top-Level Elements` of an `EBML Document` SHOULD include a `CRC-32 Element` as a `Child Element`. The CRC in use is the IEEE-CRC-32 algorithm as used in the [@!ISO.3309.1979] standard and in section 8.1.1.6.2 of [@!ITU.V42.1994], with initial value of `0xFFFFFFFF`. The CRC value MUST be computed on a little endian bitstream and MUST use little endian storage.
+
+### Void Element
+
+name: Void
+
+level: 0
+
+global: true
+
+id: `0xEC`
+
+minOccurs: 0
+
+maxOccurs: unbounded
+
+type: Binary
+
+description: Used to void damaged data, to avoid unexpected behaviors when using damaged data. The content is discarded. Also used to reserve space in a sub-element for later use.
