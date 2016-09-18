@@ -265,7 +265,7 @@ The `name` attribute is REQUIRED.
 
 #### parent
 
-The path to the parent EBML Element. This path MUST be defined with the full hierarchy of EBML Elements separated with a `/`. The top EBML Element in the path hierarchy being the first in the value. Elements that can be found anywhere inside en EBML Element and its children MUST use the `*` (wildcard) value after the path of the first parent allowed.
+The path to the `Parent Element`. This path MUST be defined with the full hierarchy of `EBML Elements` separated with a `/`. The top `EBML Element` in the path hierarchy being the first in the value. `EBML Elements` that can be found anywhere inside an `EBML Element` and its `Child Elements` MUST use the `*` (wildcard) value after the path of the first `Parent Element` allowed.
 
 The `parent` attribute is REQUIRED.
 
