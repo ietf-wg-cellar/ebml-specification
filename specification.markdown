@@ -217,7 +217,7 @@ An EBML Stream is a file that consists of one or many EBML Documents that are co
 
 An `EBML Schema` is an XML Document that defines the properties, arrangement, and usage of `EBML Elements` that compose a specific `EBML Document Type`. The relationship of an `EBML Schema` to an `EBML Document` may be considered analogous to the relationship of an XML Schema [@?W3C.REC-xmlschema-0-20010502] to an XML Document [@!W3C.REC-xml-20081126]. An `EBML Schema` MUST be clearly associated with one or many `EBML Document Types`. An `EBML Schema` must be expressed as well-formed XML. An `EBML Document Type` is identified by a string stored within the `EBML Header` in the `DocType Element`; for example `matroska` or `webm`. The `DocType` value for an `EBML Document Type` SHOULD be unique and persistent.
 
-Within the `EBML Schema` each `EBML Element` is defined to occur at a specific level. For any specified `EBML Element` that is not at level 0, the `Parent Element` refers to the `Master Element` that that `EBML Element` is contained within. For any specified `Master Element` the `Child Element` refers to the `EBML Element` that is immediately contained within that `Master Element`. For any `EBML Element` that is not defined at level 0, the `Parent Element` is identified by the preceding `<element>` node which has a lower value as the defined `level` attribute. The only exception for this rule are `Global Elements` which MAY occur within any `Parent Element` within the restriction of the `level` declaration of `Global Element`.
+Within the `EBML Schema` each `EBML Element` is defined to occur as the `Root Element` or as a `Child Element` to a specified `Parent Element`. For any specified `EBML Element` that is not at level 0, the `Parent Element` refers to the `Master Element` that that `EBML Element` is contained within. For any specified `Master Element` the `Child Element` refers to the `EBML Element` that is immediately contained within that `Master Element`. For any `EBML Element` that is not defined at level 0, the `Parent Element` is identified by the `parent` attribute.
 
 An `EBML Schema` MUST declare exactly one `EBML Element` at Level 0 (referred to as the `Root Element`) that MUST occur exactly once within an `EBML Document`. The `EBML Element` and the `Void Element` MAY also occur at Level 0 but are not considered to be `Root Elements`.
 
@@ -227,7 +227,7 @@ The `EBML Schema` does not itself document the `EBML Header`, but documents all 
 
 ### <EBMLSchema> Element
 
-As an XML Document, the `EBML Schema` MUST use `<EBMLSchema>` as the top level element. The `<EBMLSchema>` element MAY contain `<element>` sub-elements.
+As an XML Document, the `EBML Schema` MUST use `<EBMLSchema>` as the top level element. The `<EBMLSchema>` element MUST contain `<element>` sub-elements.
 
 ### <EBMLSchema> Attributes
 
@@ -251,7 +251,7 @@ Each `<element>` defines one `EBML Element` through the use of several attribute
 
 The `<element>` nodes contain a description of the meaning and use of the `EBML Element` stored within one or many `<documentation>` sub-elements.
 
-The `<element>` nodes MUST be arranged hierarchically according to the permitted structure of the EBML Document Type. An `<element>` node that defines an EBML Element which is a Child Element of another Parent Element MUST be stored as an immediate sub-element of the `<element>` node that defines the Parent Element. `<element>` nodes that define Level 0 Elements and Global Elements should be sub-elements of `<EBMLSchema>`.
+All `<element>` nodes MUST be immediate sub-elements of `<EBMLSchema>`.
 
 ### <element> Attributes
 
