@@ -48,10 +48,9 @@ This document defines specific terms in order to define the format and applicati
 
 `Parent Element`: A relative term to describe the `Master Element` which contains a specified element.
 
-`Root Element`: A mandatory, non-repeating EBML Element which occurs within an `EBML Document` at `Level 0` and contains all other `EBML Elements` of the `EBML 
-Document`, excepting the `EBML Header` and optional Void Elements.
+`Root Element`: A mandatory, non-repeating EBML Element which occurs within an `EBML Document` at `Level 0` and contains all other `EBML Elements` of the `EBML Document`, excepting the `EBML Header` and optional Void Elements.
 
-`Top-Level Element`: An elements defined to only occur at `Level 1` within the `Root Element`.
+`Top-Level Element`: An Element defined to only occur at `Level 1` within the `Root Element`.
 
 `Unknown-Sized Element`: An Element with an unknown `Element Data Size`.
 
