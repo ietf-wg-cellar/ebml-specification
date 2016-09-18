@@ -137,55 +137,57 @@ VINT\_WIDTH | VINT\_MARKER | VINT\_DATA     | Element Data Size Status
 
 # EBML Element Types
 
-EBML Element are defined by an EBML Schema which MUST declare one of the follow EBML Element Types for each EBML Element. An EBML Element Type defines a concept of storing data within an EBML Element that describes such characteristics as length, endianness, and definition.
+`EBML Element` are defined by an `EBML Schema` which MUST declare one of the follow `EBML Element Types` for each `EBML Element`. An `EBML Element Type` defines a concept of storing data within an `EBML Element` that describes such characteristics as length, endianness, and definition.
 
-EBML Element Type | Signed Integer
-:-----------------|:--------------
-Endianness        | Big-endian
-Length            | A Signed Integer Element MUST declare a length from zero to eight octets. If the EBML Element is not defined to have a `default` value, then a Signed Integer Element with a zero-octet length represents an integer value of zero.
-Definition        | A Signed Integer stores an integer (meaning that it can be written without a fractional component) which could be negative, positive, or zero. Signed Integers MUST be stored with two's complement notation with the leftmost bit being the sign bit. Because EBML limits Signed Integers to 8 octets in length a Signed Element stores a number from −9,223,372,036,854,775,808 to +9,223,372,036,854,775,807.
+`EBML Elements` which are defined as a `Signed Integer Element`, `Unsigned Integer Element`, `Float Element`, or `Date Element` use big endian storage.
 
-EBML Element Type | Unsigned Integer
-:-----------------|:-----------------
-Endianness        | Big-endian
-Length            | A Unsigned Integer Element MUST declare a length from zero to eight octets. If the EBML Element is not defined to have a `default` value, then an Unsigned Integer Element with a zero-octet length represents an integer value of zero.
-Definition        | An Unsigned Integer stores an integer (meaning that it can be written without a fractional component) which could be positive or zero. Because EBML limits Unsigned Integers to 8 octets in length an unsigned Element stores a number from 0 to 18,446,744,073,709,551,615.
+## Signed Integer Element
 
-EBML Element Type | Float
-:-----------------|:------
-Endianness        | Big-endian
-Length            | A Float Element MUST declare a length of either zero octets (0 bit), four octets (32 bit) or eight octets (64 bit). If the EBML Element is not defined to have a `default` value, then a Float Element with a zero-octet length represents a numerical value of zero.
-Definition        | A Float Element stores a floating-point number as defined in [@!IEEE.754.1985].
+A `Signed Integer Element` MUST declare a length from zero to eight octets. If the `EBML Element` is not defined to have a `default` value, then a `Signed Integer Element` with a zero-octet length represents an integer value of zero.
 
-EBML Element Type | String
-:-----------------|:-------
-Endianness        | None
-Length            | A String Element MUST declare a length in octets from zero to `VINTMAX`. If the EBML Element is not defined to have a `default` value, then a String Element with a zero-octet length represents an empty string.
-Definition        | A String Element MUST either be empty (zero-length) or contain Printable ASCII characters [@!RFC0020] in the range of `0x20` to `0x7E`. Octets with all bits set to zero MAY follow the string value when needed, such as reducing the length of a stored string while maintaining the same Element Data Size. A string with one or more octets with all bits set to zero and a string without one or more octets with all bits set to zero are semantically equal.
+A `Signed Integer Element` stores an integer (meaning that it can be written without a fractional component) which could be negative, positive, or zero. Signed Integers MUST be stored with two's complement notation with the leftmost bit being the sign bit. Because `EBML` limits Signed Integers to 8 octets in length a `Signed Ingeter Element` stores a number from −9,223,372,036,854,775,808 to +9,223,372,036,854,775,807.
 
-EBML Element Type | UTF-8
-:-----------------|:------
-Endianness        | None
-Length            | A UTF-8 Element MUST declare a length in octets from zero to `VINTMAX`. If the EBML Element is not defined to have a `default` value, then a UTF-8 Element with a zero-octet length represents an empty string.
-Definition        | A UTF-8 Element contains only a valid Unicode string as defined in [@!RFC2279]. Octets with all bits set to zero MAY follow the string value when needed, such as reducing the length of a stored UTF-8 data while maintaining the same Element Data Size. A UTF-8 value with one or more octets with all bits set to zero and a UTF-8 value without one or more octets with all bits set to zero are semantically equal.
+## Unsigned Integer Element
 
-EBML Element Type | Date
-:-----------------|:-----
-Endianness        | Big-endian
-Length            | A Date Element MUST declare a length of either zero octets or eight octets. If the EBML Element is not defined to have a `default` value, then a Date Element with a zero-octet length represents a timestamp of 2001-01-01T00:00:00.000000000 UTC [@!RFC3339].
-Definition        | The Date Element stores an integer in the same format as the Signed Integer Element that expresses a point in time referenced in nanoseconds from the precise beginning of the third millennium of the Gregorian Calendar in Coordinated Universal Time (also known as 2001-01-01T00:00:00.000000000 UTC). This provides a possible expression of time from 1708-09-11T00:12:44.854775808 UTC to 2293-04-11T11:47:16.854775807 UTC.
+A `Unsigned Integer Element` MUST declare a length from zero to eight octets. If the `EBML Element` is not defined to have a `default` value, then an `Unsigned Integer Element` with a zero-octet length represents an integer value of zero.
 
-EBML Element Type | Master Element
-:-----------------|:---------------
-Endianness        | None
-Length            | A Master Element MUST declare a length in octets from zero to `VINTMAX`. The Master Element MAY also use an unknown length. See the section on Element Data Size for rules that apply to elements of unknown length.
-Definition        | The Master Element contains zero, one, or many other elements. Elements contained within a Master Element MUST be defined for use at levels greater than the level of the Master Element. For instance, if a Master Element occurs on level 2 then all contained Elements MUST be valid at level 3. Element Data stored within Master Elements SHOULD only consist of EBML Elements and SHOULD NOT contain any data that is not part of an EBML Element. When EBML is used in transmission or streaming, data that is not part of an EBML Element is permitted to be present within a Master Element if `unknownsizeallowed` is enabled within that Master Element's definition. In this case, the reader should skip data until a valid Element ID of the same level or the next greater level of the Master Element is found. What Element IDs are considered valid within a Master Element is identified by the EBML Schema for that version of the EBML Document Type. Any data contained within a Master Element that is not part of a Child Element MUST be ignored.
+An `Unsigned Integer Element` stores an integer (meaning that it can be written without a fractional component) which could be positive or zero. Because `EBML` limits Unsigned Integers to 8 octets in length an `Unsigned Integer Element` stores a number from 0 to 18,446,744,073,709,551,615.
 
-EBML Element Type | Binary
-:-----------------|:-------
-Endianness        | None
-Length            | A binary element MUST declare a length in octets from zero to `VINTMAX`.
-Definition        | The contents of a Binary element should not be interpreted by the EBML Reader.
+## Float Element
+
+A `Float Element` MUST declare a length of either zero octets (0 bit), four octets (32 bit) or eight octets (64 bit). If the `EBML Element` is not defined to have a `default` value, then a `Float Element` with a zero-octet length represents a numerical value of zero.
+
+A `Float Element` stores a floating-point number as defined in [@!IEEE.754.1985].
+
+## String Element
+
+A `String Element` MUST declare a length in octets from zero to `VINTMAX`. If the `EBML Element` is not defined to have a `default` value, then a `String Element` with a zero-octet length represents an empty string.
+
+A `String Element` MUST either be empty (zero-length) or contain Printable ASCII characters [@!RFC0020] in the range of `0x20` to `0x7E`. Octets with all bits set to zero MAY follow the string value when needed, such as reducing the length of a stored string while maintaining the same `Element Data Size`. A string with one or more octets with all bits set to zero and a string without one or more octets with all bits set to zero are semantically equal.
+
+## UTF-8 Element
+
+A `UTF-8 Element` MUST declare a length in octets from zero to `VINTMAX`. If the `EBML Element` is not defined to have a `default` value, then a `UTF-8 Element` with a zero-octet length represents an empty string.
+
+A `UTF-8 Element` contains only a valid Unicode string as defined in [@!RFC2279]. Octets with all bits set to zero MAY follow the string value when needed, such as reducing the length of a stored UTF-8 data while maintaining the same `Element Data Size`. A UTF-8 value with one or more octets with all bits set to zero and a UTF-8 value without one or more octets with all bits set to zero are semantically equal.
+
+## Date Element
+
+A `Date Element` MUST declare a length of either zero octets or eight octets. If the `EBML Element` is not defined to have a `default` value, then a `Date Element` with a zero-octet length represents a timestamp of 2001-01-01T00:00:00.000000000 UTC [@!RFC3339].
+
+The `Date Element` stores an integer in the same format as the `Signed Integer Element` that expresses a point in time referenced in nanoseconds from the precise beginning of the third millennium of the Gregorian Calendar in Coordinated Universal Time (also known as 2001-01-01T00:00:00.000000000 UTC). This provides a possible expression of time from 1708-09-11T00:12:44.854775808 UTC to 2293-04-11T11:47:16.854775807 UTC.
+
+## Master Element
+
+A `Master Element` MUST declare a length in octets from zero to `VINTMAX`. The `Master Element` MAY also use an unknown length. See the section on `Element Data Size` for rules that apply to elements of unknown length.
+
+The `Master Element` contains zero, one, or many other elements. `EBML Elements` contained within a `Master Element` MUST be defined for use at levels greater than the level of the `Master Element`. For instance, if a `Master Element` occurs on level 2 then all contained `EBML Elements` MUST be valid at level 3. `Element Data` stored within `Master Elements` SHOULD only consist of `EBML Elements` and SHOULD NOT contain any data that is not part of an `EBML Element`. When `EBML` is used in transmission or streaming, data that is not part of an `EBML Element` is permitted to be present within a `Master Element` if `unknownsizeallowed` is enabled within the definition for that `Master Element`. In this case, the `EBML Reader` should skip data until a valid `Element ID` of the same level or the next greater level of the `Master Element` is found. What `Element IDs` are considered valid within a `Master Element` is identified by the `EBML Schema` for that version of the `EBML Document Type`. Any data contained within a `Master Element` that is not part of a `Child Element` MUST be ignored.
+
+## Binary Element
+
+A `Binary Element` MUST declare a length in octets from zero to `VINTMAX`.
+
+The contents of a `Binary Element` should not be interpreted by the `EBML Reader`.
 
 # EBML Document
 
@@ -213,49 +215,149 @@ An EBML Stream is a file that consists of one or many EBML Documents that are co
 
 ## EBML Schema
 
-An EBML Schema is an XML Document that defines the properties, arrangement, and usage of EBML Elements that compose a specific EBML Document Type. The relationship of an EBML Schema to an EBML Document may be considered analogous to the relationship of an XML Schema [@?W3C.REC-xmlschema-0-20010502] to an XML Document [@!W3C.REC-xml-20081126]. An EBML Schema MUST be clearly associated with one or many EBML Document Types. An EBML Schema must be expressed as well-formed XML. An EBML Document Type is identified by a string stored within the EBML Header in the DocType Element; for example `matroska` or `webm`. The DocType value for an EBML Document Type SHOULD be unique and persistent.
+An `EBML Schema` is an XML Document that defines the properties, arrangement, and usage of `EBML Elements` that compose a specific `EBML Document Type`. The relationship of an `EBML Schema` to an `EBML Document` may be considered analogous to the relationship of an XML Schema [@?W3C.REC-xmlschema-0-20010502] to an XML Document [@!W3C.REC-xml-20081126]. An `EBML Schema` MUST be clearly associated with one or many `EBML Document Types`. An `EBML Schema` must be expressed as well-formed XML. An `EBML Document Type` is identified by a string stored within the `EBML Header` in the `DocType Element`; for example `matroska` or `webm`. The `DocType` value for an `EBML Document Type` SHOULD be unique and persistent.
 
-As an XML Document, the EBML Schema MUST use `<EBMLSchema>` as the top level element. The `<EBMLSchema>` element MAY contain `<element>` sub-elements. Each `<element>` defines one EBML Element through the use of several attributes that are defined in the section on [EBML Schema Element Attributes](#ebml-schema-element-attributes). EBML Schemas MAY contain additional attributes to extend the semantics but MUST NOT conflict with the definitions of the `<element>` attributes defined within this specification.
+Within the `EBML Schema` each `EBML Element` is defined to occur at a specific level. For any specified `EBML Element` that is not at level 0, the `Parent Element` refers to the `Master Element` that that `EBML Element` is contained within. For any specified `Master Element` the `Child Element` refers to the `EBML Element` that is immediately contained within that `Master Element`. For any `EBML Element` that is not defined at level 0, the `Parent Element` is identified by the preceding `<element>` node which has a lower value as the defined `level` attribute. The only exception for this rule are `Global Elements` which MAY occur within any `Parent Element` within the restriction of the `level` declaration of `Global Element`.
 
-Within the EBML Schema each EBML Element is defined to occur at a specific level. For any specified EBML Element that is not at level 0, the Parent EBML Element refers to the EBML Master Element that that EBML Element is contained within. For any specified EBML Master Element the Child EBML Element refers to the EBML Element that is immediately contained within that Master Element. For any EBML Element that is not defined at level 0, the Parent EBML Element is identified by the preceding `<element>` node which has a lower value as the defined `level` attribute. The only exception for this rule are Global EBML Elements which MAY occur within any Parent EBML Element within the restriction of the Global EBML Element's range declaration.
+An `EBML Schema` MUST declare exactly one `EBML Element` at Level 0 (referred to as the `Root Element`) that MUST occur exactly once within an `EBML Document`. The `EBML Element` and the `Void Element` MAY also occur at Level 0 but are not considered to be `Root Elements`.
 
-An EBML Schema MUST declare exactly one Element at Level 0 (referred to as the Root Element) that MUST occur exactly once within an EBML Document. The EBML and Void Elements may also occur at Level 0 but are not considered to be Root Elements.
+`EBML Elements` defined to only occur at Level 1 are known as `Top-Level Elements`.
 
-Elements defined to only occur at Level 1 are known as Top-Level Elements.
+The `EBML Schema` does not itself document the `EBML Header`, but documents all data of the `EBML Document` that follows the `EBML Header`. The `EBML Header` itself is documented by this specification in the `EBML Header Elements` (see [EBML Header Elements](#ebml-header-elements)). The `EBML Schema` also does not document `Global Elements` that are defined by this document (namely the `Void Element` and the `CRC-32 Element`).
 
-The EBML Schema does not itself document the EBML Header, but documents all data of the EBML Document that follows the EBML Header. The EBML Header itself is documented by this specification in the [EBML Header Elements](#ebml-header-elements). The EBML Schema also does not document Global Elements that are defined by the EBML Specification (namely Void and CRC-32).
+### <EBMLSchema> Element
 
-### EBML Schema Element Attributes
+As an XML Document, the `EBML Schema` MUST use `<EBMLSchema>` as the top level element. The `<EBMLSchema>` element MAY contain `<element>` sub-elements.
 
-Within an EBML Schema the `<EBMLSchema>` uses the following attributes:
+### <EBMLSchema> Attributes
 
-| attribute name | required | definition |
-|:---------------|:---------|:-----------|
-| docType        | Yes      | The `docType` lists the official name of the EBML Document Type that is defined by the EBML Schema; for example, `<EBMLSchema docType="matroska">`. |
-| version        | Yes      | The `version` lists an incremental non-negative integer that specifies the version of the docType documented by the EBML Schema. Unlike XML Schemas, an EBML Schema documents all versions of a docType's definition rather than using separate EBML Schemas for each version of a docType. Elements may be introduced and deprecated by using the `minver` and `maxver` attributes of <element>. |
+Within an `EBML Schema` the `<EBMLSchema>` Element uses the following attributes:
 
-Within an EBML Schema the `<element>` uses the following attributes to define an EBML Element:
+#### docType
 
-| attribute name | required | definition |
-|:---------------|:---------|:-----------|
-| name           | Yes      | The official human-readable name of the EBML Element. The value of the name MUST be in the form of an NCName as defined by the [@!W3C.REC-xml-names-19990114]. |
-| level          | Yes      | The level notes at what hierarchical depth or depths the EBML Element MUST occur if used within an EBML Document. The Root Element of an EBML Document is at level 0 and the Elements that it may contain are at level 1. The level MUST be expressed as an integer. Elements defined as `global` and `recursive` MAY occur at a level greater than or equal to the defined `level`.|
-| global         | No       | A boolean to express if an EBML Element MUST occur at its defined level or may occur within any Parent EBML Element. If the `global` attribute is not present for that Element then that element is to be considered not global. |
-| id             | Yes      | The Element ID encoded as a Variable Size Integer expressed in hexadecimal notation prefixed by a `0x` that is read and stored in big-endian order. To reduce the risk of false positives while parsing EBML Streams, the IDs of the Root Element and Top-Level Elements SHOULD be at least 4 octets in length. Element IDs defined for use at Level 0 or Level 1 MAY use shorter octet lengths to facilitate padding and optimize edits to EBML Documents; for instance, the EBML Void Element uses an Element ID with a one octet length to allow its usage in more writing and editing scenarios. |
-| minOccurs      | No       | An integer expressing the minimum number of occurrences of this EBML Element within its Parent Element. Each instance of the Parent Element MUST contain at least this many instances of this Element. If the Element has no Parent Level (as is the case with Elements at Level 0), then minOccurs refers to constaints on the Element's occurrence within the EBML Document. If the minOccurs attribute is not present for that Element then that Element is considered to have a minOccurs value of 0. This value of minOccurs MUST be a non-negative integer. The semantic meaning of minOccurs within an EBML Schema is considered analogous to the meaning of minOccurs within an [XML Schema](https://www.w3.org/TR/xmlschema-0/#ref6). Elements with minOccurs set to "1" that also have a default value declared are not required to be stored but are required to be interpreted, see [Note on the Use of default attributes to define Mandatory EBML Elements](#note-on-the-use-of-default-attributes-to-define-mandatory-ebml-elements). An EBML Element defined with a `minOccurs` value greater than zero is called a Mandatory EBML Element. |
-| maxOccurs       | No       | An integer expressing the maximum number of occurrences of this EBML Element within its Parent Element. Each instance of the Parent Element MUST contain no more than this many instances of this Element. If the Element has no Parent Level (as is the case with Elements at Level 0), then maxOccurs refers to constaints on the Element's occurrence within the EBML Document. This value may be either a positive integer or the term `unbounded` to indicate there is no maximum number of occurrences or the term `identical` to indicate that the Element is an [Identically Recurring Element](#identically-recurring-elements). If the maxOccurs attribute is not present for that Element then that Element is considered to have a maxOccurs value of 1. The semantic meaning of maxOccurs within an EBML Schema is considered analogous to the meaning of minOccurs within an [XML Schema](https://www.w3.org/TR/xmlschema-0/#ref6), with EBML Schema adding the concept of Identically Recurring Elements. |
-| range          | Yes      | For Elements which are of numerical types (Unsigned Integer, Signed Integer, Float, and Date) a numerical range may be specified. If specified the value of the EBML Element MUST be within the defined range. See [section of Expressions of range](#expression-of-range) for rules applied to expression of range values. |
-| size           | No       | A value to express the valid length of the Element Data as written measured in octets. The value provides a constraint in addition to the Length value of the definition of the corresponding EBML Element Type. This value MUST be expressed as either a non-negative integer or an [expression of range](#expression-of-range) that consists of only non-negative integers and valid operators. If the size attribute is not present for that Element then that Element is only limited in size by the definition of the associated EBML Element Type. |
-| default        | No       | If an Element is mandatory (has a minOccurs value greater than zero) but not written within its Parent EBML Element or stored as an Empty Element, then the EBML Reader of the EBML Document MUST semantically interpret the Element as present with this specified default value for the Element. EBML Elements that are Master Elements MUST NOT declare a default value. |
-| type           | Yes      | The type MUST be set to one of the following values: 'integer' (signed integer), 'uinteger' (unsigned integer), 'float', 'string', 'date', 'utf-8', 'master', or 'binary'. The content of each type is defined within [section on EBML Element Types](#ebml-element-types). |
-| unknownsizeallowed | No       | A boolean to express if an EBML Element MAY be used as an `Unknown-Sized Element` (having all VINT\_DATA bits of Element Data Size set to 1). Elements that are not Master Elements MUST NOT set `unknownsizeallowed` to true. If the `unknownsizeallowed` attribute is not used it is assumed that the element is not allowed to use an unknown Element Data Size. |
-| recursive | No       | A boolean to express if an EBML Element MAY be stored recursively. In this case the Element MAY be stored at levels greater that defined in the `level` attribute if the Element is a Child Element of a Parent Element with the same Element ID. Elements that are not Master Elements MUST NOT set `recursive` to true. If the `recursive` attribute is not present then the element MUST NOT be used recursively.|
-| minver         | No       | The `minver` (minimum version) attribute stores a non-negative integer that represents the first version of the docType to support the element. If the `minver` attribute is not present then the element has a minimum version of "1". |
-| maxver         | No       | The `maxver` (maximum version) attribute stores a non-negative integer that represents the last or most recent version of the docType to support the element. If the `maxver` attribute is not present then the element has a maximum version equal to the value stored in the `version` attribute of <EBMLSchema>. `maxver` MUST be greater than or equal to `minver`. |
+The `docType` lists the official name of the EBML Document Type that is defined by the EBML Schema; for example, `<EBMLSchema docType="matroska">`.
 
-The `<element>` nodes contain a description of the meaning and use of the EBML Element stored within one or many `<documentation>` sub-elements. The `<documentation>` sub-element MAY use a `lang` attribute which is set to the [@!RFC5646] value of the language of the element's documentation. The `<documentation>` sub-element MAY use a `type` attribute to distinguish the meaning of the documentation. Values for the `<documentation>` sub-element's `type` attribute MUST include one of the following: `definition`, `rationale`, `usage notes`, and `references`.
+The `docType` attribute is REQUIRED within the `<EBMLSchema>` Element.
+
+#### version
+
+The `version` lists an incremental non-negative integer that specifies the version of the docType documented by the `EBML Schema`. Unlike XML Schemas, an `EBML Schema` documents all versions of a docType's definition rather than using separate `EBML Schemas` for each version of a `docType`. `EBML Elements` may be introduced and deprecated by using the `minver` and `maxver` attributes of `<element>`.
+
+The `version` attribute is REQUIRED within the `<EBMLSchema>` Element.
+
+### <element> Element
+
+Each `<element>` defines one `EBML Element` through the use of several attributes that are defined in [EBML Schema Element Attributes](#ebmlschema-attributes). `EBML Schemas` MAY contain additional attributes to extend the semantics but MUST NOT conflict with the definitions of the `<element>` attributes defined within this document.
+
+The `<element>` nodes contain a description of the meaning and use of the `EBML Element` stored within one or many `<documentation>` sub-elements.
 
 The `<element>` nodes MUST be arranged hierarchically according to the permitted structure of the EBML Document Type. An `<element>` node that defines an EBML Element which is a Child Element of another Parent Element MUST be stored as an immediate sub-element of the `<element>` node that defines the Parent Element. `<element>` nodes that define Level 0 Elements and Global Elements should be sub-elements of `<EBMLSchema>`.
+
+### <element> Attributes
+
+Within an `EBML Schema` the `<element>` uses the following attributes to define an `EBML Element`:
+
+#### name
+
+The `name` provides the official human-readable name of the `EBML Element`. The value of the name MUST be in the form of an NCName as defined by [@!W3C.REC-xml-names-19990114].
+
+The `name` attribute is REQUIRED.
+
+#### level
+
+The `level` notes at what hierarchical depth or depths the `EBML Element` MUST occur if used within an `EBML Document`. The `Root Element` of an `EBML Document` is at level 0 and the `Child Elements` that it contains are at level 1. The level MUST be expressed as an integer. Elements defined as `global` and `recursive` MAY occur at a level greater than or equal to the defined `level`.
+
+The `level` attribute is REQUIRED.
+
+#### global
+
+A boolean to express if an EBML Element MUST occur at its defined level or may occur within any Parent EBML Element.
+
+The `global` attribute is OPTIONAL. If the `global` attribute is not present then that `EBML Element` is to be considered not global.
+
+#### id
+
+The `Element ID` encoded as a `Variable Size Integer` expressed in hexadecimal notation prefixed by a `0x` that is read and stored in big-endian order. To reduce the risk of false positives while parsing `EBML Streams`, the `Element IDs` of the `Root Element` and `Top-Level Elements` SHOULD be at least 4 octets in length. `Element IDs` defined for use at Level 0 or Level 1 MAY use shorter octet lengths to facilitate padding and optimize edits to EBML Documents; for instance, the `Void Element` uses an `Element ID` with a one octet length to allow its usage in more writing and editing scenarios.
+
+The `id` attribute is REQUIRED.
+
+#### minOccurs
+
+An integer expressing the minimum number of occurrences of this `EBML Element` within its `Parent Element`. Each instance of the `Parent Element` MUST contain at least this many instances of this `EBML Element`. If the `EBML Element` has no `Parent Level` (as is the case with `EBML Elements` at Level 0), then `minOccurs` refers to constaints on the occurrence of the `EBML Element` within the `EBML Document`. This value of `minOccurs` MUST be a non-negative integer. The semantic meaning of `minOccurs` within an `EBML Schema` is considered analogous to the meaning of `minOccurs` within an `XML Schema`. `EBML Elements` with `minOccurs` set to "1" that also have a `default` value (see [default](#default)) declared are not REQUIRED to be stored but are REQUIRED to be interpreted, see [Note on the Use of default attributes to define Mandatory EBML Elements](#note-on-the-use-of-default-attributes-to-define-mandatory-ebml-elements). An `EBML Element` defined with a `minOccurs` value greater than zero is called a `Mandatory EBML Element`.
+
+The `minOccurs` attribute is OPTIONAL. If the `minOccurs` attribute is not present then that `EBML Element` is considered to have a `minOccurs` value of 0.
+
+#### maxOccurs
+
+An integer expressing the maximum number of occurrences of this `EBML Element` within its `Parent Element`. Each instance of the `Parent Element` MUST contain no more than this many instances of this `EBML Element`. If the `EBML Element` has no `Parent Element` (as is the case with `EBML Elements` at Level 0), then `maxOccurs` refers to constaints on the Element's occurrence within the `EBML Document`. This value may be either a positive integer or the term `unbounded` to indicate there is no maximum number of occurrences or the term `identical` to indicate that the Element is an `Identically Recurring Element` (see [Identically Recurring Element](#identically-recurring-elements)). The semantic meaning of maxOccurs within an EBML Schema is considered analogous to the meaning of minOccurs within an `XML Schema`, with `EBML Schema` adding the concept of `Identically Recurring Elements`.
+
+The `maxOccurs` attribute is OPTIONAL. If the `maxOccurs` attribute is not present for that Element then that Element is considered to have a maxOccurs value of 1.
+
+#### range
+
+A numerical range for `EBML Elements` which are of numerical types (Unsigned Integer, Signed Integer, Float, and Date). If specified the value of the EBML Element MUST be within the defined range. See [section of Expressions of range](#expression-of-range) for rules applied to expression of range values.
+
+The `range` attribute is OPTIONAL.
+
+#### size
+
+A value to express the valid length of the `Element Data` as written measured in octets. The `size` provides a constraint in addition to the Length value of the definition of the corresponding `EBML Element Type`. This `size` MUST be expressed as either a non-negative integer or a range (see [expression of range](#expression-of-range)) that consists of only non-negative integers and valid operators.
+
+The `size` attribute is OPTIONAL. If the `size` attribute is not present for that `EBML Element` then that `EBML Element` is only limited in size by the definition of the associated `EBML Element Type`.
+
+#### default
+
+If an Element is mandatory (has a `minOccurs` value greater than zero) but not written within its `Parent Element` or stored as an `Empty Element`, then the `EBML Reader` of the `EBML Document` MUST semantically interpret the `EBML Element` as present with this specified default value for the `EBML Element`. `EBML Elements` that are `Master Elements` MUST NOT declare a `default` value.
+
+The `default` attribute is OPTIONAL.
+
+#### type
+
+The `type` MUST be set to one of the following values: 'integer' (signed integer), 'uinteger' (unsigned integer), 'float', 'string', 'date', 'utf-8', 'master', or 'binary'. The content of each `type` is defined within [section on EBML Element Types](#ebml-element-types).
+
+The `type` attribute is REQUIRED.
+
+#### unknownsizeallowed
+
+A boolean to express if an `EBML Element` MAY be used as an `Unknown-Sized Element` (having all `VINT_DATA` bits of `Element Data Size` set to 1). `EBML Elements` that are not `Master Elements` MUST NOT set `unknownsizeallowed` to true.
+
+The `unknownsizeallowed` attribute is OPTIONAL. If the `unknownsizeallowed` attribute is not used then that `EBML Element` is not allowed to use an unknown `Element Data Size`.
+
+#### recursive
+
+A boolean to express if an `EBML Element` MAY be stored recursively. In this case the `EBML Element` MAY be stored at levels greater that defined in the `level` attribute if the `EBML Element` is a `Child Element` of a `Parent Element` with the same `Element ID`. `EBML Elements` that are not `Master Elements` MUST NOT set `recursive` to true.
+
+The `recursive` attribute is OPTIONAL. If the `recursive` attribute is not present then the element MUST NOT be used recursively.
+
+#### minver
+
+The `minver` (minimum version) attribute stores a non-negative integer that represents the first version of the `docType` to support the `EBML Element`.
+
+The `minver` attribute is OPTIONAL. If the `minver` attribute is not present then the `EBML Element` has a minimum version of "1". 
+
+#### maxver
+
+The `maxver` (maximum version) attribute stores a non-negative integer that represents the last or most recent version of the `docType` to support the element. `maxver` MUST be greater than or equal to `minver`.
+
+The `maxver` attribute is OPTIONAL. If the `maxver` attribute is not present then the `EBML Element` has a maximum version equal to the value stored in the `version` attribute of <EBMLSchema>.
+
+### <documentation> Element
+
+The `<documentation>` element provides additional information about the `EBML Element`.
+
+### <documentation> Attributes
+
+#### lang
+
+A `lang` attribute which is set to the [@!RFC5646] value of the language of the element's documentation.
+
+The `lang` attribute is OPTIONAL.
+
+#### type
+
+A `type` attribute distinguishes the meaning of the documentation. Values for the `<documentation>` sub-element's `type` attribute MUST include one of the following: `definition`, `rationale`, `usage notes`, and `references`.
+
+The `type` attribute is OPTIONAL.
 
 ### EBML Schema Example
 
@@ -346,116 +448,191 @@ This table clarifies if a Mandatory EBML Element MUST be written, according to i
 
 This specification here contains definitions of all EBML Elements of the EBML Header.
 
-Name         | EBML
-:------------|:----
-Level        | 0
-EBML ID      | `0x1A45DFA3`
-Mandatory    | Yes
-Multiple     | No
-Range        | -
-Default      | -
-Type         | Master Element
-Description  | Set the EBML characteristics of the data to follow. Each EBML Document has to start with this.
+### EBML Element
 
-Name         | EBMLVersion
-:------------|:-----------
-Level        | 1
-EBML ID      | `0x4286`
-Mandatory    | Yes
-Multiple     | No
-Range        | 1
-Default      | 1
-Type         | Unsigned Integer
-Description  | The version of EBML Writer used to create the EBML Document.
+name: `EBML`
 
-Name         | EBMLReadVersion
-:------------|:---------------
-Level        | 1
-EBML ID      | `0x42F7`
-Mandatory    | Yes
-Multiple     | No
-Range        | 1
-Default      | 1
-Type         | Unsigned Integer
-Description  | The minimum EBML version an EBML Reader has to support to read this EBML Document. The EBMLReadVersion MUST be less than or equal to EBMLVersion.
+level: 0
 
-Name         | EBMLMaxIDLength
-:------------|:---------------
-Level        | 1
-EBML ID      | `0x42F2`
-Mandatory    | Yes
-Multiple     | No
-Range        | >3
-Default      | 4
-Type         | Unsigned Integer
-Description  | The EBMLMaxIDLength is the maximum length in octets of the Element IDs to be found within the EBML Body. An EBMLMaxIDLength value of four is recommended, though larger values are allowed.
+id: `0x1A45DFA3`
 
-Name         | EBMLMaxSizeLength
-:------------|:-----------------
-Level        | 1
-EBML ID      | `0x42F3`
-Mandatory    | Yes
-Multiple     | No
-Range        | >0
-Default      | 8
-Type         | Unsigned Integer
-Description  | The EBMLMaxSizeLength is the maximum length in octets of the expression of all Element Data Sizes to be found within the EBML Body. To be clear EBMLMaxSizeLength documents the maximum 'length' of all Element Data Size expressions within the EBML Body and not the maximum 'value' of all Element Data Size expressions within the EBML Body. Elements that have an Element Data Size expression which is larger in octets than what is expressed by EBMLMaxSizeLength SHALL be considered invalid.
+minOccurs: 1
 
-Name         | DocType
-:------------|:-------
-Level        | 1
-EBML ID      | `0x4282`
-Mandatory    | Yes
-Multiple     | No
-Range        | -
-Default      | -
-Type         | String
-Description  | A string that describes and identifies the content of the EBML Body that follows this EBML Header.
+maxOccurs: 1
 
-Name         | DocTypeVersion
-:------------|:--------------
-Level        | 1
-EBML ID      | `0x4287`
-Mandatory    | Yes
-Multiple     | No
-Range        | -
-Default      | 1
-Type         | Unsigned Integer
-Description  | The version of DocType interpreter used to create the EBML Document.
+type: `Master Element`
 
-Name         | DocTypeReadVersion
-:------------|:------------------
-Level        | 1
-EBML ID      | `0x4285`
-Mandatory    | Yes
-Multiple     | No
-Range        | -
-Default      | 1
-Type         | Unsigned Integer
-Description  | The minimum DocType version an interpreter has to support to read this EBML Document. The DocTypeReadVersion MUST be less than or equal to DocTypeVersion.
+description: Set the `EBML` characteristics of the data to follow. Each `EBML Document` has to start with this.
+
+### EBMLVersion Element
+
+name: `EBMLVersion`
+
+level: 1
+
+id `0x4286`
+
+minOccurs: 1
+
+maxOccurs: 1
+
+range:  1
+
+default: 1
+
+type: Unsigned Integer
+
+description: The version of `EBML Writer` used to create the `EBML Document`.
+
+### EBMLReadVersion Element
+
+name: `EBMLReadVersion`
+
+level: 1
+
+id: `0x42F7`
+
+minOccurs: 1
+
+maxOccurs: 1
+
+range:  1
+
+default: 1
+
+type: Unsigned Integer
+
+description: The minimum `EBML` version an `EBML Reader` has to support to read this `EBML Document`. The `EBMLReadVersion Element` MUST be less than or equal to `EBMLVersion`.
+
+### EBMLMaxIDLength Element
+
+name: `EBMLMaxIDLength`
+
+level:  1
+
+id `0x42F2`
+
+minOccurs: 1
+
+maxOccurs: 1
+
+range:  >3
+
+default: 4
+
+type: Unsigned Integer
+
+description: The `EBMLMaxIDLength Element` stores the maximum length in octets of the `Element IDs` to be found within the `EBML Body`. An `EBMLMaxIDLength Element` value of four is RECOMMENDED, though larger values are allowed.
+
+### EBMLMaxSizeLength Element
+
+name: `EBMLMaxSizeLength`
+
+level: 1
+
+id `0x42F3`
+
+minOccurs: 1
+
+maxOccurs: 1
+
+range:  >0
+
+default: 8
+
+type: Unsigned Integer
+
+description: The `EBMLMaxSizeLength Element` stores the maximum length in octets of the expression of all `Element Data Sizes` to be found within the `EBML Body`. To be clear the `EBMLMaxSizeLength Element` documents the maximum 'length' of all `Element Data Size` expressions within the `EBML Body` and not the maximum 'value' of all `Element Data Size` expressions within the `EBML Body`. `EBML Elements` that have an `Element Data Size` expression which is larger in octets than what is expressed by `EBMLMaxSizeLength ELEMENT` SHALL be considered invalid.
+
+### DocType Element
+
+name: `DocType`
+
+level: 1
+
+id `0x4282`
+
+minOccurs: 1
+
+maxOccurs: 1
+
+type: String
+
+description: A string that describes and identifies the content of the `EBML Body` that follows this `EBML Header`.
+
+### DocTypeVersion Element
+
+name: `DocTypeVersion`
+
+level: 1
+
+id `0x4287`
+
+minOccurs: 1
+
+maxOccurs: 1
+
+range:  -
+
+default: 1
+
+type: Unsigned Integer
+
+description: The version of `DocType` interpreter used to create the `EBML Document`.
+
+### DocTypeReadVersion Element
+
+name: DocTypeReadVersion
+
+level: 1
+
+id `0x4285`
+
+minOccurs: 1
+
+maxOccurs: 1
+
+default: 1
+
+type: Unsigned Integer
+
+description: The minimum `DocType` version an `EBML Reader` has to support to read this `EBML Document`. The value of the `DocTypeReadVersion Element` MUST be less than or equal to the value of the `DocTypeVersion Element`.
 
 ## Global elements (used everywhere in the format)
 
-Name         | CRC-32
-:------------|:------
-Level        | 1
-Global       | Yes
-EBML ID      | `0xBF`
-Mandatory    | No
-Range        | -
-Size         | 4
-Default      | -
-Type         | Binary
-Description  | The CRC-32 Element contains a 32 bit Cyclic Redundancy Check value of all the Element Data of the Parent Element as stored except for the CRC-32 Element itself. When the CRC-32 Element is present, the CRC-32 Element MUST be the first ordered Element within its Parent Element for easier reading. All Top-Level Elements of an EBML Document SHOULD include a CRC-32 Element as a Child Element. The CRC in use is the IEEE-CRC-32 algorithm as used in the [@!ISO.3309.1979] standard and in section 8.1.1.6.2 of [@!ITU.V42.1994], with initial value of `0xFFFFFFFF`. The CRC value MUST be computed on a little endian bitstream and MUST use little endian storage.
 
-Name         | Void
-:------------|:----
-Level        | 0
-Global       | Yes
-EBML ID      | `0xEC`
-Mandatory    | No
-Multiple     | Yes
-Range        | -
-Default      | -
-Type         | Binary
-Description  | Used to void damaged data, to avoid unexpected behaviors when using damaged data. The content is discarded. Also used to reserve space in a sub-element for later use.
+name: CRC-32
+
+level: 1
+
+global: true
+
+id: `0xBF`
+
+minOccurs: 0
+
+maxOccurs: 1
+
+size: 4
+
+type: Binary
+
+description: The `CRC-32 Element` contains a 32-bit Cyclic Redundancy Check value of all the `Element Data` of the `Parent Element` as stored except for the `CRC-32 Element` itself. When the `CRC-32 Element` is present, the `CRC-32 Element` MUST be the first ordered `EBML Element` within its `Parent Element` for easier reading. All `Top-Level Elements` of an `EBML Document` SHOULD include a `CRC-32 Element` as a `Child Element`. The CRC in use is the IEEE-CRC-32 algorithm as used in the [@!ISO.3309.1979] standard and in section 8.1.1.6.2 of [@!ITU.V42.1994], with initial value of `0xFFFFFFFF`. The CRC value MUST be computed on a little endian bitstream and MUST use little endian storage.
+
+### Void Element
+
+name: Void
+
+level: 0
+
+global: true
+
+id: `0xEC`
+
+minOccurs: 0
+
+maxOccurs: unbounded
+
+type: Binary
+
+description: Used to void damaged data, to avoid unexpected behaviors when using damaged data. The content is discarded. Also used to reserve space in a sub-element for later use.
