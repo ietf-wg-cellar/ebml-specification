@@ -32,7 +32,7 @@ Attacks on an EBML reader could include:
 Side channel attacks could exploit:
 
 - The semantic equivalence of the same string stored in an EBML String Element or EBML UTF-8 Element with and without zero-bit padding.
-- The semantic equilvance of VINT\_DATA within Element Data Size VINTs with to different lengths due to left-padding zero bits.
+- The semantic equivalence of VINT\_DATA within Element Data Size VINTs with to different lengths due to left-padding zero bits.
 - Data contained within a Master Element which is not itself part of an EBML Element.
 - Extraneous copies of Identically Recurring Element.
 - Copies of Identically Recurring Element within a Parent Element that contains an invalid CRC-32 Elements.
