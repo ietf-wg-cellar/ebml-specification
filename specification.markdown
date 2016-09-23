@@ -1,18 +1,18 @@
 # Introduction
 
-EBML, short for Extensible Binary Meta Language, specifies a binary and octet (byte) aligned format inspired by the principle of XML (a framework for structuring data).
+`EBML`, short for Extensible Binary Meta Language, specifies a binary and octet (byte) aligned format inspired by the principle of XML (a framework for structuring data).
 
-The goal of the EBML Specification is to define a generic, binary, space-efficient format that can be used to define more complex formats (such as containers for multimedia content) using an EBML Schema. The definition of the EBML format recognizes the idea behind HTML and XML as a good one: separate structure and semantics allowing the same structural layer to be used with multiple, possibly widely differing semantic layers. Except for the EBML Header and a few global elements this specification does not define particular EBML format semantics; however this specification is intended to define how other EBML-based formats can be defined.
+The goal of this document is to define a generic, binary, space-efficient format that can be used to define more complex formats (such as containers for multimedia content) using an `EBML Schema`. The definition of the `EBML` format recognizes the idea behind HTML and XML as a good one: separate structure and semantics allowing the same structural layer to be used with multiple, possibly widely differing semantic layers. Except for the `EBML Header` and a few global elements this specification does not define particular `EBML` format semantics; however this specification is intended to define how other `EBML`-based formats can be defined.
 
-EBML uses a simple approach of building Elements upon three pieces of data (tag, length, and value) as this approach is well known, easy to parse, and allows selective data parsing. The EBML structure additionally allows for hierarchical arrangement to support complex structural formats in an efficient manner.
+`EBML` uses a simple approach of building `Elements` upon three pieces of data (tag, length, and value) as this approach is well known, easy to parse, and allows selective data parsing. The `EBML` structure additionally allows for hierarchical arrangement to support complex structural formats in an efficient manner.
 
 # Notation and Conventions
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in [@!RFC2119].
 
-This document defines specific terms in order to define the format and application of EBML. Specific terms are defined below:
+This document defines specific terms in order to define the format and application of `EBML`. Specific terms are defined below:
 
-`Child Element`: A Child Element is a relative term to describe the EBML Elements immediately contained within a Master Element.
+`Child Element`: A `Child Element` is a relative term to describe the `EBML Elements` immediately contained within a `Master Element`.
 
 `EBML`: Extensible Binary Meta Language
 
@@ -48,9 +48,9 @@ This document defines specific terms in order to define the format and applicati
 
 `Parent Element`: A relative term to describe the `Master Element` which contains a specified element.
 
-`Root Element`: A mandatory, non-repeating EBML Element which occurs within an `EBML Document` at `Level 0` and contains all other `EBML Elements` of the `EBML Document`, excepting the `EBML Header` and optional Void Elements.
+`Root Element`: A mandatory, non-repeating `EBML Element` which occurs within an `EBML Document` at `Level 0` and contains all other `EBML Elements` of the `EBML Document`, excepting the `EBML Header` and optional `Void Elements`.
 
-`Top-Level Element`: An Element defined to only occur at `Level 1` within the `Root Element`.
+`Top-Level Element`: An `EBML Element` defined to only occur at `Level 1` within the `Root Element`.
 
 `Unknown-Sized Element`: An Element with an unknown `Element Data Size`.
 
@@ -62,57 +62,57 @@ This document defines specific terms in order to define the format and applicati
 
 # Security Considerations
 
-EBML itself does not offer any kind of security and does not provide confidentiality. EBML does not provide any kind of authorization. EBML only offers marginally useful and effective data integrity options, such as CRC elements.
+`EBML` itself does not offer any kind of security and does not provide confidentiality. `EBML` does not provide any kind of authorization. EBML only offers marginally useful and effective data integrity options, such as CRC elements.
 
-Even if the semantic layer offers any kind of encryption, EBML itself could leak information at both the semantic layer (as declared via the DocType element) and within the EBML structure (you can derive the presence of EBML elements even with an unknown semantic layer with a heuristic approach; not without errors, of course, but with a certain degree of confidence).
+Even if the semantic layer offers any kind of encryption, `EBML` itself could leak information at both the semantic layer (as declared via the DocType element) and within the `EBML` structure (you can derive the presence of EBML elements even with an unknown semantic layer with a heuristic approach; not without errors, of course, but with a certain degree of confidence).
 
-Attacks on an EBML reader could include:
+Attacks on an `EBML Reader` could include:
 
-- Invalid Element IDs that are longer than the limit stated in the EBMLMaxIDLength Element of the EBML Header.
-- Invalid Element IDs that are not encoded in the shortest-possible way.
-- Invalid Element IDs comprised of reserved values.
-- Invalid Element Data Size values that are longer than the limit stated in the EBMLMaxSizeLength Element of the EBML Header.
-- Invalid Element Data Size values (e.g. extending the length of the Element beyond the scope of the Parent Element; possibly triggering access-out-of-bounds issues).
+- Invalid `Element IDs` that are longer than the limit stated in the `EBMLMaxIDLength Element` of the `EBML Header`.
+- Invalid `Element IDs` that are not encoded in the shortest-possible way.
+- Invalid `Element IDs` comprised of reserved values.
+- Invalid `Element Data Size` values that are longer than the limit stated in the `EBMLMaxSizeLength Element` of the `EBML Header`.
+- Invalid `Element Data Size` values (e.g. extending the length of the `EBML Element` beyond the scope of the `Parent Element`; possibly triggering access-out-of-bounds issues).
 - Very high lengths in order to force out-of-memory situations resulting in a denial of service, access-out-of-bounds issues etc.
-- Missing Elements that are mandatory and have no declared default value.
-- Usage of `0x00` octets in EBML Elements with a string type.
-- Usage of invalid UTF-8 encoding in EBML Elements of UTF-8 type (e.g. in order to trigger access-out-of-bounds or buffer overflow issues).
-- Usage of invalid data in EBML Elements with a date type.
+- Missing `EBML Elements` that are mandatory and have no declared default value.
+- Usage of `0x00` octets in `EBML Elements` with a string type.
+- Usage of invalid UTF-8 encoding in `EBML Elements` of UTF-8 type (e.g. in order to trigger access-out-of-bounds or buffer overflow issues).
+- Usage of invalid data in `EBML Elements` with a date type.
 
 Side channel attacks could exploit:
 
-- The semantic equivalence of the same string stored in an EBML String Element or EBML UTF-8 Element with and without zero-bit padding.
-- The semantic equivalence of VINT\_DATA within Element Data Size VINTs with to different lengths due to left-padding zero bits.
-- Data contained within a Master Element which is not itself part of an EBML Element.
-- Extraneous copies of Identically Recurring Element.
-- Copies of Identically Recurring Element within a Parent Element that contains an invalid CRC-32 Elements.
-- Use of Void Elements.
+- The semantic equivalence of the same string stored in a `String Element` or `UTF-8 Element` with and without zero-bit padding.
+- The semantic equivalence of `VINT_DATA` within `Element Data Size` with to different lengths due to left-padding zero bits.
+- Data contained within a `Master Element` which is not itself part of an `EBML Element`.
+- Extraneous copies of `Identically Recurring Element`.
+- Copies of `Identically Recurring Element` within a `Parent Element` that contains an invalid `CRC-32 Elements`.
+- Use of `Void Elements`.
 
 # Structure
 
-EBML uses a system of Elements to compose an EBML Document. Elements incorporate three parts: an Element ID, an Element Data Size, and Element Data. The Element Data, which is described by the Element ID, includes either binary data, one or many other Elements, or both.
+`EBML` uses a system of Elements to compose an `EBML Document`. `EBML Elements` incorporate three parts: an `Element ID`, an `Element Data Size`, and `Element Data`. The `Element Data`, which is described by the `Element ID`, includes either binary data, one or many other `EBML Elements`, or both.
 
 # Variable Size Integer
 
-The Element ID and Element Data Size are both encoded as a Variable Size Integer, developed according to a UTF-8 like system. The Variable Size Integer is composed of a VINT\_WIDTH, VINT\_MARKER, and VINT\_DATA, in that order. Variable Size Integers SHALL left-pad the VINT\_DATA value with zero bits so that the whole Variable Size Integer is octet-aligned. Variable Size Integers SHALL be referred to as VINT for shorthand.
+The `Element ID` and `Element Data Size` are both encoded as a `Variable Size Integer`, developed according to a UTF-8 like system. The `Variable Size Integer` is composed of a `VINT_WIDTH`, `VINT_MARKER`, and `VINT_DATA`, in that order. `Variable Size Integers` SHALL left-pad the `VINT_DATA` value with zero bits so that the whole `Variable Size Integer` is octet-aligned. `Variable Size Integers` SHALL be referred to as `VINT` for shorthand.
 
 ## VINT_WIDTH
 
-Each Variable Size Integer begins with a VINT\_WIDTH which consists of zero or many zero-value bits. The count of consecutive zero-values of the VINT\_WIDTH plus one equals the length in octets of the Variable Size Integer. For example, a Variable Size Integer that starts with a VINT\_WIDTH which contains zero consecutive zero-value bits is one octet in length and a Variable Size Integer that starts with one consecutive zero-value bit is two octets in length. The VINT\_WIDTH MUST only contain zero-value bits or be empty.
+Each `Variable Size Integer` begins with a `VINT_WIDTH` which consists of zero or many zero-value bits. The count of consecutive zero-values of the `VINT_WIDTH` plus one equals the length in octets of the `Variable Size Integer`. For example, a `Variable Size Integer` that starts with a `VINT_WIDTH` which contains zero consecutive zero-value bits is one octet in length and a `Variable Size Integer` that starts with one consecutive zero-value bit is two octets in length. The `VINT_WIDTH` MUST only contain zero-value bits or be empty.
 
-Within the EBML Header the VINT\_WIDTH MUST NOT exceed three bits in length (meaning that the Variable Size Integer MUST NOT exceed four octets in length). Within the EBML Body, when VINTs are used to express an Element ID, the maximum length allowed for the VINT\_WIDTH is one less than the value set in EBMLMaxIDLength. Within the EBML Body, when VINTs are used to express an Element Data Size, the maximum length allowed for the VINT\_WIDTH is one less than the value set in EBMLMaxSizeLength.
+Within the `EBML Header` the `VINT_WIDTH` MUST NOT exceed three bits in length (meaning that the `Variable Size Integer` MUST NOT exceed four octets in length). Within the `EBML Body`, when `VINTs` are used to express an `Element ID`, the maximum length allowed for the `VINT_WIDTH` is one less than the value set in the `EBMLMaxIDLength Element`. Within the `EBML Body`, when `VINTs` are used to express an `Element Data Size`, the maximum length allowed for the `VINT_WIDTH` is one less than the value set in the `EBMLMaxSizeLength Element`.
 
 ## VINT_MARKER
 
-The VINT\_MARKER serves as a separator between the VINT\_WIDTH and VINT_DATA. Each Variable Size Integer MUST contain exactly one VINT\_MARKER. The VINT\_MARKER MUST be one bit in length and contain a bit with a value of one. The first bit with a value of one within the Variable Size Integer is the VINT\_MARKER.
+The `VINT_MARKER` serves as a separator between the `VINT_WIDTH` and `VINT_DATA`. Each `Variable Size Integer` MUST contain exactly one `VINT_MARKER`. The `VINT_MARKER` MUST be one bit in length and contain a bit with a value of one. The first bit with a value of one within the `Variable Size Integer` is the `VINT_MARKER`.
 
 ## VINT_DATA
 
-The VINT\_DATA portion of the Variable Size Integer includes all data that follows (but not including) the VINT\_MARKER until end of the Variable Size Integer whose length is derived from the VINT\_WIDTH. The bits required for the VINT\_WIDTH and the VINT\_MARKER combined use one out of eight bits of the total length of the Variable Size Integer. Thus a Variable Size Integer of 1 octet length supplies 7 bits for VINT\_DATA, a 2 octet length supplies 14 bits for VINT\_DATA, and a 3 octet length supplies 21 bits for VINT\_DATA. If the number of bits required for VINT\_DATA are less than the bit size of VINT\_DATA, then VINT\_DATA SHOULD be zero-padded to the left to a size that fits. The VINT\_DATA value MUST be expressed as a big-endian unsigned integer.
+The `VINT_DATA` portion of the `Variable Size Integer` includes all data that follows (but not including) the `VINT_MARKER` until end of the `Variable Size Integer` whose length is derived from the `VINT_WIDTH`. The bits required for the `VINT_WIDTH` and the `VINT_MARKER` combined use one out of eight bits of the total length of the `Variable Size Integer`. Thus a `Variable Size Integer` of 1 octet length supplies 7 bits for `VINT_DATA`, a 2 octet length supplies 14 bits for `VINT_DATA`, and a 3 octet length supplies 21 bits for `VINT_DATA`. If the number of bits required for `VINT_DATA` are less than the bit size of `VINT_DATA`, then `VINT_DATA` SHOULD be zero-padded to the left to a size that fits. The `VINT_DATA` value MUST be expressed as a big-endian unsigned integer.
 
 ## VINT Examples
 
-This table shows examples of Variable Size Integers with lengths from 1 to 5 octets. The Size column refers to the size of the VINT\_DATA in bits. The Representation column depicts a binary expression of Variable Size Integers where VINT\_WIDTH is depicted by '0', the VINT\_MARKER as '1', and the VINT\_DATA as 'x'.
+This table shows examples of `Variable Size Integers` with lengths from 1 to 5 octets. The Size column refers to the size of the `VINT_DATA` in bits. The Representation column depicts a binary expression of `Variable Size Integers` where `VINT_WIDTH` is depicted by '0', the `VINT_MARKER` as '1', and the `VINT_DATA` as 'x'.
 
 Octet Length | Size | Representation
 -------------|------|:-------------------------------------------------
@@ -122,7 +122,7 @@ Octet Length | Size | Representation
 4            | 2^28 | 0001 xxxx xxxx xxxx xxxx xxxx xxxx xxxx
 5            | 2^35 | 0000 1xxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx
 
-Data encoded as a Variable Size Integer MAY be rendered at octet lengths larger than needed to store the data. In this table a binary value of 0b10 is shown encoded as different Variable Size Integers with lengths from one octet to four octet. All four encoded examples have identical semantic meaning though the VINT\_WIDTH and the padding of the VINT\_DATA vary.
+Data encoded as a `Variable Size Integer` MAY be rendered at octet lengths larger than needed to store the data. In this table a binary value of `0b10` is shown encoded as different `Variable Size Integers` with lengths from one octet to four octet. All four encoded examples have identical semantic meaning though the `VINT_WIDTH` and the padding of the `VINT_DATA` vary.
 
 Binary Value | Octet Length | As Represented in Variable Size Integer
 -------------|--------------|:---------------------------------------
@@ -133,22 +133,22 @@ Binary Value | Octet Length | As Represented in Variable Size Integer
 
 # Element ID
 
-The Element ID MUST be encoded as a Variable Size Integer. By default, EBML Element IDs are encoded in lengths from one octet to four octets, although Element IDs of greater lengths are used if the octet length of the EBML Document's longest Element ID is declared in the EBMLMaxIDLength Element of the EBML Header. The VINT\_DATA component of the Element ID MUST NOT be set to either all zero values or all one values. The VINT\_DATA component of the Element ID MUST be encoded at the shortest valid length. For example, an Element ID with binary encoding of 1011 1111 is valid, whereas an Element ID with binary encoding of 0100 0000 0011 1111 stores a semantically equal VINT\_DATA but is invalid because a shorter VINT encoding is possible. Additionally, an Element ID with binary encoding of 1111 1111 is invalid since the VINT\_DATA section is set to all one values, whereas an Element ID with binary encoding of 0100 0000 0111 1111 stores a semantically equal VINT\_DATA and is the shortest VINT encoding is possible.
+The `Element ID` MUST be encoded as a `Variable Size Integer`. By default, `Element IDs` are encoded in lengths from one octet to four octets, although `Element IDs` of greater lengths are used if the octet length of the longest `Element ID` of the `EBML Document` is declared in the `EBMLMaxIDLength Element` of the `EBML Header`. The `VINT_DATA` component of the `Element ID` MUST NOT be set to either all zero values or all one values. The `VINT_DATA` component of the `Element ID` MUST be encoded at the shortest valid length. For example, an `Element ID` with binary encoding of `1011 1111` is valid, whereas an `Element ID` with binary encoding of `0100 0000 0011 1111` stores a semantically equal `VINT_DATA` but is invalid because a shorter `VINT` encoding is possible. Additionally, an `Element ID` with binary encoding of `1111 1111` is invalid since the `VINT_DATA` section is set to all one values, whereas an `Element ID` with binary encoding of `0100 0000 0111 1111` stores a semantically equal `VINT_DATA` and is the shortest `VINT` encoding is possible.
 
  The following table details these specific examples further:
 
-VINT\_WIDTH | VINT\_MARKER | VINT\_DATA     | Element ID Status
+VINT_WIDTH  | VINT_MARKER  | VINT_DATA      | Element ID Status
 -----------:|-------------:|---------------:|:-----------------
-            | 1            |        0000000 | Invalid: VINT\_DATA MUST NOT be set to all 0
-0           | 1            | 00000000000000 | Invalid: VINT\_DATA MUST NOT be set to all 0
+            | 1            |        0000000 | Invalid: VINT_DATA MUST NOT be set to all 0
+0           | 1            | 00000000000000 | Invalid: VINT_DATA MUST NOT be set to all 0
             | 1            |        0000001 | Valid
-0           | 1            | 00000000000001 | Invalid: A shorter VINT\_DATA encoding is available.
+0           | 1            | 00000000000001 | Invalid: A shorter VINT_DATA encoding is available.
             | 1            |        0111111 | Valid
-0           | 1            | 00000000111111 | Invalid: A shorter VINT\_DATA encoding is available.
-            | 1            |        1111111 | Invalid: VINT\_DATA MUST NOT be set to all 1
+0           | 1            | 00000000111111 | Invalid: A shorter VINT_DATA encoding is available.
+            | 1            |        1111111 | Invalid: VINT_DATA MUST NOT be set to all 1
 0           | 1            | 00000001111111 | Valid
 
-The octet length of an Element ID determines its EBML Class.
+The octet length of an `Element ID` determines its `EBML Class`.
 
 EBML Class | Octet Length | Number of Possible Element IDs
 :---------:|:------------:|:------------------------------
@@ -159,13 +159,13 @@ Class D    | 4            | 2^28 - 2^21 - 1 = 266,338,303
 
 # Element Data Size
 
-The Element Data Size expresses the length in octets of Element Data. The Element Data Size itself MUST be encoded as a Variable Size Integer. By default, EBML Element Data Sizes can be encoded in lengths from one octet to eight octets, although Element Data Sizes of greater lengths MAY be used if the octet length of the EBML Document's longest Element Data Size is declared in the EBMLMaxSizeLength Element of the EBML Header. Unlike the VINT\_DATA of the Element ID, the VINT\_DATA component of the Element Data Size is not mandated to be encoded at the shortest valid length. For example, an Element Data Size with binary encoding of 1011 1111 or a binary encoding of 0100 0000 0011 1111 are both valid Element Data Sizes and both store a semantically equal value (both 0b00000000111111 and 0b0111111, the VINT\_DATA sections of the examples, represent the integer 63).
+The `Element Data Size` expresses the length in octets of `Element Data`. The `Element Data Size` itself MUST be encoded as a `Variable Size Integer`. By default, `Element Data Sizes` can be encoded in lengths from one octet to eight octets, although `Element Data Sizes` of greater lengths MAY be used if the octet length of the longest `Element Data Size` of the `EBML Document` is declared in the `EBMLMaxSizeLength Element` of the `EBML Header`. Unlike the `VINT_DATA` of the `Element ID`, the `VINT_DATA` component of the `Element Data Size` is not mandated to be encoded at the shortest valid length. For example, an `Element Data Size` with binary encoding of `1011 1111` or a binary encoding of `0100 0000 0011 1111` are both valid `Element Data Sizes` and both store a semantically equal value (both `0b00000000111111` and `0b0111111`, the `VINT_DATA` sections of the examples, represent the integer 63).
 
-Although an Element ID with all VINT\_DATA bits set to zero is invalid, an Element Data Size with all VINT\_DATA bits set to zero is allowed for EBML Element Types which do not mandate a non-zero length. An Element Data Size with all VINT\_DATA bits set to zero indicates that the Element Data of the Element is zero octets in length. Such an Element is referred to as an Empty Element. If an Empty Element has a `default` value declared then the EBML Reader MUST interpret the value of the Empty Element as the `default` value. If an Empty Element has no `default` value declared then the EBML Reader MUST interpret the value of the Empty Element as defined as part of the definition of the corresponding EBML Element Type associated with the Element ID.
+Although an `Element ID` with all `VINT_DATA` bits set to zero is invalid, an `Element Data Size` with all `VINT_DATA` bits set to zero is allowed for `EBML Element Types` which do not mandate a non-zero length. An `Element Data Size` with all `VINT_DATA` bits set to zero indicates that the `Element Data` is zero octets in length. Such an `EBML Element` is referred to as an `Empty Element`. If an `Empty Element` has a `default` value declared then the `EBML Reader` MUST interpret the value of the `Empty Element` as the `default` value. If an `Empty Element` has no `default` value declared then the `EBML Reader` MUST interpret the value of the `Empty Element` as defined as part of the definition of the corresponding `EBML Element Type` associated with the `Element ID`.
 
-An Element Data Size with all VINT\_DATA bits set to one is reserved as an indicator that the size of the Element is unknown. The only reserved value for the VINT\_DATA of Element Data Size is all bits set to one. An Element with an unknown Element Data Size is referred to as an `Unknown-Sized Element`. Only Master Elements SHALL be Unknown-Sized Elements. Master Elements MUST NOT use an unknown size unless the `unknownsizeallowed` attribute of their EBML Schema is set to true. The use of Unknown-Sized Elements allows for an Element to be written and read before the size of the Element is known. Unknown-Sized Element MUST NOT be used or defined unnecessarily; however if the Element Data Size is not known before the Element Data is written, such as in some cases of data streaming, then Unknown-Sized Elements MAY be used. The end of an Unknown-Sized Element is determined by the beginning of the next element, defined by this document or the corresponding EBML Schema, that is not a valid sub-element of the Unknown-Sized Element.
+An `Element Data Size` with all `VINT_DATA` bits set to one is reserved as an indicator that the size of the `EBML Element` is unknown. The only reserved value for the `VINT_DATA` of `Element Data Size` is all bits set to one. An `EBML Element` with an unknown `Element Data Size` is referred to as an `Unknown-Sized Element`. Only `Master Elements` SHALL be `Unknown-Sized Elements`. `Master Elements` MUST NOT use an unknown size unless the `unknownsizeallowed` attribute of their `EBML Schema` is set to true. The use of `Unknown-Sized Elements` allows for an `EBML Element` to be written and read before the size of the `EBML Element` is known. `Unknown-Sized Element` MUST NOT be used or defined unnecessarily; however if the `Element Data Size` is not known before the `Element Data` is written, such as in some cases of data streaming, then `Unknown-Sized Elements` MAY be used. The end of an `Unknown-Sized Element` is determined by the beginning of the next element, defined by this document or the corresponding `EBML Schema`, that is not a valid sub-element of the `Unknown-Sized Element`.
 
-For Element Data Sizes encoded at octet lengths from one to eight, this table depicts the range of possible values that can be encoded as an Element Data Size. An Element Data Size with an octet length of 8 is able to express a size of 2^56-2 or 72,057,594,037,927,934 octets (or about 72 petabytes). The maximum possible value that can be stored as Element Data Size is referred to as `VINTMAX`.
+For `Element Data Sizes` encoded at octet lengths from one to eight, this table depicts the range of possible values that can be encoded as an `Element Data Size`. An `Element Data Size` with an octet length of 8 is able to express a size of 2^56-2 or 72,057,594,037,927,934 octets (or about 72 petabytes). The maximum possible value that can be stored as `Element Data Size` is referred to as `VINTMAX`.
 
 Octet Length | Possible Value Range
 -------------|---------------------
@@ -178,9 +178,9 @@ Octet Length | Possible Value Range
 7            | 0 to 2^49-2
 8            | 0 to 2^56-2
 
-If the length of Element Data equals 2^(n\*7)-1 then the octet length of the Element Data Size MUST be at least n+1. This rule prevents an Element Data Size from being expressed as a reserved value. For example, an Element with an octet length of 127 MUST NOT be encoded in an Element Data Size encoding with a one octet length. The following table clarifies this rule by showing a valid and invalid expression of an Element Data Size with a VINT\_DATA of 127 (which is equal to 2^(1*7)-1).
+If the length of `Element Data` equals `2^(n*7)-1` then the octet length of the `Element Data Size` MUST be at least `n+1`. This rule prevents an `Element Data Size` from being expressed as a reserved value. For example, an `EBML Element` with an octet length of 127 MUST NOT be encoded in an `Element Data Size` encoding with a one octet length. The following table clarifies this rule by showing a valid and invalid expression of an `Element Data Size` with a `VINT_DATA` of 127 (which is equal to 2^(1*7)-1).
 
-VINT\_WIDTH | VINT\_MARKER | VINT\_DATA     | Element Data Size Status
+VINT_WIDTH  | VINT_MARKER  | VINT_DATA      | Element Data Size Status
 -----------:|-------------:|---------------:|---------------------------
             | 1            |        1111111 | Reserved (meaning Unknown)
 0           | 1            | 00000001111111 | Valid (meaning 127 octets)
@@ -241,25 +241,25 @@ The contents of a `Binary Element` should not be interpreted by the `EBML Reader
 
 # EBML Document
 
-An EBML Document is comprised of only two components, an EBML Header and an EBML Body. An EBML Document MUST start with an EBML Header that declares significant characteristics of the entire EBML Body. An EBML Document consists of EBML Elements and MUST NOT contain any data that is not part of an EBML Element. The initial EBML Element of an EBML Document and the Elements that follow it are considered Level 0 Elements. If an EBML Master Element is considered to be at level N and it contains one or many other EBML Elements then the contained Elements are considered at Level N+1. Thus a Level 2 Element would have to be contained by a Master Element (at Level 1) that is contained by another Master Element (at Level 0).
+An `EBML Document` is comprised of only two components, an `EBML Header` and an `EBML Body`. An `EBML Document` MUST start with an `EBML Header` that declares significant characteristics of the entire `EBML Body`. An `EBML Document` consists of `EBML Elements` and MUST NOT contain any data that is not part of an `EBML Element`. The initial `EBML Element` of an `EBML Document` and the `EBML Elements` that follow it are considered `Level 0 Elements`. If a `Master Element` is considered to be at Level N and it contains one or many other `EBML Elements` then the contained `EBML Elements` are considered at Level N+1. Thus a `Level 2 Element` would have to be contained by a `Master Element` (at Level 1) that is contained by another `Master Element` (at Level 0).
 
 ## EBML Header
 
-The EBML Header is a declaration that provides processing instructions and identification of the EBML Body. The EBML Header of an EBML Document is analogous to the XML Declaration of an XML Document.
+The `EBML Header` is a declaration that provides processing instructions and identification of the `EBML Body`. The `EBML Header` of an `EBML Document` is analogous to the XML Declaration of an XML Document.
 
-The EBML Header documents the EBML Schema (also known as the EBML DocType) that is used to semantically interpret the structure and meaning of the EBML Document. Additionally the EBML Header documents the versions of both EBML and the EBML Schema that were used to write the EBML Document and the versions required to read the EBML Document.
+The `EBML Header` documents the `EBML Schema` (also known as the `EBML DocType`) that is used to semantically interpret the structure and meaning of the `EBML Document`. Additionally the `EBML Header` documents the versions of both `EBML` and the `EBML Schema` that were used to write the `EBML Document` and the versions required to read the `EBML Document`.
 
-The EBML Header consists of a single Master Element with an Element Name of 'EBML' and Element ID of `0x1A45DFA3`. The EBML Header MUST only contain EBML Elements that are defined as part of this document.
+The `EBML Header` consists of a single `Master Element` with an `Element Name` of `EBML` and `Element ID` of `0x1A45DFA3`. The `EBML Header` MUST only contain `EBML Elements` that are defined as part of this document.
 
-All EBML Elements within the EBML Header MUST NOT use any Element ID with a length greater than 4 octets. All EBML Elements within the EBML Header MUST NOT use any Element Data Size with a length greater than 4 octets.
+All `EBML Elements` within the `EBML Header` MUST NOT use any `Element ID` with a length greater than 4 octets. All `EBML Elements` within the `EBML Header` MUST NOT use any `Element Data Size` with a length greater than 4 octets.
 
 ## EBML Body
 
-All data of an EBML Document following the EBML Header is the EBML Body. The end of the EBML Body, as well as the end of the EBML Document that contains the EBML Body, is considered as whichever comes first: the beginning of a new level 0 EBML Header or the end of the file. The EBML Body MUST consist only of EBML Elements and MUST NOT contain any data that is not part of an EBML Element. This document defines precisely what EBML Elements are to be used within the EBML Header, but does not name or define what EBML Elements are to be used within the EBML Body. The definition of what EBML Elements are to be used within the EBML Body is defined by an EBML Schema.
+All data of an `EBML Document` following the `EBML Header` is the `EBML Body`. The end of the `EBML Body`, as well as the end of the `EBML Document` that contains the `EBML Body`, is considered as whichever comes first: the beginning of a new `EBML Header` at Level 0 or the end of the file. The `EBML Body` MUST consist only of `EBML Elements` and MUST NOT contain any data that is not part of an `EBML Element`. This document defines precisely what `EBML Elements` are to be used within the `EBML Header`, but does not name or define what `EBML Elements` are to be used within the `EBML Body`. The definition of what `EBML Elements` are to be used within the `EBML Body` is defined by an `EBML Schema`.
 
 # EBML Stream
 
-An EBML Stream is a file that consists of one or many EBML Documents that are concatenated together. An occurrence of a Level 0 EBML Header marks the beginning of an EBML Document.
+An `EBML Stream` is a file that consists of one or many `EBML Documents` that are concatenated together. An occurrence of a `EBML Header` at Level 0 marks the beginning of an `EBML Document`.
 
 # Elements semantic
 
@@ -281,11 +281,11 @@ As an XML Document, the `EBML Schema` MUST use `<EBMLSchema>` as the top level e
 
 ### <EBMLSchema> Attributes
 
-Within an `EBML Schema` the `<EBMLSchema>` Element uses the following attributes:
+Within an `EBML Schema` the `<EBMLSchema>` element uses the following attributes:
 
 #### docType
 
-The `docType` lists the official name of the EBML Document Type that is defined by the EBML Schema; for example, `<EBMLSchema docType="matroska">`.
+The `docType` lists the official name of the `EBML Document Type` that is defined by the `EBML Schema`; for example, `<EBMLSchema docType="matroska">`.
 
 The `docType` attribute is REQUIRED within the `<EBMLSchema>` Element.
 
@@ -301,7 +301,7 @@ Each `<element>` defines one `EBML Element` through the use of several attribute
 
 The `<element>` nodes contain a description of the meaning and use of the `EBML Element` stored within one or many `<documentation>` sub-elements.
 
-The `<element>` nodes MUST be arranged hierarchically according to the permitted structure of the EBML Document Type. An `<element>` node that defines an EBML Element which is a Child Element of another Parent Element MUST be stored as an immediate sub-element of the `<element>` node that defines the Parent Element. `<element>` nodes that define Level 0 Elements and Global Elements should be sub-elements of `<EBMLSchema>`.
+The `<element>` nodes MUST be arranged hierarchically according to the permitted structure of the EBML Document Type. An `<element>` node that defines an `EBML Element` which is a `Child Element` of another `Parent Element` MUST be stored as an immediate sub-element of the `<element>` node that defines the Parent Element. `<element>` nodes that define Level 0 Elements and Global Elements should be sub-elements of `<EBMLSchema>`.
 
 ### <element> Attributes
 
@@ -315,19 +315,19 @@ The `name` attribute is REQUIRED.
 
 #### level
 
-The `level` notes at what hierarchical depth or depths the `EBML Element` MUST occur if used within an `EBML Document`. The `Root Element` of an `EBML Document` is at level 0 and the `Child Elements` that it contains are at level 1. The level MUST be expressed as an integer. Elements defined as `global` and `recursive` MAY occur at a level greater than or equal to the defined `level`.
+The `level` notes at what hierarchical depth or depths the `EBML Element` MUST occur if used within an `EBML Document`. The `Root Element` of an `EBML Document` is at Level 0 and the `Child Elements` that it contains are at Level 1. The `level` MUST be expressed as an integer. `EBML Elements` defined as `global` and `recursive` MAY occur at a level greater than or equal to the defined `level`.
 
 The `level` attribute is REQUIRED.
 
 #### global
 
-A boolean to express if an EBML Element MUST occur at its defined level or may occur within any Parent EBML Element.
+A boolean to express if an `EBML Element` MUST occur at its defined level or may occur within any `Parent Element`.
 
 The `global` attribute is OPTIONAL. If the `global` attribute is not present then that `EBML Element` is to be considered not global.
 
 #### id
 
-The `Element ID` encoded as a `Variable Size Integer` expressed in hexadecimal notation prefixed by a `0x` that is read and stored in big-endian order. To reduce the risk of false positives while parsing `EBML Streams`, the `Element IDs` of the `Root Element` and `Top-Level Elements` SHOULD be at least 4 octets in length. `Element IDs` defined for use at Level 0 or Level 1 MAY use shorter octet lengths to facilitate padding and optimize edits to EBML Documents; for instance, the `Void Element` uses an `Element ID` with a one octet length to allow its usage in more writing and editing scenarios.
+The `Element ID` encoded as a `Variable Size Integer` expressed in hexadecimal notation prefixed by a `0x` that is read and stored in big-endian order. To reduce the risk of false positives while parsing `EBML Streams`, the `Element IDs` of the `Root Element` and `Top-Level Elements` SHOULD be at least 4 octets in length. `Element IDs` defined for use at Level 0 or Level 1 MAY use shorter octet lengths to facilitate padding and optimize edits to `EBML Documents`; for instance, the `Void Element` uses an `Element ID` with a one octet length to allow its usage in more writing and editing scenarios.
 
 The `id` attribute is REQUIRED.
 
@@ -339,9 +339,9 @@ The `minOccurs` attribute is OPTIONAL. If the `minOccurs` attribute is not prese
 
 #### maxOccurs
 
-An integer expressing the maximum number of occurrences of this `EBML Element` within its `Parent Element`. Each instance of the `Parent Element` MUST contain no more than this many instances of this `EBML Element`. If the `EBML Element` has no `Parent Element` (as is the case with `EBML Elements` at Level 0), then `maxOccurs` refers to constaints on the Element's occurrence within the `EBML Document`. This value may be either a positive integer or the term `unbounded` to indicate there is no maximum number of occurrences or the term `identical` to indicate that the Element is an `Identically Recurring Element` (see [Identically Recurring Element](#identically-recurring-elements)). The semantic meaning of maxOccurs within an EBML Schema is considered analogous to the meaning of minOccurs within an `XML Schema`, with `EBML Schema` adding the concept of `Identically Recurring Elements`.
+An integer expressing the maximum number of occurrences of this `EBML Element` within its `Parent Element`. Each instance of the `Parent Element` MUST contain no more than this many instances of this `EBML Element`. If the `EBML Element` has no `Parent Element` (as is the case with `EBML Elements` at Level 0), then `maxOccurs` refers to constaints on the occurrence of the `EBML Element` within the `EBML Document`. This value may be either a positive integer or the term `unbounded` to indicate there is no maximum number of occurrences or the term `identical` to indicate that the `EBML Element` is an `Identically Recurring Element` (see [Identically Recurring Element](#identically-recurring-elements)). The semantic meaning of maxOccurs within an `EBML Schema` is considered analogous to the meaning of minOccurs within an `XML Schema`, with `EBML Schema` adding the concept of `Identically Recurring Elements`.
 
-The `maxOccurs` attribute is OPTIONAL. If the `maxOccurs` attribute is not present for that Element then that Element is considered to have a maxOccurs value of 1.
+The `maxOccurs` attribute is OPTIONAL. If the `maxOccurs` attribute is not present then that `EBML Element` is considered to have a maxOccurs value of 1.
 
 #### range
 
@@ -377,7 +377,7 @@ The `unknownsizeallowed` attribute is OPTIONAL. If the `unknownsizeallowed` attr
 
 A boolean to express if an `EBML Element` MAY be stored recursively. In this case the `EBML Element` MAY be stored at levels greater that defined in the `level` attribute if the `EBML Element` is a `Child Element` of a `Parent Element` with the same `Element ID`. `EBML Elements` that are not `Master Elements` MUST NOT set `recursive` to true.
 
-The `recursive` attribute is OPTIONAL. If the `recursive` attribute is not present then the element MUST NOT be used recursively.
+The `recursive` attribute is OPTIONAL. If the `recursive` attribute is not present then the `EBML Element` MUST NOT be used recursively.
 
 #### minver
 
@@ -449,7 +449,7 @@ The `type` attribute is OPTIONAL.
 
 ### Identically Recurring Elements
 
-An Identically Recurring Element is an Element that MAY occur within its Parent Element more than once but that each recurrence within that Parent Element MUST be identical both in storage and semantics. Identically Recurring Elements are permitted to be stored multiple times within the same Parent Element in order to increase data resilience and optimize the use of EBML in transmission. For instance a pertinent Top-Level Element could be periodically resent within a data stream so that an EBML Reader which starts reading the stream from the middle could better interpret the contents. Identically Recurring Elements SHOULD include a CRC-32 Element as a Child Element; this is especially recommended when EBML is used for long-term storage or transmission. If a Parent Element contains more than one copy of an Identically Recurring Element which includes a CRC-32 Child Element then the first instance of the Identically Recurring Element with a valid CRC-32 value should be used for interpretation. If a Parent Element contains more than one copy of an Identically Recurring Element which does not contain a CRC-32 Child Element or if CRC-32 Child Elements are present but none are valid then the first instance of the Identically Recurring Element should be used for interpretation.
+An `Identically Recurring Element` is an `EBML Element` that MAY occur within its `Parent Element` more than once but that each recurrence within that `Parent Element` MUST be identical both in storage and semantics. `Identically Recurring Elements` are permitted to be stored multiple times within the same `Parent Element` in order to increase data resilience and optimize the use of `EBML` in transmission. For instance a pertinent `Top-Level Element` could be periodically resent within a data stream so that an `EBML Reader` which starts reading the stream from the middle could better interpret the contents. `Identically Recurring Elements` SHOULD include a `CRC-32 Element` as a `Child Element`; this is especially recommended when `EBML` is used for long-term storage or transmission. If a `Parent Element` contains more than one copy of an `Identically Recurring Element` which includes a `CRC-32 Element` as a `Child Element` then the first instance of the `Identically Recurring Element` with a valid CRC-32 value should be used for interpretation. If a `Parent Element` contains more than one copy of an `Identically Recurring Element` which does not contain a `CRC-32 Element` or if `CRC-32 Elements` are present but none are valid then the first instance of the `Identically Recurring Element` should be used for interpretation.
 
 ### Expression of range
 
@@ -466,7 +466,7 @@ The `range` may use the prefix `not ` to indicate that the expressed range is ne
 
 ### Textual expression of Floats
 
-When a float value is represented textually in an EBML Schema, such as within a `default` or `range` value, the float values MUST be expressed as Hexadecimal Floating-Point Constants as defined in the C11 standard [@!ISO.9899.2011] (see section 6.4.4.2 on Floating Constants). The following table provides examples of expressions of float ranges.
+When a float value is represented textually in an `EBML Schema`, such as within a `default` or `range` value, the float values MUST be expressed as Hexadecimal Floating-Point Constants as defined in the C11 standard [@!ISO.9899.2011] (see section 6.4.4.2 on Floating Constants). The following table provides examples of expressions of float ranges.
 
 | as decimal        | as Hexadecimal Floating-Point Constants |
 |:------------------|:----------------------------------------|
@@ -479,11 +479,11 @@ Within an expression of a float range, as in an integer range, the `-` (hyphen) 
 
 ### Note on the Use of default attributes to define Mandatory EBML Elements
 
-If a Mandatory EBML Element has a default value declared by an EBML Schema and the EBML Element's value is equal to the declared default value then that Element is not required to be present within the EBML Document if its Parent EBML Element is present. In this case, the default value of the Mandatory EBML Element MUST be interpreted by the EBML Reader although the EBML Element is not present within its Parent EBML Element.
+If a `Mandatory EBML Element` has a default value declared by an `EBML Schema` and the value of the `EBML Element` is equal to the declared default value then that `EBML Element` is not required to be present within the `EBML Document` if its `Parent Element` is present. In this case, the default value of the `Mandatory EBML Element` MUST be interpreted by the `EBML Reader` although the `EBML Element` is not present within its `Parent Element`.
 
-If a Mandatory EBML Element has no default value declared by an EBML Schema and its Parent EBML Element is present then the EBML Element MUST be present as well. If a Mandatory EBML Element has a default value declared by an EBML Schema and its Parent EBML Element is present and the EBML Element's value is NOT equal to the declared default value then the EBML Element MUST be present.
+If a `Mandatory EBML Element` has no default value declared by an `EBML Schema` and its `Parent Element` is present then the `EBML Element` MUST be present as well. If a `Mandatory EBML Element` has a default value declared by an `EBML Schema` and its `Parent Element` is present and the value of the `EBML Element` is NOT equal to the declared default value then the `EBML Element` MUST be present.
 
-This table clarifies if a Mandatory EBML Element MUST be written, according to if the default value is declared, if the value of the EBML Element is equal to the declared default value, and if the Parent EBML Element is used.
+This table clarifies if a `Mandatory EBML Element` MUST be written, according to if the `default` value is declared, if the value of the `EBML Element` is equal to the declared `default` value, and if the `Parent Element` is used.
 
 | Is the default value declared? | Is the value equal to default? | Is the Parent Element present? | Then is storing the EBML Element REQUIRED? |
 |:-----------------:|:-----------------------:|:--------------------:|:------------------------------------------:|
@@ -496,7 +496,7 @@ This table clarifies if a Mandatory EBML Element MUST be written, according to i
 
 ## EBML Header Elements
 
-This specification here contains definitions of all EBML Elements of the EBML Header.
+This document contains definitions of all `EBML Elements` of the `EBML Header`.
 
 ### EBML Element
 
