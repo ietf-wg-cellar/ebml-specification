@@ -265,7 +265,7 @@ The `name` attribute is REQUIRED.
 
 #### parent
 
-The path to the `Parent Element`. This path MUST be defined with the full hierarchy of `EBML Elements` separated with a `/`. The top `EBML Element` in the path hierarchy being the first in the value. `EBML Elements` that can be found anywhere inside an `EBML Element` and its `Child Elements` MUST use the `*` (wildcard) value after the path of the first `Parent Element` allowed.
+The path to the `Parent Element`. This path MUST be defined with the full hierarchy of `EBML Elements` separated with a `/`. The top `EBML Element` in the path hierarchy being the first in the value. `EBML Elements` that can be found anywhere inside an `EBML Element` and its `Child Elements` MUST use the `*` (wildcard) value after the path of the first `Parent Element` allowed. An `EBML Element` defined with `*` as a `parent` value is referred to as a `Global Element`.
 
 The `parent` attribute is REQUIRED.
 
@@ -274,12 +274,6 @@ The `parent` attribute is REQUIRED.
 The `level` notes at what hierarchical depth or depths the `EBML Element` MUST occur if used within an `EBML Document`. The `Root Element` of an `EBML Document` is at level 0 and the `Child Elements` that it contains are at level 1. The level MUST be expressed as an integer. Elements defined as `global` and `recursive` MAY occur at a level greater than or equal to the defined `level`.
 
 The `level` attribute is REQUIRED.
-
-#### global
-
-A boolean to express if an EBML Element MUST occur at its defined level or may occur within any Parent EBML Element.
-
-The `global` attribute is OPTIONAL. If the `global` attribute is not present then that `EBML Element` is to be considered not global.
 
 #### id
 
@@ -629,8 +623,6 @@ parent: `/*`
 
 level: 1
 
-global: true
-
 id: `0xBF`
 
 minOccurs: 0
@@ -650,8 +642,6 @@ name: Void
 parent: `*`
 
 level: 0
-
-global: true
 
 id: `0xEC`
 
