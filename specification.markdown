@@ -619,7 +619,7 @@ description: The minimum `DocType` version an `EBML Reader` has to support to re
 
 name: CRC-32
 
-parent: `/*`
+parent: `/+`
 
 level: 1
 
@@ -639,7 +639,7 @@ description: The `CRC-32 Element` contains a 32-bit Cyclic Redundancy Check valu
 
 name: Void
 
-parent: `*`
+parent: `/*`
 
 level: 0
 
