@@ -267,7 +267,7 @@ An EBML Stream is a file that consists of one or many EBML Documents that are co
 
 An `EBML Schema` is an XML Document that defines the properties, arrangement, and usage of `EBML Elements` that compose a specific `EBML Document Type`. The relationship of an `EBML Schema` to an `EBML Document` may be considered analogous to the relationship of an XML Schema [@?W3C.REC-xmlschema-0-20010502] to an XML Document [@!W3C.REC-xml-20081126]. An `EBML Schema` MUST be clearly associated with one or many `EBML Document Types`. An `EBML Schema` must be expressed as well-formed XML. An `EBML Document Type` is identified by a string stored within the `EBML Header` in the `DocType Element`; for example `matroska` or `webm`. The `DocType` value for an `EBML Document Type` SHOULD be unique and persistent.
 
-Within the `EBML Schema` each `EBML Element` is defined to occur at a specific level. For any specified `EBML Element` that is not at level 0, the `Parent Element` refers to the `Master Element` that that `EBML Element` is contained within. For any specified `Master Element` the `Child Element` refers to the `EBML Element` that is immediately contained within that `Master Element`. For any `EBML Element` that is not defined at level 0, the `Parent Element` is identified by the preceding `<element>` node which has a lower value as the defined `level` attribute. The only exception for this rule are `Global Elements` which MAY occur within any `Parent Element` within the restriction of the `level` declaration of `Global Element`.
+Within the `EBML Schema` each `EBML Element` is defined to occur as the `Root Element` or as a `Child Element` to a specified `Parent Element`. For any specified `EBML Element` that is not at the top level, the `Parent Element` refers to the `Master Element` in which that `EBML Element` is contained. For any specified `Master Element` the `Child Element` refers to the `EBML Element` that is immediately contained within that `Master Element`. For any `EBML Element` that is not defined at level 0, the `Parent Element` is identified by the `parent` attribute.
 
 An `EBML Schema` MUST declare exactly one `EBML Element` at Level 0 (referred to as the `Root Element`) that MUST occur exactly once within an `EBML Document`. The `EBML Element` and the `Void Element` MAY also occur at Level 0 but are not considered to be `Root Elements`.
 
@@ -277,7 +277,7 @@ The `EBML Schema` does not itself document the `EBML Header`, but documents all 
 
 ### <EBMLSchema> Element
 
-As an XML Document, the `EBML Schema` MUST use `<EBMLSchema>` as the top level element. The `<EBMLSchema>` element MAY contain `<element>` sub-elements.
+As an XML Document, the `EBML Schema` MUST use `<EBMLSchema>` as the top level element. The `<EBMLSchema>` element MUST contain `<element>` sub-elements.
 
 ### <EBMLSchema> Attributes
 
@@ -301,7 +301,7 @@ Each `<element>` defines one `EBML Element` through the use of several attribute
 
 The `<element>` nodes contain a description of the meaning and use of the `EBML Element` stored within one or many `<documentation>` sub-elements.
 
-The `<element>` nodes MUST be arranged hierarchically according to the permitted structure of the EBML Document Type. An `<element>` node that defines an EBML Element which is a Child Element of another Parent Element MUST be stored as an immediate sub-element of the `<element>` node that defines the Parent Element. `<element>` nodes that define Level 0 Elements and Global Elements should be sub-elements of `<EBMLSchema>`.
+All `<element>` nodes MUST be immediate sub-elements of `<EBMLSchema>`.
 
 ### <element> Attributes
 
@@ -313,17 +313,17 @@ The `name` provides the official human-readable name of the `EBML Element`. The 
 
 The `name` attribute is REQUIRED.
 
+#### parent
+
+The path to the `Parent Element`. This path MUST be defined with the full hierarchy of `EBML Elements` separated with a `/`. The top `EBML Element` in the path hierarchy being the first in the value. `EBML Elements` that can be found anywhere inside an `EBML Element` and its `Child Elements` MUST use the `*` (wildcard) value after the path of the first `Parent Element` allowed. An `EBML Element` defined with `*` as a `parent` value is referred to as a `Global Element`.
+
+The `parent` attribute is REQUIRED.
+
 #### level
 
 The `level` notes at what hierarchical depth or depths the `EBML Element` MUST occur if used within an `EBML Document`. The `Root Element` of an `EBML Document` is at level 0 and the `Child Elements` that it contains are at level 1. The level MUST be expressed as an integer. Elements defined as `global` and `recursive` MAY occur at a level greater than or equal to the defined `level`.
 
 The `level` attribute is REQUIRED.
-
-#### global
-
-A boolean to express if an EBML Element MUST occur at its defined level or may occur within any Parent EBML Element.
-
-The `global` attribute is OPTIONAL. If the `global` attribute is not present then that `EBML Element` is to be considered not global.
 
 #### id
 
@@ -415,29 +415,29 @@ The `type` attribute is OPTIONAL.
 <?xml version="1.0" encoding="utf-8"?>
 <EBMLSchema docType="files-in-ebml-demo" version="1">
  <!-- Root Element-->
- <element name="Files" level="0" id="0x1946696C" type="master">
+ <element name="Files" parent="/" level="0" id="0x1946696C" type="master">
   <documentation lang="en" type="definition">Container of data and
   attributes representing one or many files.</documentation>
-  <element name="File" level="1" id="0x6146" type="master" minOccurs="1"
+  <element name="File" parent="/Files" level="1" id="0x6146" type="master" minOccurs="1"
   maxOccurs="unbounded">
    <documentation lang="en" type="definition">An attached file.
    </documentation>
-   <element name="FileName" level="2" id="0x614E" type="utf-8"
+   <element name="FileName" parent="/Files/File" level="2" id="0x614E" type="utf-8"
    minOccurs="1">
     <documentation lang="en" type="definition">Filename of the attached
     file.</documentation>
    </element>
-   <element name="MimeType" level="2" id="0x464D" type="string"
+   <element name="MimeType" parent="/Files/File" level="2" id="0x464D" type="string"
      minOccurs="1">
     <documentation lang="en" type="definition">MIME type of the
     file.</documentation>
    </element>
-   <element name="ModificationTimestamp" level="2" id="0x4654"
+   <element name="ModificationTimestamp" parent="/Files/File" level="2" id="0x4654"
      type="date" minOccurs="1">
     <documentation lang="en" type="definition">Modification timestamp of
     the file.</documentation>
    </element>
-   <element name="Data" level="2" id="0x4664" type="binary"
+   <element name="Data" parent="/Files/File" level="2" id="0x4664" type="binary"
      minOccurs="1">
     <documentation lang="en" type="definition">The data of the
     file.</documentation>
@@ -502,6 +502,8 @@ This specification here contains definitions of all EBML Elements of the EBML He
 
 name: `EBML`
 
+parent: `/`
+
 level: 0
 
 id: `0x1A45DFA3`
@@ -517,6 +519,8 @@ description: Set the `EBML` characteristics of the data to follow. Each `EBML Do
 ### EBMLVersion Element
 
 name: `EBMLVersion`
+
+parent: `/EBML`
 
 level: 1
 
@@ -538,6 +542,8 @@ description: The version of `EBML Writer` used to create the `EBML Document`.
 
 name: `EBMLReadVersion`
 
+parent: `/EBML`
+
 level: 1
 
 id: `0x42F7`
@@ -557,6 +563,8 @@ description: The minimum `EBML` version an `EBML Reader` has to support to read 
 ### EBMLMaxIDLength Element
 
 name: `EBMLMaxIDLength`
+
+parent: `/EBML`
 
 level:  1
 
@@ -578,6 +586,8 @@ description: The `EBMLMaxIDLength Element` stores the maximum length in octets o
 
 name: `EBMLMaxSizeLength`
 
+parent: `/EBML`
+
 level: 1
 
 id `0x42F3`
@@ -598,6 +608,8 @@ description: The `EBMLMaxSizeLength Element` stores the maximum length in octets
 
 name: `DocType`
 
+parent: `/EBML`
+
 level: 1
 
 id `0x4282`
@@ -613,6 +625,8 @@ description: A string that describes and identifies the content of the `EBML Bod
 ### DocTypeVersion Element
 
 name: `DocTypeVersion`
+
+parent: `/EBML`
 
 level: 1
 
@@ -634,6 +648,8 @@ description: The version of `DocType` interpreter used to create the `EBML Docum
 
 name: DocTypeReadVersion
 
+parent: `/EBML`
+
 level: 1
 
 id `0x4285`
@@ -653,9 +669,9 @@ description: The minimum `DocType` version an `EBML Reader` has to support to re
 
 name: CRC-32
 
-level: 1
+parent: `/+`
 
-global: true
+level: 1
 
 id: `0xBF`
 
@@ -673,9 +689,9 @@ description: The `CRC-32 Element` contains a 32-bit Cyclic Redundancy Check valu
 
 name: Void
 
-level: 0
+parent: `/*`
 
-global: true
+level: 0
 
 id: `0xEC`
 
