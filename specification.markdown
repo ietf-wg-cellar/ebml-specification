@@ -40,17 +40,19 @@ This document defines specific terms in order to define the format and applicati
 
 `Element Name`: The official human-readable name of the `EBML Element`.
 
-`Empty Element`: An `Empty Element` is an `EBML Element` that has an `Element Data Size` with all VINT\_DATA bits set to zero which indicates that the `Element Data` of the Element is zero octets in length.
+`Element Path`: The hierarchy of `Parent Element` where the `EBML Element` is expected to be found in the `EBML Body`.
 
-`Level`: `Level` notes at what hierarchical depth the `EBML Element` may occur within an `EBML Document`, starting from zero.
+`Empty Element`: An `Empty Element` is an `EBML Element` that has an `Element Data Size` with all VINT\_DATA bits set to zero which indicates that the `Element Data` of the Element is zero octets in length.
 
 `Master Element`: The `Master Element` contains zero, one, or many other `EBML Elements`.
 
 `Parent Element`: A relative term to describe the `Master Element` which contains a specified element.
 
-`Root Element`: A mandatory, non-repeating `EBML Element` which occurs within an `EBML Document` at `Level 0` and contains all other `EBML Elements` of the `EBML Document`, excepting the `EBML Header` and optional `Void Elements`.
+`Root Element`: A mandatory, non-repeating `EBML Element` which occurs at the top level of the path hierarchy within an `EBML Body` and contains all other `EBML Elements` of the `EBML Body`, excepting optional `Void Elements`.
 
-`Top-Level Element`: An `EBML Element` defined to only occur at `Level 1` within the `Root Element`.
+`Root Level`: The starting level in the hierarchy of an `EBML Document`.
+
+`Top-Level Element`: An `EBML Element` defined as a `Child Element` of the `Root Element`.
 
 `Unknown-Sized Element`: An Element with an unknown `Element Data Size`.
 
@@ -231,7 +233,7 @@ The `Date Element` stores an integer in the same format as the `Signed Integer E
 
 A `Master Element` MUST declare a length in octets from zero to `VINTMAX`. The `Master Element` MAY also use an unknown length. See [the section on `Element Data Size`](#element-data-size) for rules that apply to elements of unknown length.
 
-The `Master Element` contains zero, one, or many other elements. `EBML Elements` contained within a `Master Element` MUST be defined for use at levels greater than the level of the `Master Element`. For instance, if a `Master Element` occurs on level 2 then all contained `EBML Elements` MUST be valid at level 3. `Element Data` stored within `Master Elements` SHOULD only consist of `EBML Elements` and SHOULD NOT contain any data that is not part of an `EBML Element`. When `EBML` is used in transmission or streaming, data that is not part of an `EBML Element` is permitted to be present within a `Master Element` if `unknownsizeallowed` is enabled within the definition for that `Master Element`. In this case, the `EBML Reader` should skip data until a valid `Element ID` of the same level or the next greater level of the `Master Element` is found. What `Element IDs` are considered valid within a `Master Element` is identified by the `EBML Schema` for that version of the `EBML Document Type`. Any data contained within a `Master Element` that is not part of a `Child Element` MUST be ignored.
+The `Master Element` contains zero, one, or many other elements. `EBML Elements` contained within a `Master Element` MUST have the `EBMLParentPath` of their `Element Path` equals to the `EBMLReferencePath` of the `Master Element` `Element Path` (see [the section on the `EBML Path`](#path)). `Element Data` stored within `Master Elements` SHOULD only consist of `EBML Elements` and SHOULD NOT contain any data that is not part of an `EBML Element`. When `EBML` is used in transmission or streaming, data that is not part of an `EBML Element` is permitted to be present within a `Master Element` if `unknownsizeallowed` is enabled within the definition for that `Master Element`. In this case, the `EBML Reader` should skip data until a valid `Element ID` of the same `EBMLParentPath` or the next upper level `Element Path` of the `Master Element` is found. What `Element IDs` are considered valid within a `Master Element` is identified by the `EBML Schema` for that version of the `EBML Document Type`. Any data contained within a `Master Element` that is not part of a `Child Element` MUST be ignored.
 
 ## Binary Element
 
@@ -241,7 +243,7 @@ The contents of a `Binary Element` should not be interpreted by the `EBML Reader
 
 # EBML Document
 
-An `EBML Document` is comprised of only two components, an `EBML Header` and an `EBML Body`. An `EBML Document` MUST start with an `EBML Header` that declares significant characteristics of the entire `EBML Body`. An `EBML Document` consists of `EBML Elements` and MUST NOT contain any data that is not part of an `EBML Element`. The initial `EBML Element` of an `EBML Document` and the `EBML Elements` that follow it are considered `Level 0 Elements`. If a `Master Element` is considered to be at Level N and it contains one or many other `EBML Elements` then the contained `EBML Elements` are considered at Level N+1. Thus a `Level 2 Element` would have to be contained by a `Master Element` (at Level 1) that is contained by another `Master Element` (at Level 0).
+An `EBML Document` is comprised of only two components, an `EBML Header` and an `EBML Body`. An `EBML Document` MUST start with an `EBML Header` that declares significant characteristics of the entire `EBML Body`. An `EBML Document` consists of `EBML Elements` and MUST NOT contain any data that is not part of an `EBML Element`.
 
 ## EBML Header
 
@@ -255,11 +257,11 @@ All `EBML Elements` within the `EBML Header` MUST NOT use any `Element ID` with 
 
 ## EBML Body
 
-All data of an `EBML Document` following the `EBML Header` is the `EBML Body`. The end of the `EBML Body`, as well as the end of the `EBML Document` that contains the `EBML Body`, is considered as whichever comes first: the beginning of a new `EBML Header` at Level 0 or the end of the file. The `EBML Body` MUST consist only of `EBML Elements` and MUST NOT contain any data that is not part of an `EBML Element`. This document defines precisely what `EBML Elements` are to be used within the `EBML Header`, but does not name or define what `EBML Elements` are to be used within the `EBML Body`. The definition of what `EBML Elements` are to be used within the `EBML Body` is defined by an `EBML Schema`.
+All data of an `EBML Document` following the `EBML Header` is the `EBML Body`. The end of the `EBML Body`, as well as the end of the `EBML Document` that contains the `EBML Body`, is considered as whichever comes first: the beginning of a new `EBML Header` at the `Root Level` or the end of the file. The `EBML Body` MUST consist only of `EBML Elements` and MUST NOT contain any data that is not part of an `EBML Element`. This document defines precisely what `EBML Elements` are to be used within the `EBML Header`, but does not name or define what `EBML Elements` are to be used within the `EBML Body`. The definition of what `EBML Elements` are to be used within the `EBML Body` is defined by an `EBML Schema`.
 
 # EBML Stream
 
-An `EBML Stream` is a file that consists of one or many `EBML Documents` that are concatenated together. An occurrence of a `EBML Header` at Level 0 marks the beginning of an `EBML Document`.
+An `EBML Stream` is a file that consists of one or many `EBML Documents` that are concatenated together. An occurrence of a `EBML Header` at the `Root Level` marks the beginning of an `EBML Document`.
 
 # Elements semantic
 
@@ -267,9 +269,9 @@ An `EBML Stream` is a file that consists of one or many `EBML Documents` that ar
 
 An `EBML Schema` is an XML Document that defines the properties, arrangement, and usage of `EBML Elements` that compose a specific `EBML Document Type`. The relationship of an `EBML Schema` to an `EBML Document` may be considered analogous to the relationship of an XML Schema [@?W3C.REC-xmlschema-0-20010502] to an XML Document [@!W3C.REC-xml-20081126]. An `EBML Schema` MUST be clearly associated with one or many `EBML Document Types`. An `EBML Schema` must be expressed as well-formed XML. An `EBML Document Type` is identified by a string stored within the `EBML Header` in the `DocType Element`; for example `matroska` or `webm` (see [the definition of the `DocType Element`](#doctype-element)). The `DocType` value for an `EBML Document Type` SHOULD be unique and persistent.
 
-Within the `EBML Schema` each `EBML Element` is defined to occur at a specific level. For any specified `EBML Element` that is not at level 0, the `Parent Element` refers to the `Master Element` that that `EBML Element` is contained within. For any specified `Master Element` the `Child Element` refers to the `EBML Element` that is immediately contained within that `Master Element`. For any `EBML Element` that is not defined at level 0, the `Parent Element` is identified by the preceding `<element>` node which has a lower value as the defined `level` attribute. The only exception for this rule are `Global Elements` which MAY occur within any `Parent Element` within the restriction of the `level` declaration of `Global Element`.
+For any specified `EBML Element` that is not at `Root Level`, the `Parent Element` refers to the `Master Element` in which that `EBML Element` is contained. For any specified `Master Element` the `Child Element` refers to the `EBML Element` that is immediately contained within that `Master Element`. For any `EBML Element` that is not defined at `Root Level`, the `Parent Element` is identified by the `<element>` node which has the `EBMLReferencePath` equals to the `EBMLParentPath` of that `EBML Element` `Element Path`. The only exception for this rule are `Global Elements` which MAY occur within any `Parent Element` within the restriction of the `level` declaration of `Global Element`.
 
-An `EBML Schema` MUST declare exactly one `EBML Element` at Level 0 (referred to as the `Root Element`) that MUST occur exactly once within an `EBML Document`. The `EBML Element` and the `Void Element` MAY also occur at Level 0 but are not considered to be `Root Elements` (see [the definition of the `Void Element`](#void-element)).
+An `EBML Schema` MUST declare exactly one `EBML Element` at `Root Level` (referred to as the `Root Element`) that MUST occur exactly once within an `EBML Document`. The `Void Element` MAY also occur at `Root Level` but is not considered to be `Root Elements` (see [the definition of the `Void Element`](#void-element)).
 
 `EBML Elements` defined to only occur at Level 1 are known as `Top-Level Elements`.
 
@@ -299,9 +301,7 @@ The `version` attribute is REQUIRED within the `<EBMLSchema>` Element.
 
 Each `<element>` defines one `EBML Element` through the use of several attributes that are defined in [EBML Schema Element Attributes](#ebmlschema-attributes). `EBML Schemas` MAY contain additional attributes to extend the semantics but MUST NOT conflict with the definitions of the `<element>` attributes defined within this document.
 
-The `<element>` nodes contain a description of the meaning and use of the `EBML Element` stored within one or many `<documentation>` sub-elements.
-
-The `<element>` nodes MUST be arranged hierarchically according to the permitted structure of the EBML Document Type. An `<element>` node that defines an `EBML Element` which is a `Child Element` of another `Parent Element` MUST be stored as an immediate sub-element of the `<element>` node that defines the Parent Element. `<element>` nodes that define Level 0 Elements and Global Elements should be sub-elements of `<EBMLSchema>`.
+The `<element>` nodes contain a description of the meaning and use of the `EBML Element` stored within one or many `<documentation>` sub-elements. All `<element>` nodes MUST be sub-elements of the `<EBMLSchema>`.
 
 ### <element> Attributes
 
@@ -309,37 +309,63 @@ Within an `EBML Schema` the `<element>` uses the following attributes to define 
 
 #### name
 
-The `name` provides the official human-readable name of the `EBML Element`. The value of the name MUST be in the form of an NCName as defined by [@!W3C.REC-xml-names-19990114].
+The `name` provides the official human-readable name of the `EBML Element`. The value of the name MUST be in the form of characters "A" to "Z", "a" to "z", "0" to "9", "-" and ".".
 
 The `name` attribute is REQUIRED.
 
-#### level
+#### path
 
-The `level` notes at what hierarchical depth or depths the `EBML Element` MUST occur if used within an `EBML Document`. The `Root Element` of an `EBML Document` is at Level 0 and the `Child Elements` that it contains are at Level 1. The `level` MUST be expressed as an integer. `EBML Elements` defined as `global` and `recursive` MAY occur at a level greater than or equal to the defined `level`.
+The path defines the allowed storage locations of the `EBML Element` within an `EBML Document`. This path MUST be defined with the full hierarchy of `EBML Elements` separated with a `/`. The top `EBML Element` in the path hierarchy being the first in the value. The syntax of the `path` attribute is defined using this Extended Backus-Naur Form (EBNF) [@!ISO.14977.1996] notation:
 
-The `level` attribute is REQUIRED.
+The `path` attribute is REQUIRED.
 
-#### global
+```
+EBMLFullPath          = EBMLReferencePath, [EBMLElementOccurence]
+EBMLReferencePath     = EBMLParentPath, EBMLElementPath
+EBMLParentPath        = (EBMLPathAtom)* | AllWildcard
+EBMLElementPath       = EBMLPathAtom | EBMLPathAtomRecursive
+EBMLPathAtom          = "/", EBMLAtomName
+EBMLPathAtomRecursive = "(", EBMLPathAtom, ")", "+"
+EBMLAtomName          = (EBMLNameChar)+ | AllWildcard | AtLeastOnce
+EBMLNameChar          = [A-Z] | [a-z] | [0-9] | "-" | "."
+AllWildcard           = "*"
+AtLeastOnce           = "+"
+EBMLElementOccurence  = "{", [MinOccurence], ",", [MaxOccurence] "}" 
+MinOccurence          = [0-9]+
+MaxOccurence          = [0-9]+ | "unbounded"
+```
 
-A boolean to express if an `EBML Element` MUST occur at its defined level or may occur within any `Parent Element`.
+The `"*"`, `"+"`, `"("`, `")"`, `"{"` and `"}"` symbols MUST be interpreted as they are defined in the EBNF.
 
-The `global` attribute is OPTIONAL. If the `global` attribute is not present then that `EBML Element` is to be considered not global.
+The `EBMLPathAtom` part of the `EBMLElementPath` MUST be equal to the `name` attribute of the `EBML Schema`.
+
+The `MinOccurence` represents the minimum number of occurrences of this `EBML Element` within its `Parent Element`. Each instance of the `Parent Element` MUST contain at least this many instances of this `EBML Element`. If the `EBML Element` has an empty `EBMLParentPath` then `MinOccurence` refers to constaints on the occurrence of the `EBML Element` within the `EBML Document`. The semantic meaning of `MinOccurence` within an `EBML Schema` is considered analogous to the meaning of `minOccurs` within an `XML Schema`. `EBML Elements` with `MinOccurence` set to "1" that also have a `default` value (see [default](#default)) declared are not REQUIRED to be stored but are REQUIRED to be interpreted, see [Note on the Use of default attributes to define Mandatory EBML Elements](#note-on-the-use-of-default-attributes-to-define-mandatory-ebml-elements). An `EBML Element` defined with a `MinOccurence` value greater than zero is called a `Mandatory EBML Element`.
+
+If `MinOccurence` is not present then that `EBML Element` is considered to have a `MinOccurence` value of 0.
+
+The `MaxOccurence` represents the maximum number of occurrences of this `EBML Element` within its `Parent Element`. Each instance of the `Parent Element` MUST contain at most this many instances of this `EBML Element`. If the `EBML Element` has an empty `EBMLParentPath` then `MaxOccurence` refers to constaints on the occurrence of the `EBML Element` within the `EBML Document`. The term `unbounded` indicates there is no maximum number of occurrences. The semantic meaning of `MaxOccurence` within an `EBML Schema path` is considered analogous to the meaning of `maxOccurs` within an `XML Schema`.
+
+If `MaxOccurence` is not present then that `EBML Element` is considered to have a `MaxOccurence` value of 1.
+
+The `"()+"` group of the `EBMLElementPath` specify that the `EBML Element` can occur within itself recursively (see the [recursive attribute](#recursive)).
+
+If the `EBMLParentPath` is `"*"` then that `EBML Element` can occur anywhere in the `EBML Document` including at the root.
 
 #### id
 
-The `Element ID` encoded as a `Variable Size Integer` expressed in hexadecimal notation prefixed by a `0x` that is read and stored in big-endian order. To reduce the risk of false positives while parsing `EBML Streams`, the `Element IDs` of the `Root Element` and `Top-Level Elements` SHOULD be at least 4 octets in length. `Element IDs` defined for use at Level 0 or Level 1 MAY use shorter octet lengths to facilitate padding and optimize edits to `EBML Documents`; for instance, the `Void Element` uses an `Element ID` with a one octet length to allow its usage in more writing and editing scenarios.
+The `Element ID` encoded as a `Variable Size Integer` expressed in hexadecimal notation prefixed by a `0x` that is read and stored in big-endian order. To reduce the risk of false positives while parsing `EBML Streams`, the `Element IDs` of the `Root Element` and `Top-Level Elements` SHOULD be at least 4 octets in length. `Element IDs` defined for use at `Root Level` or directly under the `Root Level` MAY use shorter octet lengths to facilitate padding and optimize edits to EBML Documents; for instance, the `Void Element` uses an `Element ID` with a one octet length to allow its usage in more writing and editing scenarios.
 
 The `id` attribute is REQUIRED.
 
 #### minOccurs
 
-An integer expressing the minimum number of occurrences of this `EBML Element` within its `Parent Element`. Each instance of the `Parent Element` MUST contain at least this many instances of this `EBML Element`. If the `EBML Element` has no `Parent Level` (as is the case with `EBML Elements` at Level 0), then `minOccurs` refers to constaints on the occurrence of the `EBML Element` within the `EBML Document`. This value of `minOccurs` MUST be a non-negative integer. The semantic meaning of `minOccurs` within an `EBML Schema` is considered analogous to the meaning of `minOccurs` within an `XML Schema`. `EBML Elements` with `minOccurs` set to "1" that also have a `default` value (see [default](#default)) declared are not REQUIRED to be stored but are REQUIRED to be interpreted, see [Note on the Use of default attributes to define Mandatory EBML Elements](#note-on-the-use-of-default-attributes-to-define-mandatory-ebml-elements). An `EBML Element` defined with a `minOccurs` value greater than zero is called a `Mandatory EBML Element`.
+An integer expressing the minimum number of occurrences of this `EBML Element` within its `Parent Element`. The `minOccurs` value MUST be equal to the `MinOccurence` value of the `path`.
 
 The `minOccurs` attribute is OPTIONAL. If the `minOccurs` attribute is not present then that `EBML Element` is considered to have a `minOccurs` value of 0.
 
 #### maxOccurs
 
-An integer expressing the maximum number of occurrences of this `EBML Element` within its `Parent Element`. Each instance of the `Parent Element` MUST contain no more than this many instances of this `EBML Element`. If the `EBML Element` has no `Parent Element` (as is the case with `EBML Elements` at Level 0), then `maxOccurs` refers to constaints on the occurrence of the `EBML Element` within the `EBML Document`. This value may be either a positive integer or the term `unbounded` to indicate there is no maximum number of occurrences or the term `identical` to indicate that the `EBML Element` is an `Identically Recurring Element` (see [Identically Recurring Element](#identically-recurring-elements)). The semantic meaning of maxOccurs within an `EBML Schema` is considered analogous to the meaning of minOccurs within an `XML Schema`, with `EBML Schema` adding the concept of `Identically Recurring Elements`.
+An integer expressing the maximum number of occurrences of this `EBML Element` within its `Parent Element`. The `maxOccurs` value MUST be equal to the `MaxOccurence` value of the `path`.
 
 The `maxOccurs` attribute is OPTIONAL. If the `maxOccurs` attribute is not present then that `EBML Element` is considered to have a maxOccurs value of 1.
 
@@ -357,7 +383,7 @@ The `size` attribute is OPTIONAL. If the `size` attribute is not present for tha
 
 #### default
 
-If an Element is mandatory (has a `minOccurs` value greater than zero) but not written within its `Parent Element` or stored as an `Empty Element`, then the `EBML Reader` of the `EBML Document` MUST semantically interpret the `EBML Element` as present with this specified default value for the `EBML Element`. `EBML Elements` that are `Master Elements` MUST NOT declare a `default` value.
+If an Element is mandatory (has a `MinOccurence` value greater than zero) but not written within its `Parent Element` or stored as an `Empty Element`, then the `EBML Reader` of the `EBML Document` MUST semantically interpret the `EBML Element` as present with this specified default value for the `EBML Element`. `EBML Elements` that are `Master Elements` MUST NOT declare a `default` value.
 
 The `default` attribute is OPTIONAL.
 
@@ -376,6 +402,8 @@ The `unknownsizeallowed` attribute is OPTIONAL. If the `unknownsizeallowed` attr
 #### recursive
 
 A boolean to express if an `EBML Element` MAY be stored recursively. In this case the `EBML Element` MAY be stored at levels greater that defined in the `level` attribute if the `EBML Element` is a `Child Element` of a `Parent Element` with the same `Element ID`. `EBML Elements` that are not `Master Elements` MUST NOT set `recursive` to true.
+
+If the `path` contains a `EBMLPathAtomRecursive` path then the `recursive` value MUST be true and false otherwise.
 
 The `recursive` attribute is OPTIONAL. If the `recursive` attribute is not present then the `EBML Element` MUST NOT be used recursively.
 
@@ -415,34 +443,31 @@ The `type` attribute is OPTIONAL.
 <?xml version="1.0" encoding="utf-8"?>
 <EBMLSchema docType="files-in-ebml-demo" version="1">
  <!-- Root Element-->
- <element name="Files" level="0" id="0x1946696C" type="master">
+ <element name="Files" path="/Files" id="0x1946696C" type="master">
   <documentation lang="en" type="definition">Container of data and
   attributes representing one or many files.</documentation>
-  <element name="File" level="1" id="0x6146" type="master" minOccurs="1"
+ </element>
+ <element name="File" path="/Files/File" id="0x6146" type="master" minOccurs="1"
   maxOccurs="unbounded">
-   <documentation lang="en" type="definition">An attached file.
-   </documentation>
-   <element name="FileName" level="2" id="0x614E" type="utf-8"
+  <documentation lang="en" type="definition">An attached file.</documentation>
+ </element>
+ <element name="FileName" path="/Files/File/FileName" id="0x614E" type="utf-8"
    minOccurs="1">
-    <documentation lang="en" type="definition">Filename of the attached
-    file.</documentation>
-   </element>
-   <element name="MimeType" level="2" id="0x464D" type="string"
+  <documentation lang="en" type="definition">Filename of the attached file.
+  </documentation>
+ </element>
+ <element name="MimeType" path="/Files/File/MimeType" id="0x464D" type="string"
      minOccurs="1">
-    <documentation lang="en" type="definition">MIME type of the
-    file.</documentation>
-   </element>
-   <element name="ModificationTimestamp" level="2" id="0x4654"
-     type="date" minOccurs="1">
-    <documentation lang="en" type="definition">Modification timestamp of
-    the file.</documentation>
-   </element>
-   <element name="Data" level="2" id="0x4664" type="binary"
+  <documentation lang="en" type="definition">MIME type of the file.</documentation>
+ </element>
+ <element name="ModificationTimestamp" path="/Files/File/ModificationTimestamp"
+  id="0x4654" type="date" minOccurs="1">
+  <documentation lang="en" type="definition">Modification timestamp of the file.
+  </documentation>
+ </element>
+ <element name="Data" path="/Files/File/Data" id="0x4664" type="binary"
      minOccurs="1">
-    <documentation lang="en" type="definition">The data of the
-    file.</documentation>
-   </element>
-  </element>
+  <documentation lang="en" type="definition">The data of the file.</documentation>
  </element>
 </EBMLSchema>
 ```
@@ -502,7 +527,7 @@ This document contains definitions of all `EBML Elements` of the `EBML Header`.
 
 name: `EBML`
 
-level: 0
+path: `/EBML(1,1)`
 
 id: `0x1A45DFA3`
 
@@ -518,7 +543,7 @@ description: Set the `EBML` characteristics of the data to follow. Each `EBML Do
 
 name: `EBMLVersion`
 
-level: 1
+path: `/EBML/EBMLVersion(1,1)`
 
 id `0x4286`
 
@@ -538,7 +563,7 @@ description: The version of `EBML Writer` used to create the `EBML Document`.
 
 name: `EBMLReadVersion`
 
-level: 1
+path: `/EBML/EBMLReadVersion(1,1)`
 
 id: `0x42F7`
 
@@ -558,7 +583,7 @@ description: The minimum `EBML` version an `EBML Reader` has to support to read 
 
 name: `EBMLMaxIDLength`
 
-level:  1
+path: `/EBML/EBMLMaxIDLength(1,1)`
 
 id `0x42F2`
 
@@ -578,7 +603,7 @@ description: The `EBMLMaxIDLength Element` stores the maximum length in octets o
 
 name: `EBMLMaxSizeLength`
 
-level: 1
+path: `/EBML/EBMLMaxSizeLength(1,1)`
 
 id `0x42F3`
 
@@ -598,7 +623,7 @@ description: The `EBMLMaxSizeLength Element` stores the maximum length in octets
 
 name: `DocType`
 
-level: 1
+path: `/EBML/DocType(1,1)`
 
 id `0x4282`
 
@@ -614,7 +639,7 @@ description: A string that describes and identifies the content of the `EBML Bod
 
 name: `DocTypeVersion`
 
-level: 1
+path: `/EBML/DocTypeVersion(1,1)`
 
 id `0x4287`
 
@@ -634,7 +659,7 @@ description: The version of `DocType` interpreter used to create the `EBML Docum
 
 name: DocTypeReadVersion
 
-level: 1
+path: `/EBML/DocTypeReadVersion(1,1)`
 
 id `0x4285`
 
@@ -653,9 +678,7 @@ description: The minimum `DocType` version an `EBML Reader` has to support to re
 
 name: CRC-32
 
-level: 1
-
-global: true
+path: `/*/CRC-32(0,1)`
 
 id: `0xBF`
 
@@ -673,9 +696,7 @@ description: The `CRC-32 Element` contains a 32-bit Cyclic Redundancy Check valu
 
 name: Void
 
-level: 0
-
-global: true
+path: `*/Void(0,unbounded)`
 
 id: `0xEC`
 
