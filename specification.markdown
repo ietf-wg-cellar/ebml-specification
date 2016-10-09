@@ -606,6 +606,8 @@ minOccurs: 1
 
 maxOccurs: 1
 
+size: >0
+
 type: String
 
 description: A string that describes and identifies the content of the `EBML Body` that follows this `EBML Header`.
