@@ -328,11 +328,10 @@ EBMLElementPath         = EBMLPathAtom / EBMLPathAtomRecursive
 EBMLPathAtom            = PathDelimiter EBMLAtomName
 EBMLPathAtomRecursive   = "1*(" EBMLPathAtom ")"
 EBMLLastParent          = EBMLPathAtom / EBMLVariableParent
-EBMLVariableParent      = VariableParentOccurence "(\any)"
+EBMLVariableParent      = "(" VariableParentOccurence "\)"
 EBMLAtomName            = 1*(EBMLNameChar)
 EBMLNameChar            = ALPHA / DIGIT / "-" / "."
 PathDelimiter           = "\"
-AllWildcard             = %s"any"
 EBMLElementOccurence    = [EBMLMinOccurence] "*" [EBMLMaxOccurence]
 EBMLMinOccurence        = 1*DIGIT
 EBMLMaxOccurence        = 1*DIGIT
@@ -684,7 +683,7 @@ description: The minimum `DocType` version an `EBML Reader` has to support to re
 
 name: CRC-32
 
-path: `*1(1*(\any)\CRC-32)`
+path: `*1((1*\)\CRC-32)`
 
 id: `0xBF`
 
@@ -702,7 +701,7 @@ description: The `CRC-32 Element` contains a 32-bit Cyclic Redundancy Check valu
 
 name: Void
 
-path: `*(*(\any)\Void)`
+path: `*((*\)\Void)`
 
 id: `0xEC`
 
