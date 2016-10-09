@@ -315,37 +315,47 @@ The `name` attribute is REQUIRED.
 
 #### path
 
-The path defines the allowed storage locations of the `EBML Element` within an `EBML Document`. This path MUST be defined with the full hierarchy of `EBML Elements` separated with a `/`. The top `EBML Element` in the path hierarchy being the first in the value. The syntax of the `path` attribute is defined using this Augmented Backus-Naur Form (ABNF) [@!RFC5234] notation:
+The path defines the allowed storage locations of the `EBML Element` within an `EBML Document`. This path MUST be defined with the full hierarchy of `EBML Elements` separated with a `/`. The top `EBML Element` in the path hierarchy being the first in the value. The syntax of the `path` attribute is defined using this Augmented Backus-Naur Form (ABNF) [@!RFC5234] with the case sensitive update [@!RFC7405] notation:
 
 The `path` attribute is REQUIRED.
 
 ```
-EBMLFullPath          = [EBMLElementOccurence] EBMLReferencePath
-EBMLReferencePath     = EBMLParentPath EBMLElementPath
-EBMLParentPath        = *EBMLPathAtom / AllWildcard
-EBMLElementPath       = EBMLPathAtom / EBMLPathAtomRecursive
-EBMLPathAtom          = PathDelimiter EBMLAtomName
-EBMLPathAtomRecursive = "(1*" EBMLPathAtom ")"
-EBMLAtomName          = 1*EBMLNameChar / AllWildcard
-EBMLNameChar          = [A-Z] / [a-z] / [0-9] / "-" / "."
-AllWildcard           = "any"
-PathDelimiter         = "\"
-MinOccurence          = [0-9]+
-MaxOccurence          = [0-9]+
-EBMLElementOccurence  = [MinOccurence] "*" [MaxOccurence]
+EBMLFullPath            = EBMLElementOccurence "(" EBMLReferencePath ")"
+EBMLReferencePath       = [EBMLParentPath] EBMLElementPath
+EBMLParentPath          = EBMLFixedParent EBMLLastParent
+EBMLFixedParent         = *(EBMLPathAtom)
+EBMLElementPath         = EBMLPathAtom / EBMLPathAtomRecursive
+EBMLPathAtom            = PathDelimiter EBMLAtomName
+EBMLPathAtomRecursive   = "1*(" EBMLPathAtom ")"
+EBMLLastParent          = EBMLPathAtom / EBMLVariableParent
+EBMLVariableParent      = VariableParentOccurence "(\any)"
+EBMLAtomName            = 1*(EBMLNameChar)
+EBMLNameChar            = ALPHA / DIGIT / "-" / "."
+PathDelimiter           = "\"
+AllWildcard             = %s"any"
+EBMLElementOccurence    = [EBMLMinOccurence] "*" [EBMLMaxOccurence]
+EBMLMinOccurence        = 1*DIGIT
+EBMLMaxOccurence        = 1*DIGIT
+VariableParentOccurence = [PathMinOccurence] "*" [PathMaxOccurence]
+PathMinOccurence        = 1*DIGIT
+PathMaxOccurence        = 1*DIGIT
 ```
 
-The `"*"`, `"("` and `")"` symbols MUST be interpreted as they are defined in the ABNF. The `EBMLAtomName` MUST NOT use the reserved word `"any"` corresponding to the `AllWildcard` value.
+The `"*"`, `"("` and `")"` symbols MUST be interpreted as they are defined in the ABNF.
 
 The `EBMLPathAtom` part of the `EBMLElementPath` MUST be equal to the `name` attribute of the `EBML Schema`.
 
-The `MinOccurence` represents the minimum number of occurrences of this `EBML Element` within its `Parent Element`. Each instance of the `Parent Element` MUST contain at least this many instances of this `EBML Element`. If the `EBML Element` has an empty `EBMLParentPath` then `MinOccurence` refers to constaints on the occurrence of the `EBML Element` within the `EBML Document`. If `MinOccurence` is not present then that `EBML Element` is considered to have a `MinOccurence` value of 0. The semantic meaning of `MinOccurence` within an `EBML Schema` is considered analogous to the meaning of `minOccurs` within an `XML Schema`. `EBML Elements` with `MinOccurence` set to "1" that also have a `default` value (see [default](#default)) declared are not REQUIRED to be stored but are REQUIRED to be interpreted, see [Note on the Use of default attributes to define Mandatory EBML Elements](#note-on-the-use-of-default-attributes-to-define-mandatory-ebml-elements). An `EBML Element` defined with a `MinOccurence` value greater than zero is called a `Mandatory EBML Element`.
+The starting `PathDelimiter` of the path corresponds to the root of the `EBML Document`.
 
-The `MaxOccurence` represents the maximum number of occurrences of this `EBML Element` within its `Parent Element`. Each instance of the `Parent Element` MUST contain at most this many instances of this `EBML Element`. If the `EBML Element` has an empty `EBMLParentPath` then `MaxOccurence` refers to constaints on the occurrence of the `EBML Element` within the `EBML Document`. If `MaxOccurence` is not present then that `EBML Element` is considered to have an unbounded `MaxOccurence` value. The semantic meaning of `MaxOccurence` within an `EBML Schema path` is considered analogous to the meaning of `maxOccurs` within an `XML Schema`.
+The `EBMLElementOccurence` part is interpreted as an ABNF Variable Repetition. The repetition amounts correspond to how many times the `EBML Element` can be found in its parent `Parent Element`.
+
+The `EBMLMinOccurence` represents the minimum number of occurrences of this `EBML Element` within its `Parent Element`. Each instance of the `Parent Element` MUST contain at least this many instances of this `EBML Element`. If the `EBML Element` has an empty `EBMLParentPath` then `EBMLMinOccurence` refers to constaints on the occurrence of the `EBML Element` within the `EBML Document`. If `EBMLMinOccurence` is not present then that `EBML Element` is considered to have a `EBMLMinOccurence` value of 0. The semantic meaning of `EBMLMinOccurence` within an `EBML Schema` is considered analogous to the meaning of `minOccurs` within an `XML Schema`. `EBML Elements` with `EBMLMinOccurence` set to "1" that also have a `default` value (see [default](#default)) declared are not REQUIRED to be stored but are REQUIRED to be interpreted, see [Note on the Use of default attributes to define Mandatory EBML Elements](#note-on-the-use-of-default-attributes-to-define-mandatory-ebml-elements). An `EBML Element` defined with a `EBMLMinOccurence` value greater than zero is called a `Mandatory EBML Element`.
+
+The `EBMLMaxOccurence` represents the maximum number of occurrences of this `EBML Element` within its `Parent Element`. Each instance of the `Parent Element` MUST contain at most this many instances of this `EBML Element`. If the `EBML Element` has an empty `EBMLParentPath` then `EBMLMaxOccurence` refers to constaints on the occurrence of the `EBML Element` within the `EBML Document`. If `EBMLMaxOccurence` is not present then that `EBML Element` is considered to have an unbounded `EBMLMaxOccurence` value. The semantic meaning of `EBMLMaxOccurence` within an `EBML Schema path` is considered analogous to the meaning of `maxOccurs` within an `XML Schema`.
+
+The `VariableParentOccurence` part is interpreted as an ABNF Variable Repetition. The repetition amounts correspond to the amount of unspecified `Parent Element` levels there can be between the `EBMLFixedParent` and the actual `EBMLElementPath`.
 
 If the path contains a `EBMLPathAtomRecursive` part, the `EBML Element` can occur within itself recursively (see the [recursive attribute](#recursive)).
-
-If the `EBMLParentPath` is `"*"` then that `EBML Element` can occur anywhere in the `EBML Document` including at the root.
 
 #### id
 
@@ -355,13 +365,13 @@ The `id` attribute is REQUIRED.
 
 #### minOccurs
 
-An integer expressing the minimum number of occurrences of this `EBML Element` within its `Parent Element`. The `minOccurs` value MUST be equal to the `MinOccurence` value of the `path`.
+An integer expressing the minimum number of occurrences of this `EBML Element` within its `Parent Element`. The `minOccurs` value MUST be equal to the `EBMLMinOccurence` value of the `path`.
 
 The `minOccurs` attribute is OPTIONAL. If the `minOccurs` attribute is not present then that `EBML Element` is considered to have a `minOccurs` value of 0.
 
 #### maxOccurs
 
-An integer expressing the maximum number of occurrences of this `EBML Element` within its `Parent Element`. The `maxOccurs` value MUST be equal to the `MaxOccurence` value of the `path`.
+An integer expressing the maximum number of occurrences of this `EBML Element` within its `Parent Element`. The `maxOccurs` value MUST be equal to the `EBMLMaxOccurence` value of the `path`.
 
 The `maxOccurs` attribute is OPTIONAL. If the `maxOccurs` attribute is not present then that `EBML Element` is considered to have a maxOccurs value of 1.
 
@@ -379,7 +389,7 @@ The `size` attribute is OPTIONAL. If the `size` attribute is not present for tha
 
 #### default
 
-If an Element is mandatory (has a `MinOccurence` value greater than zero) but not written within its `Parent Element` or stored as an `Empty Element`, then the `EBML Reader` of the `EBML Document` MUST semantically interpret the `EBML Element` as present with this specified default value for the `EBML Element`. `EBML Elements` that are `Master Elements` MUST NOT declare a `default` value.
+If an Element is mandatory (has a `EBMLMinOccurence` value greater than zero) but not written within its `Parent Element` or stored as an `Empty Element`, then the `EBML Reader` of the `EBML Document` MUST semantically interpret the `EBML Element` as present with this specified default value for the `EBML Element`. `EBML Elements` that are `Master Elements` MUST NOT declare a `default` value.
 
 The `default` attribute is OPTIONAL.
 
@@ -399,7 +409,7 @@ The `unknownsizeallowed` attribute is OPTIONAL. If the `unknownsizeallowed` attr
 
 A boolean to express if an `EBML Element` MAY be stored recursively. In this case the `EBML Element` MAY be stored at levels greater that defined in the `level` attribute if the `EBML Element` is a `Child Element` of a `Parent Element` with the same `Element ID`. `EBML Elements` that are not `Master Elements` MUST NOT set `recursive` to true.
 
-If the `path` contains a `EBMLPathAtomRecursive` path then the `recursive` value MUST be true and false otherwise.
+If the `path` contains a `EBMLPathAtomRecursive` part then the `recursive` value MUST be true and false otherwise.
 
 The `recursive` attribute is OPTIONAL. If the `recursive` attribute is not present then the `EBML Element` MUST NOT be used recursively.
 
@@ -439,29 +449,29 @@ The `type` attribute is OPTIONAL.
 <?xml version="1.0" encoding="utf-8"?>
 <EBMLSchema docType="files-in-ebml-demo" version="1">
  <!-- Root Element-->
- <element name="Files" path="*1\Files" id="0x1946696C" type="master">
+ <element name="Files" path="*1(\Files)" id="0x1946696C" type="master">
   <documentation lang="en" type="definition">Container of data and
   attributes representing one or many files.</documentation>
  </element>
- <element name="File" path="1*\Files\File" id="0x6146" type="master" minOccurs="1"
+ <element name="File" path="1*(\Files\File)" id="0x6146" type="master" minOccurs="1"
   maxOccurs="unbounded">
   <documentation lang="en" type="definition">An attached file.</documentation>
  </element>
- <element name="FileName" path="1*1\Files\File\FileName" id="0x614E" type="utf-8"
+ <element name="FileName" path="1*1(\Files\File\FileName)" id="0x614E" type="utf-8"
    minOccurs="1">
   <documentation lang="en" type="definition">Filename of the attached file.
   </documentation>
  </element>
- <element name="MimeType" path="1*1\Files\File\MimeType" id="0x464D" type="string"
+ <element name="MimeType" path="1*1(\Files\File\MimeType)" id="0x464D" type="string"
      minOccurs="1">
   <documentation lang="en" type="definition">MIME type of the file.</documentation>
  </element>
- <element name="ModificationTimestamp" path="1*1\Files\File\ModificationTimestamp"
+ <element name="ModificationTimestamp" path="1*1(\Files\File\ModificationTimestamp)"
   id="0x4654" type="date" minOccurs="1">
   <documentation lang="en" type="definition">Modification timestamp of the file.
   </documentation>
  </element>
- <element name="Data" path="1*1\Files\File\Data" id="0x4664" type="binary"
+ <element name="Data" path="1*1(\Files\File\Data)" id="0x4664" type="binary"
      minOccurs="1">
   <documentation lang="en" type="definition">The data of the file.</documentation>
  </element>
@@ -523,7 +533,7 @@ This document contains definitions of all `EBML Elements` of the `EBML Header`.
 
 name: `EBML`
 
-path: `1*1\EBML`
+path: `1*1(\EBML)`
 
 id: `0x1A45DFA3`
 
@@ -539,7 +549,7 @@ description: Set the `EBML` characteristics of the data to follow. Each `EBML Do
 
 name: `EBMLVersion`
 
-path: `1*1\EBML\EBMLVersion`
+path: `1*1(\EBML\EBMLVersion)`
 
 id `0x4286`
 
@@ -559,7 +569,7 @@ description: The version of `EBML Writer` used to create the `EBML Document`.
 
 name: `EBMLReadVersion`
 
-path: `1*1\EBML\EBMLReadVersion`
+path: `1*1(\EBML\EBMLReadVersion)`
 
 id: `0x42F7`
 
@@ -579,7 +589,7 @@ description: The minimum `EBML` version an `EBML Reader` has to support to read 
 
 name: `EBMLMaxIDLength`
 
-path: `1*1\EBML\EBMLMaxIDLength`
+path: `1*1(\EBML\EBMLMaxIDLength)`
 
 id `0x42F2`
 
@@ -599,7 +609,7 @@ description: The `EBMLMaxIDLength Element` stores the maximum length in octets o
 
 name: `EBMLMaxSizeLength`
 
-path: `1*1\EBML\EBMLMaxSizeLength`
+path: `1*1(\EBML\EBMLMaxSizeLength)`
 
 id `0x42F3`
 
@@ -619,7 +629,7 @@ description: The `EBMLMaxSizeLength Element` stores the maximum length in octets
 
 name: `DocType`
 
-path: `1*1\EBML\DocType`
+path: `1*1(\EBML\DocType)`
 
 id `0x4282`
 
@@ -635,7 +645,7 @@ description: A string that describes and identifies the content of the `EBML Bod
 
 name: `DocTypeVersion`
 
-path: `1*1\EBML\DocTypeVersion`
+path: `1*1(\EBML\DocTypeVersion)`
 
 id `0x4287`
 
@@ -655,7 +665,7 @@ description: The version of `DocType` interpreter used to create the `EBML Docum
 
 name: DocTypeReadVersion
 
-path: `1*1\EBML\DocTypeReadVersion`
+path: `1*1(\EBML\DocTypeReadVersion)`
 
 id `0x4285`
 
@@ -674,7 +684,7 @@ description: The minimum `DocType` version an `EBML Reader` has to support to re
 
 name: CRC-32
 
-path: `*1(1*\any)\CRC-32`
+path: `*1(1*(\any)\CRC-32)`
 
 id: `0xBF`
 
@@ -692,7 +702,7 @@ description: The `CRC-32 Element` contains a 32-bit Cyclic Redundancy Check valu
 
 name: Void
 
-path: `*(*any\)Void`
+path: `*(*(\any)\Void)`
 
 id: `0xEC`
 
