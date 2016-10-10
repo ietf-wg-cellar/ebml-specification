@@ -378,7 +378,7 @@ The `maxOccurs` attribute is OPTIONAL. If the `maxOccurs` attribute is not prese
 
 A numerical range for `EBML Elements` which are of numerical types (Unsigned Integer, Signed Integer, Float, and Date). If specified the value of the EBML Element MUST be within the defined range. See [section of Expressions of range](#expression-of-range) for rules applied to expression of range values.
 
-The `range` attribute is OPTIONAL.
+The `range` attribute is OPTIONAL. If the `range` attribute is not present then any value legal for the `type` attribute is valid.
 
 #### size
 
@@ -596,7 +596,7 @@ minOccurs: 1
 
 maxOccurs: 1
 
-range:  >3
+range:  >=4
 
 default: 4
 
@@ -616,7 +616,7 @@ minOccurs: 1
 
 maxOccurs: 1
 
-range:  >0
+range:  not 0
 
 default: 8
 
@@ -653,8 +653,6 @@ id `0x4287`
 minOccurs: 1
 
 maxOccurs: 1
-
-range:  -
 
 default: 1
 
