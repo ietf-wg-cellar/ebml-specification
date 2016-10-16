@@ -402,7 +402,7 @@ The `unknownsizeallowed` attribute is OPTIONAL. If the `unknownsizeallowed` attr
 
 #### recursive
 
-A boolean to express if an `EBML Element` MAY be stored recursively. In this case the `EBML Element` MAY be stored at levels greater that defined in the `level` attribute if the `EBML Element` is a `Child Element` of a `Parent Element` with the same `Element ID`. `EBML Elements` that are not `Master Elements` MUST NOT set `recursive` to true.
+A boolean to express if an `EBML Element` MAY be stored recursively. In this case the `EBML Element` MAY be stored within another `EBML Element` that has the same `Element ID`. Which itself can be stored in an `EBML Element` that has the same `Element ID`, and so on. `EBML Elements` that are not `Master Elements` MUST NOT set `recursive` to true.
 
 If the `path` contains a `EBMLPathAtomRecursive` part then the `recursive` value MUST be true and false otherwise.
 
