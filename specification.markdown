@@ -46,7 +46,7 @@ This document defines specific terms in order to define the format and applicati
 
 `Master Element`: The `Master Element` contains zero, one, or many other `EBML Elements`.
 
-`Parent Element`: A relative term to describe the `Master Element` which contains a specified element.
+`Parent Element`: A relative term to describe the `Master Element` which contains a specified element. For any specified `EBML Element` that is not at `Root Level`, the `Parent Element` refers to the `Master Element` in which that `EBML Element` is contained.
 
 `Root Element`: A mandatory, non-repeating `EBML Element` which occurs at the top level of the path hierarchy within an `EBML Body` and contains all other `EBML Elements` of the `EBML Body`, excepting optional `Void Elements`.
 
@@ -269,7 +269,7 @@ An `EBML Stream` is a file that consists of one or many `EBML Documents` that ar
 
 An `EBML Schema` is an XML Document that defines the properties, arrangement, and usage of `EBML Elements` that compose a specific `EBML Document Type`. The relationship of an `EBML Schema` to an `EBML Document` may be considered analogous to the relationship of an XML Schema [@?W3C.REC-xmlschema-0-20010502] to an XML Document [@!W3C.REC-xml-20081126]. An `EBML Schema` MUST be clearly associated with one or many `EBML Document Types`. An `EBML Schema` must be expressed as well-formed XML. An `EBML Document Type` is identified by a string stored within the `EBML Header` in the `DocType Element`; for example `matroska` or `webm` (see [the definition of the `DocType Element`](#doctype-element)). The `DocType` value for an `EBML Document Type` SHOULD be unique and persistent.
 
-For any specified `EBML Element` that is not at `Root Level`, the `Parent Element` refers to the `Master Element` in which that `EBML Element` is contained. For any specified `Master Element` the `Child Element` refers to the `EBML Element` that is immediately contained within that `Master Element`. For any `EBML Element` that is not defined at `Root Level`, the `Parent Element` is identified by the `<element>` node which has the `EBMLReferencePath` equals to the `EBMLParentPath` of that `EBML Element` `Element Path`. The only exception for this rule are `Global Elements` which MAY occur within any `Parent Element` within the restriction of the `level` declaration of `Global Element`.
+For any specified `Master Element` the `Child Element` refers to the `EBML Element` that is immediately contained within that `Master Element`. For any `EBML Element` that is not defined at `Root Level`, the `Parent Element` is identified by the `<element>` node which has the `EBMLReferencePath` equals to the `EBMLParentPath` of that `EBML Element` `Element Path`. The only exception for this rule are `Global Elements` which MAY occur within any `Parent Element` within the restriction of the level declaration of `Global Element`.
 
 An `EBML Schema` MUST declare exactly one `EBML Element` at `Root Level` (referred to as the `Root Element`) that MUST occur exactly once within an `EBML Document`. The `Void Element` MAY also occur at `Root Level` but is not considered to be `Root Elements` (see [the definition of the `Void Element`](#void-element)).
 
