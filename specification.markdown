@@ -556,13 +556,13 @@ minOccurs: 1
 
 maxOccurs: 1
 
-range:  1
+range:  not 0
 
 default: 1
 
 type: Unsigned Integer
 
-description: The version of `EBML Writer` used to create the `EBML Document`.
+description: The version of `EBML` specifications used to create the `EBML Document`. The version of EBML defined in this document is 1, so `EBMLVersion` SHOULD be 1.
 
 ### EBMLReadVersion Element
 
@@ -576,7 +576,7 @@ minOccurs: 1
 
 maxOccurs: 1
 
-range:  1
+range:  not 0
 
 default: 1
 
