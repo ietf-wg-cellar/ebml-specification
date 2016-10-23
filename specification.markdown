@@ -87,7 +87,7 @@ Side channel attacks could exploit:
 - The semantic equivalence of `VINT_DATA` within `Element Data Size` with to different lengths due to left-padding zero bits.
 - Data contained within a `Master Element` which is not itself part of an `EBML Element`.
 - Extraneous copies of `Identically Recurring Element`.
-- Copies of `Identically Recurring Element` within a `Parent Element` that contains an invalid `CRC-32 Elements`.
+- Copies of `Identically Recurring Element` within a `Parent Element` that contain invalid `CRC-32 Elements`.
 - Use of `Void Elements`.
 
 # Structure
