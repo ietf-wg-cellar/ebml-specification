@@ -30,7 +30,7 @@ This document defines specific terms in order to define the format and applicati
 
 `EBML Element`: A foundation block of data that contains three parts: an `Element ID`, an `Element Data Size`, and `Element Data`.
 
-`EBML Header`: The `EBML Header` is a declaration that provides processing instructions and identification of the `EBML Body`. The `EBML Header` may be considered as analogous to an XML Declaration.
+`EBML Header`: The `EBML Header` is a declaration that provides processing instructions and identification of the `EBML Body`. The `EBML Header` may be considered as analogous to an XML Declaration [@!W3C.REC-xml-20081126] (see section 2.8 on Prolog and Document Type Declaration).
 
 `EBML Schema`: A standardized definition for the structure of an `EBML Document Type`.
 
