@@ -197,7 +197,7 @@ VINT_WIDTH  | VINT_MARKER  | VINT_DATA      | Element Data Size Status
 
 A `Signed Integer Element` MUST declare a length from zero to eight octets. If the `EBML Element` is not defined to have a `default` value, then a `Signed Integer Element` with a zero-octet length represents an integer value of zero.
 
-A `Signed Integer Element` stores an integer (meaning that it can be written without a fractional component) which could be negative, positive, or zero. Signed Integers MUST be stored with two's complement notation with the leftmost bit being the sign bit. Because `EBML` limits Signed Integers to 8 octets in length a `Signed Ingeter Element` stores a number from −9,223,372,036,854,775,808 to +9,223,372,036,854,775,807.
+A `Signed Integer Element` stores an integer (meaning that it can be written without a fractional component) which could be negative, positive, or zero. Signed Integers MUST be stored with two's complement notation with the leftmost bit being the sign bit. Because `EBML` limits Signed Integers to 8 octets in length a `Signed Integer Element` stores a number from −9,223,372,036,854,775,808 to +9,223,372,036,854,775,807.
 
 ## Unsigned Integer Element
 
