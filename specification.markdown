@@ -22,7 +22,7 @@ This document defines specific terms in order to define the format and applicati
 
 `EBML Body`: All data of an `EBML Document` following the `EBML Header` may be considered the `EBML Body`.
 
-`EBML Class`: An representation of the octet length of an `Element ID`.
+`EBML Class`: A representation of the octet length of an `Element ID`.
 
 `EBML Document`: An `EBML Document` is a datastream comprised of only two components, an `EBML Header` and an `EBML Body`.
 
@@ -34,7 +34,7 @@ This document defines specific terms in order to define the format and applicati
 
 `EBML Schema`: A standardized definition for the structure of an `EBML Document Type`.
 
-`EBML Stream`: An `EBML Stream` is a file that consists of one or many `EBML Documents` that are concatenated together.
+`EBML Stream`: An `EBML Stream` is a file that consists of one or more `EBML Documents` that are concatenated together.
 
 `Element ID`: The `Element ID` is a binary value, encoded as a `Variable Size Integer`, used to uniquely identify a defined `EBML Element` within a specific `EBML Schema`.
 
