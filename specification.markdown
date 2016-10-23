@@ -52,7 +52,7 @@ This document defines specific terms in order to define the format and applicati
 
 `Root Level`: The starting level in the hierarchy of an `EBML Document`.
 
-`Top-Level Element`: An `EBML Element` defined as a `Child Element` of the `Root Element`.
+`Top-Level Element`: An `EBML Element` defined to only occur as a `Child Element` of the `Root Element`.
 
 `Unknown-Sized Element`: An Element with an unknown `Element Data Size`.
 
