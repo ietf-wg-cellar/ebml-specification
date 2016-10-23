@@ -22,7 +22,7 @@ This document defines specific terms in order to define the format and applicati
 
 `EBML Body`: All data of an `EBML Document` following the `EBML Header` may be considered the `EBML Body`.
 
-`EBML Class`: An representation of the octet length of an `Element ID`.
+`EBML Class`: A representation of the octet length of an `Element ID`.
 
 `EBML Document`: An `EBML Document` is a datastream comprised of only two components, an `EBML Header` and an `EBML Body`.
 
@@ -34,7 +34,7 @@ This document defines specific terms in order to define the format and applicati
 
 `EBML Schema`: A standardized definition for the structure of an `EBML Document Type`.
 
-`EBML Stream`: An `EBML Stream` is a file that consists of one or many `EBML Documents` that are concatenated together.
+`EBML Stream`: An `EBML Stream` is a file that consists of one or more `EBML Documents` that are concatenated together.
 
 `Element ID`: The `Element ID` is a binary value, encoded as a `Variable Size Integer`, used to uniquely identify a defined `EBML Element` within a specific `EBML Schema`.
 
@@ -87,7 +87,7 @@ Side channel attacks could exploit:
 - The semantic equivalence of `VINT_DATA` within `Element Data Size` with to different lengths due to left-padding zero bits.
 - Data contained within a `Master Element` which is not itself part of an `EBML Element`.
 - Extraneous copies of `Identically Recurring Element`.
-- Copies of `Identically Recurring Element` within a `Parent Element` that contains an invalid `CRC-32 Elements`.
+- Copies of `Identically Recurring Element` within a `Parent Element` that contain invalid `CRC-32 Elements`.
 - Use of `Void Elements`.
 
 # Structure
@@ -189,7 +189,7 @@ VINT_WIDTH  | VINT_MARKER  | VINT_DATA      | Element Data Size Status
 
 # EBML Element Types
 
-`EBML Element` are defined by an `EBML Schema` which MUST declare one of the follow `EBML Element Types` for each `EBML Element`. An `EBML Element Type` defines a concept of storing data within an `EBML Element` that describes such characteristics as length, endianness, and definition.
+`EBML Elements` are defined by an `EBML Schema` which MUST declare one of the following `EBML Element Types` for each `EBML Element`. An `EBML Element Type` defines a concept of storing data within an `EBML Element` that describes such characteristics as length, endianness, and definition.
 
 `EBML Elements` which are defined as a `Signed Integer Element`, `Unsigned Integer Element`, `Float Element`, or `Date Element` use big endian storage.
 
@@ -197,11 +197,11 @@ VINT_WIDTH  | VINT_MARKER  | VINT_DATA      | Element Data Size Status
 
 A `Signed Integer Element` MUST declare a length from zero to eight octets. If the `EBML Element` is not defined to have a `default` value, then a `Signed Integer Element` with a zero-octet length represents an integer value of zero.
 
-A `Signed Integer Element` stores an integer (meaning that it can be written without a fractional component) which could be negative, positive, or zero. Signed Integers MUST be stored with two's complement notation with the leftmost bit being the sign bit. Because `EBML` limits Signed Integers to 8 octets in length a `Signed Ingeter Element` stores a number from −9,223,372,036,854,775,808 to +9,223,372,036,854,775,807.
+A `Signed Integer Element` stores an integer (meaning that it can be written without a fractional component) which could be negative, positive, or zero. Signed Integers MUST be stored with two's complement notation with the leftmost bit being the sign bit. Because `EBML` limits Signed Integers to 8 octets in length a `Signed Integer Element` stores a number from −9,223,372,036,854,775,808 to +9,223,372,036,854,775,807.
 
 ## Unsigned Integer Element
 
-A `Unsigned Integer Element` MUST declare a length from zero to eight octets. If the `EBML Element` is not defined to have a `default` value, then an `Unsigned Integer Element` with a zero-octet length represents an integer value of zero.
+An `Unsigned Integer Element` MUST declare a length from zero to eight octets. If the `EBML Element` is not defined to have a `default` value, then an `Unsigned Integer Element` with a zero-octet length represents an integer value of zero.
 
 An `Unsigned Integer Element` stores an integer (meaning that it can be written without a fractional component) which could be positive or zero. Because `EBML` limits Unsigned Integers to 8 octets in length an `Unsigned Integer Element` stores a number from 0 to 18,446,744,073,709,551,615.
 
@@ -215,7 +215,7 @@ A `Float Element` stores a floating-point number as defined in [@!IEEE.754.1985]
 
 A `String Element` MUST declare a length in octets from zero to `VINTMAX`. If the `EBML Element` is not defined to have a `default` value, then a `String Element` with a zero-octet length represents an empty string.
 
-A `String Element` MUST either be empty (zero-length) or contain Printable ASCII characters [@!RFC0020] in the range of `0x20` to `0x7E`. Octets with all bits set to zero MAY follow the string value when needed, such as reducing the length of a stored string while maintaining the same `Element Data Size`. A string with one or more octets with all bits set to zero and a string without one or more octets with all bits set to zero are semantically equal.
+A `String Element` MUST either be empty (zero-length) or contain printable ASCII characters [@!RFC0020] in the range of `0x20` to `0x7E`. Octets with all bits set to zero MAY follow the string value when needed, such as reducing the length of a stored string while maintaining the same `Element Data Size`. A string with one or more octets with all bits set to zero and a string without one or more octets with all bits set to zero are semantically equal.
 
 ## UTF-8 Element
 
@@ -344,9 +344,9 @@ The starting `PathDelimiter` of the path corresponds to the root of the `EBML Do
 
 The `EBMLElementOccurrence` part is interpreted as an ABNF Variable Repetition. The repetition amounts correspond to how many times the `EBML Element` can be found in its parent `Parent Element`.
 
-The `EBMLMinOccurrence` represents the minimum number of occurrences of this `EBML Element` within its `Parent Element`. Each instance of the `Parent Element` MUST contain at least this many instances of this `EBML Element`. If the `EBML Element` has an empty `EBMLParentPath` then `EBMLMinOccurrence` refers to constaints on the occurrence of the `EBML Element` within the `EBML Document`. If `EBMLMinOccurrence` is not present then that `EBML Element` is considered to have a `EBMLMinOccurrence` value of 0. The semantic meaning of `EBMLMinOccurrence` within an `EBML Schema` is considered analogous to the meaning of `minOccurs` within an `XML Schema`. `EBML Elements` with `EBMLMinOccurrence` set to "1" that also have a `default` value (see [default](#default)) declared are not REQUIRED to be stored but are REQUIRED to be interpreted, see [Note on the Use of default attributes to define Mandatory EBML Elements](#note-on-the-use-of-default-attributes-to-define-mandatory-ebml-elements). An `EBML Element` defined with a `EBMLMinOccurrence` value greater than zero is called a `Mandatory EBML Element`.
+The `EBMLMinOccurrence` represents the minimum number of occurrences of this `EBML Element` within its `Parent Element`. Each instance of the `Parent Element` MUST contain at least this many instances of this `EBML Element`. If the `EBML Element` has an empty `EBMLParentPath` then `EBMLMinOccurrence` refers to constraints on the occurrence of the `EBML Element` within the `EBML Document`. If `EBMLMinOccurrence` is not present then that `EBML Element` is considered to have a `EBMLMinOccurrence` value of 0. The semantic meaning of `EBMLMinOccurrence` within an `EBML Schema` is considered analogous to the meaning of `minOccurs` within an `XML Schema`. `EBML Elements` with `EBMLMinOccurrence` set to "1" that also have a `default` value (see [default](#default)) declared are not REQUIRED to be stored but are REQUIRED to be interpreted, see [Note on the Use of default attributes to define Mandatory EBML Elements](#note-on-the-use-of-default-attributes-to-define-mandatory-ebml-elements). An `EBML Element` defined with a `EBMLMinOccurrence` value greater than zero is called a `Mandatory EBML Element`.
 
-The `EBMLMaxOccurrence` represents the maximum number of occurrences of this `EBML Element` within its `Parent Element`. Each instance of the `Parent Element` MUST contain at most this many instances of this `EBML Element`. If the `EBML Element` has an empty `EBMLParentPath` then `EBMLMaxOccurrence` refers to constaints on the occurrence of the `EBML Element` within the `EBML Document`. If `EBMLMaxOccurrence` is not present then that `EBML Element` is considered to have an unbounded `EBMLMaxOccurrence` value. The semantic meaning of `EBMLMaxOccurrence` within an `EBML Schema path` is considered analogous to the meaning of `maxOccurs` within an `XML Schema`.
+The `EBMLMaxOccurrence` represents the maximum number of occurrences of this `EBML Element` within its `Parent Element`. Each instance of the `Parent Element` MUST contain at most this many instances of this `EBML Element`. If the `EBML Element` has an empty `EBMLParentPath` then `EBMLMaxOccurrence` refers to constraints on the occurrence of the `EBML Element` within the `EBML Document`. If `EBMLMaxOccurrence` is not present then that `EBML Element` is considered to have an unbounded `EBMLMaxOccurrence` value. The semantic meaning of `EBMLMaxOccurrence` within an `EBML Schema path` is considered analogous to the meaning of `maxOccurs` within an `XML Schema`.
 
 The `VariableParentOccurrence` part is interpreted as an ABNF Variable Repetition. The repetition amounts correspond to the amount of unspecified `Parent Element` levels there can be between the `EBMLFixedParent` and the actual `EBMLElementPath`.
 
