@@ -201,7 +201,7 @@ A `Signed Integer Element` stores an integer (meaning that it can be written wit
 
 ## Unsigned Integer Element
 
-A `Unsigned Integer Element` MUST declare a length from zero to eight octets. If the `EBML Element` is not defined to have a `default` value, then an `Unsigned Integer Element` with a zero-octet length represents an integer value of zero.
+An `Unsigned Integer Element` MUST declare a length from zero to eight octets. If the `EBML Element` is not defined to have a `default` value, then an `Unsigned Integer Element` with a zero-octet length represents an integer value of zero.
 
 An `Unsigned Integer Element` stores an integer (meaning that it can be written without a fractional component) which could be positive or zero. Because `EBML` limits Unsigned Integers to 8 octets in length an `Unsigned Integer Element` stores a number from 0 to 18,446,744,073,709,551,615.
 
@@ -215,7 +215,7 @@ A `Float Element` stores a floating-point number as defined in [@!IEEE.754.1985]
 
 A `String Element` MUST declare a length in octets from zero to `VINTMAX`. If the `EBML Element` is not defined to have a `default` value, then a `String Element` with a zero-octet length represents an empty string.
 
-A `String Element` MUST either be empty (zero-length) or contain Printable ASCII characters [@!RFC0020] in the range of `0x20` to `0x7E`. Octets with all bits set to zero MAY follow the string value when needed, such as reducing the length of a stored string while maintaining the same `Element Data Size`. A string with one or more octets with all bits set to zero and a string without one or more octets with all bits set to zero are semantically equal.
+A `String Element` MUST either be empty (zero-length) or contain printable ASCII characters [@!RFC0020] in the range of `0x20` to `0x7E`. Octets with all bits set to zero MAY follow the string value when needed, such as reducing the length of a stored string while maintaining the same `Element Data Size`. A string with one or more octets with all bits set to zero and a string without one or more octets with all bits set to zero are semantically equal.
 
 ## UTF-8 Element
 
