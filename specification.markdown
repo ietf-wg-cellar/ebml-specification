@@ -576,7 +576,7 @@ minOccurs: 1
 
 maxOccurs: 1
 
-range:  not 0
+range:  1
 
 default: 1
 
