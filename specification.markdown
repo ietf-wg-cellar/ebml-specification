@@ -320,7 +320,7 @@ The path defines the allowed storage locations of the `EBML Element` within an `
 The `path` attribute is REQUIRED.
 
 ```
-EBMLFullPath            = EBMLElementOccurence "(" EBMLReferencePath ")"
+EBMLFullPath            = EBMLElementOccurrence "(" EBMLReferencePath ")"
 EBMLReferencePath       = [EBMLParentPath] EBMLElementPath
 EBMLParentPath          = EBMLFixedParent EBMLLastParent
 EBMLFixedParent         = *(EBMLPathAtom)
@@ -328,16 +328,16 @@ EBMLElementPath         = EBMLPathAtom / EBMLPathAtomRecursive
 EBMLPathAtom            = PathDelimiter EBMLAtomName
 EBMLPathAtomRecursive   = "1*(" EBMLPathAtom ")"
 EBMLLastParent          = EBMLPathAtom / EBMLVariableParent
-EBMLVariableParent      = "(" VariableParentOccurence "\)"
+EBMLVariableParent      = "(" VariableParentOccurrence "\)"
 EBMLAtomName            = 1*(EBMLNameChar)
 EBMLNameChar            = ALPHA / DIGIT / "-" / "."
 PathDelimiter           = "\"
-EBMLElementOccurence    = [EBMLMinOccurence] "*" [EBMLMaxOccurence]
-EBMLMinOccurence        = 1*DIGIT
-EBMLMaxOccurence        = 1*DIGIT
-VariableParentOccurence = [PathMinOccurence] "*" [PathMaxOccurence]
-PathMinOccurence        = 1*DIGIT
-PathMaxOccurence        = 1*DIGIT
+EBMLElementOccurrence    = [EBMLMinOccurrence] "*" [EBMLMaxOccurrence]
+EBMLMinOccurrence        = 1*DIGIT
+EBMLMaxOccurrence        = 1*DIGIT
+VariableParentOccurrence = [PathMinOccurrence] "*" [PathMaxOccurrence]
+PathMinOccurrence        = 1*DIGIT
+PathMaxOccurrence        = 1*DIGIT
 ```
 
 The `"*"`, `"("` and `")"` symbols MUST be interpreted as they are defined in the ABNF.
@@ -346,13 +346,13 @@ The `EBMLPathAtom` part of the `EBMLElementPath` MUST be equal to the `name` att
 
 The starting `PathDelimiter` of the path corresponds to the root of the `EBML Document`.
 
-The `EBMLElementOccurence` part is interpreted as an ABNF Variable Repetition. The repetition amounts correspond to how many times the `EBML Element` can be found in its parent `Parent Element`.
+The `EBMLElementOccurrence` part is interpreted as an ABNF Variable Repetition. The repetition amounts correspond to how many times the `EBML Element` can be found in its parent `Parent Element`.
 
-The `EBMLMinOccurence` represents the minimum number of occurrences of this `EBML Element` within its `Parent Element`. Each instance of the `Parent Element` MUST contain at least this many instances of this `EBML Element`. If the `EBML Element` has an empty `EBMLParentPath` then `EBMLMinOccurence` refers to constaints on the occurrence of the `EBML Element` within the `EBML Document`. If `EBMLMinOccurence` is not present then that `EBML Element` is considered to have a `EBMLMinOccurence` value of 0. The semantic meaning of `EBMLMinOccurence` within an `EBML Schema` is considered analogous to the meaning of `minOccurs` within an `XML Schema`. `EBML Elements` with `EBMLMinOccurence` set to "1" that also have a `default` value (see [default](#default)) declared are not REQUIRED to be stored but are REQUIRED to be interpreted, see [Note on the Use of default attributes to define Mandatory EBML Elements](#note-on-the-use-of-default-attributes-to-define-mandatory-ebml-elements). An `EBML Element` defined with a `EBMLMinOccurence` value greater than zero is called a `Mandatory EBML Element`.
+The `EBMLMinOccurrence` represents the minimum number of occurrences of this `EBML Element` within its `Parent Element`. Each instance of the `Parent Element` MUST contain at least this many instances of this `EBML Element`. If the `EBML Element` has an empty `EBMLParentPath` then `EBMLMinOccurrence` refers to constaints on the occurrence of the `EBML Element` within the `EBML Document`. If `EBMLMinOccurrence` is not present then that `EBML Element` is considered to have a `EBMLMinOccurrence` value of 0. The semantic meaning of `EBMLMinOccurrence` within an `EBML Schema` is considered analogous to the meaning of `minOccurs` within an `XML Schema`. `EBML Elements` with `EBMLMinOccurrence` set to "1" that also have a `default` value (see [default](#default)) declared are not REQUIRED to be stored but are REQUIRED to be interpreted, see [Note on the Use of default attributes to define Mandatory EBML Elements](#note-on-the-use-of-default-attributes-to-define-mandatory-ebml-elements). An `EBML Element` defined with a `EBMLMinOccurrence` value greater than zero is called a `Mandatory EBML Element`.
 
-The `EBMLMaxOccurence` represents the maximum number of occurrences of this `EBML Element` within its `Parent Element`. Each instance of the `Parent Element` MUST contain at most this many instances of this `EBML Element`. If the `EBML Element` has an empty `EBMLParentPath` then `EBMLMaxOccurence` refers to constaints on the occurrence of the `EBML Element` within the `EBML Document`. If `EBMLMaxOccurence` is not present then that `EBML Element` is considered to have an unbounded `EBMLMaxOccurence` value. The semantic meaning of `EBMLMaxOccurence` within an `EBML Schema path` is considered analogous to the meaning of `maxOccurs` within an `XML Schema`.
+The `EBMLMaxOccurrence` represents the maximum number of occurrences of this `EBML Element` within its `Parent Element`. Each instance of the `Parent Element` MUST contain at most this many instances of this `EBML Element`. If the `EBML Element` has an empty `EBMLParentPath` then `EBMLMaxOccurrence` refers to constaints on the occurrence of the `EBML Element` within the `EBML Document`. If `EBMLMaxOccurrence` is not present then that `EBML Element` is considered to have an unbounded `EBMLMaxOccurrence` value. The semantic meaning of `EBMLMaxOccurrence` within an `EBML Schema path` is considered analogous to the meaning of `maxOccurs` within an `XML Schema`.
 
-The `VariableParentOccurence` part is interpreted as an ABNF Variable Repetition. The repetition amounts correspond to the amount of unspecified `Parent Element` levels there can be between the `EBMLFixedParent` and the actual `EBMLElementPath`.
+The `VariableParentOccurrence` part is interpreted as an ABNF Variable Repetition. The repetition amounts correspond to the amount of unspecified `Parent Element` levels there can be between the `EBMLFixedParent` and the actual `EBMLElementPath`.
 
 If the path contains a `EBMLPathAtomRecursive` part, the `EBML Element` can occur within itself recursively (see the [recursive attribute](#recursive)).
 
@@ -364,13 +364,13 @@ The `id` attribute is REQUIRED.
 
 #### minOccurs
 
-An integer expressing the minimum number of occurrences of this `EBML Element` within its `Parent Element`. The `minOccurs` value MUST be equal to the `EBMLMinOccurence` value of the `path`.
+An integer expressing the minimum number of occurrences of this `EBML Element` within its `Parent Element`. The `minOccurs` value MUST be equal to the `EBMLMinOccurrence` value of the `path`.
 
 The `minOccurs` attribute is OPTIONAL. If the `minOccurs` attribute is not present then that `EBML Element` is considered to have a `minOccurs` value of 0.
 
 #### maxOccurs
 
-An integer expressing the maximum number of occurrences of this `EBML Element` within its `Parent Element`. The `maxOccurs` value MUST be equal to the `EBMLMaxOccurence` value of the `path`.
+An integer expressing the maximum number of occurrences of this `EBML Element` within its `Parent Element`. The `maxOccurs` value MUST be equal to the `EBMLMaxOccurrence` value of the `path`.
 
 The `maxOccurs` attribute is OPTIONAL. If the `maxOccurs` attribute is not present then that `EBML Element` is considered to have a maxOccurs value of 1.
 
@@ -388,7 +388,7 @@ The `size` attribute is OPTIONAL. If the `size` attribute is not present for tha
 
 #### default
 
-If an Element is mandatory (has a `EBMLMinOccurence` value greater than zero) but not written within its `Parent Element` or stored as an `Empty Element`, then the `EBML Reader` of the `EBML Document` MUST semantically interpret the `EBML Element` as present with this specified default value for the `EBML Element`. `EBML Elements` that are `Master Elements` MUST NOT declare a `default` value.
+If an Element is mandatory (has a `EBMLMinOccurrence` value greater than zero) but not written within its `Parent Element` or stored as an `Empty Element`, then the `EBML Reader` of the `EBML Document` MUST semantically interpret the `EBML Element` as present with this specified default value for the `EBML Element`. `EBML Elements` that are `Master Elements` MUST NOT declare a `default` value.
 
 The `default` attribute is OPTIONAL.
 
