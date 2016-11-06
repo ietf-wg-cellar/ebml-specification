@@ -396,7 +396,7 @@ The `type` attribute is REQUIRED.
 
 #### unknownsizeallowed
 
-A boolean to express if an `EBML Element` MAY be used as an `Unknown-Sized Element` (having all `VINT_DATA` bits of `Element Data Size` set to 1). `EBML Elements` that are not `Master Elements` MUST NOT set `unknownsizeallowed` to true. An `EBML Element` that has the 'unknownsizeallowed' attribute set to 1 MUST also have its `Parent Element` 'unknownsizeallowed' attribute set to 1.
+A boolean to express if an `EBML Element` MAY be used as an `Unknown-Sized Element` (having all `VINT_DATA` bits of `Element Data Size` set to 1). `EBML Elements` that are not `Master Elements` MUST NOT set `unknownsizeallowed` to true. An `EBML Element` that is defined with an `unknownsizeallowed` attribute set to 1 MUST also have the `unknownsizeallowed` attribute of its `Parent Element` set to 1.
 
 The `unknownsizeallowed` attribute is OPTIONAL. If the `unknownsizeallowed` attribute is not used then that `EBML Element` is not allowed to use an unknown `Element Data Size`.
 
