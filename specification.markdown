@@ -442,7 +442,7 @@ The `type` attribute is OPTIONAL.
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
-<EBMLSchema docType="files-in-ebml-demo" version="1">
+<EBMLSchema xmlns="https://ietf.org/cellar/ebml" docType="files-in-ebml-demo" version="1">
  <!-- Root Element-->
  <element name="Files" path="*1(\Files)" id="0x1946696C" type="master">
   <documentation lang="en" type="definition">Container of data and

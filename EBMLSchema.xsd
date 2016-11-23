@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="https://ietf.org/cellar/ebml" targetNamespace="https://ietf.org/cellar/ebml" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" version="01">
+  <xsd:element name="EBMLSchema" type="EBMLSchemaType"/>
+  <xsd:complexType name="EBMLSchemaType">
+    <xsd:sequence>
+      <xsd:element name="element" type="elementType" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+    <xsd:attribute name="docType" use="required"/>
+    <xsd:attribute name="version" use="required"/>
+  </xsd:complexType>
+  <xsd:complexType name="elementType">
+    <xsd:sequence>
+      <xsd:element name="documentation" type="documentationType" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+    <xsd:attribute name="name" use="required"/>
+    <xsd:attribute name="path" use="required"/>
+    <xsd:attribute name="id" use="required"/>
+    <xsd:attribute name="minOccurs" default="0"/>
+    <xsd:attribute name="maxOccurs" default="1"/>
+    <xsd:attribute name="range"/>
+    <xsd:attribute name="size"/>
+    <xsd:attribute name="default"/>
+    <xsd:attribute name="type" use="required"/>
+    <xsd:attribute name="unknownsizeallowed"/>
+    <xsd:attribute name="recursive"/>
+    <xsd:attribute name="minver" default="1"/>
+    <xsd:attribute name="maxver"/>
+  </xsd:complexType>
+  <xsd:complexType name="documentationType" mixed="true">
+    <xsd:sequence>
+      <xsd:any namespace="##any" minOccurs="0" maxOccurs="unbounded"/>
+    </xsd:sequence>
+    <xsd:attribute name="lang"/>
+    <xsd:attribute name="type"/>
+  </xsd:complexType>
+</xsd:schema>
