@@ -438,6 +438,10 @@ A `type` attribute distinguishes the meaning of the documentation. Values for th
 
 The `type` attribute is OPTIONAL.
 
+### XML Schema for EBML Schema
+
+<{{EBMLSchema.xsd}}
+
 ### EBML Schema Example
 
 ```xml
