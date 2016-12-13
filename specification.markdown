@@ -444,37 +444,7 @@ The `type` attribute is OPTIONAL.
 
 ### EBML Schema Example
 
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<EBMLSchema xmlns="https://ietf.org/cellar/ebml" docType="files-in-ebml-demo" version="1">
- <!-- Root Element-->
- <element name="Files" path="*1(\Files)" id="0x1946696C" type="master">
-  <documentation lang="en" type="definition">Container of data and
-  attributes representing one or many files.</documentation>
- </element>
- <element name="File" path="1*(\Files\File)" id="0x6146" type="master" minOccurs="1">
-  <documentation lang="en" type="definition">An attached file.</documentation>
- </element>
- <element name="FileName" path="1*1(\Files\File\FileName)" id="0x614E" type="utf-8"
-   minOccurs="1">
-  <documentation lang="en" type="definition">Filename of the attached file.
-  </documentation>
- </element>
- <element name="MimeType" path="1*1(\Files\File\MimeType)" id="0x464D" type="string"
-     minOccurs="1">
-  <documentation lang="en" type="definition">MIME type of the file.</documentation>
- </element>
- <element name="ModificationTimestamp" path="1*1(\Files\File\ModificationTimestamp)"
-  id="0x4654" type="date" minOccurs="1">
-  <documentation lang="en" type="definition">Modification timestamp of the file.
-  </documentation>
- </element>
- <element name="Data" path="1*1(\Files\File\Data)" id="0x4664" type="binary"
-     minOccurs="1">
-  <documentation lang="en" type="definition">The data of the file.</documentation>
- </element>
-</EBMLSchema>
-```
+<{{ebml_schema_example.xml}}
 
 ### Identically Recurring Elements
 
