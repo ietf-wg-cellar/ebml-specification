@@ -384,7 +384,7 @@ The `size` attribute is OPTIONAL. If the `size` attribute is not present for tha
 
 #### default
 
-If an Element is mandatory (has a `EBMLMinOccurrence` value greater than zero) but not written within its `Parent Element` or stored as an `Empty Element`, then the `EBML Reader` of the `EBML Document` MUST semantically interpret the `EBML Element` as present with this specified default value for the `EBML Element`. `EBML Elements` that are `Master Elements` MUST NOT declare a `default` value.
+If an Element is mandatory (has a `EBMLMinOccurrence` value greater than zero) but not written within its `Parent Element` or stored as an `Empty Element`, then the `EBML Reader` of the `EBML Document` MUST semantically interpret the `EBML Element` as present with this specified default value for the `EBML Element`. `EBML Elements` that are `Master Elements` MUST NOT declare a `default` value. `EBML Elements` with a `minOccurs` value greater than 1 MUST NOT declare a `default` value.
 
 The `default` attribute is OPTIONAL.
 
