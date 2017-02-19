@@ -9,14 +9,14 @@ all: $(OUTPUT).html $(OUTPUT).txt
 $(OUTPUT).md: specification.markdown rfc_frontmatter.markdown
 	cat rfc_frontmatter.markdown $< > $(OUTPUT).md
 
-$(OUTPUT).xml: $(OUTPUT).md
-	mmark -xml2 -page $(OUTPUT).md > $(OUTPUT).xml
+%.xml: %.md
+	mmark -xml2 -page $< > $@
 
-$(OUTPUT).html: $(OUTPUT).xml
-	xml2rfc --html $(OUTPUT).xml -o $@
+%.html: %.xml
+	xml2rfc --html $< -o $@
 
-$(OUTPUT).txt: $(OUTPUT).xml
-	xml2rfc $(OUTPUT).xml -o $@
+%.txt: %.xml
+	xml2rfc $< -o $@
 
 clean:
 	rm -f $(OUTPUT).txt $(OUTPUT).html $(OUTPUT).md $(OUTPUT).xml
