@@ -1,7 +1,7 @@
 % Title = "Extensible Binary Meta Language"
 % abbrev = "EBML"
 % category = "std"
-% docName = "draft-ietf-cellar-ebml-01"
+% docName = "draft-ietf-cellar-ebml-02"
 % ipr= "trust200902"
 % area = "art"
 % workgroup = "cellar"
