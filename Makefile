@@ -10,7 +10,7 @@ $(OUTPUT).md: specification.markdown rfc_frontmatter.markdown
 	cat rfc_frontmatter.markdown $< > $(OUTPUT).md
 
 %.xml: %.md
-	mmark -xml2 -page $< > $@
+	mmark -xml2 -page $< $@
 
 %.html: %.xml
 	xml2rfc --html $< -o $@
