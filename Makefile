@@ -4,7 +4,7 @@ VERSION := 01
 STATUS := draft-
 OUTPUT := $(STATUS)ietf-cellar-ebml-$(VERSION)
 
-all: $(OUTPUT).html $(OUTPUT).txt
+all: $(OUTPUT).html $(OUTPUT).txt $(OUTPUT).xml
 
 $(OUTPUT).md: specification.markdown rfc_frontmatter.markdown
 	cat rfc_frontmatter.markdown $< > $(OUTPUT).md
