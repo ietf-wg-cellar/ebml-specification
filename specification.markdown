@@ -46,7 +46,7 @@ This document defines specific terms in order to define the format and applicati
 
 `Element Path`: The hierarchy of `Parent Element` where the `EBML Element` is expected to be found in the `EBML Body`.
 
-`Empty Element`: An `Empty Element` is an `EBML Element` that has an `Element Data Size` with all VINT\_DATA bits set to zero which indicates that the `Element Data` of the Element is zero octets in length.
+`Empty Element`: An `Empty Element` is an `EBML Element` that has an `Element Data Size` with all `VINT_DATA` bits set to zero which indicates that the `Element Data` of the Element is zero octets in length.
 
 `Master Element`: The `Master Element` contains zero, one, or many other `EBML Elements`.
 
@@ -68,9 +68,9 @@ This document defines specific terms in order to define the format and applicati
 
 # Security Considerations
 
-`EBML` itself does not offer any kind of security and does not provide confidentiality. `EBML` does not provide any kind of authorization. EBML only offers marginally useful and effective data integrity options, such as CRC elements.
+`EBML` itself does not offer any kind of security and does not provide confidentiality. `EBML` does not provide any kind of authorization. `EBML` only offers marginally useful and effective data integrity options, such as CRC elements.
 
-Even if the semantic layer offers any kind of encryption, `EBML` itself could leak information at both the semantic layer (as declared via the DocType element) and within the `EBML` structure (you can derive the presence of EBML elements even with an unknown semantic layer with a heuristic approach; not without errors, of course, but with a certain degree of confidence).
+Even if the semantic layer offers any kind of encryption, `EBML` itself could leak information at both the semantic layer (as declared via the DocType element) and within the `EBML` structure (you can derive the presence of `EBML Elements` even with an unknown semantic layer with a heuristic approach; not without errors, of course, but with a certain degree of confidence).
 
 Attacks on an `EBML Reader` could include:
 
@@ -145,13 +145,13 @@ The `Element ID` MUST be encoded as a `Variable Size Integer`. By default, `Elem
 
 VINT_WIDTH  | VINT_MARKER  | VINT_DATA      | Element ID Status
 -----------:|-------------:|---------------:|:-----------------
-            | 1            |        0000000 | Invalid: VINT_DATA MUST NOT be set to all 0
-0           | 1            | 00000000000000 | Invalid: VINT_DATA MUST NOT be set to all 0
+            | 1            |        0000000 | Invalid: `VINT_DATA` MUST NOT be set to all 0
+0           | 1            | 00000000000000 | Invalid: `VINT_DATA` MUST NOT be set to all 0
             | 1            |        0000001 | Valid
-0           | 1            | 00000000000001 | Invalid: A shorter VINT_DATA encoding is available.
+0           | 1            | 00000000000001 | Invalid: A shorter `VINT_DATA` encoding is available.
             | 1            |        0111111 | Valid
-0           | 1            | 00000000111111 | Invalid: A shorter VINT_DATA encoding is available.
-            | 1            |        1111111 | Invalid: VINT_DATA MUST NOT be set to all 1
+0           | 1            | 00000000111111 | Invalid: A shorter `VINT_DATA` encoding is available.
+            | 1            |        1111111 | Invalid: `VINT_DATA` MUST NOT be set to all 1
 0           | 1            | 00000001111111 | Valid
 
 The octet length of an `Element ID` determines its `EBML Class`.
@@ -346,7 +346,7 @@ The `EBMLPathAtom` part of the `EBMLElementPath` MUST be equal to the `name` att
 
 The starting `PathDelimiter` of the path corresponds to the root of the `EBML Document`.
 
-The `EBMLElementOccurrence` part is interpreted as an ABNF Variable Repetition. The repetition amounts correspond to how many times the `EBML Element` can be found in its parent `Parent Element`.
+The `EBMLElementOccurrence` part is interpreted as an ABNF Variable Repetition. The repetition amounts correspond to how many times the `EBML Element` can be found in its `Parent Element`.
 
 The `EBMLMinOccurrence` represents the minimum number of occurrences of this `EBML Element` within its `Parent Element`. Each instance of the `Parent Element` MUST contain at least this many instances of this `EBML Element`. If the `EBML Element` has an empty `EBMLParentPath` then `EBMLMinOccurrence` refers to constraints on the occurrence of the `EBML Element` within the `EBML Document`. If `EBMLMinOccurrence` is not present then that `EBML Element` is considered to have a `EBMLMinOccurrence` value of 0. The semantic meaning of `EBMLMinOccurrence` within an `EBML Schema` is considered analogous to the meaning of `minOccurs` within an `XML Schema`. `EBML Elements` with `EBMLMinOccurrence` set to "1" that also have a `default` value (see [default](#default)) declared are not REQUIRED to be stored but are REQUIRED to be interpreted, see [Note on the Use of default attributes to define Mandatory EBML Elements](#note-on-the-use-of-default-attributes-to-define-mandatory-ebml-elements). An `EBML Element` defined with a `EBMLMinOccurrence` value greater than zero is called a `Mandatory EBML Element`.
 
@@ -358,7 +358,7 @@ If the path contains a `EBMLPathAtomRecursive` part, the `EBML Element` can occu
 
 #### id
 
-The `Element ID` encoded as a `Variable Size Integer` expressed in hexadecimal notation prefixed by a `0x` that is read and stored in big-endian order. To reduce the risk of false positives while parsing `EBML Streams`, the `Element IDs` of the `Root Element` and `Top-Level Elements` SHOULD be at least 4 octets in length. `Element IDs` defined for use at `Root Level` or directly under the `Root Level` MAY use shorter octet lengths to facilitate padding and optimize edits to EBML Documents; for instance, the `Void Element` uses an `Element ID` with a one octet length to allow its usage in more writing and editing scenarios.
+The `Element ID` encoded as a `Variable Size Integer` expressed in hexadecimal notation prefixed by a `0x` that is read and stored in big-endian order. To reduce the risk of false positives while parsing `EBML Streams`, the `Element IDs` of the `Root Element` and `Top-Level Elements` SHOULD be at least 4 octets in length. `Element IDs` defined for use at `Root Level` or directly under the `Root Level` MAY use shorter octet lengths to facilitate padding and optimize edits to `EBML Documents`; for instance, the `Void Element` uses an `Element ID` with a one octet length to allow its usage in more writing and editing scenarios.
 
 The `id` attribute is REQUIRED.
 
@@ -376,7 +376,7 @@ The `maxOccurs` attribute is OPTIONAL. If the `maxOccurs` attribute is not prese
 
 #### range
 
-A numerical range for `EBML Elements` which are of numerical types (Unsigned Integer, Signed Integer, Float, and Date). If specified the value of the EBML Element MUST be within the defined range. See [section of Expressions of range](#expression-of-range) for rules applied to expression of range values.
+A numerical range for `EBML Elements` which are of numerical types (Unsigned Integer, Signed Integer, Float, and Date). If specified the value of the `EBML Element` MUST be within the defined range. See [section of Expressions of range](#expression-of-range) for rules applied to expression of range values.
 
 The `range` attribute is OPTIONAL. If the `range` attribute is not present then any value legal for the `type` attribute is valid.
 
@@ -422,7 +422,7 @@ The `minver` attribute is OPTIONAL. If the `minver` attribute is not present the
 
 The `maxver` (maximum version) attribute stores a non-negative integer that represents the last or most recent version of the `docType` to support the element. `maxver` MUST be greater than or equal to `minver`.
 
-The `maxver` attribute is OPTIONAL. If the `maxver` attribute is not present then the `EBML Element` has a maximum version equal to the value stored in the `version` attribute of <EBMLSchema>.
+The `maxver` attribute is OPTIONAL. If the `maxver` attribute is not present then the `EBML Element` has a maximum version equal to the value stored in the `version` attribute of `<EBMLSchema>`.
 
 ### <documentation> Element
 
@@ -478,7 +478,7 @@ An `Identically Recurring Element` is an `EBML Element` that MAY occur within it
 
 ### Expression of range
 
-The `range` attribute MUST only be used with EBML Elements that are either `signed integer`, `unsigned integer`, `float`, or `date`. The `range` expression may contain whitespace for readability but whitespace within a `range` expression MUST NOT convey meaning. The expression of the `range` MUST adhere to one of the following forms:
+The `range` attribute MUST only be used with `EBML Elements` that are either `signed integer`, `unsigned integer`, `float`, or `date`. The `range` expression may contain whitespace for readability but whitespace within a `range` expression MUST NOT convey meaning. The expression of the `range` MUST adhere to one of the following forms:
 
 - `x-y` where x and y are integers or floats and `y` MUST be greater than `x`, meaning that the value MUST be greater than or equal to `x` and less than or equal to `y`. `x` MUST be less than `y`.
 - `>x` where `x` is an integer or float, meaning that the value MUST be greater than `x`.
@@ -557,7 +557,7 @@ default: 1
 
 type: Unsigned Integer
 
-description: The version of `EBML` specifications used to create the `EBML Document`. The version of EBML defined in this document is 1, so `EBMLVersion` SHOULD be 1.
+description: The version of `EBML` specifications used to create the `EBML Document`. The version of `EBML` defined in this document is 1, so `EBMLVersion` SHOULD be 1.
 
 ### EBMLReadVersion Element
 
