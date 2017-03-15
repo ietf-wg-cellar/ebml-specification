@@ -472,6 +472,59 @@ The `value` attribute is REQUIRED.
 
 <{{ebml_schema_example.xml}}
 
+### XEBML Expression
+
+An `XEBML Expression` is a format that can communicate an `EBML Document` or a fragment of an `EBML Document` in a textual format. `XEBML Expression` is based upon `XML` where the top-level element is `<XEBML>` and sub-elements are stored in an arrangement that replicates the hierarchy of the `EBML Document`. Within an `XEBML Expression`, the sub-elements of `<XEBML>` should be named with the same name as the `EBML Element` that they represent. The method for storing `Element Data` is documented in the following table.
+
+EBML Element Data Type | Expression in XEBML
+-----------------------|--------------------
+Unsigned Integer       | Expressed as a non-negative integer
+Signed Integer         | Expressed as an integer
+Float                  | Expressed as a Hexadecimal Floating-Point Constant
+String                 | Expressed as a string
+UTF-8                  | Expressed in UTF-8
+Date                   | Expressed as an integer
+Master                 | MUST only contain other XML elements
+Binary                 | Expressed in hexadecimal representation
+
+The `<XEBML>` element MUST contain a `docType` attribute that expresses the intended `docType` of the `EBML Document` or fragment of an `EBML Document` that is represented. The `<XEBML>` element MUST contain a `docType` attribute that expresses the intended `docTypeVersion` of the `EBML Document` or fragment of an `EBML Document` that is represented. If the `XEBML Expression` represents a fragement of an `EBML Document` (rather than an entire `EBML Document`) than the `<XEBML>` element MUST contain a boolean `fragment` attribute set to 'true', otherwise the `fragment` attribute MUST be set to 'false' or not used.
+
+Note that the transformation of `EBML` to `XEBML` to `EBML` is semantically lossless but not lossless in storage. This is because:
+- `XEBML` does not include a method to represent the storage of data that is not part of an `EBML Element`.
+- `XEBML` does not distinguish `Elements` as having an unknown size.
+- `XEBML` also does not has any mechanism to note when `Element Data` or `Element Date Size` do not use the most efficient storage.
+
+### Example XEBML Expression
+
+This is an example `XEBML Expression` based on `EBML Schema Example` expressed above.
+
+```xml
+<XEBML docType="files-in-ebml-demo" docTypeVersion="1">
+  <EBML>
+    <DocType>files-in-ebml-demo</DocType>
+  </EBML>
+  <Files>
+    <FileName>notes.txt</FileName>
+    <MimeType>text/plain</MimeType>
+    <ModificationTimestamp>478693606000000000</ModificationTimestamp>
+    <Data>73757270726973650a</Data>
+  </Files>
+</XEBML>
+```
+
+This is an example `XEBML Expression` based on a fragment of the `EBML Schema Example` expressed above.
+
+```xml
+<XEBML docType="files-in-ebml-demo" docTypeVersion="1" fragment="true">
+  <Files>
+    <FileName>notes.txt</FileName>
+    <MimeType>text/plain</MimeType>
+    <ModificationTimestamp>478693606000000000</ModificationTimestamp>
+    <Data>73757270726973650a</Data>
+  </Files>
+</XEBML>
+```
+
 ### Identically Recurring Elements
 
 An `Identically Recurring Element` is an `EBML Element` that MAY occur within its `Parent Element` more than once but that each recurrence within that `Parent Element` MUST be identical both in storage and semantics. `Identically Recurring Elements` are permitted to be stored multiple times within the same `Parent Element` in order to increase data resilience and optimize the use of `EBML` in transmission. For instance a pertinent `Top-Level Element` could be periodically resent within a data stream so that an `EBML Reader` which starts reading the stream from the middle could better interpret the contents. `Identically Recurring Elements` SHOULD include a `CRC-32 Element` as a `Child Element`; this is especially recommended when `EBML` is used for long-term storage or transmission. If a `Parent Element` contains more than one copy of an `Identically Recurring Element` which includes a `CRC-32 Element` as a `Child Element` then the first instance of the `Identically Recurring Element` with a valid CRC-32 value should be used for interpretation. If a `Parent Element` contains more than one copy of an `Identically Recurring Element` which does not contain a `CRC-32 Element` or if `CRC-32 Elements` are present but none are valid then the first instance of the `Identically Recurring Element` should be used for interpretation.
