@@ -223,13 +223,13 @@ A `Float Element` stores a floating-point number as defined in [@!IEEE.754.1985]
 
 A `String Element` MUST declare a length in octets from zero to `VINTMAX`. If the `EBML Element` is not defined to have a `default` value, then a `String Element` with a zero-octet length represents an empty string.
 
-A `String Element` MUST either be empty (zero-length) or contain printable ASCII characters [@!RFC0020] in the range of `0x20` to `0x7E`. Octets with all bits set to zero MAY follow the string value when needed, such as reducing the length of a stored string while maintaining the same `Element Data Size`. A string with one or more octets with all bits set to zero and a string without one or more octets with all bits set to zero are semantically equal.
+A `String Element` MUST either be empty (zero-length) or contain printable ASCII characters [@!RFC0020] in the range of `0x20` to `0x7E`, with an exception made for termination (see [the section on the `Terminating Elements`](#terminating-elements)).
 
 ## UTF-8 Element
 
 A `UTF-8 Element` MUST declare a length in octets from zero to `VINTMAX`. If the `EBML Element` is not defined to have a `default` value, then a `UTF-8 Element` with a zero-octet length represents an empty string.
 
-A `UTF-8 Element` contains only a valid Unicode string as defined in [@!RFC3629]. Octets with all bits set to zero MAY follow the string value when needed, such as reducing the length of a stored UTF-8 data while maintaining the same `Element Data Size`. A UTF-8 value with one or more octets with all bits set to zero and a UTF-8 value without one or more octets with all bits set to zero are semantically equal.
+A `UTF-8 Element` contains only a valid Unicode string as defined in [@!RFC3629], with an exception made for termination (see [the section on the `Terminating Elements`](#terminating-elements)).
 
 ## Date Element
 
@@ -248,6 +248,19 @@ The `Master Element` contains zero, one, or many other elements. `EBML Elements`
 A `Binary Element` MUST declare a length in octets from zero to `VINTMAX`.
 
 The contents of a `Binary Element` should not be interpreted by the `EBML Reader`.
+
+# Terminating Elements
+
+`Null Octets`, which are octets with all bits set to zero, MAY follow the value of a `String Element` or `UTF-8 Element` to serve as a terminator. An `EBML Writer` MAY terminate a `String Element` or `UTF-8 Element` with `Null Octets` in order to overwrite a stored value with a new value of lesser length while maintaining the same `Element Data Size` (this can prevent the need to rewrite large portions of an `EBML Document`); otherwise the use of `Null Octets` within a `String Element` or `UTF-8 Element` is NOT RECOMMENDED. An `EBML Reader` MUST consider the value of the `String Element` or `UTF-8 Element` to be terminated upon the first read `Null Octet` and MUST ignore any data following the first `Null Octet` within that `Element`. A string value and a copy of that string value terminated by one or more `Null Octets` are semantically equal.
+
+The following table shows examples of semantics and validation for the use of `Null Octets`. Values to represent `Stored Values` and the `Semantic Meaning` as represented as hexidecimal values.
+
+Stored Value        | Semantic Meaning
+:-------------------|:-------------------
+0x65 0x62 0x6d 0x6c | 0x65 0x62 0x6d 0x6c
+0x65 0x62 0x00 0x6c | 0x65 0x62
+0x65 0x62 0x00 0x00 | 0x65 0x62
+0x65 0x62           | 0x65 0x62
 
 # EBML Document
 
