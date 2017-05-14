@@ -141,17 +141,17 @@ Binary Value | Octet Length | As Represented in Variable Size Integer
 
 The `Element ID` MUST be encoded as a `Variable Size Integer`. By default, `Element IDs` are encoded in lengths from one octet to four octets, although `Element IDs` of greater lengths are used if the octet length of the longest `Element ID` of the `EBML Document` is declared in the `EBMLMaxIDLength Element` of the `EBML Header` (see [the section on the `EBMLMaxIDLength Element`](#ebmlmaxidlength-element)). The `VINT_DATA` component of the `Element ID` MUST NOT be either defined or written as either all zero values or all one values. Any `Element ID` with the `VINT_DATA` component set as all zero values or all one values MUST be ignored and MUST NOT be considered an error in the `EBML Document`. The `VINT_DATA` component of the `Element ID` MUST be encoded at the shortest valid length. For example, an `Element ID` with binary encoding of `1011 1111` is valid, whereas an `Element ID` with binary encoding of `0100 0000 0011 1111` stores a semantically equal `VINT_DATA` but is invalid because a shorter `VINT` encoding is possible. Additionally, an `Element ID` with binary encoding of `1111 1111` is invalid since the `VINT_DATA` section is set to all one values, whereas an `Element ID` with binary encoding of `0100 0000 0111 1111` stores a semantically equal `VINT_DATA` and is the shortest possible `VINT` encoding.
 
- The following table details these specific examples further:
+The following table details these specific examples further:
 
 VINT_WIDTH  | VINT_MARKER  | VINT_DATA      | Element ID Status
 -----------:|-------------:|---------------:|:-----------------
-            | 1            |        0000000 | Invalid: `VINT_DATA` MUST NOT be set to all 0
+|| 1            |        0000000 | Invalid: `VINT_DATA` MUST NOT be set to all 0
 0           | 1            | 00000000000000 | Invalid: `VINT_DATA` MUST NOT be set to all 0
-            | 1            |        0000001 | Valid
+|| 1            |        0000001 | Valid
 0           | 1            | 00000000000001 | Invalid: A shorter `VINT_DATA` encoding is available.
-            | 1            |        0111111 | Valid
+|| 1            |        0111111 | Valid
 0           | 1            | 00000000111111 | Invalid: A shorter `VINT_DATA` encoding is available.
-            | 1            |        1111111 | Invalid: `VINT_DATA` MUST NOT be set to all 1
+|| 1            |        1111111 | Invalid: `VINT_DATA` MUST NOT be set to all 1
 0           | 1            | 00000001111111 | Valid
 
 The octet length of an `Element ID` determines its `EBML Class`.
