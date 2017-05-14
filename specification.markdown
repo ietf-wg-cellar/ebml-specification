@@ -320,18 +320,18 @@ The path defines the allowed storage locations of the `EBML Element` within an `
 The `path` attribute is REQUIRED.
 
 ```
-EBMLFullPath            = EBMLElementOccurrence "(" EBMLReferencePath ")"
-EBMLReferencePath       = [EBMLParentPath] EBMLElementPath
-EBMLParentPath          = EBMLFixedParent EBMLLastParent
-EBMLFixedParent         = *(EBMLPathAtom)
-EBMLElementPath         = EBMLPathAtom / EBMLPathAtomRecursive
-EBMLPathAtom            = PathDelimiter EBMLAtomName
-EBMLPathAtomRecursive   = "(1*(" EBMLPathAtom "))"
-EBMLLastParent          = EBMLPathAtom / EBMLVariableParent
-EBMLVariableParent      = "(" VariableParentOccurrence "\)"
-EBMLAtomName            = 1*(EBMLNameChar)
-EBMLNameChar            = ALPHA / DIGIT / "-" / "."
-PathDelimiter           = "\"
+EBMLFullPath             = EBMLElementOccurrence "(" EBMLReferencePath ")"
+EBMLReferencePath        = [EBMLParentPath] EBMLElementPath
+EBMLParentPath           = EBMLFixedParent EBMLLastParent
+EBMLFixedParent          = *(EBMLPathAtom)
+EBMLElementPath          = EBMLPathAtom / EBMLPathAtomRecursive
+EBMLPathAtom             = PathDelimiter EBMLAtomName
+EBMLPathAtomRecursive    = "(1*(" EBMLPathAtom "))"
+EBMLLastParent           = EBMLPathAtom / EBMLVariableParent
+EBMLVariableParent       = "(" VariableParentOccurrence "\)"
+EBMLAtomName             = 1*(EBMLNameChar)
+EBMLNameChar             = ALPHA / DIGIT / "-" / "."
+PathDelimiter            = "\"
 EBMLElementOccurrence    = [EBMLMinOccurrence] "*" [EBMLMaxOccurrence]
 EBMLMinOccurrence        = 1*DIGIT
 EBMLMaxOccurrence        = 1*DIGIT
@@ -674,7 +674,6 @@ type: Unsigned Integer
 description: The minimum `DocType` version an `EBML Reader` has to support to read this `EBML Document`. The value of the `DocTypeReadVersion Element` MUST be less than or equal to the value of the `DocTypeVersion Element`.
 
 ## Global elements (used everywhere in the format)
-
 
 name: CRC-32
 
