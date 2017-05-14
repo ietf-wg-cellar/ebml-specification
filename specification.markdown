@@ -188,7 +188,7 @@ If the length of `Element Data` equals `2^(n*7)-1` then the octet length of the 
 
 VINT_WIDTH  | VINT_MARKER  | VINT_DATA      | Element Data Size Status
 -----------:|-------------:|---------------:|---------------------------
-            | 1            |        1111111 | Reserved (meaning Unknown)
+|| 1            |        1111111 | Reserved (meaning Unknown)
 0           | 1            | 00000001111111 | Valid (meaning 127 octets)
 
 # EBML Element Types
