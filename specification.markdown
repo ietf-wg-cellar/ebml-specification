@@ -145,13 +145,13 @@ The following table details these specific examples further:
 
 VINT_WIDTH  | VINT_MARKER  | VINT_DATA      | Element ID Status
 -----------:|-------------:|---------------:|:-----------------
-|| 1            |        0000000 | Invalid: `VINT_DATA` MUST NOT be set to all 0
+|           | 1            |        0000000 | Invalid: `VINT_DATA` MUST NOT be set to all 0
 0           | 1            | 00000000000000 | Invalid: `VINT_DATA` MUST NOT be set to all 0
-|| 1            |        0000001 | Valid
+|           | 1            |        0000001 | Valid
 0           | 1            | 00000000000001 | Invalid: A shorter `VINT_DATA` encoding is available.
-|| 1            |        0111111 | Valid
+|           | 1            |        0111111 | Valid
 0           | 1            | 00000000111111 | Invalid: A shorter `VINT_DATA` encoding is available.
-|| 1            |        1111111 | Invalid: `VINT_DATA` MUST NOT be set to all 1
+|           | 1            |        1111111 | Invalid: `VINT_DATA` MUST NOT be set to all 1
 0           | 1            | 00000001111111 | Valid
 
 The octet length of an `Element ID` determines its `EBML Class`.
@@ -188,7 +188,7 @@ If the length of `Element Data` equals `2^(n*7)-1` then the octet length of the 
 
 VINT_WIDTH  | VINT_MARKER  | VINT_DATA      | Element Data Size Status
 -----------:|-------------:|---------------:|---------------------------
-|| 1            |        1111111 | Reserved (meaning Unknown)
+|           | 1            |        1111111 | Reserved (meaning Unknown)
 0           | 1            | 00000001111111 | Valid (meaning 127 octets)
 
 # EBML Element Types
