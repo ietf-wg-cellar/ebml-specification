@@ -262,6 +262,55 @@ Stored Value        | Semantic Meaning
 0x65 0x62 0x00 0x00 | 0x65 0x62
 0x65 0x62           | 0x65 0x62
 
+# Guidelines for Updating Elements
+
+An EBML Document can be updated without requiring that the entire EBML Document be rewritten. These recommendations describe strategies to change the `Element Data` of a written `EBML Element` with minimal disruption to the rest of the `EBML Document`.
+
+## Reducing a Element Data in Size
+
+There are three methods to reduce the size of `Element Data` of a written `EBML Element`.
+
+### Adding a Void Element
+
+When an `EBML Element` is changed to reduce its total length by more than one octet, an `EBML Writer` SHOULD fill the freed space with a `Void Element`.
+
+### Extending the Element Data Size
+
+The same value for `Element Data Size` MAY be written in variable lengths, so for minor reductions in octet length the `Element Data Size` MAY be written to a longer octet length to fill the freed space.
+
+For example, the first row of the following table depicts a `String Element` that stores an `Element ID` (3 octets), `Element Data Size` (1 octet), and `Element Data` (4 octets). If the `Element Data` is changed to reduce the length by one octet and if the current length of the `Element Data Size` is less than its maximum permitted length, then the `Element Data Size` of that `Element` MAY be rewritten to increase its length by one octet. Thus before and after the change the `EBML Element` maintains the same length of 8 octets and data around the `Element` does not need to be moved.
+
+| Status      | Element ID | Element Data Size | Element Data       |
+|-------------|------------|-------------------|--------------------|
+| Before edit | 0x3B4040   | 0x84              | 0x65626d6c         |
+| After edit  | 0x3B4040   | 0x4003            | 0x6d6b76           |
+
+This method is only RECOMMENDED for reducing `Element Data` by a single octet; for reductions by two or more octets it is RECOMMENDED to fill the freed space with a `Void Element`.
+
+Note that if the `Element Data` length needs to be rewritten as shortened by one octet and the `Element Data Size` could be rewritten as a shorter `VINT` then it is RECOMMENDED to rewrite the `Element Data Size` as one octet shorter, shorten the `Element Data` by one octet, and follow that `Element` with a `Void Element`. For example, the following table depicts a `String Element` that stores an `Element ID` (3 octets), `Element Data Size` (2 octets, but could be rewritten in one octet), and `Element Data` (3 octets). If the `Element Data` is to be rewritten to a two octet length, then another octet can be taken from `Element Data Size` so that there is enough space to add a two octent `Void Element`.
+
+Status | Element ID | Element Data Size | Element Data | Void Element 
+-------|------------|-------------------|--------------|-------------
+Before | 0x3B4040   | 0x4003            | 0x6d6b76     |
+After  | 0x3B4040   | 0x82              | 0x6869       | 0xEC80
+
+### Terminating Element Data
+
+For `String Elements` and `UTF-8 Elements` the length of `Element Data` MAY be reduced by adding `Null Octets` to terminate the `Element Data` (see [the section on `Terminating Elements`](#terminating-elements)).
+
+In the following table, a four octet long `Element Data` is changed to a three octet long value followed by a `Null Octet`; the `Element Data Size` includes any `Null Octets` used to terminate `Element Data` so remains unchanged.
+
+| Status      | Element ID | Element Data Size | Element Data       |
+|-------------|------------|-------------------|--------------------|
+| Before edit | 0x3B4040   | 0x84              | 0x65626d6c         |
+| After edit  | 0x3B4040   | 0x84              | 0x6d6b7600         |
+
+Note that this method is NOT RECOMMENDED. For reductions of one octet, the method for `Extending the Element Data Size` SHOULD be used. For reduction by more than one octet, the method for `Adding a Void Element` SHOULD be used.
+
+## Considerations when Updating Elements with CRC
+
+If the `Element` to be changed is a `Descendant Element` of any `Master Element` that contains an `CRC-32 Element` then the `CRC-32 Element` MUST be verified before permitting the change. Additionally the `CRC-32 Element` value MUST be subsequently updated to reflect the changed data.
+
 # EBML Document
 
 An `EBML Document` is comprised of only two components, an `EBML Header` and an `EBML Body`. An `EBML Document` MUST start with an `EBML Header` that declares significant characteristics of the entire `EBML Body`. An `EBML Document` consists of `EBML Elements` and MUST NOT contain any data that is not part of an `EBML Element`.
