@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xsd:schema xmlns="https://ietf.org/cellar/ebml" targetNamespace="https://ietf.org/cellar/ebml" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" version="01">
+<xsd:schema xmlns="https://ietf.org/cellar/ebml"
+  targetNamespace="https://ietf.org/cellar/ebml"
+  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+  elementFormDefault="qualified" version="01">
   <xsd:element name="EBMLSchema" type="EBMLSchemaType"/>
   <xsd:complexType name="EBMLSchemaType">
     <xsd:sequence>
-      <xsd:element name="element" type="elementType" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element name="element" type="elementType" minOccurs="0"
+        maxOccurs="unbounded"/>
     </xsd:sequence>
     <xsd:attribute name="docType" use="required"/>
     <xsd:attribute name="version" use="required"/>
   </xsd:complexType>
   <xsd:complexType name="elementType">
     <xsd:sequence>
-      <xsd:element name="documentation" type="documentationType" minOccurs="0" maxOccurs="unbounded"/>
-      <xsd:element name="restriction" type="restrictionType" minOccurs="0" maxOccurs="1"/>
+      <xsd:element name="documentation" type="documentationType"
+        minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element name="restriction" type="restrictionType"
+        minOccurs="0" maxOccurs="1"/>
     </xsd:sequence>
     <xsd:attribute name="name" use="required"/>
     <xsd:attribute name="path" use="required"/>
@@ -29,12 +35,14 @@
   </xsd:complexType>
   <xsd:complexType name="restrictionType">
     <xsd:sequence>
-      <xsd:element name="enum" type="enumType" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element name="enum" type="enumType" minOccurs="0"
+        maxOccurs="unbounded"/>
     </xsd:sequence>
   </xsd:complexType>
   <xsd:complexType name="enumType">
     <xsd:sequence>
-      <xsd:element name="documentation" type="documentationType" minOccurs="0" maxOccurs="unbounded"/>
+      <xsd:element name="documentation" type="documentationType"
+        minOccurs="0" maxOccurs="unbounded"/>
     </xsd:sequence>
     <xsd:attribute name="label"/>
     <xsd:attribute name="value" use="required"/>
