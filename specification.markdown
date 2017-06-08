@@ -94,6 +94,10 @@ Side channel attacks could exploit:
 - Copies of `Identically Recurring Element` within a `Parent Element` that contain invalid `CRC-32 Elements`.
 - Use of `Void Elements`.
 
+# IANA Considerations
+
+This document has no IANA actions.
+
 # Structure
 
 `EBML` uses a system of Elements to compose an `EBML Document`. `EBML Elements` incorporate three parts: an `Element ID`, an `Element Data Size`, and `Element Data`. The `Element Data`, which is described by the `Element ID`, includes either binary data, one or many other `EBML Elements`, or both.
