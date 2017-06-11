@@ -229,7 +229,7 @@ A `String Element` MUST either be empty (zero-length) or contain printable ASCII
 
 A `UTF-8 Element` MUST declare a length in octets from zero to `VINTMAX`. If the `EBML Element` is not defined to have a `default` value, then a `UTF-8 Element` with a zero-octet length represents an empty string.
 
-A `UTF-8 Element` contains only a valid Unicode string as defined in [@!RFC2279]. Octets with all bits set to zero MAY follow the string value when needed, such as reducing the length of a stored UTF-8 data while maintaining the same `Element Data Size`. A UTF-8 value with one or more octets with all bits set to zero and a UTF-8 value without one or more octets with all bits set to zero are semantically equal.
+A `UTF-8 Element` contains only a valid Unicode string as defined in [@!RFC3629]. Octets with all bits set to zero MAY follow the string value when needed, such as reducing the length of a stored UTF-8 data while maintaining the same `Element Data Size`. A UTF-8 value with one or more octets with all bits set to zero and a UTF-8 value without one or more octets with all bits set to zero are semantically equal.
 
 ## Date Element
 
