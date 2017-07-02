@@ -321,7 +321,7 @@ The `EBML Header` is a declaration that provides processing instructions and ide
 
 The `EBML Header` documents the `EBML Schema` (also known as the `EBML DocType`) that is used to semantically interpret the structure and meaning of the `EBML Document`. Additionally the `EBML Header` documents the versions of both `EBML` and the `EBML Schema` that were used to write the `EBML Document` and the versions required to read the `EBML Document`.
 
-The `EBML Header` consists of a single `Master Element` with an `Element Name` of `EBML` and `Element ID` of `0x1A45DFA3` (see [the definition of the `EBML` Element](#ebml-element)). The `EBML Header` MUST only contain `EBML Elements` that are defined as part of this document.
+The `EBML Header` MUST contain a single `Master Element` with an `Element Name` of `EBML` and `Element ID` of `0x1A45DFA3` (see [the definition of the `EBML` Element](#ebml-element)) and any number of additional `EBML Elements` within it. The `EBML Header` MUST only contain `EBML Elements` that are defined as part of this document.
 
 All `EBML Elements` within the `EBML Header` MUST NOT use any `Element ID` with a length greater than 4 octets. All `EBML Elements` within the `EBML Header` MUST NOT use any `Element Data Size` with a length greater than 4 octets.
 
