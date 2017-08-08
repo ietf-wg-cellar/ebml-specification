@@ -70,7 +70,7 @@ This document defines specific terms in order to define the format and applicati
 
 `EBML` itself does not offer any kind of security and does not provide confidentiality. `EBML` does not provide any kind of authorization. `EBML` only offers marginally useful and effective data integrity options, such as CRC elements.
 
-Even if the semantic layer offers any kind of encryption, `EBML` itself could leak information at both the semantic layer (as declared via the DocType element) and within the `EBML` structure (you can derive the presence of `EBML Elements` even with an unknown semantic layer with a heuristic approach; not without errors, of course, but with a certain degree of confidence).
+Even if the semantic layer offers any kind of encryption, `EBML` itself could leak information at both the semantic layer (as declared via the `DocType Element`) and within the `EBML` structure (the presence of `EBML Elements` can be derived even with an unknown semantic layer using a heuristic approach; not without errors, of course, but with a certain degree of confidence).
 
 Attacks on an `EBML Reader` could include:
 
@@ -484,7 +484,7 @@ The `recursive` attribute is OPTIONAL. If the `recursive` attribute is not prese
 
 The `minver` (minimum version) attribute stores a non-negative integer that represents the first version of the `docType` to support the `EBML Element`.
 
-The `minver` attribute is OPTIONAL. If the `minver` attribute is not present then the `EBML Element` has a minimum version of "1". 
+The `minver` attribute is OPTIONAL. If the `minver` attribute is not present, then the `EBML Element` has a minimum version of "1".
 
 #### maxver
 
