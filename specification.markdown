@@ -42,7 +42,7 @@ This document defines specific terms in order to define the format and applicati
 
 `VINTMAX`: The maximum possible value that can be stored as `Element Data Size`.
 
-`Unknown-Sized Element`: An Element with an unknown `Element Data Size`.
+`Unknown-Sized Element`: An `Element` with an unknown `Element Data Size`.
 
 `Element Data`: The value(s) of the `EBML Element` which is identified by its `Element ID` and `Element Data Size`. The form of the `Element Data` is defined by this document and the corresponding `EBML Schema` of the Element's `EBML Document Type`.
 
@@ -354,7 +354,7 @@ The `EBMLMaxOccurrence` represents the maximum number of occurrences of this `EB
 
 The `VariableParentOccurrence` part is interpreted as an ABNF Variable Repetition. The repetition amounts correspond to the amount of unspecified `Parent Element` levels there can be between the `EBMLFixedParent` and the actual `EBMLElementPath`.
 
-If the path contains a `EBMLPathAtomRecursive` part, the `EBML Element` can occur within itself recursively (see the [recursive attribute](#recursive)).
+If the path contains an `EBMLPathAtomRecursive` part, the `EBML Element` can occur within itself recursively (see the [recursive attribute](#recursive)).
 
 #### id
 
@@ -388,7 +388,7 @@ The `size` attribute is OPTIONAL. If the `size` attribute is not present for tha
 
 #### default
 
-If an Element is mandatory (has a `EBMLMinOccurrence` value greater than zero) but not written within its `Parent Element` or stored as an `Empty Element`, then the `EBML Reader` of the `EBML Document` MUST semantically interpret the `EBML Element` as present with this specified default value for the `EBML Element`. `EBML Elements` that are `Master Elements` MUST NOT declare a `default` value. `EBML Elements` with a `minOccurs` value greater than 1 MUST NOT declare a `default` value.
+If an `Element` is mandatory (has a `EBMLMinOccurrence` value greater than zero) but not written within its `Parent Element` or stored as an `Empty Element`, then the `EBML Reader` of the `EBML Document` MUST semantically interpret the `EBML Element` as present with this specified default value for the `EBML Element`. `EBML Elements` that are `Master Elements` MUST NOT declare a `default` value. `EBML Elements` with a `minOccurs` value greater than 1 MUST NOT declare a `default` value.
 
 The `default` attribute is OPTIONAL.
 
@@ -408,7 +408,7 @@ The `unknownsizeallowed` attribute is OPTIONAL. If the `unknownsizeallowed` attr
 
 A boolean to express if an `EBML Element` MAY be stored recursively. In this case the `EBML Element` MAY be stored within another `EBML Element` that has the same `Element ID`. Which itself can be stored in an `EBML Element` that has the same `Element ID`, and so on. `EBML Elements` that are not `Master Elements` MUST NOT set `recursive` to true.
 
-If the `path` contains a `EBMLPathAtomRecursive` part then the `recursive` value MUST be true and false otherwise.
+If the `path` contains an `EBMLPathAtomRecursive` part then the `recursive` value MUST be true and false otherwise.
 
 The `recursive` attribute is OPTIONAL. If the `recursive` attribute is not present then the `EBML Element` MUST NOT be used recursively.
 
@@ -416,7 +416,7 @@ The `recursive` attribute is OPTIONAL. If the `recursive` attribute is not prese
 
 The `minver` (minimum version) attribute stores a non-negative integer that represents the first version of the `docType` to support the `EBML Element`.
 
-The `minver` attribute is OPTIONAL. If the `minver` attribute is not present then the `EBML Element` has a minimum version of "1". 
+The `minver` attribute is OPTIONAL. If the `minver` attribute is not present then the `EBML Element` has a minimum version of "1".
 
 #### maxver
 
@@ -448,7 +448,7 @@ The `<restriction>` element provides information about restrictions to the allow
 
 ### <enum> Element
 
-The `<enum>` element stores a list of values allowed for storage in the `EBML Element`. The values MUST match the `type` of the `EBML Element` (for example `<enum value="Yes">` can not be a valid value for a `EBML Element` that is defined as an unsigned integer). An `<enum>` element MAY also store `<documentation>` elements to further describe the `<enum>`.
+The `<enum>` element stores a list of values allowed for storage in the `EBML Element`. The values MUST match the `type` of the `EBML Element` (for example `<enum value="Yes">` cannot be a valid value for a `EBML Element` that is defined as an unsigned integer). An `<enum>` element MAY also store `<documentation>` elements to further describe the `<enum>`.
 
 ### <enum> Attributes
 
@@ -489,7 +489,7 @@ The `range` attribute MUST only be used with `EBML Elements` that are either `si
 
 The `range` may use the prefix `not ` to indicate that the expressed range is negated. Please also see [textual expression of floats](#textual-expression-of-floats).
 
-### Textual expression of Floats
+### Textual expression of floats
 
 When a float value is represented textually in an `EBML Schema`, such as within a `default` or `range` value, the float values MUST be expressed as Hexadecimal Floating-Point Constants as defined in the C11 standard [@!ISO.9899.2011] (see section 6.4.4.2 on Floating Constants). The following table provides examples of expressions of float ranges.
 
@@ -502,7 +502,7 @@ When a float value is represented textually in an `EBML Schema`, such as within 
 
 Within an expression of a float range, as in an integer range, the `-` (hyphen) character is the separator between the minimal and maximum value permitted by the range. Hexadecimal Floating-Point Constants also use a `-` (hyphen) when indicating a negative binary power. Within a float range, when a `-` (hyphen) is immediately preceded by a letter `p`, then the `-` (hyphen) is a part of the Hexadecimal Floating-Point Constant which notes negative binary power. Within a float range, when a `-` (hyphen) is not immediately preceded by a letter `p`, then the `-` (hyphen) represents the separator between the minimal and maximum value permitted by the range.
 
-### Note on the Use of default attributes to define Mandatory EBML Elements
+### Note on the use of default attributes to define Mandatory EBML Elements
 
 If a `Mandatory EBML Element` has a default value declared by an `EBML Schema` and the value of the `EBML Element` is equal to the declared default value then that `EBML Element` is not required to be present within the `EBML Document` if its `Parent Element` is present. In this case, the default value of the `Mandatory EBML Element` MUST be interpreted by the `EBML Reader` although the `EBML Element` is not present within its `Parent Element`.
 
