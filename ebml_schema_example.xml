@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <EBMLSchema xmlns="https://ietf.org/cellar/ebml"
   docType="files-in-ebml-demo" version="1">
+ <!-- constraints to the range of two EBML Header Elements -->
+ <element name="EBMLReadVersion" path="1*1(\EBML\EBMLReadVersion)"
+   id="0x42F7" minOccurs="1" maxOccurs="1" range="1" default="1"
+   type="uinteger"/>
+ <element name="EBMLMaxSizeLength" path="1*1(\EBML\EBMLMaxSizeLength)"
+   id="0x42F3" minOccurs="1" maxOccurs="1" range="8" default="8"
+   type="uinteger"/>
  <!-- Root Element-->
  <element name="Files" path="*1(\Files)" id="0x1946696C" type="master">
   <documentation lang="en" type="definition">Container of data and

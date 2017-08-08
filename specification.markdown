@@ -70,7 +70,7 @@ This document defines specific terms in order to define the format and applicati
 
 `EBML` itself does not offer any kind of security and does not provide confidentiality. `EBML` does not provide any kind of authorization. `EBML` only offers marginally useful and effective data integrity options, such as CRC elements.
 
-Even if the semantic layer offers any kind of encryption, `EBML` itself could leak information at both the semantic layer (as declared via the DocType element) and within the `EBML` structure (you can derive the presence of `EBML Elements` even with an unknown semantic layer with a heuristic approach; not without errors, of course, but with a certain degree of confidence).
+Even if the semantic layer offers any kind of encryption, `EBML` itself could leak information at both the semantic layer (as declared via the `DocType Element`) and within the `EBML` structure (the presence of `EBML Elements` can be derived even with an unknown semantic layer using a heuristic approach; not without errors, of course, but with a certain degree of confidence).
 
 Attacks on an `EBML Reader` could include:
 
@@ -93,6 +93,10 @@ Side channel attacks could exploit:
 - Extraneous copies of `Identically Recurring Element`.
 - Copies of `Identically Recurring Element` within a `Parent Element` that contain invalid `CRC-32 Elements`.
 - Use of `Void Elements`.
+
+# IANA Considerations
+
+This document has no IANA actions.
 
 # Structure
 
@@ -219,13 +223,13 @@ A `Float Element` stores a floating-point number as defined in [@!IEEE.754.1985]
 
 A `String Element` MUST declare a length in octets from zero to `VINTMAX`. If the `EBML Element` is not defined to have a `default` value, then a `String Element` with a zero-octet length represents an empty string.
 
-A `String Element` MUST either be empty (zero-length) or contain printable ASCII characters [@!RFC0020] in the range of `0x20` to `0x7E`. Octets with all bits set to zero MAY follow the string value when needed, such as reducing the length of a stored string while maintaining the same `Element Data Size`. A string with one or more octets with all bits set to zero and a string without one or more octets with all bits set to zero are semantically equal.
+A `String Element` MUST either be empty (zero-length) or contain printable ASCII characters [@!RFC0020] in the range of `0x20` to `0x7E`, with an exception made for termination (see [the section on the `Terminating Elements`](#terminating-elements)).
 
 ## UTF-8 Element
 
 A `UTF-8 Element` MUST declare a length in octets from zero to `VINTMAX`. If the `EBML Element` is not defined to have a `default` value, then a `UTF-8 Element` with a zero-octet length represents an empty string.
 
-A `UTF-8 Element` contains only a valid Unicode string as defined in [@!RFC2279]. Octets with all bits set to zero MAY follow the string value when needed, such as reducing the length of a stored UTF-8 data while maintaining the same `Element Data Size`. A UTF-8 value with one or more octets with all bits set to zero and a UTF-8 value without one or more octets with all bits set to zero are semantically equal.
+A `UTF-8 Element` contains only a valid Unicode string as defined in [@!RFC3629], with an exception made for termination (see [the section on the `Terminating Elements`](#terminating-elements)).
 
 ## Date Element
 
@@ -245,6 +249,68 @@ A `Binary Element` MUST declare a length in octets from zero to `VINTMAX`.
 
 The contents of a `Binary Element` should not be interpreted by the `EBML Reader`.
 
+# Terminating Elements
+
+`Null Octets`, which are octets with all bits set to zero, MAY follow the value of a `String Element` or `UTF-8 Element` to serve as a terminator. An `EBML Writer` MAY terminate a `String Element` or `UTF-8 Element` with `Null Octets` in order to overwrite a stored value with a new value of lesser length while maintaining the same `Element Data Size` (this can prevent the need to rewrite large portions of an `EBML Document`); otherwise the use of `Null Octets` within a `String Element` or `UTF-8 Element` is NOT RECOMMENDED. An `EBML Reader` MUST consider the value of the `String Element` or `UTF-8 Element` to be terminated upon the first read `Null Octet` and MUST ignore any data following the first `Null Octet` within that `Element`. A string value and a copy of that string value terminated by one or more `Null Octets` are semantically equal.
+
+The following table shows examples of semantics and validation for the use of `Null Octets`. Values to represent `Stored Values` and the `Semantic Meaning` as represented as hexidecimal values.
+
+Stored Value        | Semantic Meaning
+:-------------------|:-------------------
+0x65 0x62 0x6d 0x6c | 0x65 0x62 0x6d 0x6c
+0x65 0x62 0x00 0x6c | 0x65 0x62
+0x65 0x62 0x00 0x00 | 0x65 0x62
+0x65 0x62           | 0x65 0x62
+
+# Guidelines for Updating Elements
+
+An EBML Document can be updated without requiring that the entire EBML Document be rewritten. These recommendations describe strategies to change the `Element Data` of a written `EBML Element` with minimal disruption to the rest of the `EBML Document`.
+
+## Reducing a Element Data in Size
+
+There are three methods to reduce the size of `Element Data` of a written `EBML Element`.
+
+### Adding a Void Element
+
+When an `EBML Element` is changed to reduce its total length by more than one octet, an `EBML Writer` SHOULD fill the freed space with a `Void Element`.
+
+### Extending the Element Data Size
+
+The same value for `Element Data Size` MAY be written in variable lengths, so for minor reductions in octet length the `Element Data Size` MAY be written to a longer octet length to fill the freed space.
+
+For example, the first row of the following table depicts a `String Element` that stores an `Element ID` (3 octets), `Element Data Size` (1 octet), and `Element Data` (4 octets). If the `Element Data` is changed to reduce the length by one octet and if the current length of the `Element Data Size` is less than its maximum permitted length, then the `Element Data Size` of that `Element` MAY be rewritten to increase its length by one octet. Thus before and after the change the `EBML Element` maintains the same length of 8 octets and data around the `Element` does not need to be moved.
+
+| Status      | Element ID | Element Data Size | Element Data       |
+|-------------|------------|-------------------|--------------------|
+| Before edit | 0x3B4040   | 0x84              | 0x65626d6c         |
+| After edit  | 0x3B4040   | 0x4003            | 0x6d6b76           |
+
+This method is only RECOMMENDED for reducing `Element Data` by a single octet; for reductions by two or more octets it is RECOMMENDED to fill the freed space with a `Void Element`.
+
+Note that if the `Element Data` length needs to be rewritten as shortened by one octet and the `Element Data Size` could be rewritten as a shorter `VINT` then it is RECOMMENDED to rewrite the `Element Data Size` as one octet shorter, shorten the `Element Data` by one octet, and follow that `Element` with a `Void Element`. For example, the following table depicts a `String Element` that stores an `Element ID` (3 octets), `Element Data Size` (2 octets, but could be rewritten in one octet), and `Element Data` (3 octets). If the `Element Data` is to be rewritten to a two octet length, then another octet can be taken from `Element Data Size` so that there is enough space to add a two octet `Void Element`.
+
+Status | Element ID | Element Data Size | Element Data | Void Element 
+-------|------------|-------------------|--------------|-------------
+Before | 0x3B4040   | 0x4003            | 0x6d6b76     |
+After  | 0x3B4040   | 0x82              | 0x6869       | 0xEC80
+
+### Terminating Element Data
+
+For `String Elements` and `UTF-8 Elements` the length of `Element Data` MAY be reduced by adding `Null Octets` to terminate the `Element Data` (see [the section on `Terminating Elements`](#terminating-elements)).
+
+In the following table, a four octet long `Element Data` is changed to a three octet long value followed by a `Null Octet`; the `Element Data Size` includes any `Null Octets` used to terminate `Element Data` so remains unchanged.
+
+| Status      | Element ID | Element Data Size | Element Data       |
+|-------------|------------|-------------------|--------------------|
+| Before edit | 0x3B4040   | 0x84              | 0x65626d6c         |
+| After edit  | 0x3B4040   | 0x84              | 0x6d6b7600         |
+
+Note that this method is NOT RECOMMENDED. For reductions of one octet, the method for `Extending the Element Data Size` SHOULD be used. For reduction by more than one octet, the method for `Adding a Void Element` SHOULD be used.
+
+## Considerations when Updating Elements with CRC
+
+If the `Element` to be changed is a `Descendant Element` of any `Master Element` that contains an `CRC-32 Element` then the `CRC-32 Element` MUST be verified before permitting the change. Additionally the `CRC-32 Element` value MUST be subsequently updated to reflect the changed data.
+
 # EBML Document
 
 An `EBML Document` is comprised of only two components, an `EBML Header` and an `EBML Body`. An `EBML Document` MUST start with an `EBML Header` that declares significant characteristics of the entire `EBML Body`. An `EBML Document` consists of `EBML Elements` and MUST NOT contain any data that is not part of an `EBML Element`.
@@ -255,7 +321,7 @@ The `EBML Header` is a declaration that provides processing instructions and ide
 
 The `EBML Header` documents the `EBML Schema` (also known as the `EBML DocType`) that is used to semantically interpret the structure and meaning of the `EBML Document`. Additionally the `EBML Header` documents the versions of both `EBML` and the `EBML Schema` that were used to write the `EBML Document` and the versions required to read the `EBML Document`.
 
-The `EBML Header` consists of a single `Master Element` with an `Element Name` of `EBML` and `Element ID` of `0x1A45DFA3` (see [the definition of the `EBML` Element](#ebml-element)). The `EBML Header` MUST only contain `EBML Elements` that are defined as part of this document.
+The `EBML Header` MUST contain a single `Master Element` with an `Element Name` of `EBML` and `Element ID` of `0x1A45DFA3` (see [the definition of the `EBML` Element](#ebml-element)) and any number of additional `EBML Elements` within it. The `EBML Header` MUST only contain `EBML Elements` that are defined as part of this document.
 
 All `EBML Elements` within the `EBML Header` MUST NOT use any `Element ID` with a length greater than 4 octets. All `EBML Elements` within the `EBML Header` MUST NOT use any `Element Data Size` with a length greater than 4 octets.
 
@@ -275,7 +341,9 @@ An `EBML Schema` is an XML Document that defines the properties, arrangement, an
 
 An `EBML Schema` MUST declare exactly one `EBML Element` at `Root Level` (referred to as the `Root Element`) that MUST occur exactly once within an `EBML Document`. The `Void Element` MAY also occur at `Root Level` but is not considered to be `Root Elements` (see [the definition of the `Void Element`](#void-element)).
 
-The `EBML Schema` does not itself document the `EBML Header`, but documents all data of the `EBML Document` that follows the `EBML Header`. The `EBML Header` itself is documented by this specification in the `EBML Header Elements` (see [EBML Header Elements](#ebml-header-elements)). The `EBML Schema` also does not document `Global Elements` that are defined by this document (namely the `Void Element` and the `CRC-32 Element`).
+The `EBML Schema` MUST document all Elements of the `EBML Body`. The `EBML Schema` does not document `Global Elements` that are defined by this document (namely the `Void Element` and the `CRC-32 Element`).
+
+An `EBML Schema` MAY constrain the use of `EBML Header Elements` (see [EBML Header Elements](#ebml-header-elements)) by adding or constraining that Element's `range` attribute. For example, an `EBML Schema` MAY constrain the `EBMLMaxSizeLength` to a maximum value of `8` or MAY constain the `EBMLVersion` to only support a value of `1`. If an `EBML Schema` adopts the `EBML Header Element` as-is, then it is not REQUIRED to document that Element within the `EBML Schema`. If an `EBML Schema` constrains the range of an `EBML Header Element`, then that `Element` MUST be documented within an `<element>` node of the `EBML Schema`. This document provides an example of an `EBML Schema`, see [EBML Schema Example](#ebml-schema-example).
 
 ### <EBMLSchema> Element
 
@@ -416,7 +484,7 @@ The `recursive` attribute is OPTIONAL. If the `recursive` attribute is not prese
 
 The `minver` (minimum version) attribute stores a non-negative integer that represents the first version of the `docType` to support the `EBML Element`.
 
-The `minver` attribute is OPTIONAL. If the `minver` attribute is not present then the `EBML Element` has a minimum version of "1".
+The `minver` attribute is OPTIONAL. If the `minver` attribute is not present, then the `EBML Element` has a minimum version of "1".
 
 #### maxver
 
