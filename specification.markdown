@@ -60,6 +60,8 @@ This document defines specific terms in order to define the format and applicati
 
 `Descendant Element`: A `Descendant Element` is a relative term to describe any `EBML Elements` contained within a `Master Element`, including any of the `Child Elements` of its `Child Elements`, and so on.
 
+`Void Element`: A `Void Element` is an `Element` used to overwrite damaged data or reserve space within a `Master Element` for later use.
+
 `Element Name`: The official human-readable name of the `EBML Element`.
 
 `Element Path`: The hierarchy of `Parent Element` where the `EBML Element` is expected to be found in the `EBML Body`.
@@ -289,7 +291,7 @@ This method is only RECOMMENDED for reducing `Element Data` by a single octet; f
 
 Note that if the `Element Data` length needs to be rewritten as shortened by one octet and the `Element Data Size` could be rewritten as a shorter `VINT` then it is RECOMMENDED to rewrite the `Element Data Size` as one octet shorter, shorten the `Element Data` by one octet, and follow that `Element` with a `Void Element`. For example, the following table depicts a `String Element` that stores an `Element ID` (3 octets), `Element Data Size` (2 octets, but could be rewritten in one octet), and `Element Data` (3 octets). If the `Element Data` is to be rewritten to a two octet length, then another octet can be taken from `Element Data Size` so that there is enough space to add a two octet `Void Element`.
 
-Status | Element ID | Element Data Size | Element Data | Void Element 
+Status | Element ID | Element Data Size | Element Data | Void Element
 -------|------------|-------------------|--------------|-------------
 Before | 0x3B4040   | 0x4003            | 0x6d6b76     |
 After  | 0x3B4040   | 0x82              | 0x6869       | 0xEC80
