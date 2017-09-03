@@ -745,6 +745,8 @@ description: The minimum `DocType` version an `EBML Reader` has to support to re
 
 ## Global elements (used everywhere in the format)
 
+### CRC-32 Element
+
 name: CRC-32
 
 path: `*1((1*\)\CRC-32)`
