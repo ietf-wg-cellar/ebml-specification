@@ -2,7 +2,7 @@
 
 `EBML`, short for Extensible Binary Meta Language, specifies a binary and octet (byte) aligned format inspired by the principle of XML (a framework for structuring data).
 
-The goal of this document is to define a generic, binary, space-efficient format that can be used to define more complex formats (such as containers for multimedia content) using an `EBML Schema`. The definition of the `EBML` format recognizes the idea behind HTML and XML as a good one: separate structure and semantics allowing the same structural layer to be used with multiple, possibly widely differing semantic layers. Except for the `EBML Header` and a few global elements this specification does not define particular `EBML` format semantics; however this specification is intended to define how other `EBML`-based formats can be defined.
+The goal of this document is to define a generic, binary, space-efficient format that can be used to define more complex formats (such as containers for multimedia content) using an `EBML Schema`. The definition of the `EBML` format recognizes the idea behind HTML and XML as a good one: separate structure and semantics allowing the same structural layer to be used with multiple, possibly widely differing semantic layers. Except for the `EBML Header` and a few `Global Elements` this specification does not define particular `EBML` format semantics; however this specification is intended to define how other `EBML`-based formats can be defined.
 
 `EBML` uses a simple approach of building `Elements` upon three pieces of data (tag, length, and value) as this approach is well known, easy to parse, and allows selective data parsing. The `EBML` structure additionally allows for hierarchical arrangement to support complex structural formats in an efficient manner.
 
@@ -743,7 +743,9 @@ type: Unsigned Integer
 
 description: The minimum `DocType` version an `EBML Reader` has to support to read this `EBML Document`. The value of the `DocTypeReadVersion Element` MUST be less than or equal to the value of the `DocTypeVersion Element`.
 
-## Global elements (used everywhere in the format)
+## Global Elements
+
+EBML defines these `Global Elements` which MAY be stored within any Element of an `EBML Document` as defined by their `Element Path`.
 
 ### CRC-32 Element
 
