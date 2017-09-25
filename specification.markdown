@@ -745,7 +745,7 @@ description: The minimum `DocType` version an `EBML Reader` has to support to re
 
 ## Global Elements
 
-EBML defines these `Global Elements` which MAY be stored within any Element of an `EBML Document` as defined by their `Element Path`.
+EBML defines these `Global Elements` which MAY be stored within any `Master Element` of an `EBML Document` as defined by their `Element Path`.
 
 ### CRC-32 Element
 
