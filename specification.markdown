@@ -255,7 +255,7 @@ The contents of a `Binary Element` should not be interpreted by the `EBML Reader
 
 `Null Octets`, which are octets with all bits set to zero, MAY follow the value of a `String Element` or `UTF-8 Element` to serve as a terminator. An `EBML Writer` MAY terminate a `String Element` or `UTF-8 Element` with `Null Octets` in order to overwrite a stored value with a new value of lesser length while maintaining the same `Element Data Size` (this can prevent the need to rewrite large portions of an `EBML Document`); otherwise the use of `Null Octets` within a `String Element` or `UTF-8 Element` is NOT RECOMMENDED. An `EBML Reader` MUST consider the value of the `String Element` or `UTF-8 Element` to be terminated upon the first read `Null Octet` and MUST ignore any data following the first `Null Octet` within that `Element`. A string value and a copy of that string value terminated by one or more `Null Octets` are semantically equal.
 
-The following table shows examples of semantics and validation for the use of `Null Octets`. Values to represent `Stored Values` and the `Semantic Meaning` as represented as hexidecimal values.
+The following table shows examples of semantics and validation for the use of `Null Octets`. Values to represent `Stored Values` and the `Semantic Meaning` as represented as hexadecimal values.
 
 Stored Value        | Semantic Meaning
 :-------------------|:-------------------
