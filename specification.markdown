@@ -100,17 +100,17 @@ This document has no IANA actions.
 
 # Structure
 
-`EBML` uses a system of Elements to compose an `EBML Document`. `EBML Elements` incorporate three parts: an `Element ID`, an `Element Data Size`, and `Element Data`. The `Element Data`, which is described by the `Element ID`, includes either binary data, one or many other `EBML Elements`, or both.
+`EBML` uses a system of `Elements` to compose an `EBML Document`. `EBML Elements` incorporate three parts: an `Element ID`, an `Element Data Size`, and `Element Data`. The `Element Data`, which is described by the `Element ID`, includes either binary data, one or many other `EBML Elements`, or both.
 
 # Variable Size Integer
 
-The `Element ID` and `Element Data Size` are both encoded as a `Variable Size Integer`, developed according to a UTF-8 like system. The `Variable Size Integer` is composed of a `VINT_WIDTH`, `VINT_MARKER`, and `VINT_DATA`, in that order. `Variable Size Integers` SHALL left-pad the `VINT_DATA` value with zero bits so that the whole `Variable Size Integer` is octet-aligned. `Variable Size Integers` SHALL be referred to as `VINT` for shorthand.
+The `Element ID` and `Element Data Size` are both encoded as a `Variable Size Integer`, developed according to a UTF-8 like system. The `Variable Size Integer` is composed of a `VINT_WIDTH`, `VINT_MARKER`, and `VINT_DATA`, in that order. `Variable Size Integers` MUST left-pad the `VINT_DATA` value with zero bits so that the whole `Variable Size Integer` is octet-aligned. `Variable Size Integer` will be referred to as `VINT` for shorthand.
 
 ## VINT_WIDTH
 
 Each `Variable Size Integer` begins with a `VINT_WIDTH` which consists of zero or many zero-value bits. The count of consecutive zero-values of the `VINT_WIDTH` plus one equals the length in octets of the `Variable Size Integer`. For example, a `Variable Size Integer` that starts with a `VINT_WIDTH` which contains zero consecutive zero-value bits is one octet in length and a `Variable Size Integer` that starts with one consecutive zero-value bit is two octets in length. The `VINT_WIDTH` MUST only contain zero-value bits or be empty.
 
-Within the `EBML Header` the `VINT_WIDTH` MUST NOT exceed three bits in length (meaning that the `Variable Size Integer` MUST NOT exceed four octets in length). Within the `EBML Body`, when `VINTs` are used to express an `Element ID`, the maximum length allowed for the `VINT_WIDTH` is one less than the value set in the `EBMLMaxIDLength Element`. Within the `EBML Body`, when `VINTs` are used to express an `Element Data Size`, the maximum length allowed for the `VINT_WIDTH` is one less than the value set in the `EBMLMaxSizeLength Element`.
+Within the `EBML Header` the `VINT_WIDTH` MUST NOT exceed three bits in length (meaning that the `Variable Size Integer` MUST NOT exceed four octets in length). Within the `EBML Body`, when a `VINT` is used to express an `Element ID`, the maximum length allowed for the `VINT_WIDTH` is one less than the value set in the `EBMLMaxIDLength Element`. Within the `EBML Body`, when a `VINT` is used to express an `Element Data Size`, the maximum length allowed for the `VINT_WIDTH` is one less than the value set in the `EBMLMaxSizeLength Element`.
 
 ## VINT_MARKER
 
