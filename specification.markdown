@@ -14,19 +14,19 @@ This document defines specific terms in order to define the format and applicati
 
 `EBML`: Extensible Binary Meta Language
 
-`EBML Document Type`: An `EBML Document Type` is a name provided by an `EBML Schema` for a particular implementation of `EBML` for a data format (examples: matroska and webm).
+`EBML Document Type`: A name provided by an `EBML Schema` to designate a particular implementation of `EBML` for a data format (e.g.: matroska and webm).
 
 `EBML Schema`: A standardized definition for the structure of an `EBML Document Type`.
 
-`EBML Document`: An `EBML Document` is a datastream comprised of only two components, an `EBML Header` and an `EBML Body`.
+`EBML Document`: A datastream comprised of only two components, an `EBML Header` and an `EBML Body`.
 
-`EBML Reader`: An `EBML Reader` is a data parser that interprets the semantics of an `EBML Document` and creates a way for programs to use `EBML`.
+`EBML Reader`: A data parser that interprets the semantics of an `EBML Document` and creates a way for programs to use `EBML`.
 
-`EBML Stream`: An `EBML Stream` is a file that consists of one or more `EBML Documents` that are concatenated together.
+`EBML Stream`: A file that consists of one or more `EBML Documents` that are concatenated together.
 
-`EBML Header`: The `EBML Header` is a declaration that provides processing instructions and identification of the `EBML Body`. The `EBML Header` may be considered as analogous to an XML Declaration [@!W3C.REC-xml-20081126] (see section 2.8 on Prolog and Document Type Declaration).
+`EBML Header`: A declaration that provides processing instructions and identification of the `EBML Body`. The `EBML Header` may be considered as analogous to an XML Declaration [@!W3C.REC-xml-20081126] (see section 2.8 on Prolog and Document Type Declaration).
 
-`EBML Body`: All data of an `EBML Document` following the `EBML Header` may be considered the `EBML Body`.
+`EBML Body`: All data of an `EBML Document` following the `EBML Header`.
 
 `Variable Size Integer`: A compact variable-length binary value which defines its own length.
 
@@ -58,7 +58,7 @@ This document defines specific terms in order to define the format and applicati
 
 `Parent Element`: A relative term to describe the `Master Element` which contains a specified element. For any specified `EBML Element` that is not at `Root Level`, the `Parent Element` refers to the `Master Element` in which that `EBML Element` is contained.
 
-`Descendant Element`: A `Descendant Element` is a relative term to describe any `EBML Elements` contained within a `Master Element`, including any of the `Child Elements` of its `Child Elements`, and so on.
+`Descendant Element`: A relative term to describe any `EBML Elements` contained within a `Master Element`, including any of the `Child Elements` of its `Child Elements`, and so on.
 
 `Void Element`: A `Void Element` is an `Element` used to overwrite damaged data or reserve space within a `Master Element` for later use.
 
@@ -66,7 +66,7 @@ This document defines specific terms in order to define the format and applicati
 
 `Element Path`: The hierarchy of `Parent Element` where the `EBML Element` is expected to be found in the `EBML Body`.
 
-`Empty Element`: An `Empty Element` is an `EBML Element` that has an `Element Data Size` with all `VINT_DATA` bits set to zero which indicates that the `Element Data` of the Element is zero octets in length.
+`Empty Element`: An `EBML Element` that has an `Element Data Size` with all `VINT_DATA` bits set to zero, which indicates that the `Element Data` of the `Element` is zero octets in length.
 
 # Security Considerations
 
