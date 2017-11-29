@@ -2,7 +2,7 @@
 
 `EBML`, short for Extensible Binary Meta Language, specifies a binary and octet (byte) aligned format inspired by the principle of XML (a framework for structuring data).
 
-The goal of this document is to define a generic, binary, space-efficient format that can be used to define more complex formats (such as containers for multimedia content) using an `EBML Schema`. The definition of the `EBML` format recognizes the idea behind HTML and XML as a good one: separate structure and semantics allowing the same structural layer to be used with multiple, possibly widely differing semantic layers. Except for the `EBML Header` and a few global elements this specification does not define particular `EBML` format semantics; however this specification is intended to define how other `EBML`-based formats can be defined.
+The goal of this document is to define a generic, binary, space-efficient format that can be used to define more complex formats (such as containers for multimedia content) using an `EBML Schema`. The definition of the `EBML` format recognizes the idea behind HTML and XML as a good one: separate structure and semantics allowing the same structural layer to be used with multiple, possibly widely differing semantic layers. Except for the `EBML Header` and a few `Global Elements` this specification does not define particular `EBML` format semantics; however this specification is intended to define how other `EBML`-based formats can be defined.
 
 `EBML` uses a simple approach of building `Elements` upon three pieces of data (tag, length, and value) as this approach is well known, easy to parse, and allows selective data parsing. The `EBML` structure additionally allows for hierarchical arrangement to support complex structural formats in an efficient manner.
 
@@ -59,6 +59,8 @@ This document defines specific terms in order to define the format and applicati
 `Parent Element`: A relative term to describe the `Master Element` which contains a specified element. For any specified `EBML Element` that is not at `Root Level`, the `Parent Element` refers to the `Master Element` in which that `EBML Element` is contained.
 
 `Descendant Element`: A `Descendant Element` is a relative term to describe any `EBML Elements` contained within a `Master Element`, including any of the `Child Elements` of its `Child Elements`, and so on.
+
+`Void Element`: A `Void Element` is an `Element` used to overwrite damaged data or reserve space within a `Master Element` for later use.
 
 `Element Name`: The official human-readable name of the `EBML Element`.
 
@@ -253,7 +255,7 @@ The contents of a `Binary Element` should not be interpreted by the `EBML Reader
 
 `Null Octets`, which are octets with all bits set to zero, MAY follow the value of a `String Element` or `UTF-8 Element` to serve as a terminator. An `EBML Writer` MAY terminate a `String Element` or `UTF-8 Element` with `Null Octets` in order to overwrite a stored value with a new value of lesser length while maintaining the same `Element Data Size` (this can prevent the need to rewrite large portions of an `EBML Document`); otherwise the use of `Null Octets` within a `String Element` or `UTF-8 Element` is NOT RECOMMENDED. An `EBML Reader` MUST consider the value of the `String Element` or `UTF-8 Element` to be terminated upon the first read `Null Octet` and MUST ignore any data following the first `Null Octet` within that `Element`. A string value and a copy of that string value terminated by one or more `Null Octets` are semantically equal.
 
-The following table shows examples of semantics and validation for the use of `Null Octets`. Values to represent `Stored Values` and the `Semantic Meaning` as represented as hexidecimal values.
+The following table shows examples of semantics and validation for the use of `Null Octets`. Values to represent `Stored Values` and the `Semantic Meaning` as represented as hexadecimal values.
 
 Stored Value        | Semantic Meaning
 :-------------------|:-------------------
@@ -289,7 +291,7 @@ This method is only RECOMMENDED for reducing `Element Data` by a single octet; f
 
 Note that if the `Element Data` length needs to be rewritten as shortened by one octet and the `Element Data Size` could be rewritten as a shorter `VINT` then it is RECOMMENDED to rewrite the `Element Data Size` as one octet shorter, shorten the `Element Data` by one octet, and follow that `Element` with a `Void Element`. For example, the following table depicts a `String Element` that stores an `Element ID` (3 octets), `Element Data Size` (2 octets, but could be rewritten in one octet), and `Element Data` (3 octets). If the `Element Data` is to be rewritten to a two octet length, then another octet can be taken from `Element Data Size` so that there is enough space to add a two octet `Void Element`.
 
-Status | Element ID | Element Data Size | Element Data | Void Element 
+Status | Element ID | Element Data Size | Element Data | Void Element
 -------|------------|-------------------|--------------|-------------
 Before | 0x3B4040   | 0x4003            | 0x6d6b76     |
 After  | 0x3B4040   | 0x82              | 0x6869       | 0xEC80
@@ -742,6 +744,8 @@ type: Unsigned Integer
 description: The minimum `DocType` version an `EBML Reader` has to support to read this `EBML Document`. The value of the `DocTypeReadVersion Element` MUST be less than or equal to the value of the `DocTypeVersion Element`.
 
 ## EBML Global Elements
+
+EBML defines these `Global Elements` which MAY be stored within any `Master Element` of an `EBML Document` as defined by their `Element Path`.
 
 ### CRC-32 Element
 
