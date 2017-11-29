@@ -741,7 +741,9 @@ type: Unsigned Integer
 
 description: The minimum `DocType` version an `EBML Reader` has to support to read this `EBML Document`. The value of the `DocTypeReadVersion Element` MUST be less than or equal to the value of the `DocTypeVersion Element`.
 
-## Global elements (used everywhere in the format)
+## EBML Global Elements
+
+### CRC-32 Element
 
 name: CRC-32
 
