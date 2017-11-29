@@ -743,7 +743,7 @@ type: Unsigned Integer
 
 description: The minimum `DocType` version an `EBML Reader` has to support to read this `EBML Document`. The value of the `DocTypeReadVersion Element` MUST be less than or equal to the value of the `DocTypeVersion Element`.
 
-## Global Elements
+## EBML Global Elements
 
 EBML defines these `Global Elements` which MAY be stored within any `Master Element` of an `EBML Document` as defined by their `Element Path`.
 
