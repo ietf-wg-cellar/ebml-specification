@@ -649,6 +649,8 @@ minOccurs: 1
 
 maxOccurs: 1
 
+range: not 0
+
 default: 1
 
 type: Unsigned Integer
@@ -666,6 +668,8 @@ id `0x4285`
 minOccurs: 1
 
 maxOccurs: 1
+
+range: not 0
 
 default: 1
 
