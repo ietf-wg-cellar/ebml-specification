@@ -777,5 +777,44 @@ description: Used to void damaged data, to avoid unexpected behaviors when using
 
 # IANA Considerations
 
-This document has no IANA actions.
+This document creates a new IANA Registry called
+"CELLAR EBML Element ID Registry".
+
+Element IDs are described in section {{#element-id}}.  Element IDs are
+encoded using the VINT mechanism described in
+section {{#variable-sized-integer}} can be between one and five bytes
+long. Five byte long Element IDs are possible only if declared in the header.
+
+One byte Element IDs are numbers between 1 and 126. These items are valuable
+because they short, and need to be used for commonly repeated elements.
+Values from 1 to 126 are to be allocated according to RFC Required.
+
+Two byte Element IDs are numbers between 127 and 16382.
+Numbers may be allocated within this range according to Specification Required.
+
+Three byte Element IDs are numbers between 16383 and 2097150.
+Numbers may be allocated within this range according to First Come First Served.
+
+Four byte Element IDs are numbers between 2097151 and 268435456.
+Four byte Element IDs are somewhat special in that they are useful for
+resynchronizing to major structures in the event of data corruption or
+loss.  As such four byte Element IDs are split into two categories.
+Four byte Element IDs whose lower three bytes (as encoded) would make
+printable 7-bit ASCII values may be allocated only Specification Required.
+Sequential allocation of values is not required: specifications SHOULD
+include a specific request, and are encouraged to do early allocations.
+
+To be clear about the above category: Four Byte Element IDs always start
+with hex 0x10 to 0x1F,  and that byte may be chosen so that the entire number
+has some desirable property, such as a specific CRC.  The other three bytes,
+when ALL having values between 33 (ASCII !) and 126 (ASCII ~), fall into
+this catgory.
+
+Other Four Byte Element IDs may be allocated by First Come First Served.
+
+Five Byte Element IDs (values from 268435457 upwards) are reserved for
+Experimental use.
+
+
+
 
