@@ -780,22 +780,27 @@ description: Used to void damaged data, to avoid unexpected behaviors when using
 This document creates a new IANA Registry called
 "CELLAR EBML Element ID Registry".
 
-Element IDs are described in section {{#element-id}}.  Element IDs are
+Element IDs are described in section `Element Id`.  Element IDs are
 encoded using the VINT mechanism described in
-section {{#variable-sized-integer}} can be between one and five bytes
+section `Variable Sized Integer` can be between one and five bytes
 long. Five byte long Element IDs are possible only if declared in the header.
 
-One byte Element IDs are numbers between 1 and 126. These items are valuable
-because they short, and need to be used for commonly repeated elements.
+One byte Element IDs are numbers between 0x01 and 0x7e. These items are valuable
+because they are short, and need to be used for commonly repeated elements.
 Values from 1 to 126 are to be allocated according to RFC Required.
 
-Two byte Element IDs are numbers between 127 and 16382.
+Two byte Element IDs are numbers between 0x7f and 0x3FFE.
 Numbers may be allocated within this range according to Specification Required.
 
-Three byte Element IDs are numbers between 16383 and 2097150.
-Numbers may be allocated within this range according to First Come First Served.
+The numbers 0x3FFF and 0x4000 are RESERVED.
 
-Four byte Element IDs are numbers between 2097151 and 268435456.
+Three byte Element IDs are numbers between 0x4001 and 0x1F_FFFE.
+Numbers may be allocated within this range according to First Come First Served
+(see [@!RFC8126])
+
+The numbers 0x1F_FFFF and 0x20_0000 are RESERVED.
+
+Four byte Element IDs are numbers between 0x200_0001 and 0xFFF_FFFE.
 Four byte Element IDs are somewhat special in that they are useful for
 resynchronizing to major structures in the event of data corruption or
 loss.  As such four byte Element IDs are split into two categories.
@@ -807,13 +812,15 @@ include a specific request, and are encouraged to do early allocations.
 To be clear about the above category: Four Byte Element IDs always start
 with hex 0x10 to 0x1F,  and that byte may be chosen so that the entire number
 has some desirable property, such as a specific CRC.  The other three bytes,
-when ALL having values between 33 (ASCII !) and 126 (ASCII ~), fall into
+when ALL having values between 0x21 (33, ASCII !) and 0x7e (126, ASCII ~), fall into
 this catgory.
 
-Other Four Byte Element IDs may be allocated by First Come First Served.
+Other Four Byte Element IDs may be allocated by First Come First Served (see [@!RFC8126]).
 
-Five Byte Element IDs (values from 268435457 upwards) are reserved for
-Experimental use.
+The numbers 0xFFF_FFFF and 0x100_0000 are RESERVED.
+
+Five Byte Element IDs (values from 0x1000_0001 upwards) are reserved for
+Experimental use: they may be used by anyone at any time, but there is no coordination.
 
 
 
