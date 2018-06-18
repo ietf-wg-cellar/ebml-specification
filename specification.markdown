@@ -777,50 +777,29 @@ description: Used to void damaged data, to avoid unexpected behaviors when using
 
 # IANA Considerations
 
-This document creates a new IANA Registry called
-"CELLAR EBML Element ID Registry".
+This document creates a new IANA Registry called "CELLAR EBML Element ID Registry".
 
-Element IDs are described in section `Element Id`.  Element IDs are
-encoded using the VINT mechanism described in
-section `Variable Sized Integer` can be between one and five bytes
-long. Five byte long Element IDs are possible only if declared in the header.
+Element IDs are described in section `Element Id`.  Element IDs are encoded using the VINT mechanism described in section `Variable Sized Integer` can be between one and five bytes long. Five byte long Element IDs are possible only if declared in the header.
 
-One byte Element IDs are numbers between 0x01 and 0x7E. These items are valuable
-because they are short, and need to be used for commonly repeated elements.
-Values from 1 to 126 are to be allocated according to RFC Required.
+One byte Element IDs are numbers between 0x01 and 0x7E. These items are valuable because they are short, and need to be used for commonly repeated elements. Values from 1 to 126 are to be allocated according to RFC Required.
 
-Two byte Element IDs are numbers between 0x7F and 0x3FFE.
-Numbers may be allocated within this range according to Specification Required.
+Two byte Element IDs are numbers between 0x7F and 0x3FFE. Numbers may be allocated within this range according to Specification Required.
 
 The numbers 0x3FFF and 0x4000 are RESERVED.
 
-Three byte Element IDs are numbers between 0x4001 and 0x1F_FFFE.
-Numbers may be allocated within this range according to First Come First Served
-(see [@!RFC8126])
+Three byte Element IDs are numbers between 0x4001 and 0x1F_FFFE. Numbers may be allocated within this range according to First Come First Served (see [@!RFC8126])
 
 The numbers 0x1F_FFFF and 0x20_0000 are RESERVED.
 
-Four byte Element IDs are numbers between 0x200_0001 and 0xFFF_FFFE.
-Four byte Element IDs are somewhat special in that they are useful for
-resynchronizing to major structures in the event of data corruption or
-loss.  As such four byte Element IDs are split into two categories.
-Four byte Element IDs whose lower three bytes (as encoded) would make
-printable 7-bit ASCII values may be allocated only Specification Required.
-Sequential allocation of values is not required: specifications SHOULD
-include a specific request, and are encouraged to do early allocations.
+Four byte Element IDs are numbers between 0x200_0001 and 0xFFF_FFFE. Four byte Element IDs are somewhat special in that they are useful for resynchronizing to major structures in the event of data corruption or loss.  As such four byte Element IDs are split into two categories.  Four byte Element IDs whose lower three bytes (as encoded) would make printable 7-bit ASCII values may be allocated only Specification Required.  Sequential allocation of values is not required: specifications SHOULD include a specific request, and are encouraged to do early allocations.
 
-To be clear about the above category: Four Byte Element IDs always start
-with hex 0x10 to 0x1F,  and that byte may be chosen so that the entire number
-has some desirable property, such as a specific CRC.  The other three bytes,
-when ALL having values between 0x21 (33, ASCII !) and 0x7e (126, ASCII ~), fall into
-this catgory.
+To be clear about the above category: Four Byte Element IDs always start with hex 0x10 to 0x1F,  and that byte may be chosen so that the entire number has some desirable property, such as a specific CRC.  The other three bytes, when ALL having values between 0x21 (33, ASCII !) and 0x7e (126, ASCII ~), fall into this catgory.
 
 Other Four Byte Element IDs may be allocated by First Come First Served (see [@!RFC8126]).
 
 The numbers 0xFFF_FFFF and 0x100_0000 are RESERVED.
 
-Five Byte Element IDs (values from 0x1000_0001 upwards) are reserved for
-Experimental use: they may be used by anyone at any time, but there is no coordination.
+Five Byte Element IDs (values from 0x1000_0001 upwards) are reserved for Experimental use: they may be used by anyone at any time, but there is no coordination.
 
 
 
