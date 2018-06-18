@@ -785,11 +785,11 @@ encoded using the VINT mechanism described in
 section `Variable Sized Integer` can be between one and five bytes
 long. Five byte long Element IDs are possible only if declared in the header.
 
-One byte Element IDs are numbers between 0x01 and 0x7e. These items are valuable
+One byte Element IDs are numbers between 0x01 and 0x7E. These items are valuable
 because they are short, and need to be used for commonly repeated elements.
 Values from 1 to 126 are to be allocated according to RFC Required.
 
-Two byte Element IDs are numbers between 0x7f and 0x3FFE.
+Two byte Element IDs are numbers between 0x7F and 0x3FFE.
 Numbers may be allocated within this range according to Specification Required.
 
 The numbers 0x3FFF and 0x4000 are RESERVED.
