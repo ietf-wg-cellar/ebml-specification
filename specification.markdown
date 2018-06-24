@@ -747,6 +747,24 @@ type: Unsigned Integer
 
 description: The minimum `DocType` version an `EBML Reader` has to support to read this `EBML Document`. The value of the `DocTypeReadVersion Element` MUST be less than or equal to the value of the `DocTypeVersion Element`.
 
+### DocTypeSubVersion Element
+
+name: `DocTypeSubVersion`
+
+path: `0*1(\EBML\DocTypeSubVersion)`
+
+id `0x4281`
+
+minOccurs: 0
+
+maxOccurs: 1
+
+range: not 0
+
+type: Unsigned Integer
+
+description: The sub-version of `DocType` interpreter used to create the `EBML Document`. A sub-version of a `DocType` adds extra elements to the main `DocType` that don't need to be understood by the `DocTypeReadVersion` but can add extra information. It may be used for iterating between experimental elements before they are integrated in a regular `DocType`. Reading one `DocTypeSubVersion` version of a `DocType` doesn't imply one should be able to read upper values of this `DocTypeSubVersion`.
+
 ## Global Elements
 
 EBML defines these `Global Elements` which MAY be stored within any `Master Element` of an `EBML Document` as defined by their `Element Path`.
