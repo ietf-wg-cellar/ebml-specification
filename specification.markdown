@@ -749,6 +749,56 @@ type: Unsigned Integer
 
 description: The minimum `DocType` version an `EBML Reader` has to support to read this `EBML Document`. The value of the `DocTypeReadVersion Element` MUST be less than or equal to the value of the `DocTypeVersion Element`.
 
+### DocTypeExtension Element
+
+name: `DocTypeExtension`
+
+path: `0*(\EBML\DocTypeExtension)`
+
+id `0x4281`
+
+minOccurs: 0
+
+type: `Master Element`
+
+description: A `DocType` extension adds extra `Elements` to the main `DocType`+`DocTypeVersion` it's attached to. An `EBML Reader` MAY understand these extra `Elements`. It can be used to iterate between experimental `Elements` before they are integrated in a regular `DocTypeVersion`. Reading one `DocTypeExtension` version of a `DocType`+`DocTypeVersion` doesn't imply one should be able to read upper values of this `DocTypeExtension`.
+
+### ExtensionName Element
+
+name: `ExtensionName`
+
+path: `1*1(\EBML\DocTypeExtension\ExtensionName)`
+
+id `0x4283`
+
+minOccurs: 1
+
+maxOccurs: 1
+
+size: >0
+
+type: String
+
+description: The name of the `DocTypeExtension` to uniquely identify it from other `DocTypeExtension` of the same `DocType`+`DocTypeVersion`.
+
+### ExtensionVersion Element
+
+name: `ExtensionVersion`
+
+path: `1*1(\EBML\DocTypeExtension\ExtensionVersion)`
+
+id `0x4284`
+
+minOccurs: 1
+
+maxOccurs: 1
+
+range: not 0
+
+type: Unsigned Integer
+
+description: The version of the `DocTypeExtension`. Different `ExtensionVersion` values of the same `DocType`+`DocTypeVersion`+`ExtensionName` tuple MAY contain completely different sets of extra `Elements`. And `EBML Reader` MAY support mutiple versions of the same `DocTypeExtension`, only one or none.
+
 ## Global Elements
 
 EBML defines these `Global Elements` which MAY be stored within any `Master Element` of an `EBML Document` as defined by their `Element Path`.
