@@ -800,7 +800,3 @@ Other Four Byte Element IDs may be allocated by First Come First Served (see [@!
 The numbers 0xFFFFFFF and 0x1000000 are RESERVED.
 
 Five Byte Element IDs (values from 0x10000001 upwards) are reserved for Experimental use: they may be used by anyone at any time, but there is no coordination.
-
-
-
-
