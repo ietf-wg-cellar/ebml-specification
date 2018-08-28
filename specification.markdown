@@ -795,12 +795,12 @@ The VINT Data value of three-octet Element IDs MUST be between 0x4001 and 0x1FFF
 
 The numbers 0x1FFFFF and 0x200000 are RESERVED.
 
-Four octet Element IDs are numbers between 0x2000001 and 0xFFFFFFE. Four octet Element IDs are somewhat special in that they are useful for resynchronizing to major structures in the event of data corruption or loss.  As such four octet Element IDs are split into two categories.  Four octet Element IDs whose lower three octets (as encoded) would make printable 7-bit ASCII values may be allocated only Specification Required.  Sequential allocation of values is not required: specifications SHOULD include a specific request, and are encouraged to do early allocations.
+Four octet Element IDs are numbers between 0x2000001 and 0xFFFFFFE. Four octet Element IDs are somewhat special in that they are useful for resynchronizing to major structures in the event of data corruption or loss.  As such four octet Element IDs are split into two categories. Four octet Element IDs whose lower three octets (as encoded) would make printable 7-bit ASCII values may be allocated only Specification Required.  Sequential allocation of values is not required: specifications SHOULD include a specific request, and are encouraged to do early allocations.
 
-To be clear about the above category: Four Octet Element IDs always start with hex 0x10 to 0x1F,  and that octet may be chosen so that the entire number has some desirable property, such as a specific CRC.  The other three octets, when ALL having values between 0x21 (33, ASCII !) and 0x7e (126, ASCII ~), fall into this catgory.
+To be clear about the above category: four octet Element IDs always start with hex 0x10 to 0x1F,  and that octet may be chosen so that the entire number has some desirable property, such as a specific CRC.  The other three octets, when ALL having values between 0x21 (33, ASCII !) and 0x7e (126, ASCII ~), fall into this catgory.
 
-Other Four Octet Element IDs may be allocated by First Come First Served (see [@!RFC8126]).
+Other four octet Element IDs may be allocated by First Come First Served (see [@!RFC8126]).
 
 The numbers 0xFFFFFFF and 0x1000000 are RESERVED.
 
-Five Octet Element IDs (values from 0x10000001 upwards) are reserved for Experimental use: they may be used by anyone at any time, but there is no coordination.
+Five octet Element IDs (values from 0x10000001 upwards) are reserved for Experimental use: they may be used by anyone at any time, but there is no coordination.
