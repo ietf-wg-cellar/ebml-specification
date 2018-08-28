@@ -478,6 +478,12 @@ If the `path` contains an `EBMLPathAtomRecursive` part then the `recursive` valu
 
 The `recursive` attribute is OPTIONAL. If the `recursive` attribute is not present then the `EBML Element` MUST NOT be used recursively.
 
+#### recurring
+
+A boolean to express if an `EBML Element` is defined as an `Identically Recurring Element` or not.
+
+The `recurring` attribute is OPTIONAL. If the `recurring` attribute is not present then the `EBML Element` MUST be considered to NOT be an `Identically Recurring Element`.
+
 #### minver
 
 The `minver` (minimum version) attribute stores a non-negative integer that represents the first version of the `docType` to support the `EBML Element`.
