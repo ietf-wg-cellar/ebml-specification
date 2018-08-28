@@ -785,6 +785,16 @@ type: Binary
 
 description: Used to void damaged data, to avoid unexpected behaviors when using damaged data. The content is discarded. Also used to reserve space in a sub-element for later use.
 
+# Considerations for Reading EBML Data
+
+The following scenarios describe events to consider when reading `EBML Documents` and the recommended design of an `EBML Reader`.
+
+If a `Master Element` contains a `CRC-32 Element` that doesn't validate, then the `EBML Reader` MAY ignore all contained data except for `Descendant Elements` which contain their own valid `CRC-32 Element`.
+
+If a `Master Element` contains more occurrences of a `Child Master Element` than permitted according to the `maxOccurs` and `recurring` attributes of the definition of that `Element` then the occurrences in addition to `maxOccurs` MAY be ignored.
+
+If a `Master Element` contains more occurrences of a `Child Element` that is not a `Master Element` than permitted according to the `maxOccurs` attribute of the definition of that `Element` then all but the instance of that `Element` with the smallest byte offset from the beginning of its `Parent Element` SHOULD be ignored.
+
 # IANA Considerations
 
 This document creates a new IANA Registry called "CELLAR EBML Element ID Registry".
