@@ -781,6 +781,8 @@ description: Used to void damaged data, to avoid unexpected behaviors when using
 
 # IANA Considerations
 
+## CELLAR EBML Element ID Registry
+
 This document creates a new IANA Registry called "CELLAR EBML Element ID Registry".
 
 Element IDs are described in section `Element ID`.  Element IDs are encoded using the VINT mechanism described in section (#variable-size-integer) can be between one and five octets long. Five octet long Element IDs are possible only if declared in the header.
@@ -804,3 +806,9 @@ Other four octet Element IDs may be allocated by First Come First Served (see [@
 The numbers 0xFFFFFFF and 0x1000000 are RESERVED.
 
 Five octet Element IDs (values from 0x10000001 upwards) are reserved for Experimental use: they may be used by anyone at any time, but there is no coordination.
+
+## CELLAR EBML DocType Registry
+
+This document also creates a new IANA Registry called "CELLAR EBML DocType Registry".
+
+DocType values are described in [this section](#doctype).  DocTypes are strings, defined in [the `String Element` section](#string-element), which label the official name of the `EBML Document Type`.
