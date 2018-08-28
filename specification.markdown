@@ -787,7 +787,7 @@ If a `Master Element` contains a `CRC-32 Element` that doesn't validate, then th
 
 If a `Master Element` contains more occurrences of a `Child Master Element` than permitted according to the `maxOccurs` and `recurring` attributes of the definition of that `Element` then the occurrences in addition to `maxOccurs` MAY be ignored.
 
-If a `Master Element` contains more occurrences of a `Child Element` that is not a `Master Element` than permitted according to the `maxOccurs` attribute of the definition of that `Element` then the instances of that `Element` with the greatest byte offset from the beginning of its `Parent Element` SHOULD be ignored.
+If a `Master Element` contains more occurrences of a `Child Element` that is not a `Master Element` than permitted according to the `maxOccurs` attribute of the definition of that `Element` then all but the instance of that `Element` with the smallest byte offset from the beginning of its `Parent Element` SHOULD be ignored.
 
 # IANA Considerations
 
