@@ -835,3 +835,17 @@ The numbers 0xFFFFFFF and 0x1000000 are RESERVED.
 
 Five octet Element IDs (values from 0x10000001 upwards) are reserved for Experimental use: they may be used by anyone at any time, but there is no coordination.
 
+ID Values found in this document are assigned as initial values as follows:
+
+ ID        | Name
+----------:|:-------------------------
+0x1A45DFA3 | EBML Head
+0x4286     | EBML Version
+0x42F7     | EBML Read Version
+0x42F2     | EBML Max ID Length
+0x42F3     | EBML Max Size Length
+0x4282     | EBML DocType
+0x4287     | EBML DocType Version
+0x4285     | EBML DocType Read Version
+0xBF       | CRC-32
+0xEC       | Void
