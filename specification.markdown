@@ -761,7 +761,7 @@ minOccurs: 0
 
 type: `Master Element`
 
-description: A `DocType` extension adds extra `Elements` to the main `DocType`+`DocTypeVersion` it's attached to. An `EBML Reader` MAY understand these extra `Elements`. It MAY be used to iterate between experimental `Elements` before they are integrated in a regular `DocTypeVersion`. Reading one `DocTypeExtension` version of a `DocType`+`DocTypeVersion` doesn't imply one should be able to read upper values of this `DocTypeExtension`.
+description: A `DocType` extension adds extra `Elements` to the main `DocType`+`DocTypeVersion` tuple it's attached to. An `EBML Reader` MAY understand these extra `Elements`. It MAY be used to iterate between experimental `Elements` before they are integrated in a regular `DocTypeVersion`. Reading one `DocTypeExtension` version of a `DocType`+`DocTypeVersion` tuple doesn't imply one should be able to read upper values of this `DocTypeExtension`.
 
 ### ExtensionName Element
 
@@ -779,7 +779,7 @@ size: >0
 
 type: String
 
-description: The name of the `DocTypeExtension` to uniquely identify it from other `DocTypeExtension` of the same `DocType`+`DocTypeVersion`.
+description: The name of the `DocTypeExtension` to uniquely identify it from other `DocTypeExtension` of the same `DocType`+`DocTypeVersion` tuple.
 
 ### ExtensionVersion Element
 
@@ -797,7 +797,7 @@ range: not 0
 
 type: Unsigned Integer
 
-description: The version of the `DocTypeExtension`. Different `ExtensionVersion` values of the same `DocType`+`DocTypeVersion`+`ExtensionName` tuple MAY contain completely different sets of extra `Elements`. And `EBML Reader` MAY support mutiple versions of the same `DocTypeExtension`, only one or none.
+description: The version of the `DocTypeExtension`. Different `ExtensionVersion` values of the same `DocType`+`DocTypeVersion`+`ExtensionName` tuple MAY contain completely different sets of extra `Elements`. And `EBML Reader` MAY support multiple versions of the same `DocTypeExtension`, only one or none.
 
 ## Global Elements
 
