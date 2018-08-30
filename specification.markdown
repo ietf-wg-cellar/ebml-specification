@@ -761,7 +761,7 @@ minOccurs: 0
 
 type: `Master Element`
 
-description: A `DocType` extension adds extra `Elements` to the main `DocType`+`DocTypeVersion` it's attached to. An `EBML Reader` MAY understand these extra `Elements`. It can be used to iterate between experimental `Elements` before they are integrated in a regular `DocTypeVersion`. Reading one `DocTypeExtension` version of a `DocType`+`DocTypeVersion` doesn't imply one should be able to read upper values of this `DocTypeExtension`.
+description: A `DocType` extension adds extra `Elements` to the main `DocType`+`DocTypeVersion` it's attached to. An `EBML Reader` MAY understand these extra `Elements`. It MAY be used to iterate between experimental `Elements` before they are integrated in a regular `DocTypeVersion`. Reading one `DocTypeExtension` version of a `DocType`+`DocTypeVersion` doesn't imply one should be able to read upper values of this `DocTypeExtension`.
 
 ### ExtensionName Element
 
