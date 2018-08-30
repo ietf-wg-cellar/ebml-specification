@@ -781,6 +781,12 @@ description: Used to void damaged data, to avoid unexpected behaviors when using
 
 # IANA Considerations
 
+## CELLAR EBML DocType Registry
+
+This document creates a new IANA Registry called "CELLAR EBML DocType Registry".
+
+DocType values are described in [this section](#doctype).  DocTypes are strings, defined in [the `String Element` section](#string-element), which label the official name of the `EBML Document Type`. The strings may be allocated according to First Come First Served (see [@!RFC8126]).
+
 ## CELLAR EBML Element ID Registry
 
 This document creates a new IANA Registry called "CELLAR EBML Element ID Registry".
@@ -807,8 +813,3 @@ The numbers 0xFFFFFFF and 0x1000000 are RESERVED.
 
 Five octet Element IDs (values from 0x10000001 upwards) are reserved for Experimental use: they may be used by anyone at any time, but there is no coordination.
 
-## CELLAR EBML DocType Registry
-
-This document also creates a new IANA Registry called "CELLAR EBML DocType Registry".
-
-DocType values are described in [this section](#doctype).  DocTypes are strings, defined in [the `String Element` section](#string-element), which label the official name of the `EBML Document Type`.
