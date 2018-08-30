@@ -887,6 +887,9 @@ ID Values found in this document are assigned as initial values as follows:
 0x4282     | DocType             | Described in [section DocType](#doctype-element)
 0x4287     | DocTypeVersion      | Described in [section DocTypeVersion](#doctypeversion-element)
 0x4285     | DocTypeReadVersion  | Described in [section DocTypeReadVersion](#doctypereadversion-element)
+0x4281     | DocTypeExtension    | Described in [section DocTypeExtension](#doctypeextension-element)
+0x4283     | ExtensionName       | Described in [section ExtensionName](#extensionname-element)
+0x4284     | ExtensionVersion    | Described in [section ExtensionVersion](#extensionversion-element)
 0xBF       | CRC-32              | Described in [section CRC-32](#crc32-element)
 0xEC       | Void                | Described in [section Void](#void-element)
 
