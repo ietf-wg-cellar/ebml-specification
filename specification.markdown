@@ -813,7 +813,7 @@ This document creates a new IANA Registry called "CELLAR EBML Element ID Registr
 
 Element IDs are described in section `Element ID`. Element IDs are encoded using the VINT mechanism described in section (#variable-size-integer) can be between one and five octets long. Five octet long Element IDs are possible only if declared in the header.
 
-This IANA Registry only applies to `Elements` contained in the `EBML Header` and global `Elements` that are either valid in the `EBML Header` or the whole `EBML Document`. `Elements` only found in the `EBML Body` have their own set of independent `Element IDs` and are not part of this IANA Registry.
+This IANA Registry only applies to `Elements` contained in the `EBML Header`. `Elements` only found in the `EBML Body` have their own set of independent `Element IDs` and are not part of this IANA Registry.
 
 The VINT Data value of one-octet Element IDs MUST be between 0x01 and 0x7E. These items are valuable because they are short, and need to be used for commonly repeated elements. Values from 1 to 126 are to be allocated according to RFC Required.
 
@@ -837,15 +837,15 @@ Five octet Element IDs (values from 0x10000001 upwards) are reserved for Experim
 
 ID Values found in this document are assigned as initial values as follows:
 
- ID        | Name
-----------:|:-------------------------
-0x1A45DFA3 | EBML Head
-0x4286     | EBML Version
-0x42F7     | EBML Read Version
-0x42F2     | EBML Max ID Length
-0x42F3     | EBML Max Size Length
-0x4282     | EBML DocType
-0x4287     | EBML DocType Version
-0x4285     | EBML DocType Read Version
+ ID        | Element Name
+----------:|:-------------------------------
+0x1A45DFA3 | EBML
+0x4286     | EBMLVersion
+0x42F7     | EBMLReadVersion
+0x42F2     | EBMLMaxIDLength
+0x42F3     | EBMLMaxSizeLength
+0x4282     | DocType
+0x4287     | DocTypeVersion
+0x4285     | DocTypeReadVersion
 0xBF       | CRC-32
 0xEC       | Void
