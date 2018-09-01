@@ -803,7 +803,7 @@ This document creates a new IANA Registry called "CELLAR EBML Element ID Registr
 
 Element IDs are described in section `Element ID`. Element IDs are encoded using the VINT mechanism described in section (#variable-size-integer) can be between one and five octets long. Five octet long Element IDs are possible only if declared in the header.
 
-This IANA Registry only applies to `Elements` contained in the `EBML Header`. `Elements` only found in the `EBML Body` have their own set of independent `Element IDs` and are not part of this IANA Registry.
+This IANA Registry only applies to `Elements` contained at least in the `EBML Header`, thus including `Global Elements`. `Elements` only found in the `EBML Body` have their own set of independent `Element IDs` and are not part of this IANA Registry.
 
 The VINT Data value of one-octet Element IDs MUST be between 0x01 and 0x7E. These items are valuable because they are short, and need to be used for commonly repeated elements. Values from 1 to 126 are to be allocated according to RFC Required.
 
