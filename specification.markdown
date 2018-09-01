@@ -797,16 +797,6 @@ If a `Master Element` contains more occurrences of a `Child Element` that is not
 
 # IANA Considerations
 
-## CELLAR EBML DocType Registry
-
-This document creates a new IANA Registry called "CELLAR EBML DocType Registry".
-
-DocType values are described in [this section](#doctype).  DocTypes are ASCII strings, defined in [the `String Element` section](#string-element), which label the official name of the `EBML Document Type`. The strings may be allocated according to First Come First Served (see [@!RFC8126]).
-
-The use of ASCII corresponds to the types and code already in use, the value is not meant to be visible to the user.
-
-DocType string values of "matroska" and "webm" are reserved for pre-existing formats.
-
 ## CELLAR EBML Element ID Registry
 
 This document creates a new IANA Registry called "CELLAR EBML Element ID Registry".
@@ -849,3 +839,13 @@ ID Values found in this document are assigned as initial values as follows:
 0x4285     | DocTypeReadVersion  | Described in [section DocTypeReadVersion](#doctypereadversion-element)
 0xBF       | CRC-32              | Described in [section CRC-32](#crc32-element)
 0xEC       | Void                | Described in [section Void](#void-element)
+
+## CELLAR EBML DocType Registry
+
+This document creates a new IANA Registry called "CELLAR EBML DocType Registry".
+
+DocType values are described in [this section](#doctype).  DocTypes are ASCII strings, defined in [the `String Element` section](#string-element), which label the official name of the `EBML Document Type`. The strings may be allocated according to First Come First Served (see [@!RFC8126]).
+
+The use of ASCII corresponds to the types and code already in use, the value is not meant to be visible to the user.
+
+DocType string values of "matroska" and "webm" are reserved for pre-existing formats.
