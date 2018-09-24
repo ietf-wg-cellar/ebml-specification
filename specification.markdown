@@ -779,7 +779,7 @@ size: >0
 
 type: String
 
-description: The name of the `DocTypeExtension` to uniquely identify it from other `DocTypeExtension` of the same `DocType`+`DocTypeVersion` tuple.
+description: The name of the `DocTypeExtension` to identify it from other `DocTypeExtension` of the same `DocType`+`DocTypeVersion` tuple.
 
 ### DocTypeExtensionVersion Element
 
