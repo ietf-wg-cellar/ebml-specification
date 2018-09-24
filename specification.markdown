@@ -797,7 +797,7 @@ range: not 0
 
 type: Unsigned Integer
 
-description: The version of the `DocTypeExtension`. Different `DocTypeExtensionVersion` values of the same `DocType`+`DocTypeVersion`+`DocTypeExtensionName` tuple MAY contain completely different sets of extra `Elements`. And `EBML Reader` MAY support multiple versions of the same `DocTypeExtension`, only one or none.
+description: The version of the `DocTypeExtension`. Different `DocTypeExtensionVersion` values of the same `DocType`+`DocTypeVersion`+`DocTypeExtensionName` tuple MAY contain completely different sets of extra `Elements`. An `EBML Reader` MAY support multiple versions of the same `DocTypeExtension`, only one or none.
 
 ## Global Elements
 
