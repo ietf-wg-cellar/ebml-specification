@@ -763,11 +763,11 @@ type: `Master Element`
 
 description: A `DocTypeExtension` adds extra `Elements` to the main `DocType`+`DocTypeVersion` tuple it's attached to. An `EBML Reader` MAY understand these extra `Elements`. A `DocTypeExtension` MAY be used to iterate between experimental `Elements` before they are integrated in a regular `DocTypeVersion`. Reading one `DocTypeExtension` version of a `DocType`+`DocTypeVersion` tuple doesn't imply one should be able to read upper values of this `DocTypeExtension`.
 
-### ExtensionName Element
+### DocTypeExtensionName Element
 
-name: `ExtensionName`
+name: `DocTypeExtensionName`
 
-path: `1*1(\EBML\DocTypeExtension\ExtensionName)`
+path: `1*1(\EBML\DocTypeExtension\Name)`
 
 id `0x4283`
 
@@ -781,11 +781,11 @@ type: String
 
 description: The name of the `DocTypeExtension` to uniquely identify it from other `DocTypeExtension` of the same `DocType`+`DocTypeVersion` tuple.
 
-### ExtensionVersion Element
+### DocTypeExtensionVersion Element
 
-name: `ExtensionVersion`
+name: `DocTypeExtensionVersion`
 
-path: `1*1(\EBML\DocTypeExtension\ExtensionVersion)`
+path: `1*1(\EBML\DocTypeExtension\Version)`
 
 id `0x4284`
 
@@ -797,7 +797,7 @@ range: not 0
 
 type: Unsigned Integer
 
-description: The version of the `DocTypeExtension`. Different `ExtensionVersion` values of the same `DocType`+`DocTypeVersion`+`ExtensionName` tuple MAY contain completely different sets of extra `Elements`. And `EBML Reader` MAY support multiple versions of the same `DocTypeExtension`, only one or none.
+description: The version of the `DocTypeExtension`. Different `DocTypeExtensionVersion` values of the same `DocType`+`DocTypeVersion`+`DocTypeExtensionName` tuple MAY contain completely different sets of extra `Elements`. And `EBML Reader` MAY support multiple versions of the same `DocTypeExtension`, only one or none.
 
 ## Global Elements
 
@@ -877,21 +877,21 @@ Five octet Element IDs (values from 0x10000001 upwards) are reserved for Experim
 
 ID Values found in this document are assigned as initial values as follows:
 
- ID        | Element Name        | Reference
-----------:|:--------------------|:-------------------------------------------
-0x1A45DFA3 | EBML                | Described in [section EBML](#ebml-element)
-0x4286     | EBMLVersion         | Described in [section EBMLVersion](#ebmlversion-element)
-0x42F7     | EBMLReadVersion     | Described in [section EBMLReadVersion](#ebmlreadversion-element)
-0x42F2     | EBMLMaxIDLength     | Described in [section EBMLMaxIDLength](#ebmlmaxidlength-element)
-0x42F3     | EBMLMaxSizeLength   | Described in [section EBMLMaxSizeLength](#ebmlmaxsizelength-element)
-0x4282     | DocType             | Described in [section DocType](#doctype-element)
-0x4287     | DocTypeVersion      | Described in [section DocTypeVersion](#doctypeversion-element)
-0x4285     | DocTypeReadVersion  | Described in [section DocTypeReadVersion](#doctypereadversion-element)
-0x4281     | DocTypeExtension    | Described in [section DocTypeExtension](#doctypeextension-element)
-0x4283     | ExtensionName       | Described in [section ExtensionName](#extensionname-element)
-0x4284     | ExtensionVersion    | Described in [section ExtensionVersion](#extensionversion-element)
-0xBF       | CRC-32              | Described in [section CRC-32](#crc32-element)
-0xEC       | Void                | Described in [section Void](#void-element)
+ ID        | Element Name            | Reference
+----------:|:------------------------|:-------------------------------------------
+0x1A45DFA3 | EBML                    | Described in [section EBML](#ebml-element)
+0x4286     | EBMLVersion             | Described in [section EBMLVersion](#ebmlversion-element)
+0x42F7     | EBMLReadVersion         | Described in [section EBMLReadVersion](#ebmlreadversion-element)
+0x42F2     | EBMLMaxIDLength         | Described in [section EBMLMaxIDLength](#ebmlmaxidlength-element)
+0x42F3     | EBMLMaxSizeLength       | Described in [section EBMLMaxSizeLength](#ebmlmaxsizelength-element)
+0x4282     | DocType                 | Described in [section DocType](#doctype-element)
+0x4287     | DocTypeVersion          | Described in [section DocTypeVersion](#doctypeversion-element)
+0x4285     | DocTypeReadVersion      | Described in [section DocTypeReadVersion](#doctypereadversion-element)
+0x4281     | DocTypeExtension        | Described in [section DocTypeExtension](#doctypeextension-element)
+0x4283     | DocTypeExtensionName    | Described in [section DocTypeExtensionName](#doctypeextensionname-element)
+0x4284     | DocTypeExtensionVersion | Described in [section DocTypeExtensionVersion](#doctypeextensionversion-element)
+0xBF       | CRC-32                  | Described in [section CRC-32](#crc32-element)
+0xEC       | Void                    | Described in [section Void](#void-element)
 
 ## CELLAR EBML DocType Registry
 
