@@ -779,7 +779,7 @@ size: >0
 
 type: String
 
-description: The name of the `DocTypeExtension` to identify it from other `DocTypeExtension` of the same `DocType`+`DocTypeVersion` tuple.
+description: The name of the `DocTypeExtension` to identify it from other `DocTypeExtension` of the same `DocType`+`DocTypeVersion` tuple. An `DocTypeExtensionName` value MUST be unique for in the `EBML Header`.
 
 ### DocTypeExtensionVersion Element
 
