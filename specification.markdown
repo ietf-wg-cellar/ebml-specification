@@ -901,4 +901,5 @@ DocType values are described in [this section](#doctype).  DocTypes are ASCII st
 
 The use of ASCII corresponds to the types and code already in use, the value is not meant to be visible to the user.
 
-DocType string values of "matroska" and "webm" are reserved for pre-existing formats.
+DocType string values of "matroska" and "webm" are reserved to the IETF for future use.
+These can be assigned via IESG Approval or RFC Required.
