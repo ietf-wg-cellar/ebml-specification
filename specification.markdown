@@ -623,7 +623,7 @@ minOccurs: 1
 
 maxOccurs: 1
 
-range:  not 0
+range: not 0
 
 default: 1
 
@@ -643,7 +643,7 @@ minOccurs: 1
 
 maxOccurs: 1
 
-range:  1
+range: 1
 
 default: 1
 
@@ -663,7 +663,7 @@ minOccurs: 1
 
 maxOccurs: 1
 
-range:  >=4
+range: >=4
 
 default: 4
 
@@ -683,7 +683,7 @@ minOccurs: 1
 
 maxOccurs: 1
 
-range:  not 0
+range: not 0
 
 default: 8
 
@@ -865,9 +865,9 @@ The VINT Data value of three-octet Element IDs MUST be between 0x4001 and 0x1FFF
 
 The numbers 0x1FFFFF and 0x200000 are RESERVED.
 
-Four octet Element IDs are numbers between 0x2000001 and 0xFFFFFFE. Four octet Element IDs are somewhat special in that they are useful for resynchronizing to major structures in the event of data corruption or loss.  As such four octet Element IDs are split into two categories. Four octet Element IDs whose lower three octets (as encoded) would make printable 7-bit ASCII values may be allocated only Specification Required.  Sequential allocation of values is not required: specifications SHOULD include a specific request, and are encouraged to do early allocations.
+Four octet Element IDs are numbers between 0x2000001 and 0xFFFFFFE. Four octet Element IDs are somewhat special in that they are useful for resynchronizing to major structures in the event of data corruption or loss. As such four octet Element IDs are split into two categories. Four octet Element IDs whose lower three octets (as encoded) would make printable 7-bit ASCII values may be allocated only Specification Required. Sequential allocation of values is not required: specifications SHOULD include a specific request, and are encouraged to do early allocations.
 
-To be clear about the above category: four octet Element IDs always start with hex 0x10 to 0x1F,  and that octet may be chosen so that the entire number has some desirable property, such as a specific CRC.  The other three octets, when ALL having values between 0x21 (33, ASCII !) and 0x7e (126, ASCII ~), fall into this category.
+To be clear about the above category: four octet Element IDs always start with hex 0x10 to 0x1F, and that octet may be chosen so that the entire number has some desirable property, such as a specific CRC. The other three octets, when ALL having values between 0x21 (33, ASCII !) and 0x7e (126, ASCII ~), fall into this category.
 
 Other four octet Element IDs may be allocated by First Come First Served (see [@!RFC8126]).
 
@@ -897,7 +897,7 @@ ID Values found in this document are assigned as initial values as follows:
 
 This document creates a new IANA Registry called "CELLAR EBML DocType Registry".
 
-DocType values are described in [this section](#doctype).  DocTypes are ASCII strings, defined in [the `String Element` section](#string-element), which label the official name of the `EBML Document Type`. The strings may be allocated according to First Come First Served (see [@!RFC8126]).
+DocType values are described in [this section](#doctype). DocTypes are ASCII strings, defined in [the `String Element` section](#string-element), which label the official name of the `EBML Document Type`. The strings may be allocated according to First Come First Served (see [@!RFC8126]).
 
 The use of ASCII corresponds to the types and code already in use, the value is not meant to be visible to the user.
 
