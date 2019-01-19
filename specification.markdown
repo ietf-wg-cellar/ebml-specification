@@ -333,7 +333,7 @@ An `EBML Stream` is a file that consists of one or many `EBML Documents` that ar
 
 # EBML Versioning
 
-An `EBML Document` handles 2 different versions: the version of the `EBML Header` and the version of the `EBML Body`. Both versions are meant to be forward compatible.
+An `EBML Document` handles 2 different versions: the version of the `EBML Header` and the version of the `EBML Body`. Both versions are meant to be backward compatible.
 
 ## EBML Header Version
 
