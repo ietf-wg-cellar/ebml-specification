@@ -74,16 +74,19 @@ This document defines specific terms in order to define the format and applicati
 
 Even if the semantic layer offers any kind of encryption, `EBML` itself could leak information at both the semantic layer (as declared via the `DocType Element`) and within the `EBML` structure (the presence of `EBML Elements` can be derived even with an unknown semantic layer using a heuristic approach; not without errors, of course, but with a certain degree of confidence).
 
-Attacks on an `EBML Reader` could include:
+An `EBML Document` that has the following issues may still be handled by the `EBML Reader` and the data accepted as such:
 
 - Invalid `Element IDs` that are longer than the limit stated in the `EBMLMaxIDLength Element` of the `EBML Header`.
 - Invalid `Element IDs` that are not encoded in the shortest-possible way.
 - Invalid `Element IDs` comprised of reserved values.
 - Invalid `Element Data Size` values that are longer than the limit stated in the `EBMLMaxSizeLength Element` of the `EBML Header`.
+- Usage of `0x00` octets in `EBML Elements` with a string type.
+
+An `EBML Reader` may discard some or all data if the following errors are found in the `EBML Document`:
+
 - Invalid `Element Data Size` values (e.g. extending the length of the `EBML Element` beyond the scope of the `Parent Element`; possibly triggering access-out-of-bounds issues).
 - Very high lengths in order to force out-of-memory situations resulting in a denial of service, access-out-of-bounds issues etc.
 - Missing `EBML Elements` that are mandatory and have no declared default value.
-- Usage of `0x00` octets in `EBML Elements` with a string type.
 - Usage of invalid UTF-8 encoding in `EBML Elements` of UTF-8 type (e.g. in order to trigger access-out-of-bounds or buffer overflow issues).
 - Usage of invalid data in `EBML Elements` with a date type.
 
