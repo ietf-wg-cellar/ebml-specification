@@ -93,7 +93,7 @@ An `EBML Reader` may discard some or all data if the following errors are found 
 Side channel attacks could exploit:
 
 - The semantic equivalence of the same string stored in a `String Element` or `UTF-8 Element` with and without zero-bit padding.
-- The semantic equivalence of `VINT_DATA` within `Element Data Size` with to different lengths due to left-padding zero bits.
+- The semantic equivalence of `VINT_DATA` within `Element Data Size` with two different lengths due to left-padding zero bits.
 - Data contained within a `Master Element` which is not itself part of an `EBML Element`.
 - Extraneous copies of `Identically Recurring Element`.
 - Copies of `Identically Recurring Element` within a `Parent Element` that contain invalid `CRC-32 Elements`.
