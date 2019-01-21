@@ -112,7 +112,7 @@ Within the `EBML Header` the `VINT_WIDTH` MUST NOT exceed three bits in length (
 
 ## VINT_MARKER
 
-The `VINT_MARKER` serves as a separator between the `VINT_WIDTH` and `VINT_DATA`. Each `Variable Size Integer` MUST contain exactly one `VINT_MARKER`. The `VINT_MARKER` MUST be one bit in length and contain a bit with a value of one. The first bit with a value of one within the `Variable Size Integer` is the `VINT_MARKER`.
+The `VINT_MARKER` serves as a separator between the `VINT_WIDTH` and `VINT_DATA`. Each `Variable Size Integer` MUST contain exactly one `VINT_MARKER`. The `VINT_MARKER` is one bit in length and contain a bit with a value of one. The first bit with a value of one within the `Variable Size Integer` is the `VINT_MARKER`.
 
 ## VINT_DATA
 
@@ -141,7 +141,7 @@ Binary Value | Octet Length | As Represented in Variable Size Integer
 
 # Element ID
 
-The `Element ID` MUST be encoded as a `Variable Size Integer`. By default, `Element IDs` are encoded in lengths from one octet to four octets, although `Element IDs` of greater lengths are used if the octet length of the longest `Element ID` of the `EBML Document` is declared in the `EBMLMaxIDLength Element` of the `EBML Header` (see [the section on the `EBMLMaxIDLength Element`](#ebmlmaxidlength-element)). The `VINT_DATA` component of the `Element ID` MUST NOT be either defined or written as either all zero values or all one values. Any `Element ID` with the `VINT_DATA` component set as all zero values or all one values MUST be ignored and MUST NOT be considered an error in the `EBML Document`. The `VINT_DATA` component of the `Element ID` MUST be encoded at the shortest valid length. For example, an `Element ID` with binary encoding of `1011 1111` is valid, whereas an `Element ID` with binary encoding of `0100 0000 0011 1111` stores a semantically equal `VINT_DATA` but is invalid because a shorter `VINT` encoding is possible. Additionally, an `Element ID` with binary encoding of `1111 1111` is invalid since the `VINT_DATA` section is set to all one values, whereas an `Element ID` with binary encoding of `0100 0000 0111 1111` stores a semantically equal `VINT_DATA` and is the shortest possible `VINT` encoding.
+The `Element ID` is encoded as a `Variable Size Integer`. By default, `Element IDs` are encoded in lengths from one octet to four octets, although `Element IDs` of greater lengths are used if the octet length of the longest `Element ID` of the `EBML Document` is declared in the `EBMLMaxIDLength Element` of the `EBML Header` (see [the section on the `EBMLMaxIDLength Element`](#ebmlmaxidlength-element)). The `VINT_DATA` component of the `Element ID` MUST NOT be either defined or written as either all zero values or all one values. Any `Element ID` with the `VINT_DATA` component set as all zero values or all one values MUST be ignored and MUST NOT be considered an error in the `EBML Document`. The `VINT_DATA` component of the `Element ID` MUST be encoded at the shortest valid length. For example, an `Element ID` with binary encoding of `1011 1111` is valid, whereas an `Element ID` with binary encoding of `0100 0000 0011 1111` stores a semantically equal `VINT_DATA` but is invalid because a shorter `VINT` encoding is possible. Additionally, an `Element ID` with binary encoding of `1111 1111` is invalid since the `VINT_DATA` section is set to all one values, whereas an `Element ID` with binary encoding of `0100 0000 0111 1111` stores a semantically equal `VINT_DATA` and is the shortest possible `VINT` encoding.
 
 The following table details these specific examples further:
 
@@ -167,7 +167,7 @@ Class D    | 4            | 2^28 - 2^21 - 1 = 266,338,303
 
 # Element Data Size
 
-The `Element Data Size` expresses the length in octets of `Element Data`. The `Element Data Size` itself MUST be encoded as a `Variable Size Integer`. By default, `Element Data Sizes` can be encoded in lengths from one octet to eight octets, although `Element Data Sizes` of greater lengths MAY be used if the octet length of the longest `Element Data Size` of the `EBML Document` is declared in the `EBMLMaxSizeLength Element` of the `EBML Header` (see [the section on the `EBMLMaxSizeLength Element`](#ebmlmaxsizelength-element)). Unlike the `VINT_DATA` of the `Element ID`, the `VINT_DATA` component of the `Element Data Size` is not mandated to be encoded at the shortest valid length. For example, an `Element Data Size` with binary encoding of `1011 1111` or a binary encoding of `0100 0000 0011 1111` are both valid `Element Data Sizes` and both store a semantically equal value (both `0b00000000111111` and `0b0111111`, the `VINT_DATA` sections of the examples, represent the integer 63).
+The `Element Data Size` expresses the length in octets of `Element Data`. The `Element Data Size` itself is encoded as a `Variable Size Integer`. By default, `Element Data Sizes` can be encoded in lengths from one octet to eight octets, although `Element Data Sizes` of greater lengths MAY be used if the octet length of the longest `Element Data Size` of the `EBML Document` is declared in the `EBMLMaxSizeLength Element` of the `EBML Header` (see [the section on the `EBMLMaxSizeLength Element`](#ebmlmaxsizelength-element)). Unlike the `VINT_DATA` of the `Element ID`, the `VINT_DATA` component of the `Element Data Size` is not mandated to be encoded at the shortest valid length. For example, an `Element Data Size` with binary encoding of `1011 1111` or a binary encoding of `0100 0000 0011 1111` are both valid `Element Data Sizes` and both store a semantically equal value (both `0b00000000111111` and `0b0111111`, the `VINT_DATA` sections of the examples, represent the integer 63).
 
 Although an `Element ID` with all `VINT_DATA` bits set to zero is invalid, an `Element Data Size` with all `VINT_DATA` bits set to zero is allowed for `EBML Element Types` which do not mandate a non-zero length (see [the section on `EBML Element Types`](#ebml-element-types)). An `Element Data Size` with all `VINT_DATA` bits set to zero indicates that the `Element Data` is zero octets in length. Such an `EBML Element` is referred to as an `Empty Element`. If an `Empty Element` has a `default` value declared then the `EBML Reader` MUST interpret the value of the `Empty Element` as the `default` value. If an `Empty Element` has no `default` value declared then the `EBML Reader` MUST interpret the value of the `Empty Element` as defined as part of the definition of the corresponding `EBML Element Type` associated with the `Element ID`.
 
@@ -203,7 +203,7 @@ VINT_WIDTH  | VINT_MARKER  | VINT_DATA      | Element Data Size Status
 
 A `Signed Integer Element` MUST declare a length from zero to eight octets. If the `EBML Element` is not defined to have a `default` value, then a `Signed Integer Element` with a zero-octet length represents an integer value of zero.
 
-A `Signed Integer Element` stores an integer (meaning that it can be written without a fractional component) which could be negative, positive, or zero. Signed Integers MUST be stored with two's complement notation with the leftmost bit being the sign bit. Because `EBML` limits Signed Integers to 8 octets in length a `Signed Integer Element` stores a number from −9,223,372,036,854,775,808 to +9,223,372,036,854,775,807.
+A `Signed Integer Element` stores an integer (meaning that it can be written without a fractional component) which could be negative, positive, or zero. Signed Integers are stored with two's complement notation with the leftmost bit being the sign bit. Because `EBML` limits Signed Integers to 8 octets in length a `Signed Integer Element` stores a number from −9,223,372,036,854,775,808 to +9,223,372,036,854,775,807.
 
 ## Unsigned Integer Element
 
@@ -283,7 +283,7 @@ For example, the first row of the following table depicts a `String Element` tha
 | Before edit | 0x3B4040   | 0x84              | 0x65626d6c         |
 | After edit  | 0x3B4040   | 0x4003            | 0x6d6b76           |
 
-This method is only RECOMMENDED for reducing `Element Data` by a single octet; for reductions by two or more octets it is RECOMMENDED to fill the freed space with a `Void Element`.
+This method is RECOMMENDED when the `Element Data` is reduced by a single octet; for reductions by two or more octets it is RECOMMENDED to fill the freed space with a `Void Element`.
 
 Note that if the `Element Data` length needs to be rewritten as shortened by one octet and the `Element Data Size` could be rewritten as a shorter `VINT` then it is RECOMMENDED to rewrite the `Element Data Size` as one octet shorter, shorten the `Element Data` by one octet, and follow that `Element` with a `Void Element`. For example, the following table depicts a `String Element` that stores an `Element ID` (3 octets), `Element Data Size` (2 octets, but could be rewritten in one octet), and `Element Data` (3 octets). If the `Element Data` is to be rewritten to a two octet length, then another octet can be taken from `Element Data Size` so that there is enough space to add a two octet `Void Element`.
 
@@ -341,7 +341,7 @@ An `EBML Schema` MUST declare exactly one `EBML Element` at `Root Level` (referr
 
 The `EBML Schema` MUST document all Elements of the `EBML Body`. The `EBML Schema` does not document `Global Elements` that are defined by this document (namely the `Void Element` and the `CRC-32 Element`).
 
-An `EBML Schema` MAY constrain the use of `EBML Header Elements` (see [EBML Header Elements](#ebml-header-elements)) by adding or constraining that Element's `range` attribute. For example, an `EBML Schema` MAY constrain the `EBMLMaxSizeLength` to a maximum value of `8` or MAY constrain the `EBMLVersion` to only support a value of `1`. If an `EBML Schema` adopts the `EBML Header Element` as-is, then it is not REQUIRED to document that Element within the `EBML Schema`. If an `EBML Schema` constrains the range of an `EBML Header Element`, then that `Element` MUST be documented within an `<element>` node of the `EBML Schema`. This document provides an example of an `EBML Schema`, see [EBML Schema Example](#ebml-schema-example).
+An `EBML Schema` MAY constrain the use of `EBML Header Elements` (see [EBML Header Elements](#ebml-header-elements)) by adding or constraining that Element's `range` attribute. For example, an `EBML Schema` MAY constrain the `EBMLMaxSizeLength` to a maximum value of `8` or MAY constrain the `EBMLVersion` to only support a value of `1`. If an `EBML Schema` adopts the `EBML Header Element` as-is, then it is not required to document that Element within the `EBML Schema`. If an `EBML Schema` constrains the range of an `EBML Header Element`, then that `Element` MUST be documented within an `<element>` node of the `EBML Schema`. This document provides an example of an `EBML Schema`, see [EBML Schema Example](#ebml-schema-example).
 
 ### \<EBMLSchema> Element
 
@@ -857,7 +857,7 @@ This IANA Registry only applies to `Elements` contained at least in the `EBML He
 
 The VINT Data value of one-octet Element IDs MUST be between 0x01 and 0x7E. These items are valuable because they are short, and need to be used for commonly repeated elements. Values from 1 to 126 are to be allocated according to RFC Required.
 
-The VINT Data value of two-octet Element IDs MUST be between 0x007F and 0x3FFE. Numbers MAY be allocated within this range according to Specification Required.
+The VINT Data value of two-octet Element IDs MUST be between 0x007F and 0x3FFE. Numbers are be allocated within this range according to Specification Required.
 
 The numbers 0x3FFF and 0x4000 are RESERVED.
 
