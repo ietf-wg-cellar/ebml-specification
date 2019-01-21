@@ -116,7 +116,7 @@ The `VINT_MARKER` serves as a separator between the `VINT_WIDTH` and `VINT_DATA`
 
 ## VINT_DATA
 
-The `VINT_DATA` portion of the `Variable Size Integer` includes all data that follows (but not including) the `VINT_MARKER` until end of the `Variable Size Integer` whose length is derived from the `VINT_WIDTH`. The bits required for the `VINT_WIDTH` and the `VINT_MARKER` combined use one out of eight bits of the total length of the `Variable Size Integer`. Thus a `Variable Size Integer` of 1 octet length supplies 7 bits for `VINT_DATA`, a 2 octet length supplies 14 bits for `VINT_DATA`, and a 3 octet length supplies 21 bits for `VINT_DATA`. If the number of bits required for `VINT_DATA` are less than the bit size of `VINT_DATA`, then `VINT_DATA` MUST be zero-padded to the left to a size that fits. The `VINT_DATA` value MUST be expressed as a big-endian unsigned integer.
+The `VINT_DATA` portion of the `Variable Size Integer` includes all data that follows (but not including) the `VINT_MARKER` until end of the `Variable Size Integer` whose length is derived from the `VINT_WIDTH`. The bits required for the `VINT_WIDTH` and the `VINT_MARKER` use one out of every eight bits of the total length of the `Variable Size Integer`. Thus a `Variable Size Integer` of 1 octet length supplies 7 bits for `VINT_DATA`, a 2 octet length supplies 14 bits for `VINT_DATA`, and a 3 octet length supplies 21 bits for `VINT_DATA`. If the number of bits required for `VINT_DATA` are less than the bit size of `VINT_DATA`, then `VINT_DATA` MUST be zero-padded to the left to a size that fits. The `VINT_DATA` value MUST be expressed as a big-endian unsigned integer.
 
 ## VINT Examples
 
@@ -321,7 +321,7 @@ The `EBML Header` documents the `EBML Schema` (also known as the `EBML DocType`)
 
 The `EBML Header` MUST contain a single `Master Element` with an `Element Name` of `EBML` and `Element ID` of `0x1A45DFA3` (see [the definition of the `EBML` Element](#ebml-element)) and any number of additional `EBML Elements` within it. The `EBML Header` of an `EBML Document` that uses an `EBMLVersion` of `1` MUST only contain `EBML Elements` that are defined as part of this document.
 
-All `EBML Elements` within the `EBML Header` MUST NOT use any `Element ID` with a length greater than 4 octets. All `EBML Elements` within the `EBML Header` MUST NOT use any `Element Data Size` with a length greater than 4 octets.
+`EBML Elements` within the `EBML Header` MUST NOT use any `Element ID` with a length greater than 4 octets. All `EBML Elements` within the `EBML Header` MUST NOT use any `Element Data Size` with a length greater than 4 octets.
 
 ## EBML Body
 
@@ -359,7 +359,7 @@ The `docType` attribute is REQUIRED within the `<EBMLSchema>` Element.
 
 #### version
 
-The `version` lists an incremental non-negative integer that specifies the version of the docType documented by the `EBML Schema`. Unlike XML Schemas, an `EBML Schema` documents all versions of a docType's definition rather than using separate `EBML Schemas` for each version of a `docType`. `EBML Elements` may be introduced and deprecated by using the `minver` and `maxver` attributes of `<element>`.
+The `version` lists an non-negative integer that specifies the version of the docType documented by the `EBML Schema`. Unlike XML Schemas, an `EBML Schema` documents all versions of a docType's definition rather than using separate `EBML Schemas` for each version of a `docType`. `EBML Elements` may be introduced and deprecated by using the `minver` and `maxver` attributes of `<element>`.
 
 The `version` attribute is REQUIRED within the `<EBMLSchema>` Element.
 
@@ -576,7 +576,7 @@ Within an expression of a float range, as in an integer range, the `-` (hyphen) 
 
 ### Note on the use of default attributes to define Mandatory EBML Elements
 
-If a `Mandatory EBML Element` has a default value declared by an `EBML Schema` and the value of the `EBML Element` is equal to the declared default value then that `EBML Element` is not required to be present within the `EBML Document` if its `Parent Element` is present. In this case, the default value of the `Mandatory EBML Element` MUST be interpreted by the `EBML Reader` although the `EBML Element` is not present within its `Parent Element`.
+If a `Mandatory EBML Element` has a default value declared by an `EBML Schema` and the value of the `EBML Element` is equal to the declared default value then that `EBML Element` is not required to be present within the `EBML Document` if its `Parent Element` is present. In this case, the default value of the `Mandatory EBML Element` MUST be read by the `EBML Reader` although the `EBML Element` is not present within its `Parent Element`.
 
 If a `Mandatory EBML Element` has no default value declared by an `EBML Schema` and its `Parent Element` is present then the `EBML Element` MUST be present as well. If a `Mandatory EBML Element` has a default value declared by an `EBML Schema` and its `Parent Element` is present and the value of the `EBML Element` is NOT equal to the declared default value then the `EBML Element` MUST be present.
 
@@ -833,13 +833,13 @@ minOccurs: 0
 
 type: Binary
 
-description: Used to void damaged data, to avoid unexpected behaviors when using damaged data. The content is discarded. Also used to reserve space in a sub-element for later use.
+description: Used to void damaged data or to avoid unexpected behaviors when using damaged data. The content is discarded. Also used to reserve space in a sub-element for later use.
 
 # Considerations for Reading EBML Data
 
 The following scenarios describe events to consider when reading `EBML Documents` and the recommended design of an `EBML Reader`.
 
-If a `Master Element` contains a `CRC-32 Element` that doesn't validate, then the `EBML Reader` MAY ignore all contained data except for `Descendant Elements` which contain their own valid `CRC-32 Element`.
+If a `Master Element` contains a `CRC-32 Element` that doesn't validate, then the `EBML Reader` MAY ignore all contained data except for `Descendant Elements` that contain their own valid `CRC-32 Element`.
 
 If a `Master Element` contains more occurrences of a `Child Master Element` than permitted according to the `maxOccurs` and `recurring` attributes of the definition of that `Element` then the occurrences in addition to `maxOccurs` MAY be ignored.
 
