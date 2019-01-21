@@ -406,7 +406,7 @@ PathMinOccurrence        = 1*DIGIT
 PathMaxOccurrence        = 1*DIGIT
 ```
 
-The `"*"`, `"("` and `")"` symbols MUST be interpreted as they are defined in the ABNF.
+The `"*"`, `"("` and `")"` symbols are interpreted as defined in [@!RFC5234].
 
 The `EBMLPathAtom` part of the `EBMLElementPath` MUST be equal to the `name` attribute of the `EBML Schema`.
 
