@@ -116,7 +116,7 @@ The `VINT_MARKER` serves as a separator between the `VINT_WIDTH` and `VINT_DATA`
 
 ## VINT_DATA
 
-The `VINT_DATA` portion of the `Variable Size Integer` includes all data that follows (but not including) the `VINT_MARKER` until end of the `Variable Size Integer` whose length is derived from the `VINT_WIDTH`. The bits required for the `VINT_WIDTH` and the `VINT_MARKER` combined use one out of eight bits of the total length of the `Variable Size Integer`. Thus a `Variable Size Integer` of 1 octet length supplies 7 bits for `VINT_DATA`, a 2 octet length supplies 14 bits for `VINT_DATA`, and a 3 octet length supplies 21 bits for `VINT_DATA`. If the number of bits required for `VINT_DATA` are less than the bit size of `VINT_DATA`, then `VINT_DATA` SHOULD be zero-padded to the left to a size that fits. The `VINT_DATA` value MUST be expressed as a big-endian unsigned integer.
+The `VINT_DATA` portion of the `Variable Size Integer` includes all data that follows (but not including) the `VINT_MARKER` until end of the `Variable Size Integer` whose length is derived from the `VINT_WIDTH`. The bits required for the `VINT_WIDTH` and the `VINT_MARKER` combined use one out of eight bits of the total length of the `Variable Size Integer`. Thus a `Variable Size Integer` of 1 octet length supplies 7 bits for `VINT_DATA`, a 2 octet length supplies 14 bits for `VINT_DATA`, and a 3 octet length supplies 21 bits for `VINT_DATA`. If the number of bits required for `VINT_DATA` are less than the bit size of `VINT_DATA`, then `VINT_DATA` MUST be zero-padded to the left to a size that fits. The `VINT_DATA` value MUST be expressed as a big-endian unsigned integer.
 
 ## VINT Examples
 
