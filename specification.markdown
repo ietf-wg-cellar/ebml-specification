@@ -98,7 +98,7 @@ Side channel attacks could exploit:
 
 # Structure
 
-`EBML` uses a system of `Elements` to compose an `EBML Document`. `EBML Elements` incorporate three parts: an `Element ID`, an `Element Data Size`, and `Element Data`. The `Element Data`, which is described by the `Element ID`, includes either binary data, one or many other `EBML Elements`, or both.
+`EBML` uses a system of `Elements` to compose an `EBML Document`. `EBML Elements` incorporate three parts: an `Element ID`, an `Element Data Size`, and `Element Data`. The `Element Data`, which is described by the `Element ID`, includes either binary data, one or more other `EBML Elements`, or both.
 
 # Variable Size Integer
 
@@ -329,13 +329,13 @@ All data of an `EBML Document` following the `EBML Header` is the `EBML Body`. T
 
 # EBML Stream
 
-An `EBML Stream` is a file that consists of one or many `EBML Documents` that are concatenated together. An occurrence of a `EBML Header` at the `Root Level` marks the beginning of an `EBML Document`.
+An `EBML Stream` is a file that consists of one or more `EBML Documents` that are concatenated together. An occurrence of a `EBML Header` at the `Root Level` marks the beginning of an `EBML Document`.
 
 # Elements semantic
 
 ## EBML Schema
 
-An `EBML Schema` is an XML Document that defines the properties, arrangement, and usage of `EBML Elements` that compose a specific `EBML Document Type`. The relationship of an `EBML Schema` to an `EBML Document` may be considered analogous to the relationship of an XML Schema [@?W3C.REC-xmlschema-0-20010502] to an XML Document [@!W3C.REC-xml-20081126]. An `EBML Schema` MUST be clearly associated with one or many `EBML Document Types`. An `EBML Schema` must be expressed as well-formed XML. An `EBML Document Type` is identified by a string stored within the `EBML Header` in the `DocType Element`; for example `matroska` or `webm` (see [the definition of the `DocType Element`](#doctype-element)). The `DocType` value for an `EBML Document Type` SHOULD be unique and persistent.
+An `EBML Schema` is an XML Document that defines the properties, arrangement, and usage of `EBML Elements` that compose a specific `EBML Document Type`. The relationship of an `EBML Schema` to an `EBML Document` may be considered analogous to the relationship of an XML Schema [@?W3C.REC-xmlschema-0-20010502] to an XML Document [@!W3C.REC-xml-20081126]. An `EBML Schema` MUST be clearly associated with one or more `EBML Document Types`. An `EBML Schema` must be expressed as well-formed XML. An `EBML Document Type` is identified by a string stored within the `EBML Header` in the `DocType Element`; for example `matroska` or `webm` (see [the definition of the `DocType Element`](#doctype-element)). The `DocType` value for an `EBML Document Type` SHOULD be unique and persistent.
 
 An `EBML Schema` MUST declare exactly one `EBML Element` at `Root Level` (referred to as the `Root Element`) that MUST occur exactly once within an `EBML Document`. The `Void Element` MAY also occur at `Root Level` but is not considered to be `Root Elements` (see [the definition of the `Void Element`](#void-element)).
 
@@ -367,7 +367,7 @@ The `version` attribute is REQUIRED within the `<EBMLSchema>` Element.
 
 Each `<element>` defines one `EBML Element` through the use of several attributes that are defined in [EBML Schema Element Attributes](#ebmlschema-attributes). `EBML Schemas` MAY contain additional attributes to extend the semantics but MUST NOT conflict with the definitions of the `<element>` attributes defined within this document.
 
-The `<element>` nodes contain a description of the meaning and use of the `EBML Element` stored within one or many `<documentation>` sub-elements and zero or one `<restriction>` sub-element. All `<element>` nodes MUST be sub-elements of the `<EBMLSchema>`.
+The `<element>` nodes contain a description of the meaning and use of the `EBML Element` stored within one or more `<documentation>` sub-elements and zero or one `<restriction>` sub-element. All `<element>` nodes MUST be sub-elements of the `<EBMLSchema>`.
 
 ### \<element> Attributes
 
