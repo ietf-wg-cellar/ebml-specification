@@ -446,6 +446,19 @@ A numerical range for `EBML Elements` which are of numerical types (Unsigned Int
 
 The `range` attribute is OPTIONAL. If the `range` attribute is not present then any value legal for the `type` attribute is valid.
 
+##### Expression of range
+
+The `range` attribute MUST only be used with `EBML Elements` that are either `signed integer`, `unsigned integer`, `float`, or `date`. The `range` expression may contain whitespace for readability but whitespace within a `range` expression MUST NOT convey meaning. The expression of the `range` MUST adhere to one of the following forms:
+
+- `x-y` where x and y are integers or floats and `y` MUST be greater than `x`, meaning that the value MUST be greater than or equal to `x` and less than or equal to `y`. `x` MUST be less than `y`.
+- `>x` where `x` is an integer or float, meaning that the value MUST be greater than `x`.
+- `>=x` where `x` is an integer or float, meaning that the value MUST be greater than or equal to `x`.
+- `<x` where `x` is an integer or float, meaning that the value MUST be less than `x`.
+- `<=x` where `x` is an integer or float, meaning that the value MUST be less than or equal to `x`.
+- `x` where `x` is an integer or float, meaning that the value MUST be equal `x`.
+
+The `range` may use the prefix `not ` to indicate that the expressed range is negated. Please also see [textual expression of floats](#textual-expression-of-floats).
+
 #### size
 
 A value to express the valid length of the `Element Data` as written measured in octets. The `size` provides a constraint in addition to the Length value of the definition of the corresponding `EBML Element Type`. This `size` MUST be expressed as either a non-negative integer or a range (see [expression of range](#expression-of-range)) that consists of only non-negative integers and valid operators.
@@ -547,19 +560,6 @@ The `value` attribute is REQUIRED.
 ### Identically Recurring Elements
 
 An `Identically Recurring Element` is an `EBML Element` that MAY occur within its `Parent Element` more than once but that each recurrence within that `Parent Element` MUST be identical both in storage and semantics. `Identically Recurring Elements` are permitted to be stored multiple times within the same `Parent Element` in order to increase data resilience and optimize the use of `EBML` in transmission. For instance a pertinent `Top-Level Element` could be periodically resent within a data stream so that an `EBML Reader` which starts reading the stream from the middle could better interpret the contents. `Identically Recurring Elements` SHOULD include a `CRC-32 Element` as a `Child Element`; this is especially recommended when `EBML` is used for long-term storage or transmission. If a `Parent Element` contains more than one copy of an `Identically Recurring Element` which includes a `CRC-32 Element` as a `Child Element` then the first instance of the `Identically Recurring Element` with a valid CRC-32 value should be used for interpretation. If a `Parent Element` contains more than one copy of an `Identically Recurring Element` which does not contain a `CRC-32 Element` or if `CRC-32 Elements` are present but none are valid then the first instance of the `Identically Recurring Element` should be used for interpretation.
-
-### Expression of range
-
-The `range` attribute MUST only be used with `EBML Elements` that are either `signed integer`, `unsigned integer`, `float`, or `date`. The `range` expression may contain whitespace for readability but whitespace within a `range` expression MUST NOT convey meaning. The expression of the `range` MUST adhere to one of the following forms:
-
-- `x-y` where x and y are integers or floats and `y` MUST be greater than `x`, meaning that the value MUST be greater than or equal to `x` and less than or equal to `y`. `x` MUST be less than `y`.
-- `>x` where `x` is an integer or float, meaning that the value MUST be greater than `x`.
-- `>=x` where `x` is an integer or float, meaning that the value MUST be greater than or equal to `x`.
-- `<x` where `x` is an integer or float, meaning that the value MUST be less than `x`.
-- `<=x` where `x` is an integer or float, meaning that the value MUST be less than or equal to `x`.
-- `x` where `x` is an integer or float, meaning that the value MUST be equal `x`.
-
-The `range` may use the prefix `not ` to indicate that the expressed range is negated. Please also see [textual expression of floats](#textual-expression-of-floats).
 
 ### Textual expression of floats
 
