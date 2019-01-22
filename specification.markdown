@@ -343,6 +343,10 @@ The `EBML Schema` MUST document all Elements of the `EBML Body`. The `EBML Schem
 
 An `EBML Schema` MAY constrain the use of `EBML Header Elements` (see [EBML Header Elements](#ebml-header-elements)) by adding or constraining that Element's `range` attribute. For example, an `EBML Schema` MAY constrain the `EBMLMaxSizeLength` to a maximum value of `8` or MAY constrain the `EBMLVersion` to only support a value of `1`. If an `EBML Schema` adopts the `EBML Header Element` as-is, then it is not required to document that Element within the `EBML Schema`. If an `EBML Schema` constrains the range of an `EBML Header Element`, then that `Element` MUST be documented within an `<element>` node of the `EBML Schema`. This document provides an example of an `EBML Schema`, see [EBML Schema Example](#ebml-schema-example).
 
+### EBML Schema Example
+
+<{{ebml_schema_example.xml}}
+
 ### \<EBMLSchema> Element
 
 As an XML Document, the `EBML Schema` MUST use `<EBMLSchema>` as the top level element. The `<EBMLSchema>` element MAY contain `<element>` sub-elements.
@@ -552,10 +556,6 @@ The `value` attribute is REQUIRED.
 ### XML Schema for EBML Schema
 
 <{{EBMLSchema.xsd}}
-
-### EBML Schema Example
-
-<{{ebml_schema_example.xml}}
 
 ### Identically Recurring Elements
 
