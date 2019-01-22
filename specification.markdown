@@ -104,7 +104,7 @@ Side channel attacks could exploit:
 
 # Variable Size Integer
 
-The `Element ID` and `Element Data Size` are both encoded as a `Variable Size Integer`, developed according to a UTF-8 like system. The `Variable Size Integer` is composed of a `VINT_WIDTH`, `VINT_MARKER`, and `VINT_DATA`, in that order. `Variable Size Integers` MUST left-pad the `VINT_DATA` value with zero bits so that the whole `Variable Size Integer` is octet-aligned. `Variable Size Integer` will be referred to as `VINT` for shorthand.
+The `Element ID` and `Element Data Size` are both encoded as a `Variable Size Integer`. The `Variable Size Integer` is composed of a `VINT_WIDTH`, `VINT_MARKER`, and `VINT_DATA`, in that order. `Variable Size Integers` MUST left-pad the `VINT_DATA` value with zero bits so that the whole `Variable Size Integer` is octet-aligned. `Variable Size Integer` will be referred to as `VINT` for shorthand.
 
 ## VINT_WIDTH
 
