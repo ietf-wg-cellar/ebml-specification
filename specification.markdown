@@ -567,6 +567,7 @@ When a float value is represented textually in an `EBML Schema`, such as within 
 
 | as decimal        | as Hexadecimal Floating-Point Constants |
 |:------------------|:----------------------------------------|
+| 0.0               | `0x0p+1`                                |
 | 0.0-1.0           | `0x0p+1-0x1p+0`                         |
 | 1.0-256.0         | `0x1p+0-0x1p+8`                         |
 | 0.857421875       | `0x1.b7p-1`                             |
