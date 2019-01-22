@@ -186,12 +186,15 @@ Octet Length | Possible Value Range
 7            | 0 to 2^49-2
 8            | 0 to 2^56-2
 
-If the length of `Element Data` equals `2^(n*7)-1` then the octet length of the `Element Data Size` MUST be at least `n+1`. This rule prevents an `Element Data Size` from being expressed as a reserved value. For example, an `EBML Element` with an octet length of 127 MUST NOT be encoded in an `Element Data Size` encoding with a one octet length. The following table clarifies this rule by showing a valid and invalid expression of an `Element Data Size` with a `VINT_DATA` of 127 (which is equal to 2^(1*7)-1).
+If the length of `Element Data` equals `2^(n*7)-1` then the octet length of the `Element Data Size` MUST be at least `n+1`. This rule prevents an `Element Data Size` from being expressed as a reserved value. The following table clarifies this rule by showing a valid and invalid expression of an `Element Data Size` with a `VINT_DATA` of 127 (which is equal to 2^(1*7)-1) and 16,383 (which is equal to 2^(2*7)-1).
 
-VINT_WIDTH  | VINT_MARKER  | VINT_DATA      | Element Data Size Status
------------:|-------------:|---------------:|---------------------------
-|           | 1            |        1111111 | Reserved (meaning Unknown)
-0           | 1            | 00000001111111 | Valid (meaning 127 octets)
+VINT_WIDTH  | VINT_MARKER  | VINT_DATA             | Element Data Size Status
+-----------:|-------------:|----------------------:|---------------------------
+|           | 1            |               1111111 | Reserved (meaning Unknown)
+0           | 1            |        00000001111111 | Valid (meaning 127 octets)
+00          | 1            | 000000000000001111111 | Valid (meaning 127 octets)
+0           | 1            |        11111111111111 | Reserved (meaning Unknown)
+00          | 1            | 000000011111111111111 | Valid (16,383 octets)
 
 # EBML Element Types
 
