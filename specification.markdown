@@ -855,25 +855,25 @@ Element IDs are described in section `Element ID`. Element IDs are encoded using
 
 This IANA Registry only applies to `Elements` contained at least in the `EBML Header`, thus including `Global Elements`. `Elements` only found in the `EBML Body` have their own set of independent `Element IDs` and are not part of this IANA Registry.
 
-The VINT Data value of one-octet Element IDs MUST be between 0x01 and 0x7E. These items are valuable because they are short, and need to be used for commonly repeated elements. Values from 1 to 126 are to be allocated according to RFC Required.
+The VINT Data value of one-octet Element IDs MUST be between 0x01 and 0x7E. These items are valuable because they are short, and need to be used for commonly repeated elements. Values from 1 to 126 are to be allocated according to the "RFC Required" policy [@!RFC8126].
 
-The VINT Data value of two-octet Element IDs MUST be between 0x007F and 0x3FFE. Numbers are be allocated within this range according to Specification Required.
+The VINT Data value of two-octet Element IDs MUST be between 0x007F and 0x3FFE. Numbers are be allocated within this range according to the "Specification Required" policy [@!RFC8126].
 
 The numbers 0x3FFF and 0x4000 are RESERVED.
 
-The VINT Data value of three-octet Element IDs MUST be between 0x4001 and 0x1FFFFE. Numbers may be allocated within this range according to First Come First Served (see [@!RFC8126])
+The VINT Data value of three-octet Element IDs MUST be between 0x4001 and 0x1FFFFE. Numbers may be allocated within this range according to the "First Come First Served" policy [@!RFC8126].
 
 The numbers 0x1FFFFF and 0x200000 are RESERVED.
 
-Four octet Element IDs are numbers between 0x2000001 and 0xFFFFFFE. Four octet Element IDs are somewhat special in that they are useful for resynchronizing to major structures in the event of data corruption or loss. As such four octet Element IDs are split into two categories. Four octet Element IDs whose lower three octets (as encoded) would make printable 7-bit ASCII values may be allocated only Specification Required. Sequential allocation of values is not required: specifications SHOULD include a specific request, and are encouraged to do early allocations.
+Four octet Element IDs are numbers between 0x2000001 and 0xFFFFFFE. Four octet Element IDs are somewhat special in that they are useful for resynchronizing to major structures in the event of data corruption or loss. As such four octet Element IDs are split into two categories. Four octet Element IDs whose lower three octets (as encoded) would make printable 7-bit ASCII values MUST be allocated by the "Specification Required" policy. Sequential allocation of values is not required: specifications SHOULD include a specific request, and are encouraged to do early allocations.
 
 To be clear about the above category: four octet Element IDs always start with hex 0x10 to 0x1F, and that octet may be chosen so that the entire number has some desirable property, such as a specific CRC. The other three octets, when ALL having values between 0x21 (33, ASCII !) and 0x7e (126, ASCII ~), fall into this category.
 
-Other four octet Element IDs may be allocated by First Come First Served (see [@!RFC8126]).
+Other four octet Element IDs may be allocated by the "First Come First Served" policy.
 
 The numbers 0xFFFFFFF and 0x1000000 are RESERVED.
 
-Five octet Element IDs (values from 0x10000001 upwards) are reserved for Experimental use: they may be used by anyone at any time, but there is no coordination.
+Five octet Element IDs (values from 0x10000001 upwards) are RESERVED according to the "Experimental Use" policy [@!RFC8126]: they may be used by anyone at any time, but there is no coordination.
 
 ID Values found in this document are assigned as initial values as follows:
 
@@ -897,9 +897,9 @@ ID Values found in this document are assigned as initial values as follows:
 
 This document creates a new IANA Registry called "CELLAR EBML DocType Registry".
 
-DocType values are described in [this section](#doctype). DocTypes are ASCII strings, defined in [the `String Element` section](#string-element), which label the official name of the `EBML Document Type`. The strings may be allocated according to First Come First Served (see [@!RFC8126]).
+DocType values are described in [this section](#doctype). DocTypes are ASCII strings, defined in [the `String Element` section](#string-element), which label the official name of the `EBML Document Type`. The strings may be allocated according to the "First Come First Served" policy.
 
 The use of ASCII corresponds to the types and code already in use, the value is not meant to be visible to the user.
 
-DocType string values of "matroska" and "webm" are reserved to the IETF for future use.
-These can be assigned via IESG Approval or RFC Required.
+DocType string values of "matroska" and "webm" are RESERVED to the IETF for future use.
+These can be assigned via the "IESG Approval" or "RFC Required" policies [@!RFC8126].
