@@ -493,13 +493,13 @@ The `type` attribute is REQUIRED.
 
 #### unknownsizeallowed
 
-A boolean to express if an `EBML Element` MAY be used as an `Unknown-Sized Element` (having all `VINT_DATA` bits of `Element Data Size` set to 1). `EBML Elements` that are not `Master Elements` MUST NOT set `unknownsizeallowed` to true. An `EBML Element` that is defined with an `unknownsizeallowed` attribute set to 1 MUST also have the `unknownsizeallowed` attribute of its `Parent Element` set to 1.
+A boolean to express if an `EBML Element` is permitted to be `Unknown-Sized Element` (having all `VINT_DATA` bits of `Element Data Size` set to 1). `EBML Elements` that are not `Master Elements` MUST NOT set `unknownsizeallowed` to true. An `EBML Element` that is defined with an `unknownsizeallowed` attribute set to 1 MUST also have the `unknownsizeallowed` attribute of its `Parent Element` set to 1.
 
 The `unknownsizeallowed` attribute is OPTIONAL. If the `unknownsizeallowed` attribute is not used then that `EBML Element` is not allowed to use an unknown `Element Data Size`.
 
 #### recursive
 
-A boolean to express if an `EBML Element` MAY be stored recursively. In this case the `EBML Element` MAY be stored within another `EBML Element` that has the same `Element ID`. Which itself can be stored in an `EBML Element` that has the same `Element ID`, and so on. `EBML Elements` that are not `Master Elements` MUST NOT set `recursive` to true.
+A boolean to express if an `EBML Element` is permitted to be stored recursively. In this case the `EBML Element` MAY be stored within another `EBML Element` that has the same `Element ID`. Which itself can be stored in an `EBML Element` that has the same `Element ID`, and so on. `EBML Elements` that are not `Master Elements` MUST NOT set `recursive` to true.
 
 If the `path` contains an `EBMLPathAtomRecursive` part then the `recursive` value MUST be true and false otherwise.
 
