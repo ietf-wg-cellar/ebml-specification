@@ -70,39 +70,6 @@ This document defines specific terms in order to define the format and applicati
 
 `Empty Element`: An `EBML Element` that has an `Element Data Size` with all `VINT_DATA` bits set to zero, which indicates that the `Element Data` of the `Element` is zero octets in length.
 
-# Security Considerations
-
-`EBML` itself does not offer any kind of security and does not provide confidentiality. `EBML` does not provide any kind of authorization. `EBML` only offers marginally useful and effective data integrity options, such as CRC elements.
-
-Even if the semantic layer offers any kind of encryption, `EBML` itself could leak information at both the semantic layer (as declared via the `DocType Element`) and within the `EBML` structure (the presence of `EBML Elements` can be derived even with an unknown semantic layer using a heuristic approach; not without errors, of course, but with a certain degree of confidence).
-
-An `EBML Document` that has the following issues may still be handled by the `EBML Reader` and the data accepted as such:
-
-- Invalid `Element IDs` that are longer than the limit stated in the `EBMLMaxIDLength Element` of the `EBML Header`.
-- Invalid `Element IDs` that are not encoded in the shortest-possible way.
-- Invalid `Element IDs` comprised of reserved values.
-- Invalid `Element Data Size` values that are longer than the limit stated in the `EBMLMaxSizeLength Element` of the `EBML Header`.
-- Usage of `0x00` octets in `EBML Elements` with a string type.
-
-An `EBML Reader` may discard some or all data if the following errors are found in the `EBML Document`:
-
-- Invalid `Element Data Size` values (e.g. extending the length of the `EBML Element` beyond the scope of the `Parent Element`; possibly triggering access-out-of-bounds issues).
-- Very high lengths in order to force out-of-memory situations resulting in a denial of service, access-out-of-bounds issues etc.
-- Missing `EBML Elements` that are mandatory and have no declared default value.
-- Usage of invalid UTF-8 encoding in `EBML Elements` of UTF-8 type (e.g. in order to trigger access-out-of-bounds or buffer overflow issues).
-- Usage of invalid data in `EBML Elements` with a date type.
-
-Side channel attacks could exploit:
-
-- The semantic equivalence of the same string stored in a `String Element` or `UTF-8 Element` with and without zero-bit padding.
-- The semantic equivalence of `VINT_DATA` within `Element Data Size` with two different lengths due to left-padding zero bits.
-- Data contained within a `Master Element` which is not itself part of an `EBML Element`.
-- Extraneous copies of `Identically Recurring Element`.
-- Copies of `Identically Recurring Element` within a `Parent Element` that contain invalid `CRC-32 Elements`.
-- Use of `Void Elements`.
-
-An `EBML Reader` MAY use the data if it considers it doesn't create any security issue.
-
 # Structure
 
 `EBML` uses a system of `Elements` to compose an `EBML Document`. `EBML Elements` incorporate three parts: an `Element ID`, an `Element Data Size`, and `Element Data`. The `Element Data`, which is described by the `Element ID`, includes either binary data, one or more other `EBML Elements`, or both.
@@ -855,6 +822,39 @@ If a `Master Element` contains a `CRC-32 Element` that doesn't validate, then th
 If a `Master Element` contains more occurrences of a `Child Master Element` than permitted according to the `maxOccurs` and `recurring` attributes of the definition of that `Element` then the occurrences in addition to `maxOccurs` MAY be ignored.
 
 If a `Master Element` contains more occurrences of a `Child Element` that is not a `Master Element` than permitted according to the `maxOccurs` attribute of the definition of that `Element` then all but the instance of that `Element` with the smallest byte offset from the beginning of its `Parent Element` SHOULD be ignored.
+
+# Security Considerations
+
+`EBML` itself does not offer any kind of security and does not provide confidentiality. `EBML` does not provide any kind of authorization. `EBML` only offers marginally useful and effective data integrity options, such as CRC elements.
+
+Even if the semantic layer offers any kind of encryption, `EBML` itself could leak information at both the semantic layer (as declared via the `DocType Element`) and within the `EBML` structure (the presence of `EBML Elements` can be derived even with an unknown semantic layer using a heuristic approach; not without errors, of course, but with a certain degree of confidence).
+
+An `EBML Document` that has the following issues may still be handled by the `EBML Reader` and the data accepted as such:
+
+- Invalid `Element IDs` that are longer than the limit stated in the `EBMLMaxIDLength Element` of the `EBML Header`.
+- Invalid `Element IDs` that are not encoded in the shortest-possible way.
+- Invalid `Element IDs` comprised of reserved values.
+- Invalid `Element Data Size` values that are longer than the limit stated in the `EBMLMaxSizeLength Element` of the `EBML Header`.
+- Usage of `0x00` octets in `EBML Elements` with a string type.
+
+An `EBML Reader` may discard some or all data if the following errors are found in the `EBML Document`:
+
+- Invalid `Element Data Size` values (e.g. extending the length of the `EBML Element` beyond the scope of the `Parent Element`; possibly triggering access-out-of-bounds issues).
+- Very high lengths in order to force out-of-memory situations resulting in a denial of service, access-out-of-bounds issues etc.
+- Missing `EBML Elements` that are mandatory and have no declared default value.
+- Usage of invalid UTF-8 encoding in `EBML Elements` of UTF-8 type (e.g. in order to trigger access-out-of-bounds or buffer overflow issues).
+- Usage of invalid data in `EBML Elements` with a date type.
+
+Side channel attacks could exploit:
+
+- The semantic equivalence of the same string stored in a `String Element` or `UTF-8 Element` with and without zero-bit padding.
+- The semantic equivalence of `VINT_DATA` within `Element Data Size` with two different lengths due to left-padding zero bits.
+- Data contained within a `Master Element` which is not itself part of an `EBML Element`.
+- Extraneous copies of `Identically Recurring Element`.
+- Copies of `Identically Recurring Element` within a `Parent Element` that contain invalid `CRC-32 Elements`.
+- Use of `Void Elements`.
+
+An `EBML Reader` MAY use the data if it considers it doesn't create any security issue.
 
 # IANA Considerations
 
