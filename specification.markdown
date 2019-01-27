@@ -512,11 +512,11 @@ A `lang` attribute which is set to the [@!RFC5646] value of the language of the 
 
 The `lang` attribute is OPTIONAL.
 
-#### type
+#### purpose
 
-A `type` attribute distinguishes the meaning of the documentation. Values for the `<documentation>` sub-element's `type` attribute MUST include one of the following: `definition`, `rationale`, `usage notes`, and `references`.
+A `purpose` attribute distinguishes the meaning of the documentation. Values for the `<documentation>` sub-element's `purpose` attribute MUST include one of the following: `definition`, `rationale`, `usage notes`, and `references`.
 
-The `type` attribute is OPTIONAL.
+The `purpose` attribute is OPTIONAL.
 
 ### \<restriction> Element
 
