@@ -377,7 +377,7 @@ The path defines the allowed storage locations of the `EBML Element` within an `
 The `path` attribute is REQUIRED.
 
 ```
-EBMLFullPath           = EBMLElementOccurrence "(" EBMLReferencePath ")"
+EBMLFullPath             = EBMLElementOccurrence "(" EBMLReferencePath ")"
 EBMLReferencePath        = [EBMLParentPath] EBMLElementPath
 EBMLParentPath           = EBMLFixedParent EBMLLastParent
 EBMLFixedParent          = *(EBMLPathAtom)
