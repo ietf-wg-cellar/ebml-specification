@@ -25,7 +25,7 @@
     <xsd:attribute name="minOccurs" default="0"/>
     <xsd:attribute name="maxOccurs" default="1"/>
     <xsd:attribute name="range"/>
-    <xsd:attribute name="size"/>
+    <xsd:attribute name="length"/>
     <xsd:attribute name="default"/>
     <xsd:attribute name="type" use="required"/>
     <xsd:attribute name="unknownsizeallowed"/>

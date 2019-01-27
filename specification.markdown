@@ -450,11 +450,11 @@ The `range` attribute MUST only be used with `EBML Elements` that are either `si
 
 The `range` may use the prefix `not ` to indicate that the expressed range is negated. Please also see [textual expression of floats](#textual-expression-of-floats).
 
-#### size
+#### length
 
-A value to express the valid length of the `Element Data` as written measured in octets. The `size` provides a constraint in addition to the Length value of the definition of the corresponding `EBML Element Type`. This `size` MUST be expressed as either a non-negative integer or a range (see [expression of range](#expression-of-range)) that consists of only non-negative integers and valid operators.
+A value to express the valid length of the `Element Data` as written measured in octets. The `length` provides a constraint in addition to the Length value of the definition of the corresponding `EBML Element Type`. This `length` MUST be expressed as either a non-negative integer or a range (see [expression of range](#expression-of-range)) that consists of only non-negative integers and valid operators.
 
-The `size` attribute is OPTIONAL. If the `size` attribute is not present for that `EBML Element` then that `EBML Element` is only limited in size by the definition of the associated `EBML Element Type`.
+The `length` attribute is OPTIONAL. If the `length` attribute is not present for that `EBML Element` then that `EBML Element` is only limited in size by the definition of the associated `EBML Element Type`.
 
 #### default
 
@@ -691,7 +691,7 @@ minOccurs: 1
 
 maxOccurs: 1
 
-size: >0
+length: >0
 
 type: String
 
@@ -763,7 +763,7 @@ minOccurs: 1
 
 maxOccurs: 1
 
-size: >0
+length: >0
 
 type: String
 
@@ -803,7 +803,7 @@ minOccurs: 0
 
 maxOccurs: 1
 
-size: 4
+length: 4
 
 type: Binary
 
