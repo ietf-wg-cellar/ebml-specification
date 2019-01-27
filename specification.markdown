@@ -413,6 +413,8 @@ The `VariableParentOccurrence` part is interpreted as an ABNF Variable Repetitio
 
 If the path contains an `EBMLPathAtomRecursive` part, the `EBML Element` can occur within itself recursively (see the [recursive attribute](#recursive)).
 
+As an example, the `path` for `EBMLMaxIDLength`, according to its [definition](#ebmlmaxidlength-element), translates to "1*1(\EBML\EBMLMaxIDLength)". Meaning it's found insided the `EBML` at least once and at most once.
+
 #### id
 
 The `Element ID` encoded as a `Variable Size Integer` expressed in hexadecimal notation prefixed by a `0x` that is read and stored in big-endian order. To reduce the risk of false positives while parsing `EBML Streams`, the `Element IDs` of the `Root Element` and `Top-Level Elements` SHOULD be at least 4 octets in length. `Element IDs` defined for use at `Root Level` or directly under the `Root Level` MAY use shorter octet lengths to facilitate padding and optimize edits to `EBML Documents`; for instance, the `Void Element` uses an `Element ID` with a one octet length to allow its usage in more writing and editing scenarios.
