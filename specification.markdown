@@ -403,7 +403,7 @@ The `VariableParentOccurrence` part is interpreted as an ABNF Variable Repetitio
 
 If the path contains an `EBMLPathAtomRecursive` part, the `EBML Element` can occur within itself recursively (see the [recursive attribute](#recursive)).
 
-As an example, the `path` for `EBMLMaxIDLength`, according to its [definition](#ebmlmaxidlength-element), translates to "1*1(\EBML\EBMLMaxIDLength)". Meaning it's found insided the `EBML` at least once and at most once.
+As an example, the `path` for `EBMLMaxIDLength` (see (#ebmlmaxidlength-element)), according to its definition, translates to "1*1(\EBML\EBMLMaxIDLength)". Meaning it's found insided the `EBML` at least once and at most once.
 
 #### id
 
