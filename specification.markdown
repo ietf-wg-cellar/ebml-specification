@@ -341,7 +341,7 @@ The version of the `EBML Header` is found in `EBMLVersion`. An `EBML` parser can
 
 ## EBML Document Version
 
-The version of the `EBML Document` is found in `EBMLDocTypeVersion`. A parser for the particular `DocType` format can read the `EBML Document` if it can read either the `EBMLDocTypeVersion` version of that format or a version equal or higher than the one found in `EBMLDocTypeReadVersion`.
+The version of the `EBML Body` is found in `EBMLDocTypeVersion`. A parser for the particular `DocType` format can read the `EBML Document` if it can read either the `EBMLDocTypeVersion` version of that format or a version equal or higher than the one found in `EBMLDocTypeReadVersion`.
 
 # Elements semantic
 
