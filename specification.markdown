@@ -288,7 +288,7 @@ If the Element to be changed is a Descendant Element of any Master Element that 
 
 # EBML Document
 
-An EBML Document is comprised of only two components, an EBML Header and an EBML Body. An EBML Document MUST start with an EBML Header that declares significant characteristics of the entire EBML Body. An EBML Document consists of EBML Elements and MUST NOT contain any data that is not part of an EBML Element.
+An EBML Document is comprised of only two components, an EBML Header and an EBML Body. An EBML Document MUST start with an EBML Header that declares significant characteristics of the entire EBML Body. An EBML Document consists of EBML Elements and SHOULD NOT contain any data that is not part of an EBML Element.
 
 ## EBML Header
 
