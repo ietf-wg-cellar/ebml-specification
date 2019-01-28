@@ -308,6 +308,18 @@ All data of an `EBML Document` following the `EBML Header` is the `EBML Body`. T
 
 An `EBML Stream` is a file that consists of one or more `EBML Documents` that are concatenated together. An occurrence of a `EBML Header` at the `Root Level` marks the beginning of an `EBML Document`.
 
+# EBML Versioning
+
+An `EBML Document` handles 2 different versions: the version of the `EBML Header` and the version of the `EBML Body`. Both versions are meant to be backward compatible.
+
+## EBML Header Version
+
+The version of the `EBML Header` is found in `EBMLVersion`. An `EBML` parser can read an `EBML Header` if it can read either the `EBMLVersion` version or a version equal or higher than the one found in `EBMLReadVersion`.
+
+## EBML Document Version
+
+The version of the `EBML Body` is found in `EBMLDocTypeVersion`. A parser for the particular `DocType` format can read the `EBML Document` if it can read either the `EBMLDocTypeVersion` version of that format or a version equal or higher than the one found in `EBMLDocTypeReadVersion`.
+
 # Elements semantic
 
 ## EBML Schema
