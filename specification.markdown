@@ -454,7 +454,7 @@ The `range` may use the prefix `not ` to indicate that the expressed range is ne
 
 A value to express the valid length of the `Element Data` as written measured in octets. The `length` provides a constraint in addition to the Length value of the definition of the corresponding `EBML Element Type`. This `length` MUST be expressed as either a non-negative integer or a range (see [expression of range](#expression-of-range)) that consists of only non-negative integers and valid operators.
 
-The `length` attribute is OPTIONAL. If the `length` attribute is not present for that `EBML Element` then that `EBML Element` is only limited in size by the definition of the associated `EBML Element Type`.
+The `length` attribute is OPTIONAL. If the `length` attribute is not present for that `EBML Element` then that `EBML Element` is only limited in length by the definition of the associated `EBML Element Type`.
 
 #### default
 
