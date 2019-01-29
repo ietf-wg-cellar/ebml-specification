@@ -232,8 +232,8 @@ The following table shows examples of semantics and validation for the use of `N
 
 Stored Value        | Semantic Meaning
 :-------------------|:-------------------
-0x65 0x62 0x6d 0x6c | 0x65 0x62 0x6d 0x6c
-0x65 0x62 0x00 0x6c | 0x65 0x62
+0x65 0x62 0x6D 0x6C | 0x65 0x62 0x6D 0x6C
+0x65 0x62 0x00 0x6C | 0x65 0x62
 0x65 0x62 0x00 0x00 | 0x65 0x62
 0x65 0x62           | 0x65 0x62
 
@@ -257,8 +257,8 @@ For example, the first row of the following table depicts a `String Element` tha
 
 | Status      | Element ID | Element Data Size | Element Data       |
 |-------------|------------|-------------------|--------------------|
-| Before edit | 0x3B4040   | 0x84              | 0x65626d6c         |
-| After edit  | 0x3B4040   | 0x4003            | 0x6d6b76           |
+| Before edit | 0x3B4040   | 0x84              | 0x65626D6C         |
+| After edit  | 0x3B4040   | 0x4003            | 0x6D6B76           |
 
 This method is RECOMMENDED when the `Element Data` is reduced by a single octet; for reductions by two or more octets it is RECOMMENDED to fill the freed space with a `Void Element`.
 
@@ -266,7 +266,7 @@ Note that if the `Element Data` length needs to be rewritten as shortened by one
 
 Status | Element ID | Element Data Size | Element Data | Void Element
 -------|------------|-------------------|--------------|-------------
-Before | 0x3B4040   | 0x4003            | 0x6d6b76     |
+Before | 0x3B4040   | 0x4003            | 0x6D6B76     |
 After  | 0x3B4040   | 0x82              | 0x6869       | 0xEC80
 
 ### Terminating Element Data
@@ -277,8 +277,8 @@ In the following table, a four octet long `Element Data` is changed to a three o
 
 | Status      | Element ID | Element Data Size | Element Data       |
 |-------------|------------|-------------------|--------------------|
-| Before edit | 0x3B4040   | 0x84              | 0x65626d6c         |
-| After edit  | 0x3B4040   | 0x84              | 0x6d6b7600         |
+| Before edit | 0x3B4040   | 0x84              | 0x65626D6C         |
+| After edit  | 0x3B4040   | 0x84              | 0x6D6B7600         |
 
 Note that this method is NOT RECOMMENDED. For reductions of one octet, the method for `Extending the Element Data Size` SHOULD be used. For reduction by more than one octet, the method for `Adding a Void Element` SHOULD be used.
 
@@ -890,7 +890,7 @@ The numbers 0x1FFFFF and 0x200000 are RESERVED.
 
 Four octet Element IDs are numbers between 0x2000001 and 0xFFFFFFE. Four octet Element IDs are somewhat special in that they are useful for resynchronizing to major structures in the event of data corruption or loss. As such four octet Element IDs are split into two categories. Four octet Element IDs whose lower three octets (as encoded) would make printable 7-bit ASCII values MUST be allocated by the "Specification Required" policy. Sequential allocation of values is not required: specifications SHOULD include a specific request, and are encouraged to do early allocations.
 
-To be clear about the above category: four octet Element IDs always start with hex 0x10 to 0x1F, and that octet may be chosen so that the entire number has some desirable property, such as a specific CRC. The other three octets, when ALL having values between 0x21 (33, ASCII !) and 0x7e (126, ASCII ~), fall into this category.
+To be clear about the above category: four octet Element IDs always start with hex 0x10 to 0x1F, and that octet may be chosen so that the entire number has some desirable property, such as a specific CRC. The other three octets, when ALL having values between 0x21 (33, ASCII !) and 0x7E (126, ASCII ~), fall into this category.
 
 Other four octet Element IDs may be allocated by the "First Come First Served" policy.
 
