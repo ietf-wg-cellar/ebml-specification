@@ -82,7 +82,7 @@ The `Element ID` and `Element Data Size` are both encoded as a `Variable Size In
 
 Each `Variable Size Integer` begins with a `VINT_WIDTH` which consists of zero or many zero-value bits. The count of consecutive zero-values of the `VINT_WIDTH` plus one equals the length in octets of the `Variable Size Integer`. For example, a `Variable Size Integer` that starts with a `VINT_WIDTH` which contains zero consecutive zero-value bits is one octet in length and a `Variable Size Integer` that starts with one consecutive zero-value bit is two octets in length. The `VINT_WIDTH` MUST only contain zero-value bits or be empty.
 
-Within the `EBML Header` the `VINT_WIDTH` MUST NOT exceed three bits in length (meaning that the `Variable Size Integer` MUST NOT exceed four octets in length). Within the `EBML Body`, when a `VINT` is used to express an `Element ID`, the maximum length allowed for the `VINT_WIDTH` is one less than the value set in the `EBMLMaxIDLength Element`. Within the `EBML Body`, when a `VINT` is used to express an `Element Data Size`, the maximum length allowed for the `VINT_WIDTH` is one less than the value set in the `EBMLMaxSizeLength Element`.
+Within the `EBML Header` the `VINT_WIDTH` of a `VINT` MUST NOT exceed three bits in length (meaning that the `Variable Size Integer` MUST NOT exceed four octets in length) except if said `VINT` is used to express the `Element Data Size` of an `EBML Element` with `Element Name` `EBML` and `Element ID` `0x1A45DFA3` (see [the definition of the `EBML` Element](#ebml-element)) in which case the `VINT_WIDTH` MUST NOT exceed seven bits in length. Within the `EBML Body`, when a `VINT` is used to express an `Element ID`, the maximum length allowed for the `VINT_WIDTH` is one less than the value set in the `EBMLMaxIDLength Element`. Within the `EBML Body`, when a `VINT` is used to express an `Element Data Size`, the maximum length allowed for the `VINT_WIDTH` is one less than the value set in the `EBMLMaxSizeLength Element`.
 
 ## VINT_MARKER
 
@@ -297,8 +297,6 @@ The `EBML Header` is a declaration that provides processing instructions and ide
 The `EBML Header` documents the `EBML Schema` (also known as the `EBML DocType`) that is used to semantically interpret the structure and meaning of the `EBML Document`. Additionally the `EBML Header` documents the versions of both `EBML` and the `EBML Schema` that were used to write the `EBML Document` and the versions required to read the `EBML Document`.
 
 The `EBML Header` MUST contain a single `Master Element` with an `Element Name` of `EBML` and `Element ID` of `0x1A45DFA3` (see [the definition of the `EBML` Element](#ebml-element)) and any number of additional `EBML Elements` within it. The `EBML Header` of an `EBML Document` that uses an `EBMLVersion` of `1` MUST only contain `EBML Elements` that are defined as part of this document.
-
-`EBML Elements` within the `EBML Header` MUST NOT use any `Element ID` with a length greater than 4 octets. All `EBML Elements` within the `EBML Header` MUST NOT use any `Element Data Size` with a length greater than 4 octets.
 
 ## EBML Body
 
