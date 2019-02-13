@@ -405,9 +405,9 @@ The starting `PathDelimiter` of the path corresponds to the root of the `EBML Do
 
 The `EBMLElementOccurrence` part is interpreted as an ABNF Variable Repetition. The repetition amounts correspond to how many times the `EBML Element` can be found in its `Parent Element`.
 
-The `EBMLMinOccurrence` represents the minimum number of occurrences of this `EBML Element` within its `Parent Element`. Each instance of the `Parent Element` MUST contain at least this many instances of this `EBML Element`. If the `EBML Element` has an empty `EBMLParentPath` then `EBMLMinOccurrence` refers to constraints on the occurrence of the `EBML Element` within the `EBML Document`. If `EBMLMinOccurrence` is not present then that `EBML Element` has an `EBMLMinOccurrence` value of 0. The semantic meaning of `EBMLMinOccurrence` within an `EBML Schema` is analogous to the meaning of `minOccurs` within an `XML Schema`. `EBML Elements` with `EBMLMinOccurrence` set to "1" that also have a `default` value (see [default](#default)) declared are not REQUIRED to be stored but are REQUIRED to be interpreted, see [Note on the Use of default attributes to define Mandatory EBML Elements](#note-on-the-use-of-default-attributes-to-define-mandatory-ebml-elements). An `EBML Element` defined with a `EBMLMinOccurrence` value greater than zero is called a `Mandatory EBML Element`.
+The `EBMLMinOccurrence` represents the minimum permitted number of occurrences of this `EBML Element` within its `Parent Element`. Each instance of the `Parent Element` MUST contain at least this many instances of this `EBML Element`. If the `EBML Element` has an empty `EBMLParentPath` then `EBMLMinOccurrence` refers to constraints on the occurrence of the `EBML Element` within the `EBML Document`. If `EBMLMinOccurrence` is not present then that `EBML Element` has an `EBMLMinOccurrence` value of 0. The semantic meaning of `EBMLMinOccurrence` within an `EBML Schema` is analogous to the meaning of `minOccurs` within an `XML Schema`. `EBML Elements` with `EBMLMinOccurrence` set to "1" that also have a `default` value (see [default](#default)) declared are not REQUIRED to be stored but are REQUIRED to be interpreted, see [Note on the Use of default attributes to define Mandatory EBML Elements](#note-on-the-use-of-default-attributes-to-define-mandatory-ebml-elements). An `EBML Element` defined with a `EBMLMinOccurrence` value greater than zero is called a `Mandatory EBML Element`.
 
-The `EBMLMaxOccurrence` represents the maximum number of occurrences of this `EBML Element` within its `Parent Element`. Each instance of the `Parent Element` MUST contain at most this many instances of this `EBML Element`. If the `EBML Element` has an empty `EBMLParentPath` then `EBMLMaxOccurrence` refers to constraints on the occurrence of the `EBML Element` within the `EBML Document`. If `EBMLMaxOccurrence` is not present then that `EBML Element` has no maximum occurrence. The semantic meaning of `EBMLMaxOccurrence` within an `EBML Schema path` is analogous to the meaning of `maxOccurs` within an `XML Schema`.
+The `EBMLMaxOccurrence` represents the maximum permitted number of occurrences of this `EBML Element` within its `Parent Element`. Each instance of the `Parent Element` MUST contain at most this many instances of this `EBML Element`. If the `EBML Element` has an empty `EBMLParentPath` then `EBMLMaxOccurrence` refers to constraints on the occurrence of the `EBML Element` within the `EBML Document`. If `EBMLMaxOccurrence` is not present then there is no upper bound for the permitted number of occurences of this `EBML Element` within its `Parent Element` resp. within the `EBML Document` depending on whether the `EBMLParentPath` of the `EBML Element` is empty or not. The semantic meaning of `EBMLMaxOccurrence` within an `EBML Schema path` is analogous to the meaning of `maxOccurs` within an `XML Schema`.
 
 The `VariableParentOccurrence` part is interpreted as an ABNF Variable Repetition. The repetition amounts correspond to the amount of unspecified `Parent Element` levels there can be between the `EBMLFixedParent` and the actual `EBMLElementPath`.
 
@@ -423,13 +423,13 @@ The `id` attribute is REQUIRED.
 
 #### minOccurs
 
-An integer expressing the minimum number of occurrences of this `EBML Element` within its `Parent Element`. The `minOccurs` value MUST be equal to the `EBMLMinOccurrence` value of the `path`.
+An integer expressing the minimum permitted number of occurrences of this `EBML Element` within its `Parent Element`. The `minOccurs` value MUST be equal to the `EBMLMinOccurrence` value of the `path`.
 
 The `minOccurs` attribute is OPTIONAL. If the `minOccurs` attribute is not present then that `EBML Element` has a `minOccurs` value of 0.
 
 #### maxOccurs
 
-An integer expressing the maximum number of occurrences of this `EBML Element` within its `Parent Element`. The `maxOccurs` value MUST be equal to the `EBMLMaxOccurrence` value of the `path`.
+An integer expressing the maximum permitted number of occurrences of this `EBML Element` within its `Parent Element`. The `maxOccurs` value MUST be equal to the `EBMLMaxOccurrence` value of the `path`.
 
 The `maxOccurs` attribute is OPTIONAL. If the `maxOccurs` attribute is not present then that `EBML Element` has no maximum occurrence, similar to `unbounded` in the XML world.
 
@@ -659,7 +659,7 @@ default: 4
 
 type: Unsigned Integer
 
-description: The `EBMLMaxIDLength Element` stores the maximum length in octets of the `Element IDs` to be found within the `EBML Body`. An `EBMLMaxIDLength Element` value of four is RECOMMENDED, though larger values are allowed.
+description: The `EBMLMaxIDLength Element` stores the maximum permitted length in octets of the `Element IDs` to be found within the `EBML Body`. An `EBMLMaxIDLength Element` value of four is RECOMMENDED, though larger values are allowed.
 
 ### EBMLMaxSizeLength Element
 
@@ -679,7 +679,7 @@ default: 8
 
 type: Unsigned Integer
 
-description: The `EBMLMaxSizeLength Element` stores the maximum length in octets of the expression of all `Element Data Sizes` to be found within the `EBML Body`. To be clear the `EBMLMaxSizeLength Element` documents the maximum 'length' of all `Element Data Size` expressions within the `EBML Body` and not the maximum 'value' of all `Element Data Size` expressions within the `EBML Body`. `EBML Elements` that have an `Element Data Size` expression which is larger in octets than what is expressed by the `EBMLMaxSizeLength Element` are invalid.
+description: The `EBMLMaxSizeLength Element` stores the maximum permitted length in octets of the expressions of all `Element Data Sizes` to be found within the `EBML Body`. The `EBMLMaxSizeLength Element` documents an upper bound for the 'length' of all `Element Data Size` expressions within the `EBML Body` and not an upper bound for the 'value' of all `Element Data Size` expressions within the `EBML Body`. `EBML Elements` that have an `Element Data Size` expression which is larger in octets than what is expressed by `EBMLMaxSizeLength Element` are invalid.
 
 ### DocType Element
 
