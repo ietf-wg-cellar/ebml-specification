@@ -360,11 +360,11 @@ The version attribute is REQUIRED within the `<EBMLSchema>` Element.
 
 Each `<element>` defines one EBML Element through the use of several attributes that are defined in [EBML Schema Element Attributes](#ebmlschema-attributes). EBML Schemas MAY contain additional attributes to extend the semantics but MUST NOT conflict with the definitions of the `<element>` attributes defined within this document.
 
-The `<element> nodes contain a description of the meaning and use of the EBML Element stored within one or more `<documentation>` sub-elements and zero or one `<restriction>` sub-element. All `<element>` nodes MUST be sub-elements of the `<EBMLSchema>`.
+The `<element>` nodes contain a description of the meaning and use of the EBML Element stored within one or more `<documentation>` sub-elements and zero or one `<restriction>` sub-element. All `<element>` nodes MUST be sub-elements of the `<EBMLSchema>`.
 
 ### \<element> Attributes
 
-Within an EBML Schema the `<element> uses the following attributes to define an EBML Element`:
+Within an EBML Schema the `<element>` uses the following attributes to define an EBML Element:
 
 #### name
 
@@ -506,7 +506,7 @@ The maxver attribute is OPTIONAL. If the maxver attribute is not present then th
 
 ### \<documentation> Element
 
-The `<documentation> element provides additional information about the EBML Element`.
+The `<documentation>` element provides additional information about the EBML Element.
 
 ### \<documentation> Attributes
 
@@ -524,11 +524,11 @@ The purpose attribute is OPTIONAL.
 
 ### \<restriction> Element
 
-The `<restriction> element provides information about restrictions to the allowable values for the EBML Element which are listed in <enum>` elements.
+The `<restriction>` element provides information about restrictions to the allowable values for the EBML Element which are listed in `<enum>` elements.
 
 ### \<enum> Element
 
-The `<enum>` element stores a list of values allowed for storage in the EBML Element. The values MUST match the type of the EBML Element (for example `<enum value="Yes">` cannot be a valid value for a EBML Element that is defined as an unsigned integer). An `<enum>` element MAY also store <documentation> elements to further describe the <enum>.
+The `<enum>` element stores a list of values allowed for storage in the EBML Element. The values MUST match the type of the EBML Element (for example `<enum value="Yes">` cannot be a valid value for a EBML Element that is defined as an unsigned integer). An `<enum>` element MAY also store `<documentation>` elements to further describe the `<enum>`.
 
 ### \<enum> Attributes
 
