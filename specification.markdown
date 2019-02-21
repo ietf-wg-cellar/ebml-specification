@@ -134,10 +134,10 @@ The octet length of an `Element ID` determines its `EBML Class`.
 
 EBML Class | Octet Length | Number of Possible Element IDs
 :---------:|:------------:|:------------------------------
-Class A    | 1            | 2^7  - 2        =         126
-Class B    | 2            | 2^14 - 2^7  - 1 =      16,255
-Class C    | 3            | 2^21 - 2^14 - 1 =   2,080,767
-Class D    | 4            | 2^28 - 2^21 - 1 = 266,338,303
+Class A    | 1            | 2^7  - 2    =         126
+Class B    | 2            | 2^14 - 2^7  =      16,256
+Class C    | 3            | 2^21 - 2^14 =   2,080,768
+Class D    | 4            | 2^28 - 2^21 = 266,338,304
 
 # Element Data Size
 
