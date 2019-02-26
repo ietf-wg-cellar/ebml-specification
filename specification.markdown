@@ -133,7 +133,7 @@ VINT_WIDTH  | VINT_MARKER  | VINT_DATA      | Element ID Status
 The octet length of an `Element ID` determines its `EBML Class`.
 
 EBML Class | Length |     Possible IDs        | Number of IDs
-:---------:|:------:|:-----------------------:|--------------
+:---------:|:------:|:-----------------------:|-------------:
 Class A    | 1      |       0x81 - 0xFE       |           126
 Class B    | 2      |     0x407F - 0x7FFE     |        16,256
 Class C    | 3      |   0x203FFF - 0x3FFFFE   |     2,080,768
