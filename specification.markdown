@@ -415,7 +415,7 @@ The VariableParentOccurrence part is interpreted as an ABNF Variable Repetition.
 
 If the path contains an EBMLPathAtomRecursive part, the EBML Element can occur within itself recursively (see the [recursive attribute](#recursive)).
 
-As an example, a `path` of "1*(\Segment\Info)" means the element `Info` is found inside the `Segment` elements at least once and with no maximum iteration. An element `SeekHead` with path `0*2(\Segment\SeekHead)` may not be found at all in its `Segment` parent, once or twice but no more than that.
+As an example, a 'path' of "1*(\Segment\Info)" means the element Info is found inside the Segment elements at least once and with no maximum iteration. An element SeekHead with path `0*2(\Segment\SeekHead)` may not be found at all in its Segment parent, once or twice but no more than that.
 
 #### id
 
@@ -518,7 +518,7 @@ The lang attribute is OPTIONAL.
 
 #### purpose
 
-A purpose attribute distinguishes the meaning of the documentation. Values for the <documentation> sub-element's purpose attribute MUST include one of the following: `definition`, `rationale`, `usage notes`, and `references`.
+A purpose attribute distinguishes the meaning of the documentation. Values for the <documentation> sub-element's purpose attribute MUST include one of the following: 'definition`, 'rationale`, 'usage notes`, and 'references`.
 
 The purpose attribute is OPTIONAL.
 
@@ -665,7 +665,6 @@ description: The EBMLMaxIDLength Element stores the maximum permitted length in 
 
 ### EBMLMaxSizeLength Element
 
-name: EBMLMaxSizeLength`
 name: EBMLMaxSizeLength
 
 path: `1*1(\EBML\EBMLMaxSizeLength)`
