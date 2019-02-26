@@ -1,6 +1,6 @@
 $(info RFC rendering has been tested with mmark version 1.3.4 and xml2rfc 2.5.1, please ensure these are installed and recent enough.)
 
-VERSION := 09
+VERSION := 10
 STATUS := draft-
 OUTPUT := $(STATUS)ietf-cellar-ebml-$(VERSION)
 
