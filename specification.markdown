@@ -94,7 +94,7 @@ The VINT_DATA portion of the Variable Size Integer includes all data that follow
 
 ## VINT Examples
 
-This table shows examples of Variable Size Integers with lengths from 1 to 5 octets. The Size column refers to the size of the VINT_DATA in bits. The Representation column depicts a binary expression of Variable Size Integers where VINT_WIDTH is depicted by '0', the VINT_MARKER as '1', and the VINT_DATA as 'x'.
+This table shows examples of Variable Size Integers with lengths from 1 to 5 octets. The Size column refers to the size of the VINT_DATA in bits. The Representation column depicts a binary expression of Variable Size Integers where VINT_WIDTH is depicted by `0`, the VINT_MARKER as `1`, and the VINT_DATA as `x`.
 
 Octet Length | Size | Representation
 -------------|------|:-------------------------------------------------
@@ -415,7 +415,7 @@ The VariableParentOccurrence part is interpreted as an ABNF Variable Repetition.
 
 If the path contains an EBMLPathAtomRecursive part, the EBML Element can occur within itself recursively (see the [recursive attribute](#recursive)).
 
-As an example, a 'path' of "1*(\Segment\Info)" means the element Info is found inside the Segment elements at least once and with no maximum iteration. An element SeekHead with path `0*2(\Segment\SeekHead)` may not be found at all in its Segment parent, once or twice but no more than that.
+As an example, a `path` of "1*(\Segment\Info)" means the element Info is found inside the Segment elements at least once and with no maximum iteration. An element SeekHead with path `0*2(\Segment\SeekHead)` may not be found at all in its Segment parent, once or twice but no more than that.
 
 #### id
 
@@ -468,7 +468,7 @@ The default attribute is OPTIONAL.
 
 #### type
 
-The type MUST be set to one of the following values: 'integer' (signed integer), 'uinteger' (unsigned integer), 'float', 'string', 'date', 'utf-8', 'master', or 'binary'. The content of each type is defined within [section on EBML Element Types](#ebml-element-types).
+The type MUST be set to one of the following values: `integer` (signed integer), `uinteger` (unsigned integer), `float`, `string`, `date`, `utf-8`, `master`, or `binary`. The content of each type is defined within [section on EBML Element Types](#ebml-element-types).
 
 The type attribute is REQUIRED.
 
@@ -518,7 +518,7 @@ The lang attribute is OPTIONAL.
 
 #### purpose
 
-A purpose attribute distinguishes the meaning of the documentation. Values for the <documentation> sub-element's purpose attribute MUST include one of the following: 'definition`, 'rationale`, 'usage notes`, and 'references`.
+A purpose attribute distinguishes the meaning of the documentation. Values for the <documentation> sub-element's purpose attribute MUST include one of the following: `definition`, `rationale`, `usage notes`, and `references`.
 
 The purpose attribute is OPTIONAL.
 
@@ -681,7 +681,7 @@ default: 8
 
 type: Unsigned Integer
 
-description: The EBMLMaxSizeLength Element stores the maximum permitted length in octets of the expressions of all Element Data Sizes to be found within the EBML Body. The EBMLMaxSizeLength Element documents an upper bound for the 'length' of all Element Data Size expressions within the EBML Body and not an upper bound for the 'value' of all Element Data Size expressions within the EBML Body. EBML Elements that have an Element Data Size expression which is larger in octets than what is expressed by EBMLMaxSizeLength Element are invalid.
+description: The EBMLMaxSizeLength Element stores the maximum permitted length in octets of the expressions of all Element Data Sizes to be found within the EBML Body. The EBMLMaxSizeLength Element documents an upper bound for the `length` of all Element Data Size expressions within the EBML Body and not an upper bound for the `value` of all Element Data Size expressions within the EBML Body. EBML Elements that have an Element Data Size expression which is larger in octets than what is expressed by EBMLMaxSizeLength Element are invalid.
 
 ### DocType Element
 
