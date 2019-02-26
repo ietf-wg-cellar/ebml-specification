@@ -135,9 +135,9 @@ The octet length of an `Element ID` determines its `EBML Class`.
 EBML Class | Length |     Possible IDs        | Number of IDs
 :---------:|:------:|:-----------------------:|--------------
 Class A    | 1      |       0x81 - 0xFE       |           126
-Class B    | 2      |     0x4001 - 0x7FFE     |        16,381
-Class C    | 3      |   0x200001 - 0x3FFFFE   |     2,097,149
-Class D    | 4      | 0x10000001 - 0x1FFFFFFE |   268,435,453
+Class B    | 2      |     0x407F - 0x7FFE     |        16,256
+Class C    | 3      |   0x203FFF - 0x3FFFFE   |     2,080,768
+Class D    | 4      | 0x101FFFFF - 0x1FFFFFFE |   268,338,304
 
 # Element Data Size
 
