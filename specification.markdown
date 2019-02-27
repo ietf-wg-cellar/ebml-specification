@@ -62,7 +62,7 @@ This document defines specific terms in order to define the format and applicati
 
 `Descendant Element`: A relative term to describe any `EBML Elements` contained within a `Master Element`, including any of the `Child Elements` of its `Child Elements`, and so on.
 
-`Void Element`: A `Void Element` is an `Element` used to overwrite damaged data or reserve space within a `Master Element` for later use.
+`Void Element`: A `Void Element` is an `Element` used to overwrite data or reserve space within a `Master Element` for later use.
 
 `Element Name`: The official human-readable name of the `EBML Element`.
 
@@ -825,7 +825,7 @@ minOccurs: 0
 
 type: Binary
 
-description: Used to void damaged data or to avoid unexpected behaviors when using damaged data. The content is discarded. Also used to reserve space in a sub-element for later use.
+description: Used to void data or to avoid unexpected behaviors when using damaged data. The content is discarded. Also used to reserve space in a sub-element for later use.
 
 # Considerations for Reading EBML Data
 
