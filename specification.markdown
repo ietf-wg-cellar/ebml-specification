@@ -104,7 +104,7 @@ Octet Length | Size | Representation
 4            | 2^28 | 0001 xxxx xxxx xxxx xxxx xxxx xxxx xxxx
 5            | 2^35 | 0000 1xxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx
 
-Data encoded as a Variable Size Integer MAY be rendered at octet lengths larger than needed to store the data in order to facilitate overwriting it at a later date, e.g. when its final size isn't known in advance. In this table a binary value of 0b10 is shown encoded as different Variable Size Integers with lengths from one octet to four octet. All four encoded examples have identical semantic meaning though the VINT_WIDTH and the padding of the VINT_DATA vary.
+Data encoded as a Variable Size Integer MAY be rendered at octet lengths larger than needed to store the data in order to facilitate overwriting it at a later date, e.g. when its final size isn't known in advance. In this table a binary value of 0b10 is shown encoded as different Variable Size Integers with lengths from one octet to four octets. All four encoded examples have identical semantic meaning though the VINT_WIDTH and the padding of the VINT_DATA vary.
 
 Binary Value | Octet Length | As Represented in Variable Size Integer
 -------------|--------------|:---------------------------------------
@@ -190,7 +190,7 @@ An Unsigned Integer Element stores an integer (meaning that it can be written wi
 
 ## Float Element
 
-A Float Element MUST declare a length of either zero octets (0 bit), four octets (32 bit) or eight octets (64 bit). If the EBML Element is not defined to have a default value, then a Float Element with a zero-octet length represents a numerical value of zero.
+A Float Element MUST declare a length of either zero octet (0 bit), four octets (32 bit) or eight octets (64 bit). If the EBML Element is not defined to have a default value, then a Float Element with a zero-octet length represents a numerical value of zero.
 
 A Float Element stores a floating-point number as defined in [@!IEEE.754.1985].
 
@@ -273,7 +273,7 @@ After  | 0x3B4040   | 0x82              | 0x6869       | 0xEC80
 
 For String Elements and UTF-8 Elements the length of Element Data MAY be reduced by adding Null Octets to terminate the Element Data (see [the section on Terminating Elements](#terminating-elements)).
 
-In the following table, a four octet long Element Data is changed to a three octet long value followed by a Null Octet; the Element Data Size includes any Null Octets used to terminate Element Data so remains unchanged.
+In the following table, a four octets long Element Data is changed to a three octet long value followed by a Null Octet; the Element Data Size includes any Null Octets used to terminate Element Data so remains unchanged.
 
 | Status      | Element ID | Element Data Size | Element Data       |
 |-------------|------------|-------------------|--------------------|
