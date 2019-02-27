@@ -861,8 +861,8 @@ An EBML Document that has the following issues may still be handled by the EBML 
 
 - Invalid Element IDs that are longer than the limit stated in the EBMLMaxIDLength Element of the EBML Header.
 - Invalid Element IDs that are not encoded in the shortest-possible way.
-- Invalid Element IDs comprised of reserved values.
 - Invalid Element Data Size values that are longer than the limit stated in the EBMLMaxSizeLength Element of the EBML Header.
+- Invalid Element IDs comprised of reserved values.
 - Usage of 0x00 octets in EBML Elements with a string type.
 
 An EBML Reader may discard some or all data if the following errors are found in the EBML Document:
