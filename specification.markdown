@@ -8,6 +8,20 @@ The definition of the EBML format recognizes the idea behind HTML and XML as a g
 
 EBML uses a simple approach of building Elements upon three pieces of data (tag, length, and value) as this approach is well known, easy to parse, and allows selective data parsing. The EBML structure additionally allows for hierarchical arrangement to support complex structural formats in an efficient manner.
 
+A typical EBML file has the following structure:
+
+~~~
+EBML Header (master)
+  + DocType (string)
+  + DocTypeVersion (unsigned integer)
+EBML Body Root (master)
+  + ElementA (utf-8)
+  + Parent (master)
+    + ElementB (integer)
+  + Parent (master)
+    + ElementB (integer)
+~~~
+
 # Notation and Conventions
 
 The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and "OPTIONAL" in this document are to be interpreted as described in BCP 14 [@!RFC2119] [@!RFC8174] when, and only when, they appear in all capitals, as shown here.
