@@ -78,7 +78,7 @@ This document defines specific terms in order to define the format and applicati
 
 `Void Element`: A `Void Element` is an `Element` used to overwrite damaged data or reserve space within a `Master Element` for later use.
 
-`Element Name`: The official human-readable name of the `EBML Element`.
+`Element Name`: The human-readable name of the `EBML Element`.
 
 `Element Path`: The hierarchy of `Parent Element` where the `EBML Element` is expected to be found in the `EBML Body`.
 
@@ -382,7 +382,7 @@ Within an EBML Schema the `<element>` uses the following attributes to define an
 
 #### name
 
-The name provides the official human-readable name of the EBML Element. The value of the name MUST be in the form of characters "A" to "Z", "a" to "z", "0" to "9", "-" and ".".
+The name provides the human-readable name of the EBML Element. The value of the name MUST be in the form of characters "A" to "Z", "a" to "z", "0" to "9", "-" and ".".
 
 The name attribute is REQUIRED.
 
