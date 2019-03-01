@@ -108,7 +108,7 @@ The VINT_DATA portion of the Variable Size Integer includes all data that follow
 
 ## VINT Examples
 
-This table shows examples of Variable Size Integers with lengths from 1 to 5 octets. The Size column refers to the size of the VINT_DATA in bits. The Representation column depicts a binary expression of Variable Size Integers where VINT_WIDTH is depicted by `0`, the VINT_MARKER as `1`, and the VINT_DATA as `x`.
+This table shows examples of Variable Size Integers with lengths from 1 to 5 octets. The Usable Bits column refers to the number of bits that can be used in the VINT_DATA. The Representation column depicts a binary expression of Variable Size Integers where VINT_WIDTH is depicted by `0`, the VINT_MARKER as `1`, and the VINT_DATA as `x`.
 
 Octet Length | Usable Bits | Representation
 -------------|-------------|:-------------------------------------------------
