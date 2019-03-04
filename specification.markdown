@@ -108,15 +108,15 @@ The VINT_DATA portion of the Variable Size Integer includes all data that follow
 
 ## VINT Examples
 
-This table shows examples of Variable Size Integers with lengths from 1 to 5 octets. The Size column refers to the size of the VINT_DATA in bits. The Representation column depicts a binary expression of Variable Size Integers where VINT_WIDTH is depicted by `0`, the VINT_MARKER as `1`, and the VINT_DATA as `x`.
+This table shows examples of Variable Size Integers with lengths from 1 to 5 octets. The Usable Bits column refers to the number of bits that can be used in the VINT_DATA. The Representation column depicts a binary expression of Variable Size Integers where VINT_WIDTH is depicted by `0`, the VINT_MARKER as `1`, and the VINT_DATA as `x`.
 
-Octet Length | Size | Representation
--------------|------|:-------------------------------------------------
-1            | 2^7  | 1xxx xxxx
-2            | 2^14 | 01xx xxxx xxxx xxxx
-3            | 2^21 | 001x xxxx xxxx xxxx xxxx xxxx
-4            | 2^28 | 0001 xxxx xxxx xxxx xxxx xxxx xxxx xxxx
-5            | 2^35 | 0000 1xxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx
+Octet Length | Usable Bits | Representation
+-------------|-------------|:-------------------------------------------------
+1            | 7           | 1xxx xxxx
+2            | 14          | 01xx xxxx xxxx xxxx
+3            | 21          | 001x xxxx xxxx xxxx xxxx xxxx
+4            | 28          | 0001 xxxx xxxx xxxx xxxx xxxx xxxx xxxx
+5            | 35          | 0000 1xxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx
 
 Data encoded as a Variable Size Integer MAY be rendered at octet lengths larger than needed to store the data in order to facilitate overwriting it at a later date, e.g. when its final size isn't known in advance. In this table a binary value of 0b10 is shown encoded as different Variable Size Integers with lengths from one octet to four octets. All four encoded examples have identical semantic meaning though the VINT_WIDTH and the padding of the VINT_DATA vary.
 
