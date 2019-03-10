@@ -884,7 +884,7 @@ Side channel attacks could exploit:
 - Data contained within a Master Element which is not itself part of an EBML Element.
 - Extraneous copies of Identically Recurring Element.
 - Copies of Identically Recurring Element within a Parent Element that contain invalid CRC-32 Elements.
-- Use of Void Elements.
+- Use of Void Elements which could be used to hide content or create bogus resynchronzation points seen by some EBML Reader and not others.
 
 An EBML Reader MAY use the data if it considers it doesn't create any security issue.
 
