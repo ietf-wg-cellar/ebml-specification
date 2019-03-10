@@ -296,7 +296,7 @@ In the following table, a four octets long Element Data is changed to a three oc
 
 Note that this method is NOT RECOMMENDED. For reductions of one octet, the method for Extending the Element Data Size SHOULD be used. For reduction by more than one octet, the method for Adding a Void Element SHOULD be used.
 
-## Considerations when Updating Elements with CRC
+## Considerations when Updating Elements with Cyclic Redundancy Check (CRC)
 
 If the Element to be changed is a Descendant Element of any Master Element that contains an CRC-32 Element (see (#crc32-element)) then the CRC-32 Element MUST be verified before permitting the change. Additionally the CRC-32 Element value MUST be subsequently updated to reflect the changed data.
 
