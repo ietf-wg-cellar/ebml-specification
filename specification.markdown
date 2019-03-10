@@ -863,7 +863,7 @@ An EBML Document that has the following issues may still be handled by the EBML 
 - Invalid Element IDs that are not encoded in the shortest-possible way.
 - Invalid Element Data Size values that are longer than the limit stated in the EBMLMaxSizeLength Element of the EBML Header.
 
-Invalid Element IDs comprised of reserved values MAY be accepted as valid EBML IDs in order to skip such elements.
+Element IDs that are unknown to the EBML Reader MAY be accepted as valid EBML IDs in order to skip such elements.
 
 EBML Elements with a string type may contain extra data after the first 0x00. These data MUST be discarded according to the (#terminating-elements) rules.
 
