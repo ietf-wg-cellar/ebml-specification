@@ -447,7 +447,7 @@ The range attribute MUST only be used with EBML Elements that are either signed 
 
 To set a fixed value for the range, the value is used as the attribute value. For example `1234` means the EBML element always has the value 1234. The value can be prefixed with `not ` to indicate that the fixed value MUST NOT be used for that Element. For example `not 1234` means the Element can use all values of its type except 1234.
 
-For an exclusive lower boundary the `>` sign is used and the `>=` sign is used for an inclusive lower boundary. For example `>3` meaning the Element value MUST be greater than 3 or `>= 0x1p+0` meaning the Element value MUST be greater than or equal to the floating value 1.0, see [textual expression of floats](#textual-expression-of-floats).
+For an exclusive lower boundary the `>` sign is used and the `>=` sign is used for an inclusive lower boundary. For example `>3` meaning the Element value MUST be greater than 3 or `>=0x1p+0` meaning the Element value MUST be greater than or equal to the floating value 1.0, see [textual expression of floats](#textual-expression-of-floats).
 
 For an exclusive upper boundary the `<` sign is used and the `<=` sign is used for an inclusive upper boundary. For example `<-2` meaning the Element value MUST be less than -2 or `<=10` meaning the Element value MUST be less than or equal to the 10.
 
