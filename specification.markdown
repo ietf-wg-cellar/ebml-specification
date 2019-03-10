@@ -896,7 +896,7 @@ This IANA Registry only applies to Elements that can be contained in the EBML He
 
 The VINT Data value of one-octet Element IDs MUST be between 0x01 and 0x7E. These items are valuable because they are short, and need to be used for commonly repeated elements. Values from 1 to 126 are to be allocated according to the "RFC Required" policy [@!RFC8126].
 
-The VINT Data value of two-octet Element IDs MUST be between 0x007F and 0x3FFE. Numbers are be allocated within this range according to the "Specification Required" policy [@!RFC8126].
+The VINT Data value of two-octet Element IDs MUST be between 0x007F and 0x3FFE. Numbers are to be allocated within this range according to the "Specification Required" policy [@!RFC8126].
 
 The numbers 0x3FFF and 0x4000 are RESERVED.
 
