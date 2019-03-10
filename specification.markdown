@@ -882,7 +882,7 @@ Side channel attacks could exploit:
 - The semantic equivalence of the same string stored in a String Element or UTF-8 Element with and without zero-bit padding.
 - The semantic equivalence of VINT_DATA within Element Data Size with two different lengths due to left-padding zero bits.
 - Data contained within a Master Element which is not itself part of an EBML Element.
-- Extraneous copies of Identically Recurring Element.
+- Extraneous copies of Identically Recurring Element, making parsing unnecessarily slow to the point of not being usable.
 - Copies of Identically Recurring Element within a Parent Element that contain invalid CRC-32 Elements. EBML Readers not checking the CRC-32 might use the version of the element with mismatching CRC-32.
 - Use of Void Elements which could be used to hide content or create bogus resynchronzation points seen by some EBML Reader and not others.
 
