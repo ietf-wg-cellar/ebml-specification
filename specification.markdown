@@ -457,16 +457,18 @@ The range attribute is OPTIONAL. If the range attribute is not present then any 
 
 ##### Expression of range
 
-The range attribute MUST only be used with EBML Elements that are either signed integer, unsigned integer, float, or date. The range expression may contain whitespace for readability but whitespace within a range expression MUST NOT convey meaning. The expression of the range MUST adhere to one of the following forms:
+The range attribute MUST only be used with EBML Elements that are either signed integer, unsigned integer, float, or date. The expression defines the upper, lower, exact or excluded value of the EBML Element and optionally an upper boundary value combined with a lower boundary. The range expression may contain whitespace (using the ASCII 0x20 character) for readability but whitespace within a range expression MUST NOT convey meaning.
 
-- x-y where x and y are integers or floats and y MUST be greater than x, meaning that the value MUST be greater than or equal to x and less than or equal to y. x MUST be less than y.
-- `>x where x` is an integer or float, meaning that the value MUST be greater than x.
-- `>=x where x` is an integer or float, meaning that the value MUST be greater than or equal to x.
-- `<x where x` is an integer or float, meaning that the value MUST be less than x.
-- `<=x where x` is an integer or float, meaning that the value MUST be less than or equal to x.
-- x where x is an integer or float, meaning that the value MUST be equal x.
+To set a fixed value for the range, the value is used as the attribute value. For example `1234` means the EBML element always has the value 1234. The value can be prefixed with `not ` to indicate that the fixed value MUST NOT be used for that Element. For example `not 1234` means the Element can use all values of its type except 1234.
 
-The range may use the prefix not  to indicate that the expressed range is negated. Please also see [textual expression of floats](#textual-expression-of-floats).
+For an exclusive lower boundary the `>` sign is used and the `>=` sign is used for an inclusive lower boundary. For example `>3` meaning the Element value MUST be greater than 3 or `>=0x1p+0` meaning the Element value MUST be greater than or equal to the floating value 1.0, see [textual expression of floats](#textual-expression-of-floats).
+
+For an exclusive upper boundary the `<` sign is used and the `<=` sign is used for an inclusive upper boundary. For example `<-2` meaning the Element value MUST be less than -2 or `<=10` meaning the Element value MUST be less than or equal to the 10.
+
+The lower and upper bounds can be combined into an expression to form a closed boundary. The lower boundary coming first followed by the upper boundary, separated by a comma. For example `>3,<= 20` means the Element value MUST be greater than 3 and less than or equal to 20.
+
+A special form of lower and upper bounds using the `-` separator is possible, meaning the Element value MUST be greater than or to the first value and MUST be less than or equal to the second value. For example `1-10` is equivalent to `>=1,<=10`. If the upper boundary is negative, only the latter form MUST be used.
+
 
 #### length
 
