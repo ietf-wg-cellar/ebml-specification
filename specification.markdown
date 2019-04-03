@@ -443,7 +443,7 @@ The range attribute is OPTIONAL. If the range attribute is not present then any 
 
 ##### Expression of range
 
-The range attribute MUST only be used with EBML Elements that are either signed integer, unsigned integer, float, or date. The expression defines the upper, lower, exact or excluded value of the EBML Element and optionally an upper boundary value combined with a lower boundary. The range expression may contain whitespace for readability but whitespace within a range expression MUST NOT convey meaning.
+The range attribute MUST only be used with EBML Elements that are either signed integer, unsigned integer, float, or date. The expression defines the upper, lower, exact or excluded value of the EBML Element and optionally an upper boundary value combined with a lower boundary. The range expression may contain whitespace (using the ASCII 0x20 character) for readability but whitespace within a range expression MUST NOT convey meaning.
 
 To set a fixed value for the range, the value is used as the attribute value. For example `1234` means the EBML element always has the value 1234. The value can be prefixed with `not ` to indicate that the fixed value MUST NOT be used for that Element. For example `not 1234` means the Element can use all values of its type except 1234.
 
