@@ -118,7 +118,7 @@ Octet Length | Usable Bits | Representation
 4            | 28          | 0001 xxxx xxxx xxxx xxxx xxxx xxxx xxxx
 5            | 35          | 0000 1xxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx
 
-Data encoded as a Variable Size Integer MAY be rendered at octet lengths larger than needed to store the data in order to facilitate overwriting it at a later date, e.g. when its final size isn't known in advance. In this table a binary value of 0b10 is shown encoded as different Variable Size Integers with lengths from one octet to four octets. All four encoded examples have identical semantic meaning though the VINT_WIDTH and the padding of the VINT_DATA vary.
+Data encoded as a Variable Size Integer may be rendered at octet lengths larger than needed to store the data in order to facilitate overwriting it at a later date, e.g. when its final size isn't known in advance. In this table a binary value of 0b10 is shown encoded as different Variable Size Integers with lengths from one octet to four octets. All four encoded examples have identical semantic meaning though the VINT_WIDTH and the padding of the VINT_DATA vary.
 
 Binary Value | Octet Length | As Represented in Variable Size Integer
 -------------|--------------|:---------------------------------------
