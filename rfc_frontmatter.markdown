@@ -1,32 +1,39 @@
-% Title = "Extensible Binary Meta Language"
-% abbrev = "EBML"
-% category = "std"
-% docName = "draft-ietf-cellar-ebml-12"
-% ipr= "trust200902"
-% area = "art"
-% workgroup = "cellar"
-% keyword = [""]
-%
-% [[author]]
-% initials="S."
-% surname="Lhomme"
-% fullname="Steve Lhomme"
-% [author.address]
-% email="slhomme@matroska.org"
-%
-% [[author]]
-% initials="D."
-% surname="Rice"
-% fullname="Dave Rice"
-% [author.address]
-% email="dave@dericed.com"
-%
-% [[author]]
-% initials="M."
-% surname="Bunkus"
-% fullname="Moritz Bunkus"
-% [author.address]
-% email="moritz@bunkus.org"
+%%%
+title = "Extensible Binary Meta Language"
+abbrev = "EBML"
+docName = "draft-ietf-cellar-ebml-12"
+ipr= "trust200902"
+area = "art"
+workgroup = "cellar"
+keyword = [""]
+
+[seriesInfo]
+name = "Internet-Draft"
+stream = "IETF"
+status = "standard"
+value = "draft-ietf-cellar-ebml-10"
+
+[[author]]
+initials="S."
+surname="Lhomme"
+fullname="Steve Lhomme"
+  [author.address]
+  email="slhomme@matroska.org"
+
+[[author]]
+initials="D."
+surname="Rice"
+fullname="Dave Rice"
+  [author.address]
+  email="dave@dericed.com"
+
+[[author]]
+initials="M."
+surname="Bunkus"
+fullname="Moritz Bunkus"
+  [author.address]
+  email="moritz@bunkus.org"
+%%%
 
 .# Abstract
 
