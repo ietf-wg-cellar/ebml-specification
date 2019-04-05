@@ -859,13 +859,15 @@ EBML itself does not offer any kind of security and does not provide confidentia
 
 Even if the semantic layer offers any kind of encryption, EBML itself could leak information at both the semantic layer (as declared via the DocType Element) and within the EBML structure (the presence of EBML Elements can be derived even with an unknown semantic layer using a heuristic approach; not without errors, of course, but with a certain degree of confidence).
 
-An EBML Document that has the following issues may still be handled by the EBML Reader and the data accepted as such:
+An EBML Document that has the following issues may still be handled by the EBML Reader and the data accepted as such depending on how strict it wants to enforce the EBML Header rules:
 
 - Invalid Element IDs that are longer than the limit stated in the EBMLMaxIDLength Element of the EBML Header.
 - Invalid Element IDs that are not encoded in the shortest-possible way.
-- Invalid Element IDs comprised of reserved values.
 - Invalid Element Data Size values that are longer than the limit stated in the EBMLMaxSizeLength Element of the EBML Header.
-- Usage of 0x00 octets in EBML Elements with a string type.
+
+Element IDs that are unknown to the EBML Reader MAY be accepted as valid EBML IDs in order to skip such elements.
+
+EBML Elements with a string type may contain extra data after the first 0x00. These data MUST be discarded according to the (#terminating-elements) rules.
 
 An EBML Reader may discard some or all data if the following errors are found in the EBML Document:
 
