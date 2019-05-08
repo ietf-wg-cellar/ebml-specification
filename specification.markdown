@@ -177,7 +177,7 @@ Octet Length | Possible Value Range
 7            | 0 to 2^49-2
 8            | 0 to 2^56-2
 
-If the length of Element Data equals 2^(n\*7)-1 then the octet length of the Element Data Size MUST be at least n+1. This rule prevents an Element Data Size from being expressed as a reserved value. The following table clarifies this rule by showing a valid and invalid expression of an Element Data Size with a VINT_DATA of 127 (which is equal to 2^(1\*7)-1) and 16,383 (which is equal to 2^(2\*7)-1).
+If the length of Element Data equals 2^(n\*7)-1 then the octet length of the Element Data Size MUST be at least n+1. This rule prevents an Element Data Size from being expressed as the unknown size value. The following table clarifies this rule by showing a valid and invalid expression of an Element Data Size with a VINT_DATA of 127 (which is equal to 2^(1\*7)-1) and 16,383 (which is equal to 2^(2\*7)-1).
 
 VINT_WIDTH  | VINT_MARKER  | VINT_DATA             | Element Data Size Status
 -----------:|-------------:|----------------------:|---------------------------
