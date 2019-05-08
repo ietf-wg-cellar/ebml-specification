@@ -165,9 +165,9 @@ Although an Element ID with all VINT_DATA bits set to zero is invalid, an Elemen
 
 An Element Data Size with all VINT_DATA bits set to one is reserved as an indicator that the size of the EBML Element is unknown. The only reserved value for the VINT_DATA of Element Data Size is all bits set to one. An EBML Element with an unknown Element Data Size is referred to as an Unknown-Sized Element. A Master Element MAY be an Unknown-Sized Element; however an EBML Element that is not a Master Element MUST NOT be an Unknown-Sized Element. Master Elements MUST NOT use an unknown size unless the unknownsizeallowed attribute of their EBML Schema is set to true (see [the section on the unknownsizeallowed attribute](#unknownsizeallowed)). The use of Unknown-Sized Elements allows for an EBML Element to be written and read before the size of the EBML Element is known. Unknown-Sized Element MUST NOT be used or defined unnecessarily; however if the Element Data Size is not known before the Element Data is written, such as in some cases of data streaming, then Unknown-Sized Elements MAY be used. The end of an Unknown-Sized Element is determined by whichever comes first:
 
-- the end of the file
 - Any valid EBML Element according to the EBML Schema that is a Parent Element of the Unknown-Sized Element.
 - Any valid EBML Element according to the EBML Schema that is not a Descendant Element of the Unknown-Sized Element. For example a Top-Level Element.
+- The end of the EBML Document, either when reaching the end of the file or because a new EBML Header started.
 
 ## Data Size Values
 
