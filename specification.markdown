@@ -298,7 +298,7 @@ Note that this method is NOT RECOMMENDED. For reductions of one octet, the metho
 
 ## Considerations when Updating Elements with Cyclic Redundancy Check (CRC)
 
-If the Element to be changed is a Descendant Element of any Master Element that contains an CRC-32 Element (see (#crc32-element)) then the CRC-32 Element MUST be verified before permitting the change. Additionally the CRC-32 Element value MUST be subsequently updated to reflect the changed data.
+If the Element to be changed is a Descendant Element of any Master Element that contains a CRC-32 Element (see (#crc32-element)) then the CRC-32 Element MUST be verified before permitting the change. Additionally the CRC-32 Element value MUST be subsequently updated to reflect the changed data.
 
 # EBML Document
 
