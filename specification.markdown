@@ -853,6 +853,20 @@ If a Master Element contains more occurrences of a Child Master Element than per
 
 If a Master Element contains more occurrences of a Child Element that is not a Master Element than permitted according to the maxOccurs attribute of the definition of that Element then all but the instance of that Element with the smallest byte offset from the beginning of its Parent Element SHOULD be ignored.
 
+# Backward and Forward Compatibility
+
+Elements of an EBML format SHOULD be designed with backward and forward compatibility in mind.
+
+## Backward Compatibility
+
+Backward compatibility of new EBML Elements can be achieved by using default values for mandatory elements. The default value MUST represent the state that was assumed for previous versions of the EBML Schema, without this new EBML Element. If such a state doesn't make sense for previous versions, then the new EBML Element SHOULD NOT be mandatory.
+
+Non mandatory EBML Elements can be added in a new EBMLDocTypeVersion. Since they are not mandatory they won't be found in older versions of the EBMLDocTypeVersion, just as they might not be found in newer versions. This causes no compatibility issue.
+
+## Forward Compatibility
+
+EBML Elements MAY be marked as deprecated in a new EBMLDocTypeVersion using the maxver attribute of the EBML Schema. If such an Element is found in an EBML Document with newer version of the EBMLDocTypeVersion it SHOULD be discarded.
+
 # Security Considerations
 
 EBML itself does not offer any kind of security and does not provide confidentiality. EBML does not provide any kind of authorization. EBML only offers marginally useful and effective data integrity options, such as CRC elements.
