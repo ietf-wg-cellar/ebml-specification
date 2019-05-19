@@ -39,7 +39,7 @@ EBML-based format as much as possible. So you just describe what is
 really necessary.
 
 EBML was originally created for the
-[Matroska project](http://www.matroska.org/). So this is naturally the
+[Matroska project](https://www.matroska.org/). So this is naturally the
 first format based on EBML to exist. You are therefore encouraged to
 check the specs to know how to design a format based on EBML.
 
@@ -47,4 +47,4 @@ check the specs to know how to design a format based on EBML.
 
 All people that are working on EBML are related to Matroska. So you'd
 better contact
-[the Matroska team](http://www.matroska.org/contact/index.html).
+[the Matroska team](https://www.matroska.org/contact/index.html).
