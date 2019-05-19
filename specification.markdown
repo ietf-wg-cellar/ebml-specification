@@ -366,7 +366,7 @@ The docType attribute is REQUIRED within the `<EBMLSchema>` Element.
 
 #### version
 
-The version lists an non-negative integer that specifies the version of the docType documented by the EBML Schema. Unlike XML Schemas, an EBML Schema documents all versions of a docType's definition rather than using separate EBML Schemas for each version of a docType. EBML Elements may be introduced and deprecated by using the minver and maxver attributes of `<element>`.
+The version lists a non-negative integer that specifies the version of the docType documented by the EBML Schema. Unlike XML Schemas, an EBML Schema documents all versions of a docType's definition rather than using separate EBML Schemas for each version of a docType. EBML Elements may be introduced and deprecated by using the minver and maxver attributes of `<element>`.
 
 The version attribute is REQUIRED within the `<EBMLSchema>` Element.
 
@@ -506,7 +506,7 @@ The recursive attribute is OPTIONAL. If the recursive attribute is not present t
 
 A boolean to express if an EBML Element is defined as an Identically Recurring Element or not.
 
-The recurring attribute is OPTIONAL. If the recurring attribute is not present then the EBML Element is not a Identically Recurring Element.
+The recurring attribute is OPTIONAL. If the recurring attribute is not present then the EBML Element is not an Identically Recurring Element.
 
 #### minver
 
