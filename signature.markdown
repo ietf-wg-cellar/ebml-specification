@@ -2,7 +2,7 @@
 
 ## Status
 
-The EBML Signature Elements are under development and not recommended for use in production. To inquire about, comment upon, or participate in the development of EBML Signatures please contact matroska-devel@lists.matroska.org (with a [public archive](http://lists.matroska.org/pipermail/matroska-devel/)).
+The EBML Signature Elements are under development and not recommended for use in production. To inquire about, comment upon, or participate in the development of EBML Signatures please contact matroska-devel@lists.matroska.org (with a [public archive](https://lists.matroska.org/pipermail/matroska-devel/)).
 
 ## Introduction
 
