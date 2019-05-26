@@ -536,7 +536,7 @@ The lang attribute is OPTIONAL.
 
 A purpose attribute distinguishes the meaning of the documentation. Values for the <documentation> sub-element's purpose attribute MUST include one of the following: `definition`, `rationale`, `usage notes`, and `references`.
 
-The purpose attribute is OPTIONAL.
+The purpose attribute is REQUIRED.
 
 ### \<restriction> Element
 
