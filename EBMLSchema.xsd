@@ -52,6 +52,6 @@
       <xsd:any namespace="##any" minOccurs="0" maxOccurs="unbounded"/>
     </xsd:sequence>
     <xsd:attribute name="lang"/>
-    <xsd:attribute name="purpose"/>
+    <xsd:attribute name="purpose" use="required"/>
   </xsd:complexType>
 </xsd:schema>
