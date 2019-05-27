@@ -873,7 +873,7 @@ EBML itself does not offer any kind of security and does not provide confidentia
 
 Even if the semantic layer offers any kind of encryption, EBML itself could leak information at both the semantic layer (as declared via the DocType Element) and within the EBML structure (the presence of EBML Elements can be derived even with an unknown semantic layer using a heuristic approach; not without errors, of course, but with a certain degree of confidence).
 
-An EBML Document that has the following issues may still be handled by the EBML Reader and the data accepted as such depending on how strict it wants to enforce the EBML Header rules:
+An EBML Document that has the following issues may still be handled by the EBML Reader and the data accepted as such, depending on how strict the EBML Reader wants to be:
 
 - Invalid Element IDs that are longer than the limit stated in the EBMLMaxIDLength Element of the EBML Header.
 - Invalid Element IDs that are not encoded in the shortest-possible way.
@@ -887,18 +887,18 @@ An EBML Reader may discard some or all data if the following errors are found in
 
 - Invalid Element Data Size values (e.g. extending the length of the EBML Element beyond the scope of the Parent Element; possibly triggering access-out-of-bounds issues).
 - Very high lengths in order to force out-of-memory situations resulting in a denial of service, access-out-of-bounds issues etc.
-- Missing EBML Elements that are mandatory and have no declared default value.
+- Missing EBML Elements that are mandatory in a Master Element and have no declared default value, making the semantic invalid at that Master Element level.
 - Usage of invalid UTF-8 encoding in EBML Elements of UTF-8 type (e.g. in order to trigger access-out-of-bounds or buffer overflow issues).
-- Usage of invalid data in EBML Elements with a date type.
+- Usage of invalid data in EBML Elements with a date type, trigerring bogus date accesses.
 
 Side channel attacks could exploit:
 
-- The semantic equivalence of the same string stored in a String Element or UTF-8 Element with and without zero-bit padding.
-- The semantic equivalence of VINT_DATA within Element Data Size with two different lengths due to left-padding zero bits.
-- Data contained within a Master Element which is not itself part of an EBML Element.
-- Extraneous copies of Identically Recurring Element.
-- Copies of Identically Recurring Element within a Parent Element that contain invalid CRC-32 Elements.
-- Use of Void Elements.
+- The semantic equivalence of the same string stored in a String Element or UTF-8 Element with and without zero-bit padding, making comparison at the semantic level invalid.
+- The semantic equivalence of VINT_DATA within Element Data Size with two different lengths due to left-padding zero bits, making comparison at the semantic level invalid.
+- Data contained within a Master Element which is not itself part of a Child Element can trigger incorrect parsing behavior in EBML Readers.
+- Extraneous copies of Identically Recurring Element, making parsing unnecessarily slow to the point of not being usable.
+- Copies of Identically Recurring Element within a Parent Element that contain invalid CRC-32 Elements. EBML Readers not checking the CRC-32 might use the version of the element with mismatching CRC-32.
+- Use of Void Elements which could be used to hide content or create bogus resynchronzation points seen by some EBML Reader and not others.
 
 An EBML Reader MAY use the data if it considers it doesn't create any security issue.
 
