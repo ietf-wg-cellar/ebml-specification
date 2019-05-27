@@ -52,6 +52,15 @@
       <xsd:any namespace="##any" minOccurs="0" maxOccurs="unbounded"/>
     </xsd:sequence>
     <xsd:attribute name="lang"/>
-    <xsd:attribute name="purpose"/>
+    <xsd:attribute name="purpose" use="required">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="definition"/>
+          <xsd:enumeration value="rationale"/>
+          <xsd:enumeration value="references"/>
+          <xsd:enumeration value="usage notes"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
   </xsd:complexType>
 </xsd:schema>
