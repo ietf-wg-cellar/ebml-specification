@@ -500,6 +500,8 @@ The value attribute is REQUIRED.
 
 ### XML Schema for EBML Schema
 
+This following provides an XML Schema [@?W3C.REC-xmlschema-0-20010502] for facilitating verification of an EBML Schema to the definition described in (#ebml-header).
+
 <{{EBMLSchema.xsd}}
 
 ### Identically Recurring Elements
