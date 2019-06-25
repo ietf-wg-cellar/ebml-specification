@@ -172,6 +172,20 @@ The use of Unknown-Sized Elements allows for an EBML Element to be written and r
 - Any valid EBML Element according to the EBML Schema, Global Elements excluded, that is a root element.
 - The end of the EBML Document, either when reaching the end of the file or because a new EBML Header started.
 
+Consider an Unknown-Size Element which EBML path is `\root\level1\level2\elt`. Here are some possible and impossible way to end this element:
+
+EBML Path of next element          | Status
+-----------------------------------|------------------------------
+`\root\level1\level2`              | Ends the unknown-size element, as it a new Parent element
+`\root\level1`                     | Ends the unknown-size element, as it a new Parent element
+`\root`                            | Ends the unknown-size element, as it a new Parent element
+`\root\level1\level2\other`        | Ends the unknown-size element, as they share the same parent
+`\root\level1\level2\elt\inside`   | Doesn't end the unknown-size element, it's a child of `elt`
+`\root\level1\level2\other\part`   | Isn't valid right after `elt`. `other` should be found first
+`\root\level1\level2\elt\<global>` | Global Element is valid, it's a child of `elt`
+`\root\level1\level2\<global>`     | Global Element is invalid, it can only be a child of `elt` while parsing `elt`
+
+
 ## Data Size Values
 
 For Element Data Sizes encoded at octet lengths from one to eight, this table depicts the range of possible values that can be encoded as an Element Data Size. An Element Data Size with an octet length of 8 is able to express a size of 2^56-2 or 72,057,594,037,927,934 octets (or about 72 petabytes). The maximum possible value that can be stored as Element Data Size is referred to as VINTMAX.
