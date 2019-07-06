@@ -344,11 +344,11 @@ EBMLAtomName             = 1*(EBMLNameChar)
 EBMLNameChar             = ALPHA / DIGIT / "-" / "."
 PathDelimiter            = "\"
 EBMLElementOccurrence    = [EBMLMinOccurrence] "*" [EBMLMaxOccurrence]
-EBMLMinOccurrence        = 1*DIGIT
-EBMLMaxOccurrence        = 1*DIGIT
+EBMLMinOccurrence        = 1*DIGIT ; no upper limit
+EBMLMaxOccurrence        = 1*DIGIT ; no upper limit
 VariableParentOccurrence = [PathMinOccurrence] "*" [PathMaxOccurrence]
-PathMinOccurrence        = 1*DIGIT
-PathMaxOccurrence        = 1*DIGIT
+PathMinOccurrence        = 1*DIGIT ; no upper limit
+PathMaxOccurrence        = 1*DIGIT ; no upper limit
 ```
 
 The `*`, `(` and `)` symbols are interpreted as defined in [@!RFC5234].
