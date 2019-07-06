@@ -290,7 +290,7 @@ An EBML Schema MAY constrain the use of EBML Header Elements (see [EBML Header E
 
 ### \<EBMLSchema> Element
 
-As an XML Document, the EBML Schema MUST use `<EBMLSchema>` as the top level element. The `<EBMLSchema>` element MAY contain `<element>` sub-elements.
+As an XML Document, the EBML Schema MUST use `<EBMLSchema>` as the top level element. The `<EBMLSchema>` element can contain `<element>` sub-elements.
 
 ### \<EBMLSchema> Attributes
 
