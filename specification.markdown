@@ -326,7 +326,7 @@ The name attribute is REQUIRED.
 
 #### path
 
-The path defines the allowed storage locations of the EBML Element within an EBML Document. This path MUST be defined with the full hierarchy of EBML Elements separated with a `/`. The top EBML Element in the path hierarchy being the first in the value. The syntax of the path attribute is defined using this Augmented Backus-Naur Form (ABNF) [@!RFC5234] with the case sensitive update [@!RFC7405] notation:
+The path defines the allowed storage locations of the EBML Element within an EBML Document. This path MUST be defined with the full hierarchy of EBML Elements separated with a `\`. The top EBML Element in the path hierarchy being the first in the value. The syntax of the path attribute is defined using this Augmented Backus-Naur Form (ABNF) [@!RFC5234] with the case sensitive update [@!RFC7405] notation:
 
 The path attribute is REQUIRED.
 
