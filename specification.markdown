@@ -312,7 +312,7 @@ The version attribute is REQUIRED within the `<EBMLSchema>` Element.
 
 Each `<element>` defines one EBML Element through the use of several attributes that are defined in [EBML Schema Element Attributes](#ebmlschema-attributes). EBML Schemas MAY contain additional attributes to extend the semantics but MUST NOT conflict with the definitions of the `<element>` attributes defined within this document.
 
-The `<element>` nodes contain a description of the meaning and use of the EBML Element stored within one or more `<documentation>` sub-elements and zero or one `<restriction>` sub-element. All `<element>` nodes MUST be sub-elements of the `<EBMLSchema>`.
+The `<element>` nodes contain a description of the meaning and use of the EBML Element stored within one or more `<documentation>` sub-elements followed by one zero or one `<restriction>` sub-element. All `<element>` nodes MUST be sub-elements of the `<EBMLSchema>`.
 
 ### \<element> Attributes
 
