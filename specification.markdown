@@ -312,7 +312,7 @@ The version attribute is REQUIRED within the `<EBMLSchema>` Element.
 
 Each `<element>` defines one EBML Element through the use of several attributes that are defined in [EBML Schema Element Attributes](#ebmlschema-attributes). EBML Schemas MAY contain additional attributes to extend the semantics but MUST NOT conflict with the definitions of the `<element>` attributes defined within this document.
 
-The `<element>` nodes contain a description of the meaning and use of the EBML Element stored within one or more `<documentation>` sub-elements, optional `<implementation_note>` sub-elements, and zero or one `<restriction>` sub-element. All `<element>` nodes MUST be sub-elements of the `<EBMLSchema>`.
+The `<element>` nodes contain a description of the meaning and use of the EBML Element stored within one or more `<documentation>` sub-elements, followed by optional `<implementation_note>` sub-elements, followed by zero or one `<restriction>` sub-element, followed by optional `<extension>` sub-elements. All `<element>` nodes MUST be sub-elements of the `<EBMLSchema>`.
 
 ### \<element> Attributes
 
@@ -509,6 +509,18 @@ The label attribute is OPTIONAL.
 The value represents data that MAY be stored within the EBML Element.
 
 The value attribute is REQUIRED.
+
+### \<extension> Element
+
+ The `<extension>` element provides an unconstained element to contain information about the associated EBML `<element>` which is undefined by this document but MAY be defined by the associated EBML Document Type. The `<extension>` element MUST contain a `type` attribute and also MAY contain any other attribute or sub-element as long as the EBML Schema remains as a well-formed XML Document. All `<extension>` elements MUST be sub-elements of the `<element>`.
+
+### \<extension> Attributes
+
+#### type
+
+The type attribute should reference a name or identifier of the project or authority associated with the contents of the `<extension>` element.
+
+The type attribute is REQUIRED.
 
 ### XML Schema for EBML Schema
 

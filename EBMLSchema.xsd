@@ -28,6 +28,8 @@
         minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="restriction" type="restrictionType"
         minOccurs="0" maxOccurs="1"/>
+      <xs:element name="extension" type="extensionType"
+        minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
     <xs:attribute name="name" use="required"/>
     <xs:attribute name="path" use="required"/>
@@ -49,6 +51,15 @@
       <xs:element name="enum" type="enumType" minOccurs="0"
         maxOccurs="unbounded"/>
     </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="extensionType">
+    <xs:sequence>
+      <xs:any processContents="skip"
+        minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute name="type" use="required"/>
+    <xs:anyAttribute processContents="skip"/>
   </xs:complexType>
 
   <xs:complexType name="enumType">
