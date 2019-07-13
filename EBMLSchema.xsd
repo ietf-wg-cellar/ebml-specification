@@ -2,7 +2,13 @@
 <xs:schema xmlns="https://ietf.org/cellar/ebml"
   targetNamespace="https://ietf.org/cellar/ebml"
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml"
   elementFormDefault="qualified" version="01">
+
+  <!-- for HTML in comments -->
+  <xs:import namespace="http://www.w3.org/1999/xhtml"
+        schemaLocation="http://www.w3.org/MarkUp/SCHEMA/xhtml11.xsd"/>
+
   <xs:element name="EBMLSchema" type="EBMLSchemaType"/>
 
   <xs:complexType name="EBMLSchemaType">
@@ -54,7 +60,9 @@
 
   <xs:complexType name="documentationType" mixed="true">
     <xs:sequence>
-      <xs:any namespace="##any" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="a"      type="xhtml:xhtml.a.type" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="br"     type="xhtml:xhtml.br.type" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="strong" type="xhtml:xhtml.strong.type" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
     <xs:attribute name="lang"/>
     <xs:attribute name="purpose" use="required">
