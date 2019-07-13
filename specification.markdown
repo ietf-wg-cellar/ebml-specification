@@ -312,7 +312,7 @@ The version attribute is REQUIRED within the `<EBMLSchema>` Element.
 
 Each `<element>` defines one EBML Element through the use of several attributes that are defined in [EBML Schema Element Attributes](#ebmlschema-attributes). EBML Schemas MAY contain additional attributes to extend the semantics but MUST NOT conflict with the definitions of the `<element>` attributes defined within this document.
 
-The `<element>` nodes contain a description of the meaning and use of the EBML Element stored within one or more `<documentation>` sub-elements followed by one zero or one `<restriction>` sub-element. All `<element>` nodes MUST be sub-elements of the `<EBMLSchema>`.
+The `<element>` nodes contain a description of the meaning and use of the EBML Element stored within one or more `<documentation>` sub-elements, optional `<implementation_note>` sub-elements, and zero or one `<restriction>` sub-element. All `<element>` nodes MUST be sub-elements of the `<EBMLSchema>`.
 
 ### \<element> Attributes
 
@@ -475,6 +475,18 @@ The lang attribute is OPTIONAL.
 A purpose attribute distinguishes the meaning of the documentation. Values for the <documentation> sub-element's purpose attribute MUST include one of the following: `definition`, `rationale`, `usage notes`, and `references`.
 
 The purpose attribute is REQUIRED.
+
+### \<implementation_note> Element
+
+In some cases within an EBML Document Type, the attributes of the `<element>` element are not sufficient to clearly communicate how the defined EBML Element is intended to be implemented. For instance, one EBML Element might only be mandatory if another EBML Element is present, or as another example, the default value of an EBML Element might derive from a related Element's content. In these cases where the Element's definition is conditional or advanced implementation notes are needed, one or many `<implementation_note>` elements can be used to store that information. The `<implementation_note>` refer to a specific attribute of the parent `<element>` as expressed by the `note_type` attribute (#note_type).
+
+### \<implementation_note> Attributes
+
+#### note_type
+
+The note_type attribute references which of the `<element>`'s attributes that the implementation_note is in regards to. The note_type attribute MUST be set to one of the following values (corresponding to that attribute of the parent `<element>`): `minOccurs`, `maxOccurs`, `range`, `length`, `default`, `minver`, or `maxver`. The `<implementation_note>` SHALL supersede the parent `<element>`'s attribute that is named in the `note_type` attribute. An `<element>` SHALL NOT have more than one `<implementation_note>` of the same `note_type`.
+
+The note_type attribute is REQUIRED.
 
 ### \<restriction> Element
 
