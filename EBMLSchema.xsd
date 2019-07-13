@@ -4,6 +4,7 @@
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
   elementFormDefault="qualified" version="01">
   <xs:element name="EBMLSchema" type="EBMLSchemaType"/>
+
   <xs:complexType name="EBMLSchemaType">
     <xs:sequence>
       <xs:element name="element" type="elementType" minOccurs="0"
@@ -12,6 +13,7 @@
     <xs:attribute name="docType" use="required"/>
     <xs:attribute name="version" use="required"/>
   </xs:complexType>
+
   <xs:complexType name="elementType">
     <xs:sequence>
       <xs:element name="documentation" type="documentationType"
@@ -33,12 +35,14 @@
     <xs:attribute name="minver" default="1"/>
     <xs:attribute name="maxver"/>
   </xs:complexType>
+
   <xs:complexType name="restrictionType">
     <xs:sequence>
       <xs:element name="enum" type="enumType" minOccurs="0"
         maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
+
   <xs:complexType name="enumType">
     <xs:sequence>
       <xs:element name="documentation" type="documentationType"
@@ -47,6 +51,7 @@
     <xs:attribute name="label"/>
     <xs:attribute name="value" use="required"/>
   </xs:complexType>
+
   <xs:complexType name="documentationType" mixed="true">
     <xs:sequence>
       <xs:any namespace="##any" minOccurs="0" maxOccurs="unbounded"/>
@@ -63,4 +68,5 @@
       </xs:simpleType>
     </xs:attribute>
   </xs:complexType>
+
 </xs:schema>
