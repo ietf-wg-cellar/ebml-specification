@@ -186,7 +186,7 @@ VINT_WIDTH  | VINT_MARKER  | VINT_DATA             | Element Data Size Status
 
 # EBML Element Types
 
-EBML Elements are defined by an EBML Schema which MUST declare one of the following EBML Element Types for each EBML Element. An EBML Element Type defines a concept of storing data within an EBML Element that describes such characteristics as length, endianness, and definition.
+EBML Elements are defined by an EBML Schema (see (#ebml-schema)) which MUST declare one of the following EBML Element Types for each EBML Element. An EBML Element Type defines a concept of storing data within an EBML Element that describes such characteristics as length, endianness, and definition.
 
 EBML Elements which are defined as a Signed Integer Element, Unsigned Integer Element, Float Element, or Date Element use big endian storage.
 
@@ -274,7 +274,7 @@ The version of the EBML Body is found in EBMLDocTypeVersion. A parser for the pa
 
 ## EBML Schema
 
-An EBML Schema is a well-formed XML Document that defines the properties, arrangement, and usage of EBML Elements that compose a specific EBML Document Type. The relationship of an EBML Schema to an EBML Document is analogous to the relationship of an XML Schema [@?W3C.REC-xmlschema-0-20010502] to an XML Document [@!W3C.REC-xml-20081126]. An EBML Schema MUST be clearly associated with one or more EBML Document Types. An EBML Document Type is identified by a string stored within the EBML Header in the DocType Element; for example matroska or webm (see [the definition of the DocType Element](#doctype-element)). The DocType value for an EBML Document Type MUST be unique and persistent.
+An EBML Schema is a well-formed XML Document [@!W3C.REC-xml-20081126] that defines the properties, arrangement, and usage of EBML Elements that compose a specific EBML Document Type. The relationship of an EBML Schema to an EBML Document is analogous to the relationship of an XML Schema [@?W3C.REC-xmlschema-0-20010502] to an XML Document [@!W3C.REC-xml-20081126]. An EBML Schema MUST be clearly associated with one or more EBML Document Types. An EBML Document Type is identified by a string stored within the EBML Header in the DocType Element; for example matroska or webm (see [the definition of the DocType Element](#doctype-element)). The DocType value for an EBML Document Type MUST be unique and persistent.
 
 An EBML Schema MUST declare exactly one EBML Element at Root Level (referred to as the Root Element) that occurs exactly once within an EBML Document. The Void Element MAY also occur at Root Level but is not a Root Element (see [the definition of the Void Element](#void-element)).
 
@@ -290,7 +290,7 @@ An EBML Schema MAY constrain the use of EBML Header Elements (see [EBML Header E
 
 ### \<EBMLSchema> Element
 
-As an XML Document, the EBML Schema MUST use `<EBMLSchema>` as the top level element. The `<EBMLSchema>` element MAY contain `<element>` sub-elements.
+As an XML Document, the EBML Schema MUST use `<EBMLSchema>` as the top level element. The `<EBMLSchema>` element can contain `<element>` sub-elements.
 
 ### \<EBMLSchema> Attributes
 
@@ -326,7 +326,7 @@ The name attribute is REQUIRED.
 
 #### path
 
-The path defines the allowed storage locations of the EBML Element within an EBML Document. This path MUST be defined with the full hierarchy of EBML Elements separated with a `/`. The top EBML Element in the path hierarchy being the first in the value. The syntax of the path attribute is defined using this Augmented Backus-Naur Form (ABNF) [@!RFC5234] with the case sensitive update [@!RFC7405] notation:
+The path defines the allowed storage locations of the EBML Element within an EBML Document. This path MUST be defined with the full hierarchy of EBML Elements separated with a `\`. The top EBML Element in the path hierarchy being the first in the value. The syntax of the path attribute is defined using this Augmented Backus-Naur Form (ABNF) [@!RFC5234] with the case sensitive update [@!RFC7405] notation:
 
 The path attribute is REQUIRED.
 
@@ -344,11 +344,11 @@ EBMLAtomName             = 1*(EBMLNameChar)
 EBMLNameChar             = ALPHA / DIGIT / "-" / "."
 PathDelimiter            = "\"
 EBMLElementOccurrence    = [EBMLMinOccurrence] "*" [EBMLMaxOccurrence]
-EBMLMinOccurrence        = 1*DIGIT
-EBMLMaxOccurrence        = 1*DIGIT
+EBMLMinOccurrence        = 1*DIGIT ; no upper limit
+EBMLMaxOccurrence        = 1*DIGIT ; no upper limit
 VariableParentOccurrence = [PathMinOccurrence] "*" [PathMaxOccurrence]
-PathMinOccurrence        = 1*DIGIT
-PathMaxOccurrence        = 1*DIGIT
+PathMinOccurrence        = 1*DIGIT ; no upper limit
+PathMaxOccurrence        = 1*DIGIT ; no upper limit
 ```
 
 The `*`, `(` and `)` symbols are interpreted as defined in [@!RFC5234].
@@ -727,7 +727,7 @@ length: >0
 
 type: String
 
-description: The name of the DocTypeExtension to identify it from other DocTypeExtension of the same DocType+DocTypeVersion tuple. A DocTypeExtensionName value MUST be unique within the EBML Header.
+description: The name of the DocTypeExtension to differentiate it from other DocTypeExtension of the same DocType+DocTypeVersion tuple. A DocTypeExtensionName value MUST be unique within the EBML Header.
 
 ### DocTypeExtensionVersion Element
 
@@ -924,7 +924,7 @@ The VINT Data value of three-octet Element IDs MUST be between 0x4001 and 0x1FFF
 
 The numbers 0x1FFFFF and 0x200000 are RESERVED.
 
-Four-octet Element IDs are numbers between 0x101FFFFF and 0x1FFFFFFE. Four-octet Element IDs are somewhat special in that they are useful for resynchronizing to major structures in the event of data corruption or loss. As such four-octet Element IDs are split into two categories. Four-octet Element IDs whose lower three octets (as encoded) would make printable 7-bit ASCII values (0x20 to 0x7F) MUST be allocated by the "Specification Required" policy. Sequential allocation of values is not required: specifications SHOULD include a specific request, and are encouraged to do early allocations.
+Four-octet Element IDs are numbers between 0x101FFFFF and 0x1FFFFFFE. Four-octet Element IDs are somewhat special in that they are useful for resynchronizing to major structures in the event of data corruption or loss. As such four-octet Element IDs are split into two categories. Four-octet Element IDs whose lower three octets (as encoded) would make printable 7-bit ASCII values (0x20 to 0x7E, inclusive) MUST be allocated by the "Specification Required" policy. Sequential allocation of values is not required: specifications SHOULD include a specific request, and are encouraged to do early allocations.
 
 To be clear about the above category: four-octet Element IDs always start with hex 0x10 to 0x1F, and that octet may be chosen so that the entire number has some desirable property, such as a specific CRC. The other three octets, when ALL having values between 0x21 (33, ASCII !) and 0x7E (126, ASCII ~), fall into this category.
 
