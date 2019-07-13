@@ -460,7 +460,7 @@ The maxver attribute is OPTIONAL. If the maxver attribute is not present then th
 
 ### \<documentation> Element
 
-The `<documentation>` element provides additional information about the EBML Element.
+The `<documentation>` element provides additional information about the EBML Element. Within the `<documentation>` element the following XHTML [!@W3C.CR-xhtml-basic-20070713] elements MAY be used: `<a>`, `<br>`, `<strong>`.
 
 ### \<documentation> Attributes
 
