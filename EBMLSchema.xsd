@@ -31,7 +31,7 @@
     <xs:attribute name="default"/>
     <xs:attribute name="type" use="required"/>
     <xs:attribute name="unknownsizeallowed"/>
-    <xs:attribute name="recursive"/>
+    <xs:attribute name="recurring"/>
     <xs:attribute name="minver" default="1"/>
     <xs:attribute name="maxver"/>
   </xs:complexType>
