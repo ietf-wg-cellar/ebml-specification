@@ -176,9 +176,9 @@ Consider an Unknown-Size Element which EBML path is `\root\level1\level2\elt`. H
 
 EBML Path of next element          | Status
 -----------------------------------|------------------------------
-`\root\level1\level2`              | Ends the unknown-size element, as it a new Parent element
-`\root\level1`                     | Ends the unknown-size element, as it a new Parent element
-`\root`                            | Ends the unknown-size element, as it a new Parent element
+`\root\level1\level2`              | Ends the unknown-size element, as it is a new Parent element
+`\root\level1`                     | Ends the unknown-size element, as it is a new Parent element
+`\root`                            | Ends the unknown-size element, as it is a new Parent element
 `\root\level1\level2\other`        | Ends the unknown-size element, as they share the same parent
 `\root\level1\level2\elt\inside`   | Doesn't end the unknown-size element, it's a child of `elt`
 `\root\level1\level2\other\part`   | Isn't valid right after `elt`. `other` should be found first
