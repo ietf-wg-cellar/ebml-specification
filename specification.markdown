@@ -902,8 +902,6 @@ Side channel attacks could exploit:
 - Copies of Identically Recurring Element within a Parent Element that contain invalid CRC-32 Elements. EBML Readers not checking the CRC-32 might use the version of the element with mismatching CRC-32.
 - Use of Void Elements which could be used to hide content or create bogus resynchronzation points seen by some EBML Reader and not others.
 
-An EBML Reader MAY use the data if it considers it doesn't create any security issue.
-
 # IANA Considerations
 
 ## CELLAR EBML Element ID Registry
