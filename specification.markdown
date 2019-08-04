@@ -274,7 +274,7 @@ The version of the EBML Body is found in EBMLDocTypeVersion. A parser for the pa
 
 ## EBML Schema
 
-An EBML Schema is a well-formed XML Document [@!W3C.REC-xml-20081126] that defines the properties, arrangement, and usage of EBML Elements that compose a specific EBML Document Type. The relationship of an EBML Schema to an EBML Document is analogous to the relationship of an XML Schema [@?W3C.REC-xmlschema-0-20010502] to an XML Document [@!W3C.REC-xml-20081126]. An EBML Schema MUST be clearly associated with one or more EBML Document Types. An EBML Document Type is identified by a string stored within the EBML Header in the DocType Element; for example matroska or webm (see [the definition of the DocType Element](#doctype-element)). The DocType value for an EBML Document Type MUST be unique and persistent.
+An EBML Schema is a well-formed XML Document [@!W3C.REC-xml-20081126] that defines the properties, arrangement, and usage of EBML Elements that compose a specific EBML Document Type. The relationship of an EBML Schema to an EBML Document is analogous to the relationship of an XML Schema [@?W3C.REC-xmlschema-0-20041028] to an XML Document [@!W3C.REC-xml-20081126]. An EBML Schema MUST be clearly associated with one or more EBML Document Types. An EBML Document Type is identified by a string stored within the EBML Header in the DocType Element; for example matroska or webm (see [the definition of the DocType Element](#doctype-element)). The DocType value for an EBML Document Type MUST be unique and persistent.
 
 An EBML Schema MUST declare exactly one EBML Element at Root Level (referred to as the Root Element) that occurs exactly once within an EBML Document. The Void Element MAY also occur at Root Level but is not a Root Element (see [the definition of the Void Element](#void-element)).
 
@@ -524,7 +524,7 @@ The type attribute is REQUIRED.
 
 ### XML Schema for EBML Schema
 
-This following provides an XML Schema [@?W3C.REC-xmlschema-0-20010502] for facilitating verification of an EBML Schema to the definition described in (#ebml-header).
+This following provides an XML Schema [@?W3C.REC-xmlschema-0-20041028] for facilitating verification of an EBML Schema to the definition described in (#ebml-header).
 
 <{{EBMLSchema.xsd}}
 
