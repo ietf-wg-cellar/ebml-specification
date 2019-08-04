@@ -172,16 +172,16 @@ The use of Unknown-Sized Elements allows for an EBML Element to be written and r
 - Any valid EBML Element according to the EBML Schema, Global Elements excluded, that is a Root Element.
 - The end of the EBML Document, either when reaching the end of the file or because a new EBML Header started.
 
-Consider an Unknown-Size Element which EBML path is `\root\level1\level2\elt`. Here are some possible and impossible way to end this element:
+Consider an Unknown-Sized Element which EBML path is `\root\level1\level2\elt`. Here are some possible and impossible way to end this element:
 
 EBML Path of next element          | Status
 -----------------------------------|------------------------------
-`\root\level1\level2`              | Ends the unknown-size element, as it is a new Parent element
-`\root\level1`                     | Ends the unknown-size element, as it is a new Parent element
-`\root`                            | Ends the unknown-size element, as it is a new Root Element
-`\root2`                           | Ends the unknown-size element, as it is a new Root Element
-`\root\level1\level2\other`        | Ends the unknown-size element, as they share the same parent
-`\root\level1\level2\elt\inside`   | Doesn't end the unknown-size element, it's a child of `elt`
+`\root\level1\level2`              | Ends the Unknown-Sized Element, as it is a new Parent element
+`\root\level1`                     | Ends the Unknown-Sized Element, as it is a new Parent element
+`\root`                            | Ends the Unknown-Sized Element, as it is a new Root Element
+`\root2`                           | Ends the Unknown-Sized Element, as it is a new Root Element
+`\root\level1\level2\other`        | Ends the Unknown-Sized Element, as they share the same parent
+`\root\level1\level2\elt\inside`   | Doesn't end the Unknown-Sized Element, it's a child of `elt`
 `\root\level1\level2\other\part`   | Isn't valid right after `elt`. `other` should be found first
 `\root\level1\level2\elt\<global>` | Global Element is valid, it's a child of `elt`
 `\root\level1\level2\<global>`     | Global Element is invalid, it can only be a child of `elt` while parsing `elt`
