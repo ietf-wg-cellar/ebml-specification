@@ -6,7 +6,7 @@ OUTPUT := $(STATUS)ietf-cellar-ebml-$(VERSION)
 
 all: $(OUTPUT).html $(OUTPUT).txt $(OUTPUT).xml
 
-$(OUTPUT).md: specification.markdown rfc_frontmatter.markdown
+$(OUTPUT).md: specification.markdown rfc_frontmatter.markdown EBMLSchema.xsd ebml_schema_example.xml
 	cat rfc_frontmatter.markdown $< > $(OUTPUT).md
 
 %.xml: %.md
