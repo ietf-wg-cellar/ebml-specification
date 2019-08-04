@@ -24,7 +24,7 @@
     <xs:sequence>
       <xs:element name="documentation" type="documentationType"
         minOccurs="0" maxOccurs="unbounded"/>
-      <xs:element name="implementation_note" type="implementation_noteType"
+      <xs:element name="implementation_note" type="noteType"
         minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="restriction" type="restrictionType"
         minOccurs="0" maxOccurs="1"/>
@@ -73,9 +73,12 @@
 
   <xs:complexType name="documentationType" mixed="true">
     <xs:sequence>
-      <xs:element name="a"      type="xhtml:xhtml.a.type" minOccurs="0" maxOccurs="unbounded"/>
-      <xs:element name="br"     type="xhtml:xhtml.br.type" minOccurs="0" maxOccurs="unbounded"/>
-      <xs:element name="strong" type="xhtml:xhtml.strong.type" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="a"      type="xhtml:xhtml.a.type" 
+        minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="br"     type="xhtml:xhtml.br.type"
+        minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="strong" type="xhtml:xhtml.strong.type"
+        minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
     <xs:attribute name="lang"/>
     <xs:attribute name="purpose" use="required">
@@ -90,7 +93,7 @@
     </xs:attribute>
   </xs:complexType>
 
-  <xs:complexType name="implementation_noteType">
+  <xs:complexType name="noteType">
     <xs:simpleContent>
       <xs:extension base="xs:string">
         <xs:attribute name="note_type" use="required">
