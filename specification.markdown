@@ -186,7 +186,7 @@ EBML Path of next element          | Status
 `\root\level1\level2\elt\inside`   | Doesn't end the Unknown-Sized Element, it's a child of `elt`
 `\root\level1\level2\other\part`   | Isn't valid right after `elt`. `other` should be found first
 `\root\level1\level2\elt\<global>` | Global Element is valid, it's a child of `elt`
-`\root\level1\level2\<global>`     | Global Element is invalid, it can only be a child of `elt` while parsing `elt`
+`\root\level1\level2\<global>`     | Global Element cannot be assumed to have this path, it can only be a child of `elt` while parsing `elt`
 
 
 ## Data Size Values
