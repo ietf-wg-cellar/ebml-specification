@@ -170,14 +170,15 @@ The use of Unknown-Sized Elements allows for an EBML Element to be written and r
 - Any valid EBML Element according to the EBML Schema, Global Elements excluded, that is a Parent Element of the Unknown-Sized Element.
 - Any valid EBML Element according to the EBML Schema, Global Elements excluded, that is not a Descendant Element of the Unknown-Sized Element but share a common direct parent, such as a Top-Level Element.
 - Any valid EBML Element according to the EBML Schema, Global Elements excluded, that is a Root Element.
+- The end of the Parent Element with a known size has been reached.
 - The end of the EBML Document, either when reaching the end of the file or because a new EBML Header started.
 
 Consider an Unknown-Sized Element which EBML path is `\root\level1\level2\elt`. Here are some possible and impossible way to end this element:
 
 EBML Path of next element          | Status
 -----------------------------------|------------------------------
-`\root\level1\level2`              | Ends the Unknown-Sized Element, as it is a new Parent element
-`\root\level1`                     | Ends the Unknown-Sized Element, as it is a new Parent element
+`\root\level1\level2`              | Ends the Unknown-Sized Element, as it is a new Parent Element
+`\root\level1`                     | Ends the Unknown-Sized Element, as it is a new Parent Element
 `\root`                            | Ends the Unknown-Sized Element, as it is a new Root Element
 `\root2`                           | Ends the Unknown-Sized Element, as it is a new Root Element
 `\root\level1\level2\other`        | Ends the Unknown-Sized Element, as they share the same parent
