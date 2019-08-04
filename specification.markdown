@@ -169,7 +169,7 @@ The use of Unknown-Sized Elements allows for an EBML Element to be written and r
 
 - Any valid EBML Element according to the EBML Schema, Global Elements excluded, that is a Parent Element of the Unknown-Sized Element.
 - Any valid EBML Element according to the EBML Schema, Global Elements excluded, that is not a Descendant Element of the Unknown-Sized Element but share a common direct parent. For example a Top-Level Element.
-- Any valid EBML Element according to the EBML Schema, Global Elements excluded, that is a root element.
+- Any valid EBML Element according to the EBML Schema, Global Elements excluded, that is a Root Element.
 - The end of the EBML Document, either when reaching the end of the file or because a new EBML Header started.
 
 Consider an Unknown-Size Element which EBML path is `\root\level1\level2\elt`. Here are some possible and impossible way to end this element:
@@ -178,8 +178,8 @@ EBML Path of next element          | Status
 -----------------------------------|------------------------------
 `\root\level1\level2`              | Ends the unknown-size element, as it is a new Parent element
 `\root\level1`                     | Ends the unknown-size element, as it is a new Parent element
-`\root`                            | Ends the unknown-size element, as it is a new root element
-`\root2`                           | Ends the unknown-size element, as it is a new root element
+`\root`                            | Ends the unknown-size element, as it is a new Root Element
+`\root2`                           | Ends the unknown-size element, as it is a new Root Element
 `\root\level1\level2\other`        | Ends the unknown-size element, as they share the same parent
 `\root\level1\level2\elt\inside`   | Doesn't end the unknown-size element, it's a child of `elt`
 `\root\level1\level2\other\part`   | Isn't valid right after `elt`. `other` should be found first
