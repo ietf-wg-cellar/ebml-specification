@@ -13,8 +13,8 @@
 
   <xs:complexType name="EBMLSchemaType">
     <xs:sequence>
-      <xs:element name="element" type="elementType" minOccurs="0"
-        maxOccurs="unbounded"/>
+      <xs:element name="element" type="elementType"
+        minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
     <xs:attribute name="docType" use="required"/>
     <xs:attribute name="version" use="required"/>
@@ -48,8 +48,8 @@
 
   <xs:complexType name="restrictionType">
     <xs:sequence>
-      <xs:element name="enum" type="enumType" minOccurs="0"
-        maxOccurs="unbounded"/>
+      <xs:element name="enum" type="enumType"
+        minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
 
