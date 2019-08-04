@@ -176,7 +176,7 @@ The use of Unknown-Sized Elements allows for an EBML Element to be written and r
 Consider an Unknown-Sized Element which EBML path is `\root\level1\level2\elt`. Here are some possible and impossible way to end this element:
 
 EBML Path of next element          | Status
------------------------------------|------------------------------
+:----------------------------------|:-----------------------------
 `\root\level1\level2`              | Ends the Unknown-Sized Element, as it is a new Parent Element
 `\root\level1`                     | Ends the Unknown-Sized Element, as it is a new Parent Element
 `\root`                            | Ends the Unknown-Sized Element, as it is a new Root Element
