@@ -512,7 +512,7 @@ The value attribute is REQUIRED.
 
 ### \<extension> Element
 
- The `<extension>` element provides an unconstained element to contain information about the associated EBML `<element>` which is undefined by this document but MAY be defined by the associated EBML Document Type. The `<extension>` element MUST contain a `type` attribute and also MAY contain any other attribute or sub-element as long as the EBML Schema remains as a well-formed XML Document. All `<extension>` elements MUST be sub-elements of the `<element>`.
+ The `<extension>` element provides an unconstrained element to contain information about the associated EBML `<element>` which is undefined by this document but MAY be defined by the associated EBML Document Type. The `<extension>` element MUST contain a `type` attribute and also MAY contain any other attribute or sub-element as long as the EBML Schema remains as a well-formed XML Document. All `<extension>` elements MUST be sub-elements of the `<element>`.
 
 ### \<extension> Attributes
 
@@ -915,7 +915,7 @@ An EBML Reader may discard some or all data if the following errors are found in
 - Very high lengths in order to force out-of-memory situations resulting in a denial of service, access-out-of-bounds issues etc.
 - Missing EBML Elements that are mandatory in a Master Element and have no declared default value, making the semantic invalid at that Master Element level.
 - Usage of invalid UTF-8 encoding in EBML Elements of UTF-8 type (e.g. in order to trigger access-out-of-bounds or buffer overflow issues).
-- Usage of invalid data in EBML Elements with a date type, trigerring bogus date accesses.
+- Usage of invalid data in EBML Elements with a date type, triggering bogus date accesses.
 
 Side channel attacks could exploit:
 
@@ -924,7 +924,7 @@ Side channel attacks could exploit:
 - Data contained within a Master Element which is not itself part of a Child Element can trigger incorrect parsing behavior in EBML Readers.
 - Extraneous copies of Identically Recurring Element, making parsing unnecessarily slow to the point of not being usable.
 - Copies of Identically Recurring Element within a Parent Element that contain invalid CRC-32 Elements. EBML Readers not checking the CRC-32 might use the version of the element with mismatching CRC-32.
-- Use of Void Elements which could be used to hide content or create bogus resynchronzation points seen by some EBML Reader and not others.
+- Use of Void Elements which could be used to hide content or create bogus resynchronization points seen by some EBML Reader and not others.
 
 # IANA Considerations
 
