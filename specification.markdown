@@ -815,7 +815,7 @@ If a Master Element contains a CRC-32 Element that doesn't validate, then the EB
 
 If a Master Element contains more occurrences of a Child Master Element than permitted according to the maxOccurs and recurring attributes of the definition of that Element then the occurrences in addition to maxOccurs MAY be ignored.
 
-If a Master Element contains more occurrences of a Child Element than permitted according to the maxOccurs attribute of the definition of that Element then all instances of that Element after the first maxOccur occurences from the beginning of its Parent Element SHOULD be ignored.
+If a Master Element contains more occurrences of a Child Element than permitted according to the maxOccurs attribute of the definition of that Element then all instances of that Element after the first maxOccur occurrences from the beginning of its Parent Element SHOULD be ignored.
 
 # Terminating Elements
 
