@@ -167,9 +167,9 @@ An Element Data Size with all VINT_DATA bits set to one is reserved as an indica
 
 The use of Unknown-Sized Elements allows for an EBML Element to be written and read before the size of the EBML Element is known. Unknown-Sized Element MUST NOT be used or defined unnecessarily; however if the Element Data Size is not known before the Element Data is written, such as in some cases of data streaming, then Unknown-Sized Elements MAY be used. The end of an Unknown-Sized Element is determined by whichever comes first:
 
-- Any EBML Element that is a valid Parent Element of the Unknown-Sized Element according to the EBML Schema, Global Elements excluded.
-- Any valid EBML Element according to the EBML Schema, Global Elements excluded, that is not a Descendant Element of the Unknown-Sized Element but share a common direct parent, such as a Top-Level Element.
-- Any EBML Element that is a valid Root Element according to the EBML Schema, Global Elements excluded.
+- Any EBML Element that is a valid Parent Element of the Unknown-Sized Element according to the EBML Schema, [Global Elements](#global-elements) excluded.
+- Any valid EBML Element according to the EBML Schema, [Global Elements](#global-elements) excluded, that is not a Descendant Element of the Unknown-Sized Element but share a common direct parent, such as a Top-Level Element.
+- Any EBML Element that is a valid Root Element according to the EBML Schema, [Global Elements](#global-elements) excluded.
 - The end of the Parent Element with a known size has been reached.
 - The end of the EBML Document, either when reaching the end of the file or because a new EBML Header started.
 
