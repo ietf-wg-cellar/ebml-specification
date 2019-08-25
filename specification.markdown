@@ -978,6 +978,8 @@ ID Values found in this document are assigned as initial values as follows:
 
 This document creates a new IANA Registry called "CELLAR EBML DocType Registry".
 
+To register a new DocType in this registry one needs a DocType name, a Description of the DocType, a Change Controller (IESG or email of registrant) and an optional Reference to a document describing the DocType.
+
 DocType values are described in [this section](#doctype). DocTypes are ASCII strings, defined in [the String Element section](#string-element), which label the official name of the EBML Document Type. The strings may be allocated according to the "First Come First Served" policy.
 
 The use of ASCII corresponds to the types and code already in use, the value is not meant to be visible to the user.
