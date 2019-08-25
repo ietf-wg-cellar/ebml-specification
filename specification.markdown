@@ -367,6 +367,10 @@ In some cases the EBMLLastParent part of the path is an EBMLVariableParent. A pa
 
 The VariableParentOccurrence part is interpreted as an ABNF Variable Repetition. The repetition amounts correspond to the amount of unspecified Parent Element levels there can be between the EBMLFixedParent and the actual EBMLElementPath.
 
+PathMinOccurrence represents the minimum number of element path required between the EBMLFixedParent and the Global Element EBMLElementPath. For example 0 means the EBMLElementPath can be right after the EBMLFixedParent, 1 means there has to be at least an element between the EBMLFixedParent and the EBMLElementPath. If PathMinOccurrence is not present then that EBML Element has an PathMinOccurrence value of 0.
+
+PathMaxOccurrence represents the maximum number of element path possible between the EBMLFixedParent and the Global Element EBMLElementPath. It cannot have the value 0 as it would be the Global Element can only be found right after the EBMLFixedParent, in which case it's not a Global Element anymore. If PathMaxOccurrence is not present then there is no upper bound for the permitted number of occurrences of element path possible between the EBMLFixedParent and the Global Element EBMLElementPath.
+
 If the path contains an EBMLPathAtomRecursive part, the EBML Element can occur within itself recursively (see the [recursive attribute](#recursive)).
 
 As an example, a `path` of `1*(\Segment\Info)` means the element Info is found inside the Segment elements at least once and with no maximum iteration. An element SeekHead with path `0*2(\Segment\SeekHead)` may not be found at all in its Segment parent, once or twice but no more than that.
