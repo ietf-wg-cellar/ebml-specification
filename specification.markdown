@@ -278,7 +278,7 @@ An EBML Schema is a well-formed XML Document [@!W3C.REC-xml-20081126] that defin
 
 An EBML Schema MUST declare exactly one EBML Element at Root Level (referred to as the Root Element) that occurs exactly once within an EBML Document. The Void Element MAY also occur at Root Level but is not a Root Element (see [the definition of the Void Element](#void-element)).
 
-The EBML Schema MUST document all Elements of the EBML Body. The EBML Schema does not document Global Elements that are defined by this document (namely the Void Element and the CRC-32 Element).
+The EBML Schema MUST document all Elements of the EBML Body. The EBML Schema does not document [Global Elements](#global-elements) that are defined by this document (namely the Void Element and the CRC-32 Element).
 
 The EBML Schema MUST NOT use the Element ID `0x1A45DFA3` which is reserved for the EBML Header for resynchronization purpose.
 
@@ -934,7 +934,7 @@ This document creates a new IANA Registry called "CELLAR EBML Element ID Registr
 
 Element IDs are described in section Element ID. Element IDs are encoded using the VINT mechanism described in section (#variable-size-integer) can be between one and five octets long. Five octet long Element IDs are possible only if declared in the header.
 
-This IANA Registry only applies to Elements that can be contained in the EBML Header, thus including Global Elements. Elements only found in the EBML Body have their own set of independent Element IDs and are not part of this IANA Registry.
+This IANA Registry only applies to Elements that can be contained in the EBML Header, thus including [Global Elements](#global-elements). Elements only found in the EBML Body have their own set of independent Element IDs and are not part of this IANA Registry.
 
 The VINT Data value of one-octet Element IDs MUST be between 0x01 and 0x7E. These items are valuable because they are short, and need to be used for commonly repeated elements. Values from 1 to 126 are to be allocated according to the "RFC Required" policy [@!RFC8126].
 
