@@ -369,6 +369,8 @@ If the path contains an EBMLPathAtomRecursive part, the EBML Element can occur w
 
 As an example, a `path` of `1*(\Segment\Info)` means the element Info is found inside the Segment elements at least once and with no maximum iteration. An element SeekHead with path `0*2(\Segment\SeekHead)` may not be found at all in its Segment parent, once or twice but no more than that.
 
+In some cases the EBMLLastParent part of the path is an EBMLVariableParent. A path with a EBMLVariableParent defines a [Global Element](#global-elements). Any path that starts with the EBMLFixedParent of the Global Element and matches the occurrences found in the VariableParentOccurrence is a valid path for the Global Element. In other words EBMLVariableParent matches any remaining path after the EBMLFixedParent.
+
 #### id
 
 The Element ID encoded as a Variable Size Integer expressed in hexadecimal notation prefixed by a 0x that is read and stored in big-endian order. To reduce the risk of false positives while parsing EBML Streams, the Element IDs of the Root Element and Top-Level Elements SHOULD be at least 4 octets in length. Element IDs defined for use at Root Level or directly under the Root Level MAY use shorter octet lengths to facilitate padding and optimize edits to EBML Documents; for instance, the Void Element uses an Element ID with a one octet length to allow its usage in more writing and editing scenarios.
