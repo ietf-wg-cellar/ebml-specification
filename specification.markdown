@@ -363,13 +363,13 @@ The EBMLMinOccurrence represents the minimum permitted number of occurrences of 
 
 The EBMLMaxOccurrence represents the maximum permitted number of occurrences of this EBML Element within its Parent Element. Each instance of the Parent Element MUST contain at most this many instances of this EBML Element. If the EBML Element has an empty EBMLParentPath then EBMLMaxOccurrence refers to constraints on the occurrence of the EBML Element within the EBML Document. If EBMLMaxOccurrence is not present then there is no upper bound for the permitted number of occurrences of this EBML Element within its Parent Element resp. within the EBML Document depending on whether the EBMLParentPath of the EBML Element is empty or not. The semantic meaning of EBMLMaxOccurrence within an EBML Schema path is analogous to the meaning of maxOccurs within an XML Schema.
 
+In some cases the EBMLLastParent part of the path is an EBMLVariableParent. A path with a EBMLVariableParent defines a [Global Element](#global-elements). Any path that starts with the EBMLFixedParent of the Global Element and matches the occurrences found in the VariableParentOccurrence is a valid path for the Global Element. 
+
 The VariableParentOccurrence part is interpreted as an ABNF Variable Repetition. The repetition amounts correspond to the amount of unspecified Parent Element levels there can be between the EBMLFixedParent and the actual EBMLElementPath.
 
 If the path contains an EBMLPathAtomRecursive part, the EBML Element can occur within itself recursively (see the [recursive attribute](#recursive)).
 
 As an example, a `path` of `1*(\Segment\Info)` means the element Info is found inside the Segment elements at least once and with no maximum iteration. An element SeekHead with path `0*2(\Segment\SeekHead)` may not be found at all in its Segment parent, once or twice but no more than that.
-
-In some cases the EBMLLastParent part of the path is an EBMLVariableParent. A path with a EBMLVariableParent defines a [Global Element](#global-elements). Any path that starts with the EBMLFixedParent of the Global Element and matches the occurrences found in the VariableParentOccurrence is a valid path for the Global Element. In other words EBMLVariableParent matches any remaining path after the EBMLFixedParent.
 
 #### id
 
