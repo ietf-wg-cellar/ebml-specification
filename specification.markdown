@@ -34,7 +34,7 @@ This document defines specific terms in order to define the format and applicati
 
 `EBML Schema`: A standardized definition for the structure of an `EBML Document Type`.
 
-`EBML Document`: A datastream comprised of only two components, an `EBML Header` and an `EBML Body`.
+`EBML Document`: A datastream comprised of only two components, an `EBML Header` and an `EBML Body`, plus any optional `Global Elements` that MAY be permitted at the Root Level (for example, the `Void Element`).
 
 `EBML Reader`: A data parser that interprets the semantics of an `EBML Document` and creates a way for programs to use `EBML`.
 
@@ -240,7 +240,7 @@ The contents of a Binary Element should not be interpreted by the EBML Reader.
 
 # EBML Document
 
-An EBML Document is comprised of only two components, an EBML Header and an EBML Body. An EBML Document MUST start with an EBML Header that declares significant characteristics of the entire EBML Body. An EBML Document consists of EBML Elements and MUST NOT contain any data that is not part of an EBML Element.
+An EBML Document is comprised of only two components, an EBML Header and an EBML Body, plus any optional `Global Elements` that MAY be permitted at the Root Level (for example, the `Void Element`). An EBML Document MUST start with an EBML Header that declares significant characteristics of the entire EBML Body. An EBML Document consists of EBML Elements and MUST NOT contain any data that is not part of an EBML Element.
 
 ## EBML Header
 
@@ -779,7 +779,7 @@ description: The version of the DocTypeExtension. Different DocTypeExtensionVers
 
 ## Global Elements
 
-EBML allows some special Elements to be found within more than one parent in an EBML Document. These Elements are called Global Elements. There are 2 Global Elements that can be found in any EBML Document: the CRC-32 Element and the Void Element. An EBML Schema MAY add other Global Elements to the format it defines.
+EBML allows some special Elements to be found within more than one parent in an EBML Document or optionally at the Root Level of an EBML Document. These Elements are called Global Elements. There are 2 Global Elements that can be found in any EBML Document: the CRC-32 Element and the Void Element. An EBML Schema MAY add other Global Elements to the format it defines.
 
 Global Elements are EBML Elements whose path have a EBMLVariableParent as their EBMLLastParent. Because it is the last Parent part of the path, a Global Element might also have non-EBMLVariableParent parts in its path. In this case the Global Element can only be found within this non-EBMLVariableParent path, ie it's not fully "global".
 
