@@ -187,7 +187,6 @@ EBML Path of next element          | Status
 `\root\level1\level2\elt\<global>` | Global Element is valid, it's a child of `elt`
 `\root\level1\level2\<global>`     | Global Element cannot be assumed to have this path, it can only be a child of `elt` while parsing `elt`
 
-
 ## Data Size Values
 
 For Element Data Sizes encoded at octet lengths from one to eight, this table depicts the range of possible values that can be encoded as an Element Data Size. An Element Data Size with an octet length of 8 is able to express a size of 2^56-2 or 72,057,594,037,927,934 octets (or about 72 petabytes). The maximum possible value that can be stored as Element Data Size is referred to as VINTMAX.
