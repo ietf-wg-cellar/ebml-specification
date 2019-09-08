@@ -173,9 +173,9 @@ The use of Unknown-Sized Elements allows for an EBML Element to be written and r
 - The end of the Parent Element with a known size has been reached.
 - The end of the EBML Document, either when reaching the end of the file or because a new EBML Header started.
 
-Consider an Unknown-Sized Element which EBML path is `\root\level1\level2\elt`. Here are some possible and impossible way to end this element:
+Consider an Unknown-Sized Element which EBML path is `\root\level1\level2\elt`. When reading a new Element ID, assuming the EBML Path of that new Element is valid, here are some possible and impossible ways that this new Element is ending `elt`:
 
-EBML Path of next element          | Status
+EBML Path of new element           | Status
 :----------------------------------|:-----------------------------
 `\root\level1\level2`              | Ends the Unknown-Sized Element, as it is a new Parent Element
 `\root\level1`                     | Ends the Unknown-Sized Element, as it is a new Parent Element
@@ -184,7 +184,7 @@ EBML Path of next element          | Status
 `\root\level1\level2\other`        | Ends the Unknown-Sized Element, as they share the same parent
 `\root\level1\level2\elt`          | Ends the Unknown-Sized Element, as they share the same parent
 `\root\level1\level2\elt\inside`   | Doesn't end the Unknown-Sized Element, it's a child of `elt`
-`\root\level1\level2\elt\<global>` | Global Element is valid, it's a child of `elt`
+`\root\level1\level2\elt\<global>` | Global Element is valid, it's a child of `elt` (assuming <global> is valid at this path)
 `\root\level1\level2\<global>`     | Global Element cannot be assumed to have this path, while parsing `elt` it can only be a child of `elt`
 
 ## Data Size Values
