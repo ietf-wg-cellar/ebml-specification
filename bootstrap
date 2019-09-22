@@ -9,11 +9,6 @@ NEEDED=
 
 BOOTSTRAP_MAKE=bootstrap.mak
 
-# Go compiler for mmark
-
-# mmark
-
-
 check_version() {
     gotver=$2
     gotmajor=`echo $gotver|cut -d. -f1`
@@ -32,31 +27,30 @@ check_version() {
         NEEDED="$NEEDED $1"
     else
         FOUND="$FOUND $1"
+        echo "found $1 version $2 (needed $3)"
     fi
-
 }
 
 check() {
-if ! $1 --version >/dev/null 2>&1 && ! $1 -version >/dev/null 2>&1
-then
-    echo "$1 not found"
-    NEEDED="$NEEDED $1"
-else
-    # found, need to check version ?
-    if [ -z "$2" ];then
-        FOUND="$FOUND $1"
+    if ! $1 --version >/dev/null 2>&1 && ! $1 -version >/dev/null 2>&1
+    then
+        echo "$1 not found"
+        NEEDED="$NEEDED $1"
     else
-        gotver=`$1 --version | head -1 | sed s/'.* '//`
-        check_version $1 $gotver $2
+        # found, need to check version ?
+        if [ -z "$2" ];then
+            FOUND="$FOUND $1"
+            echo "found $1"
+        else
+            gotver=`$1 --version | head -1 | sed s/'.* '//`
+            check_version $1 $gotver $2
+        fi
     fi
-fi
 }
 
 # check make
 check mmark 2.1.1
 check xml2rfc 2.30.0
-
-DEPS_ONLY="go"
 
 cat > $BOOTSTRAP_MAKE << EOF
 PREFIX=\$(abspath ./build)
@@ -68,21 +62,50 @@ done
 
 for t in $NEEDED; do
     echo .$t: .build$t >> $BOOTSTRAP_MAKE
-    case "$t" in
-        *$DEPS_ONLY*)
-            ;; # Dependency only, not build by default
-        *)
-            PACKAGES="$PACKAGES $t"
-            TARGETS="$TARGETS .build$t"
-            ;;
-    esac
+    PACKAGES="$PACKAGES $t"
+    TARGETS="$TARGETS .build$t"
 done
 
-[ -n "$PACKAGES" ] && mkdir -p build/bin && echo "To-be-built packages: $PACKAGES"
+[ -n "$PACKAGES" ] && echo "To-be-built packages: $PACKAGES"
+
+case `uname` in
+	Linux)
+		MMARK_OS=linux
+	;;
+	Darwin)
+		MMARK_OS=darwin
+	;;
+	MINGW32*|MINGW64*|*MSYS*)
+		MMARK_OS=windows
+	;;
+	*)
+		echo Unsupported build OS `uname`
+		exit 1
+	;;
+esac
+case `uname -m` in
+	x86_64)
+		MMARK_MACHINE=amd64
+	;;
+	arm64)
+		MMARK_MACHINE=arm64
+	;;
+	arm)
+		MMARK_MACHINE=arm
+	;;
+	*)
+		echo Unsupported build CPU `uname -m`
+		exit 1
+	;;
+esac
 
 cat >> $BOOTSTRAP_MAKE << EOF
 all: $TARGETS
 	@echo "You are ready to build EBML specifications"
+
+MMARK_VERSION=2.1.1
+MMARK_OS=$MMARK_OS
+MMARK_MACHINE=$MMARK_MACHINE
 
 include tools.mak
 EOF
