@@ -44,3 +44,15 @@
   </front>
   <seriesInfo name="ISO" value="Standard 3309"/>
 </reference>
+
+<reference anchor="W3C.SPSD-xhtml-basic-20180327">
+  <front>
+    <title>XHTML(tm) Basic 1.1 - Second Edition</title>
+  <author initials='S.' surname='McCarron' fullname='Shane McCarron'>
+      <organization />
+  </author>
+    <date month='March' day='27' year='2018' />
+  </front>
+  <seriesInfo name='World Wide Web Consortium Recommendation' value='SPSD-xhtml-basic-20180327' />
+  <format type='HTML' target='http://www.w3.org/TR/2018/SPSD-xhtml-basic-20180327' />
+</reference>
