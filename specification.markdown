@@ -306,7 +306,7 @@ An EBML Schema is a well-formed XML Document [@!W3C.REC-xml-20081126] that defin
 
 An EBML Schema MUST declare exactly one EBML Element at Root Level (referred to as the Root Element) that occurs exactly once within an EBML Document. The Void Element MAY also occur at Root Level but is not a Root Element (see [the definition of the Void Element](#void-element)).
 
-The EBML Schema MUST document all Elements of the EBML Body. The EBML Schema does not document Global Elements that are defined by this document (namely the Void Element and the CRC-32 Element).
+The EBML Schema MUST document all Elements of the EBML Body. The EBML Schema does not document [Global Elements](#global-elements) that are defined by this document (namely the Void Element and the CRC-32 Element).
 
 The EBML Schema MUST NOT use the Element ID `0x1A45DFA3` which is reserved for the EBML Header for resynchronization purpose.
 
@@ -391,7 +391,13 @@ The EBMLMinOccurrence represents the minimum permitted number of occurrences of 
 
 The EBMLMaxOccurrence represents the maximum permitted number of occurrences of this EBML Element within its Parent Element. Each instance of the Parent Element MUST contain at most this many instances of this EBML Element. If the EBML Element has an empty EBMLParentPath then EBMLMaxOccurrence refers to constraints on the occurrence of the EBML Element within the EBML Document. If EBMLMaxOccurrence is not present then there is no upper bound for the permitted number of occurrences of this EBML Element within its Parent Element resp. within the EBML Document depending on whether the EBMLParentPath of the EBML Element is empty or not. The semantic meaning of EBMLMaxOccurrence within an EBML Schema path is analogous to the meaning of maxOccurs within an XML Schema.
 
+In some cases the EBMLLastParent part of the path is an EBMLVariableParent. A path with a EBMLVariableParent defines a [Global Element](#global-elements). Any path that starts with the EBMLFixedParent of the Global Element and matches the occurrences found in the VariableParentOccurrence is a valid path for the Global Element. 
+
 The VariableParentOccurrence part is interpreted as an ABNF Variable Repetition. The repetition amounts correspond to the amount of unspecified Parent Element levels there can be between the EBMLFixedParent and the actual EBMLElementPath.
+
+PathMinOccurrence represents the minimum number of element path required between the EBMLFixedParent and the Global Element EBMLElementPath. For example 0 means the EBMLElementPath can be right after the EBMLFixedParent, 1 means there has to be at least an element between the EBMLFixedParent and the EBMLElementPath. If PathMinOccurrence is not present then that EBML Element has an PathMinOccurrence value of 0.
+
+PathMaxOccurrence represents the maximum number of element path possible between the EBMLFixedParent and the Global Element EBMLElementPath. It cannot have the value 0 as it would be the Global Element can only be found right after the EBMLFixedParent, in which case it's not a Global Element anymore. If PathMaxOccurrence is not present then there is no upper bound for the permitted number of occurrences of element path possible between the EBMLFixedParent and the Global Element EBMLElementPath.
 
 If the path contains an EBMLPathAtomRecursive part, the EBML Element can occur within itself recursively (see the [recursive attribute](#recursive)).
 
@@ -805,7 +811,11 @@ description: The version of the DocTypeExtension. Different DocTypeExtensionVers
 
 ## Global Elements
 
-EBML defines these Global Elements which MAY be stored within any Master Element of an EBML Document as defined by their Element Path.
+EBML allows some special Elements to be found within more than one parent in an EBML Document or optionally at the Root Level of an EBML Body. These Elements are called Global Elements. There are 2 Global Elements that can be found in any EBML Document: the CRC-32 Element and the Void Element. An EBML Schema MAY add other Global Elements to the format it defines. These extra elements apply only to the EBML Body, not the EBML Header.
+
+Global Elements are EBML Elements whose path have a EBMLVariableParent as their EBMLLastParent. Because it is the last Parent part of the path, a Global Element might also have non-EBMLVariableParent parts in its path. In this case the Global Element can only be found within this non-EBMLVariableParent path, i.e. it's not fully "global".
+
+The EBMLElementOccurrence of a Global Element is the number of occurrences the Element can be found in a Parent Element. But the Global Element can be found in many Parent Elements, allowing the same number of occurrences in each Parent where this Element is found.
 
 ### CRC-32 Element
 
@@ -966,7 +976,7 @@ This document creates a new IANA Registry called "CELLAR EBML Element ID Registr
 
 Element IDs are described in section Element ID. Element IDs are encoded using the VINT mechanism described in section (#variable-size-integer) can be between one and five octets long. Five octet long Element IDs are possible only if declared in the header.
 
-This IANA Registry only applies to Elements that can be contained in the EBML Header, thus including Global Elements. Elements only found in the EBML Body have their own set of independent Element IDs and are not part of this IANA Registry.
+This IANA Registry only applies to Elements that can be contained in the EBML Header, thus including [Global Elements](#global-elements). Elements only found in the EBML Body have their own set of independent Element IDs and are not part of this IANA Registry.
 
 The VINT Data value of one-octet Element IDs MUST be between 0x01 and 0x7E. These items are valuable because they are short, and need to be used for commonly repeated elements. Values from 1 to 126 are to be allocated according to the "RFC Required" policy [@!RFC8126].
 
