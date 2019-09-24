@@ -155,11 +155,39 @@ Class D    | 4      | 0x101FFFFF - 0x1FFFFFFE |   268,338,304
 
 # Element Data Size
 
+## Data Size Format
+
 The Element Data Size expresses the length in octets of Element Data. The Element Data Size itself is encoded as a Variable Size Integer. By default, Element Data Sizes can be encoded in lengths from one octet to eight octets, although Element Data Sizes of greater lengths MAY be used if the octet length of the longest Element Data Size of the EBML Document is declared in the EBMLMaxSizeLength Element of the EBML Header (see [the section on the EBMLMaxSizeLength Element](#ebmlmaxsizelength-element)). Unlike the VINT_DATA of the Element ID, the VINT_DATA component of the Element Data Size is not mandated to be encoded at the shortest valid length. For example, an Element Data Size with binary encoding of 1011 1111 or a binary encoding of 0100 0000 0011 1111 are both valid Element Data Sizes and both store a semantically equal value (both 0b00000000111111 and 0b0111111, the VINT_DATA sections of the examples, represent the integer 63).
 
 Although an Element ID with all VINT_DATA bits set to zero is invalid, an Element Data Size with all VINT_DATA bits set to zero is allowed for EBML Element Types which do not mandate a non-zero length (see [the section on EBML Element Types](#ebml-element-types)). An Element Data Size with all VINT_DATA bits set to zero indicates that the Element Data is zero octets in length. Such an EBML Element is referred to as an Empty Element. If an Empty Element has a default value declared then the EBML Reader MUST interpret the value of the Empty Element as the default value. If an Empty Element has no default value declared then the EBML Reader MUST use the value of the Empty Element for the corresponding EBML Element Type of the Element ID, 0 for numbers and an empty string for strings.
 
-An Element Data Size with all VINT_DATA bits set to one is reserved as an indicator that the size of the EBML Element is unknown. The only reserved value for the VINT_DATA of Element Data Size is all bits set to one. An EBML Element with an unknown Element Data Size is referred to as an Unknown-Sized Element. A Master Element MAY be an Unknown-Sized Element; however an EBML Element that is not a Master Element MUST NOT be an Unknown-Sized Element. Master Elements MUST NOT use an unknown size unless the unknownsizeallowed attribute of their EBML Schema is set to true (see [the section on the unknownsizeallowed attribute](#unknownsizeallowed)). The use of Unknown-Sized Elements allows for an EBML Element to be written and read before the size of the EBML Element is known. Unknown-Sized Element MUST NOT be used or defined unnecessarily; however if the Element Data Size is not known before the Element Data is written, such as in some cases of data streaming, then Unknown-Sized Elements MAY be used. The end of an Unknown-Sized Element is determined by whichever comes first: the end of the file or the beginning of the next EBML Element, defined by this document or the corresponding EBML Schema, that is not independently valid as Descendant Element of the Unknown-Sized Element.
+## Unknown Data Size
+
+An Element Data Size with all VINT_DATA bits set to one is reserved as an indicator that the size of the EBML Element is unknown. The only reserved value for the VINT_DATA of Element Data Size is all bits set to one. An EBML Element with an unknown Element Data Size is referred to as an Unknown-Sized Element. A Master Element MAY be an Unknown-Sized Element; however an EBML Element that is not a Master Element MUST NOT be an Unknown-Sized Element. Master Elements MUST NOT use an unknown size unless the unknownsizeallowed attribute of their EBML Schema is set to true (see [the section on the unknownsizeallowed attribute](#unknownsizeallowed)).
+
+The use of Unknown-Sized Elements allows for an EBML Element to be written and read before the size of the EBML Element is known. Unknown-Sized Element MUST NOT be used or defined unnecessarily; however if the Element Data Size is not known before the Element Data is written, such as in some cases of data streaming, then Unknown-Sized Elements MAY be used. The end of an Unknown-Sized Element is determined by whichever comes first:
+
+- Any EBML Element that is a valid Parent Element of the Unknown-Sized Element according to the EBML Schema, [Global Elements](#global-elements) excluded.
+- Any valid EBML Element according to the EBML Schema, [Global Elements](#global-elements) excluded, that is not a Descendant Element of the Unknown-Sized Element but share a common direct parent, such as a Top-Level Element.
+- Any EBML Element that is a valid Root Element according to the EBML Schema, [Global Elements](#global-elements) excluded.
+- The end of the Parent Element with a known size has been reached.
+- The end of the EBML Document, either when reaching the end of the file or because a new EBML Header started.
+
+Consider an Unknown-Sized Element which EBML path is `\root\level1\level2\elt`. When reading a new Element ID, assuming the EBML Path of that new Element is valid, here are some possible and impossible ways that this new Element is ending `elt`:
+
+EBML Path of new element           | Status
+:----------------------------------|:-----------------------------
+`\root\level1\level2`              | Ends the Unknown-Sized Element, as it is a new Parent Element
+`\root\level1`                     | Ends the Unknown-Sized Element, as it is a new Parent Element
+`\root`                            | Ends the Unknown-Sized Element, as it is a new Root Element
+`\root2`                           | Ends the Unknown-Sized Element, as it is a new Root Element
+`\root\level1\level2\other`        | Ends the Unknown-Sized Element, as they share the same parent
+`\root\level1\level2\elt`          | Ends the Unknown-Sized Element, as they share the same parent
+`\root\level1\level2\elt\inside`   | Doesn't end the Unknown-Sized Element, it's a child of `elt`
+`\root\level1\level2\elt\<global>` | Global Element is valid, it's a child of `elt`
+`\root\level1\level2\<global>`     | Global Element cannot be assumed to have this path, while parsing `elt` it can only be a child of `elt`
+
+## Data Size Values
 
 For Element Data Sizes encoded at octet lengths from one to eight, this table depicts the range of possible values that can be encoded as an Element Data Size. An Element Data Size with an octet length of 8 is able to express a size of 2^56-2 or 72,057,594,037,927,934 octets (or about 72 petabytes). The maximum possible value that can be stored as Element Data Size is referred to as VINTMAX.
 
@@ -174,7 +202,7 @@ Octet Length | Possible Value Range
 7            | 0 to 2^49-2
 8            | 0 to 2^56-2
 
-If the length of Element Data equals 2^(n\*7)-1 then the octet length of the Element Data Size MUST be at least n+1. This rule prevents an Element Data Size from being expressed as a reserved value. The following table clarifies this rule by showing a valid and invalid expression of an Element Data Size with a VINT_DATA of 127 (which is equal to 2^(1\*7)-1) and 16,383 (which is equal to 2^(2\*7)-1).
+If the length of Element Data equals 2^(n\*7)-1 then the octet length of the Element Data Size MUST be at least n+1. This rule prevents an Element Data Size from being expressed as the unknown size value. The following table clarifies this rule by showing a valid and invalid expression of an Element Data Size with a VINT_DATA of 127 (which is equal to 2^(1\*7)-1) and 16,383 (which is equal to 2^(2\*7)-1).
 
 VINT_WIDTH  | VINT_MARKER  | VINT_DATA             | Element Data Size Status
 -----------:|-------------:|----------------------:|---------------------------
@@ -430,6 +458,8 @@ The type attribute is REQUIRED.
 
 A boolean to express if an EBML Element is permitted to be Unknown-Sized Element (having all VINT_DATA bits of Element Data Size set to 1). EBML Elements that are not Master Elements MUST NOT set unknownsizeallowed to true. An EBML Element that is defined with an unknownsizeallowed attribute set to 1 MUST also have the unknownsizeallowed attribute of its Parent Element set to 1.
 
+An EBML Element with the unknownsizeallowed attribute set to 1 MUST NOT have its recursive attribute set to 1.
+
 The unknownsizeallowed attribute is OPTIONAL. If the unknownsizeallowed attribute is not used then that EBML Element is not allowed to use an unknown Element Data Size.
 
 #### recursive
@@ -437,6 +467,8 @@ The unknownsizeallowed attribute is OPTIONAL. If the unknownsizeallowed attribut
 A boolean to express if an EBML Element is permitted to be stored recursively. In this case the EBML Element MAY be stored within another EBML Element that has the same Element ID. Which itself can be stored in an EBML Element that has the same Element ID, and so on. EBML Elements that are not Master Elements MUST NOT set recursive to true.
 
 If the path contains an EBMLPathAtomRecursive part then the recursive value MUST be true and false otherwise.
+
+An EBML Element with the recursive attribute set to 1 MUST NOT have its unknownsizeallowed attribute set to 1.
 
 The recursive attribute is OPTIONAL. If the recursive attribute is not present then the EBML Element MUST NOT be used recursively.
 
