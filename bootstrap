@@ -3,11 +3,11 @@
 # bootstrap script to get the tools needed to build the specs within a UNIX shell
 
 export LC_ALL=
-export PATH=".:$PATH"
 FOUND=
 NEEDED=
 
 BOOTSTRAP_MAKE=bootstrap.mak
+RUNTIMES_MAKE=runtimes.mak
 
 check_version() {
     gotver=$2
@@ -56,14 +56,18 @@ cat > $BOOTSTRAP_MAKE << EOF
 PREFIX=\$(abspath ./build)
 EOF
 
+echo "# calls the local or installed tool " > $RUNTIMES_MAKE
+
 for t in $FOUND; do
     echo ".$t:" >> $BOOTSTRAP_MAKE
+    echo "$t" | awk '{ tool = sprintf("%s_CALL := %s", toupper($0), $0); print tool }' >> $RUNTIMES_MAKE
 done
 
 for t in $NEEDED; do
     echo .$t: .build$t >> $BOOTSTRAP_MAKE
     PACKAGES="$PACKAGES $t"
     TARGETS="$TARGETS .build$t"
+    echo "$t" | awk '{ tool = sprintf("%s_CALL := ./%s", toupper($0), $0); print tool }' >> $RUNTIMES_MAKE
 done
 
 [ -n "$PACKAGES" ] && echo "To-be-built packages: $PACKAGES"

@@ -1,10 +1,12 @@
 $(info RFC rendering has been tested with mmark version 2.1.1 and xml2rfc 2.30.0, please ensure these are installed and recent enough.)
 
+include runtimes.mak
+
 VERSION := 12
 STATUS := draft-
 OUTPUT := $(STATUS)ietf-cellar-ebml-$(VERSION)
-XML2RFC := xml2rfc --v3
-# export PATH=".:$PATH"
+XML2RFC := $(XML2RFC_CALL) --v3
+MMARK := $(MMARK_CALL)
 
 all: $(OUTPUT).html $(OUTPUT).txt $(OUTPUT).xml
 
@@ -12,7 +14,7 @@ $(OUTPUT).md: specification.markdown rfc_frontmatter.markdown rfc_backmatter.mar
 	cat rfc_frontmatter.markdown $< rfc_backmatter.markdown > $(OUTPUT).md
 
 %.xml: %.md
-	./mmark $< > $@
+	$(MMARK) $< > $@
 
 %.html: %.xml
 	$(XML2RFC) --html $< -o $@
