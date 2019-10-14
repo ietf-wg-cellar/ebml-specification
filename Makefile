@@ -1,10 +1,14 @@
 $(info RFC rendering has been tested with mmark version 2.1.1 and xml2rfc 2.30.0, please ensure these are installed and recent enough.)
 
-include runtimes.mak
-
 VERSION := 12
 STATUS := draft-
 OUTPUT := $(STATUS)ietf-cellar-ebml-$(VERSION)
+
+XML2RFC_CALL := xml2rfc
+MMARK_CALL := mmark
+
+-include runtimes.mak
+
 XML2RFC := $(XML2RFC_CALL) --v3
 MMARK := $(MMARK_CALL)
 
