@@ -359,7 +359,7 @@ The path defines the allowed storage locations of the EBML Element within an EBM
 The path attribute is REQUIRED.
 
 ```
-EBMLFullPath             = EBMLElementOccurrence "(" EBMLMasterPath ")"
+EBMLFullPath           = EBMLElementOccurrence "(" EBMLMasterPath ")"
 EBMLMasterPath           = [EBMLParentPath] EBMLElementPath
 EBMLParentPath           = EBMLFixedParent EBMLLastParent
 EBMLFixedParent          = *(EBMLPathAtom)
@@ -371,10 +371,10 @@ EBMLVariableParent       = "(" VariableParentOccurrence "\)"
 EBMLAtomName             = 1*(EBMLNameChar)
 EBMLNameChar             = ALPHA / DIGIT / "-" / "."
 PathDelimiter            = "\"
-EBMLElementOccurrence    = [EBMLMinOccurrence] "*" [EBMLMaxOccurrence]
+EBMLElementOccurrence   = [EBMLMinOccurrence] "*" [EBMLMaxOccurrence]
 EBMLMinOccurrence        = 1*DIGIT ; no upper limit
 EBMLMaxOccurrence        = 1*DIGIT ; no upper limit
-VariableParentOccurrence = [PathMinOccurrence] "*" [PathMaxOccurrence]
+VariableParentOccurrence= [PathMinOccurrence] "*" [PathMaxOccurrence]
 PathMinOccurrence        = 1*DIGIT ; no upper limit
 PathMaxOccurrence        = 1*DIGIT ; no upper limit
 ```
@@ -1002,19 +1002,19 @@ ID Values found in this document are assigned as initial values as follows:
 
  ID        | Element Name            | Reference
 ----------:|:------------------------|:-------------------------------------------
-0x1A45DFA3 | EBML                    | Described in [section EBML](#ebml-element)
-0x4286     | EBMLVersion             | Described in [section EBMLVersion](#ebmlversion-element)
-0x42F7     | EBMLReadVersion         | Described in [section EBMLReadVersion](#ebmlreadversion-element)
-0x42F2     | EBMLMaxIDLength         | Described in [section EBMLMaxIDLength](#ebmlmaxidlength-element)
-0x42F3     | EBMLMaxSizeLength       | Described in [section EBMLMaxSizeLength](#ebmlmaxsizelength-element)
-0x4282     | DocType                 | Described in [section DocType](#doctype-element)
-0x4287     | DocTypeVersion          | Described in [section DocTypeVersion](#doctypeversion-element)
-0x4285     | DocTypeReadVersion      | Described in [section DocTypeReadVersion](#doctypereadversion-element)
-0x4281     | DocTypeExtension        | Described in [section DocTypeExtension](#doctypeextension-element)
-0x4283     | DocTypeExtensionName    | Described in [section DocTypeExtensionName](#doctypeextensionname-element)
-0x4284     | DocTypeExtensionVersion | Described in [section DocTypeExtensionVersion](#doctypeextensionversion-element)
-0xBF       | CRC-32                  | Described in [section CRC-32](#crc32-element)
-0xEC       | Void                    | Described in [section Void](#void-element)
+0x1A45DFA3 | EBML                    | Described in (#ebml-element)
+0x4286     | EBMLVersion             | Described in (#ebmlversion-element)
+0x42F7     | EBMLReadVersion         | Described in (#ebmlreadversion-element)
+0x42F2     | EBMLMaxIDLength         | Described in (#ebmlmaxidlength-element)
+0x42F3     | EBMLMaxSizeLength       | Described in (#ebmlmaxsizelength-element)
+0x4282     | DocType                 | Described in (#doctype-element)
+0x4287     | DocTypeVersion          | Described in (#doctypeversion-element)
+0x4285     | DocTypeReadVersion      | Described in (#doctypereadversion-element)
+0x4281     | DocTypeExtension        | Described in (#doctypeextension-element)
+0x4283     | DocTypeExtensionName    | Described in (#doctypeextensionname-element)
+0x4284     | DocTypeExtensionVersion | Described in (#doctypeextensionversion-element)
+0xBF       | CRC-32                  | Described in (#crc-32-element)
+0xEC       | Void                    | Described in (#void-element)
 
 ## CELLAR EBML DocType Registry
 
