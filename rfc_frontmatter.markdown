@@ -1,7 +1,6 @@
 %%%
 title = "Extensible Binary Meta Language"
 abbrev = "EBML"
-docName = "draft-ietf-cellar-ebml-12"
 ipr= "trust200902"
 area = "art"
 workgroup = "cellar"
@@ -11,7 +10,7 @@ keyword = [""]
 name = "Internet-Draft"
 stream = "IETF"
 status = "standard"
-value = "draft-ietf-cellar-ebml-10"
+value = "draft-ietf-cellar-ebml-12"
 
 [[author]]
 initials="S."
