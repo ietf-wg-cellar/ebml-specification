@@ -3,3 +3,4 @@ bootstrap.mak
 *.tgz
 /mmark
 /runtimes.mak
+metadata.min.js
