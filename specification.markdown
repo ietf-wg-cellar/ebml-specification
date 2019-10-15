@@ -90,25 +90,25 @@ EBML uses a system of Elements to compose an EBML Document. EBML Elements incorp
 
 # Variable Size Integer
 
-The Element ID and Element Data Size are both encoded as a Variable Size Integer. The Variable Size Integer is composed of a VINT_WIDTH, VINT_MARKER, and VINT_DATA, in that order. Variable Size Integers MUST left-pad the VINT_DATA value with zero bits so that the whole Variable Size Integer is octet-aligned. Variable Size Integer will be referred to as VINT for shorthand.
+The Element ID and Element Data Size are both encoded as a Variable Size Integer. The Variable Size Integer is composed of a VINT\_WIDTH, VINT\_MARKER, and VINT\_DATA, in that order. Variable Size Integers MUST left-pad the VINT\_DATA value with zero bits so that the whole Variable Size Integer is octet-aligned. Variable Size Integer will be referred to as VINT for shorthand.
 
 ## VINT_WIDTH
 
-Each Variable Size Integer begins with a VINT_WIDTH which consists of zero or many zero-value bits. The count of consecutive zero-values of the VINT_WIDTH plus one equals the length in octets of the Variable Size Integer. For example, a Variable Size Integer that starts with a VINT_WIDTH which contains zero consecutive zero-value bits is one octet in length and a Variable Size Integer that starts with one consecutive zero-value bit is two octets in length. The VINT_WIDTH MUST only contain zero-value bits or be empty.
+Each Variable Size Integer begins with a VINT\_WIDTH which consists of zero or many zero-value bits. The count of consecutive zero-values of the VINT\_WIDTH plus one equals the length in octets of the Variable Size Integer. For example, a Variable Size Integer that starts with a VINT\_WIDTH which contains zero consecutive zero-value bits is one octet in length and a Variable Size Integer that starts with one consecutive zero-value bit is two octets in length. The VINT\_WIDTH MUST only contain zero-value bits or be empty.
 
-Within the EBML Header the VINT_WIDTH of a VINT MUST NOT exceed three bits in length (meaning that the Variable Size Integer MUST NOT exceed four octets in length) except if said VINT is used to express the Element Data Size of an EBML Element with Element Name EBML and Element ID `0x1A45DFA3` (see [the definition of the EBML Element](#ebml-element)) in which case the VINT_WIDTH MUST NOT exceed seven bits in length. Within the EBML Body, when a VINT is used to express an Element ID, the maximum length allowed for the VINT_WIDTH is one less than the value set in the EBMLMaxIDLength Element. Within the EBML Body, when a VINT is used to express an Element Data Size, the maximum length allowed for the VINT_WIDTH is one less than the value set in the EBMLMaxSizeLength Element.
+Within the EBML Header the VINT\_WIDTH of a VINT MUST NOT exceed three bits in length (meaning that the Variable Size Integer MUST NOT exceed four octets in length) except if said VINT is used to express the Element Data Size of an EBML Element with Element Name EBML and Element ID `0x1A45DFA3` (see [the definition of the EBML Element](#ebml-element)) in which case the VINT\_WIDTH MUST NOT exceed seven bits in length. Within the EBML Body, when a VINT is used to express an Element ID, the maximum length allowed for the VINT\_WIDTH is one less than the value set in the EBMLMaxIDLength Element. Within the EBML Body, when a VINT is used to express an Element Data Size, the maximum length allowed for the VINT\_WIDTH is one less than the value set in the EBMLMaxSizeLength Element.
 
 ## VINT_MARKER
 
-The VINT_MARKER serves as a separator between the VINT_WIDTH and VINT_DATA. Each Variable Size Integer MUST contain exactly one VINT_MARKER. The VINT_MARKER is one bit in length and contain a bit with a value of one. The first bit with a value of one within the Variable Size Integer is the VINT_MARKER.
+The VINT\_MARKER serves as a separator between the VINT\_WIDTH and VINT\_DATA. Each Variable Size Integer MUST contain exactly one VINT\_MARKER. The VINT\_MARKER is one bit in length and contain a bit with a value of one. The first bit with a value of one within the Variable Size Integer is the VINT\_MARKER.
 
 ## VINT_DATA
 
-The VINT_DATA portion of the Variable Size Integer includes all data that follows (but not including) the VINT_MARKER until end of the Variable Size Integer whose length is derived from the VINT_WIDTH. The bits required for the VINT_WIDTH and the VINT_MARKER use one out of every eight bits of the total length of the Variable Size Integer. Thus a Variable Size Integer of 1 octet length supplies 7 bits for VINT_DATA, a 2 octet length supplies 14 bits for VINT_DATA, and a 3 octet length supplies 21 bits for VINT_DATA. If the number of bits required for VINT_DATA are less than the bit size of VINT_DATA, then VINT_DATA MUST be zero-padded to the left to a size that fits. The VINT_DATA value MUST be expressed as a big-endian unsigned integer.
+The VINT\_DATA portion of the Variable Size Integer includes all data that follows (but not including) the VINT\_MARKER until end of the Variable Size Integer whose length is derived from the VINT\_WIDTH. The bits required for the VINT\_WIDTH and the VINT\_MARKER use one out of every eight bits of the total length of the Variable Size Integer. Thus a Variable Size Integer of 1 octet length supplies 7 bits for VINT\_DATA, a 2 octet length supplies 14 bits for VINT\_DATA, and a 3 octet length supplies 21 bits for VINT\_DATA. If the number of bits required for VINT\_DATA are less than the bit size of VINT\_DATA, then VINT\_DATA MUST be zero-padded to the left to a size that fits. The VINT\_DATA value MUST be expressed as a big-endian unsigned integer.
 
 ## VINT Examples
 
-This table shows examples of Variable Size Integers with lengths from 1 to 5 octets. The Usable Bits column refers to the number of bits that can be used in the VINT_DATA. The Representation column depicts a binary expression of Variable Size Integers where VINT_WIDTH is depicted by `0`, the VINT_MARKER as `1`, and the VINT_DATA as `x`.
+This table shows examples of Variable Size Integers with lengths from 1 to 5 octets. The Usable Bits column refers to the number of bits that can be used in the VINT\_DATA. The Representation column depicts a binary expression of Variable Size Integers where VINT\_WIDTH is depicted by `0`, the VINT\_MARKER as `1`, and the VINT\_DATA as `x`.
 
 Octet Length | Usable Bits | Representation
 -------------|-------------|:-------------------------------------------------
@@ -118,7 +118,7 @@ Octet Length | Usable Bits | Representation
 4            | 28          | 0001 xxxx xxxx xxxx xxxx xxxx xxxx xxxx
 5            | 35          | 0000 1xxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx
 
-Data encoded as a Variable Size Integer may be rendered at octet lengths larger than needed to store the data in order to facilitate overwriting it at a later date, e.g. when its final size isn't known in advance. In this table a binary value of 0b10 is shown encoded as different Variable Size Integers with lengths from one octet to four octets. All four encoded examples have identical semantic meaning though the VINT_WIDTH and the padding of the VINT_DATA vary.
+Data encoded as a Variable Size Integer may be rendered at octet lengths larger than needed to store the data in order to facilitate overwriting it at a later date, e.g. when its final size isn't known in advance. In this table a binary value of 0b10 is shown encoded as different Variable Size Integers with lengths from one octet to four octets. All four encoded examples have identical semantic meaning though the VINT\_WIDTH and the padding of the VINT\_DATA vary.
 
 Binary Value | Octet Length | As Represented in Variable Size Integer
 -------------|--------------|:---------------------------------------
@@ -129,7 +129,7 @@ Binary Value | Octet Length | As Represented in Variable Size Integer
 
 # Element ID
 
-The Element ID is encoded as a Variable Size Integer. By default, Element IDs are encoded in lengths from one octet to four octets, although Element IDs of greater lengths MAY be used if the EBMLMaxIDLength Element of the EBML Header is set to a value greater than four (see [the section on the EBMLMaxIDLength Element](#ebmlmaxidlength-element)). The VINT_DATA component of the Element ID MUST NOT be either defined or written as either all zero values or all one values. Any Element ID with the VINT_DATA component set as all zero values or all one values MUST be ignored. The VINT_DATA component of the Element ID MUST be encoded at the shortest valid length. For example, an Element ID with binary encoding of `1011 1111` is valid, whereas an Element ID with binary encoding of `0100 0000 0011 1111` stores a semantically equal VINT_DATA but is invalid because a shorter VINT encoding is possible. Additionally, an Element ID with binary encoding of `1111 1111` is invalid since the VINT_DATA section is set to all one values, whereas an Element ID with binary encoding of `0100 0000 0111 1111` stores a semantically equal VINT_DATA and is the shortest possible VINT encoding.
+The Element ID is encoded as a Variable Size Integer. By default, Element IDs are encoded in lengths from one octet to four octets, although Element IDs of greater lengths MAY be used if the EBMLMaxIDLength Element of the EBML Header is set to a value greater than four (see [the section on the EBMLMaxIDLength Element](#ebmlmaxidlength-element)). The VINT\_DATA component of the Element ID MUST NOT be either defined or written as either all zero values or all one values. Any Element ID with the VINT\_DATA component set as all zero values or all one values MUST be ignored. The VINT\_DATA component of the Element ID MUST be encoded at the shortest valid length. For example, an Element ID with binary encoding of `1011 1111` is valid, whereas an Element ID with binary encoding of `0100 0000 0011 1111` stores a semantically equal VINT\_DATA but is invalid because a shorter VINT encoding is possible. Additionally, an Element ID with binary encoding of `1111 1111` is invalid since the VINT\_DATA section is set to all one values, whereas an Element ID with binary encoding of `0100 0000 0111 1111` stores a semantically equal VINT\_DATA and is the shortest possible VINT encoding.
 
 The following table details these specific examples further:
 
@@ -157,13 +157,13 @@ Class D    | 4      | 0x101FFFFF - 0x1FFFFFFE |   268,338,304
 
 ## Data Size Format
 
-The Element Data Size expresses the length in octets of Element Data. The Element Data Size itself is encoded as a Variable Size Integer. By default, Element Data Sizes can be encoded in lengths from one octet to eight octets, although Element Data Sizes of greater lengths MAY be used if the octet length of the longest Element Data Size of the EBML Document is declared in the EBMLMaxSizeLength Element of the EBML Header (see [the section on the EBMLMaxSizeLength Element](#ebmlmaxsizelength-element)). Unlike the VINT_DATA of the Element ID, the VINT_DATA component of the Element Data Size is not mandated to be encoded at the shortest valid length. For example, an Element Data Size with binary encoding of 1011 1111 or a binary encoding of 0100 0000 0011 1111 are both valid Element Data Sizes and both store a semantically equal value (both 0b00000000111111 and 0b0111111, the VINT_DATA sections of the examples, represent the integer 63).
+The Element Data Size expresses the length in octets of Element Data. The Element Data Size itself is encoded as a Variable Size Integer. By default, Element Data Sizes can be encoded in lengths from one octet to eight octets, although Element Data Sizes of greater lengths MAY be used if the octet length of the longest Element Data Size of the EBML Document is declared in the EBMLMaxSizeLength Element of the EBML Header (see [the section on the EBMLMaxSizeLength Element](#ebmlmaxsizelength-element)). Unlike the VINT\_DATA of the Element ID, the VINT\_DATA component of the Element Data Size is not mandated to be encoded at the shortest valid length. For example, an Element Data Size with binary encoding of 1011 1111 or a binary encoding of 0100 0000 0011 1111 are both valid Element Data Sizes and both store a semantically equal value (both 0b00000000111111 and 0b0111111, the VINT\_DATA sections of the examples, represent the integer 63).
 
-Although an Element ID with all VINT_DATA bits set to zero is invalid, an Element Data Size with all VINT_DATA bits set to zero is allowed for EBML Element Types which do not mandate a non-zero length (see [the section on EBML Element Types](#ebml-element-types)). An Element Data Size with all VINT_DATA bits set to zero indicates that the Element Data is zero octets in length. Such an EBML Element is referred to as an Empty Element. If an Empty Element has a default value declared then the EBML Reader MUST interpret the value of the Empty Element as the default value. If an Empty Element has no default value declared then the EBML Reader MUST use the value of the Empty Element for the corresponding EBML Element Type of the Element ID, 0 for numbers and an empty string for strings.
+Although an Element ID with all VINT\_DATA bits set to zero is invalid, an Element Data Size with all VINT\_DATA bits set to zero is allowed for EBML Element Types which do not mandate a non-zero length (see [the section on EBML Element Types](#ebml-element-types)). An Element Data Size with all VINT\_DATA bits set to zero indicates that the Element Data is zero octets in length. Such an EBML Element is referred to as an Empty Element. If an Empty Element has a default value declared then the EBML Reader MUST interpret the value of the Empty Element as the default value. If an Empty Element has no default value declared then the EBML Reader MUST use the value of the Empty Element for the corresponding EBML Element Type of the Element ID, 0 for numbers and an empty string for strings.
 
 ## Unknown Data Size
 
-An Element Data Size with all VINT_DATA bits set to one is reserved as an indicator that the size of the EBML Element is unknown. The only reserved value for the VINT_DATA of Element Data Size is all bits set to one. An EBML Element with an unknown Element Data Size is referred to as an Unknown-Sized Element. A Master Element MAY be an Unknown-Sized Element; however an EBML Element that is not a Master Element MUST NOT be an Unknown-Sized Element. Master Elements MUST NOT use an unknown size unless the unknownsizeallowed attribute of their EBML Schema is set to true (see [the section on the unknownsizeallowed attribute](#unknownsizeallowed)).
+An Element Data Size with all VINT\_DATA bits set to one is reserved as an indicator that the size of the EBML Element is unknown. The only reserved value for the VINT\_DATA of Element Data Size is all bits set to one. An EBML Element with an unknown Element Data Size is referred to as an Unknown-Sized Element. A Master Element MAY be an Unknown-Sized Element; however an EBML Element that is not a Master Element MUST NOT be an Unknown-Sized Element. Master Elements MUST NOT use an unknown size unless the unknownsizeallowed attribute of their EBML Schema is set to true (see [the section on the unknownsizeallowed attribute](#unknownsizeallowed)).
 
 The use of Unknown-Sized Elements allows for an EBML Element to be written and read before the size of the EBML Element is known. Unknown-Sized Element MUST NOT be used or defined unnecessarily; however if the Element Data Size is not known before the Element Data is written, such as in some cases of data streaming, then Unknown-Sized Elements MAY be used. The end of an Unknown-Sized Element is determined by whichever comes first:
 
@@ -202,7 +202,7 @@ Octet Length | Possible Value Range
 7            | 0 to 2^49-2
 8            | 0 to 2^56-2
 
-If the length of Element Data equals 2^(n\*7)-1 then the octet length of the Element Data Size MUST be at least n+1. This rule prevents an Element Data Size from being expressed as the unknown size value. The following table clarifies this rule by showing a valid and invalid expression of an Element Data Size with a VINT_DATA of 127 (which is equal to 2^(1\*7)-1) and 16,383 (which is equal to 2^(2\*7)-1).
+If the length of Element Data equals 2^(n\*7)-1 then the octet length of the Element Data Size MUST be at least n+1. This rule prevents an Element Data Size from being expressed as the unknown size value. The following table clarifies this rule by showing a valid and invalid expression of an Element Data Size with a VINT\_DATA of 127 (which is equal to 2^(1\*7)-1) and 16,383 (which is equal to 2^(2\*7)-1).
 
 VINT_WIDTH  | VINT_MARKER  | VINT_DATA             | Element Data Size Status
 -----------:|-------------:|----------------------:|---------------------------
@@ -462,7 +462,7 @@ The type attribute is REQUIRED.
 
 #### unknownsizeallowed
 
-A boolean to express if an EBML Element is permitted to be Unknown-Sized Element (having all VINT_DATA bits of Element Data Size set to 1). EBML Elements that are not Master Elements MUST NOT set unknownsizeallowed to true. An EBML Element that is defined with an unknownsizeallowed attribute set to 1 MUST also have the unknownsizeallowed attribute of its Parent Element set to 1.
+A boolean to express if an EBML Element is permitted to be Unknown-Sized Element (having all VINT\_DATA bits of Element Data Size set to 1). EBML Elements that are not Master Elements MUST NOT set unknownsizeallowed to true. An EBML Element that is defined with an unknownsizeallowed attribute set to 1 MUST also have the unknownsizeallowed attribute of its Parent Element set to 1.
 
 An EBML Element with the unknownsizeallowed attribute set to 1 MUST NOT have its recursive attribute set to 1.
 
@@ -516,15 +516,15 @@ The purpose attribute is REQUIRED.
 
 ### \<implementation_note> Element
 
-In some cases within an EBML Document Type, the attributes of the `<element>` element are not sufficient to clearly communicate how the defined EBML Element is intended to be implemented. For instance, one EBML Element might only be mandatory if another EBML Element is present, or as another example, the default value of an EBML Element might derive from a related Element's content. In these cases where the Element's definition is conditional or advanced implementation notes are needed, one or many `<implementation_note>` elements can be used to store that information. The `<implementation_note>` refer to a specific attribute of the parent `<element>` as expressed by the `note_type` attribute (#notetype).
+In some cases within an EBML Document Type, the attributes of the `<element>` element are not sufficient to clearly communicate how the defined EBML Element is intended to be implemented. For instance, one EBML Element might only be mandatory if another EBML Element is present, or as another example, the default value of an EBML Element might derive from a related Element's content. In these cases where the Element's definition is conditional or advanced implementation notes are needed, one or many `<implementation_note>` elements can be used to store that information. The `<implementation_note>` refer to a specific attribute of the parent `<element>` as expressed by the `note_type` attribute (#note-type).
 
 ### \<implementation_note> Attributes
 
 #### note_type
 
-The note_type attribute references which of the `<element>`'s attributes that the implementation_note is in regards to. The note_type attribute MUST be set to one of the following values (corresponding to that attribute of the parent `<element>`): `minOccurs`, `maxOccurs`, `range`, `length`, `default`, `minver`, or `maxver`. The `<implementation_note>` SHALL supersede the parent `<element>`'s attribute that is named in the `note_type` attribute. An `<element>` SHALL NOT have more than one `<implementation_note>` of the same `note_type`.
+The note\_type attribute references which of the `<element>`'s attributes that the implementation\_note is in regards to. The note_type attribute MUST be set to one of the following values (corresponding to that attribute of the parent `<element>`): `minOccurs`, `maxOccurs`, `range`, `length`, `default`, `minver`, or `maxver`. The `<implementation_note>` SHALL supersede the parent `<element>`'s attribute that is named in the `note_type` attribute. An `<element>` SHALL NOT have more than one `<implementation_note>` of the same `note_type`.
 
-The note_type attribute is REQUIRED.
+The note\_type attribute is REQUIRED.
 
 ### \<restriction> Element
 
@@ -919,7 +919,7 @@ Note that this method is NOT RECOMMENDED. For reductions of one octet, the metho
 
 ## Considerations when Updating Elements with Cyclic Redundancy Check (CRC)
 
-If the Element to be changed is a Descendant Element of any Master Element that contains a CRC-32 Element (see (#crc32-element)) then the CRC-32 Element MUST be verified before permitting the change. Additionally the CRC-32 Element value MUST be subsequently updated to reflect the changed data.
+If the Element to be changed is a Descendant Element of any Master Element that contains a CRC-32 Element (see (#crc-32-element)) then the CRC-32 Element MUST be verified before permitting the change. Additionally the CRC-32 Element value MUST be subsequently updated to reflect the changed data.
 
 # Backward and Forward Compatibility
 
@@ -962,7 +962,7 @@ An EBML Reader may discard some or all data if the following errors are found in
 Side channel attacks could exploit:
 
 - The semantic equivalence of the same string stored in a String Element or UTF-8 Element with and without zero-bit padding, making comparison at the semantic level invalid.
-- The semantic equivalence of VINT_DATA within Element Data Size with two different lengths due to left-padding zero bits, making comparison at the semantic level invalid.
+- The semantic equivalence of VINT\_DATA within Element Data Size with two different lengths due to left-padding zero bits, making comparison at the semantic level invalid.
 - Data contained within a Master Element which is not itself part of a Child Element can trigger incorrect parsing behavior in EBML Readers.
 - Extraneous copies of Identically Recurring Element, making parsing unnecessarily slow to the point of not being usable.
 - Copies of Identically Recurring Element within a Parent Element that contain invalid CRC-32 Elements. EBML Readers not checking the CRC-32 might use the version of the element with mismatching CRC-32.

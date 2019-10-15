@@ -1,22 +1,30 @@
-$(info RFC rendering has been tested with mmark version 1.3.4 and xml2rfc 2.5.1, please ensure these are installed and recent enough.)
+$(info RFC rendering has been tested with mmark version 2.1.1 and xml2rfc 2.30.0, please ensure these are installed and recent enough.)
 
 VERSION := 12
 STATUS := draft-
 OUTPUT := $(STATUS)ietf-cellar-ebml-$(VERSION)
 
+XML2RFC_CALL := xml2rfc
+MMARK_CALL := mmark
+
+-include runtimes.mak
+
+XML2RFC := $(XML2RFC_CALL) --v3
+MMARK := $(MMARK_CALL)
+
 all: $(OUTPUT).html $(OUTPUT).txt $(OUTPUT).xml
 
-$(OUTPUT).md: specification.markdown rfc_frontmatter.markdown EBMLSchema.xsd ebml_schema_example.xml
-	cat rfc_frontmatter.markdown $< > $(OUTPUT).md
+$(OUTPUT).md: specification.markdown rfc_frontmatter.markdown rfc_backmatter.markdown EBMLSchema.xsd ebml_schema_example.xml
+	cat rfc_frontmatter.markdown $< rfc_backmatter.markdown > $(OUTPUT).md
 
 %.xml: %.md
-	mmark -xml2 -page $< $@
+	$(MMARK) $< > $@
 
 %.html: %.xml
-	xml2rfc --html $< -o $@
+	$(XML2RFC) --html $< -o $@
 
 %.txt: %.xml
-	xml2rfc $< -o $@
+	$(XML2RFC) $< -o $@
 
 clean:
 	rm -f $(OUTPUT).txt $(OUTPUT).html $(OUTPUT).md $(OUTPUT).xml
