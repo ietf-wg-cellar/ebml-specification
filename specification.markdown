@@ -366,15 +366,15 @@ EBMLFixedParent          = *(EBMLPathAtom)
 EBMLElementPath          = EBMLPathAtom / EBMLPathAtomRecursive
 EBMLPathAtom             = PathDelimiter EBMLAtomName
 EBMLPathAtomRecursive    = "(1*(" EBMLPathAtom "))"
-EBMLLastParent           = EBMLPathAtom / EBMLVariableParent
-EBMLVariableParent       = "(" VariableParentOccurrence "\)"
+EBMLLastParent           = EBMLPathAtom / EBMLGlobalParent
+EBMLGlobalParent         = "(" GlobalParentOccurence "\)"
 EBMLAtomName             = 1*(EBMLNameChar)
 EBMLNameChar             = ALPHA / DIGIT / "-" / "."
 PathDelimiter            = "\"
 EBMLElementOccurrence   = [EBMLMinOccurrence] "*" [EBMLMaxOccurrence]
 EBMLMinOccurrence        = 1*DIGIT ; no upper limit
 EBMLMaxOccurrence        = 1*DIGIT ; no upper limit
-VariableParentOccurrence= [PathMinOccurrence] "*" [PathMaxOccurrence]
+GlobalParentOccurence    = [PathMinOccurrence] "*" [PathMaxOccurrence]
 PathMinOccurrence        = 1*DIGIT ; no upper limit
 PathMaxOccurrence        = 1*DIGIT ; no upper limit
 ```
@@ -391,9 +391,9 @@ The EBMLMinOccurrence represents the minimum permitted number of occurrences of 
 
 The EBMLMaxOccurrence represents the maximum permitted number of occurrences of this EBML Element within its Parent Element. Each instance of the Parent Element MUST contain at most this many instances of this EBML Element. If the EBML Element has an empty EBMLParentPath then EBMLMaxOccurrence refers to constraints on the occurrence of the EBML Element within the EBML Document. If EBMLMaxOccurrence is not present then there is no upper bound for the permitted number of occurrences of this EBML Element within its Parent Element resp. within the EBML Document depending on whether the EBMLParentPath of the EBML Element is empty or not. The semantic meaning of EBMLMaxOccurrence within an EBML Schema path is analogous to the meaning of maxOccurs within an XML Schema.
 
-In some cases the EBMLLastParent part of the path is an EBMLVariableParent. A path with a EBMLVariableParent defines a [Global Element](#global-elements). Any path that starts with the EBMLFixedParent of the Global Element and matches the occurrences found in the VariableParentOccurrence is a valid path for the Global Element. 
+In some cases the EBMLLastParent part of the path is an EBMLGlobalParent. A path with a EBMLGlobalParent defines a [Global Element](#global-elements). Any path that starts with the EBMLFixedParent of the Global Element and matches the occurrences found in the GlobalParentOccurence is a valid path for the Global Element. 
 
-The VariableParentOccurrence part is interpreted as an ABNF Variable Repetition. The repetition amounts correspond to the amount of unspecified Parent Element levels there can be between the EBMLFixedParent and the actual EBMLElementPath.
+The GlobalParentOccurence part is interpreted as an ABNF Variable Repetition. The repetition amounts correspond to the amount of unspecified Parent Element levels there can be between the EBMLFixedParent and the actual EBMLElementPath.
 
 PathMinOccurrence represents the minimum number of element path required between the EBMLFixedParent and the Global Element EBMLElementPath. For example 0 means the EBMLElementPath can be right after the EBMLFixedParent, 1 means there has to be at least an element between the EBMLFixedParent and the EBMLElementPath. If PathMinOccurrence is not present then that EBML Element has an PathMinOccurrence value of 0.
 
@@ -813,7 +813,7 @@ description: The version of the DocTypeExtension. Different DocTypeExtensionVers
 
 EBML allows some special Elements to be found within more than one parent in an EBML Document or optionally at the Root Level of an EBML Body. These Elements are called Global Elements. There are 2 Global Elements that can be found in any EBML Document: the CRC-32 Element and the Void Element. An EBML Schema MAY add other Global Elements to the format it defines. These extra elements apply only to the EBML Body, not the EBML Header.
 
-Global Elements are EBML Elements whose path have a EBMLVariableParent as their EBMLLastParent. Because it is the last Parent part of the path, a Global Element might also have non-EBMLVariableParent parts in its path. In this case the Global Element can only be found within this non-EBMLVariableParent path, i.e. it's not fully "global".
+Global Elements are EBML Elements whose path have a EBMLGlobalParent as their EBMLLastParent. Because it is the last Parent part of the path, a Global Element might also have non-EBMLGlobalParent parts in its path. In this case the Global Element can only be found within this non-EBMLGlobalParent path, i.e. it's not fully "global".
 
 The EBMLElementOccurrence of a Global Element is the number of occurrences the Element can be found in a Parent Element. But the Global Element can be found in many Parent Elements, allowing the same number of occurrences in each Parent where this Element is found.
 
