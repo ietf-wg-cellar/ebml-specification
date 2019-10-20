@@ -522,7 +522,10 @@ In some cases within an EBML Document Type, the attributes of the `<element>` el
 
 #### note_attribute
 
-The note\_attribute attribute references which of the `<element>`'s attributes that the implementation\_note is in regards to. The note_attribute attribute MUST be set to one of the following values (corresponding to that attribute of the parent `<element>`): `minOccurs`, `maxOccurs`, `range`, `length`, `default`, `minver`, or `maxver`. The `<implementation_note>` SHALL supersede the parent `<element>`'s attribute that is named in the `note_attribute` attribute. An `<element>` SHALL NOT have more than one `<implementation_note>` of the same `note_attribute`.
+The note\_attribute attribute references which of the `<element>`'s attributes that the implementation\_note is in regards to.
+The note_attribute attribute MUST be set to one of the following values (corresponding to that attribute of the parent `<element>`): `minOccurs`, `maxOccurs`, `range`, `length`, `default`, `minver`, or `maxver`.
+The `<implementation_note>` SHALL supersede the parent `<element>`'s attribute that is named in the `note_attribute` attribute.
+An `<element>` SHALL NOT have more than one `<implementation_note>` of the same `note_attribute`.
 
 The note\_attribute attribute is REQUIRED.
 
