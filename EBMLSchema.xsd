@@ -96,7 +96,7 @@
   <xs:complexType name="noteType">
     <xs:simpleContent>
       <xs:extension base="xs:string">
-        <xs:attribute name="note_type" use="required">
+        <xs:attribute name="note_attribute" use="required">
           <xs:simpleType>
             <xs:restriction base="xs:string">
               <xs:enumeration value="minOccurs"/>
