@@ -516,15 +516,15 @@ The purpose attribute is REQUIRED.
 
 ### \<implementation_note> Element
 
-In some cases within an EBML Document Type, the attributes of the `<element>` element are not sufficient to clearly communicate how the defined EBML Element is intended to be implemented. For instance, one EBML Element might only be mandatory if another EBML Element is present, or as another example, the default value of an EBML Element might derive from a related Element's content. In these cases where the Element's definition is conditional or advanced implementation notes are needed, one or many `<implementation_note>` elements can be used to store that information. The `<implementation_note>` refer to a specific attribute of the parent `<element>` as expressed by the `note_type` attribute (#note-type).
+In some cases within an EBML Document Type, the attributes of the `<element>` element are not sufficient to clearly communicate how the defined EBML Element is intended to be implemented. For instance, one EBML Element might only be mandatory if another EBML Element is present, or as another example, the default value of an EBML Element might derive from a related Element's content. In these cases where the Element's definition is conditional or advanced implementation notes are needed, one or many `<implementation_note>` elements can be used to store that information. The `<implementation_note>` refer to a specific attribute of the parent `<element>` as expressed by the `note_attribute` attribute (#note-type).
 
 ### \<implementation_note> Attributes
 
-#### note_type
+#### note_attribute
 
-The note\_type attribute references which of the `<element>`'s attributes that the implementation\_note is in regards to. The note_type attribute MUST be set to one of the following values (corresponding to that attribute of the parent `<element>`): `minOccurs`, `maxOccurs`, `range`, `length`, `default`, `minver`, or `maxver`. The `<implementation_note>` SHALL supersede the parent `<element>`'s attribute that is named in the `note_type` attribute. An `<element>` SHALL NOT have more than one `<implementation_note>` of the same `note_type`.
+The note\_attribute attribute references which of the `<element>`'s attributes that the implementation\_note is in regards to. The note_attribute attribute MUST be set to one of the following values (corresponding to that attribute of the parent `<element>`): `minOccurs`, `maxOccurs`, `range`, `length`, `default`, `minver`, or `maxver`. The `<implementation_note>` SHALL supersede the parent `<element>`'s attribute that is named in the `note_attribute` attribute. An `<element>` SHALL NOT have more than one `<implementation_note>` of the same `note_attribute`.
 
-The note\_type attribute is REQUIRED.
+The note\_attribute attribute is REQUIRED.
 
 ### \<restriction> Element
 
