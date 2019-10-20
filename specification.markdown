@@ -359,7 +359,7 @@ The path defines the allowed storage locations of the EBML Element within an EBM
 The path attribute is REQUIRED.
 
 ```
-EBMLFullPath           = EBMLElementOccurrence "(" EBMLMasterPath ")"
+EBMLFullPath             = EBMLEltOccurrence "(" EBMLMasterPath ")"
 EBMLMasterPath           = [EBMLParentPath] EBMLElementPath
 EBMLParentPath           = EBMLFixedParent EBMLLastParent
 EBMLFixedParent          = *(EBMLPathAtom)
@@ -371,7 +371,7 @@ EBMLGlobalParent         = "(" GlobalParentOccurence "\)"
 EBMLAtomName             = 1*(EBMLNameChar)
 EBMLNameChar             = ALPHA / DIGIT / "-" / "."
 PathDelimiter            = "\"
-EBMLElementOccurrence   = [EBMLMinOccurrence] "*" [EBMLMaxOccurrence]
+EBMLEltOccurrence        = [EBMLMinOccurrence] "*" [EBMLMaxOccurrence]
 EBMLMinOccurrence        = 1*DIGIT ; no upper limit
 EBMLMaxOccurrence        = 1*DIGIT ; no upper limit
 GlobalParentOccurence    = [PathMinOccurrence] "*" [PathMaxOccurrence]
@@ -385,7 +385,7 @@ The EBMLPathAtom part of the EBMLElementPath MUST be equal to the name attribute
 
 The starting PathDelimiter of the path corresponds to the root of the EBML Document.
 
-The EBMLElementOccurrence part is interpreted as an ABNF Variable Repetition. The repetition amounts correspond to how many times the EBML Element can be found in its Parent Element.
+The EBMLEltOccurrence part is interpreted as an ABNF Variable Repetition. The repetition amounts correspond to how many times the EBML Element can be found in its Parent Element.
 
 The EBMLMinOccurrence represents the minimum permitted number of occurrences of this EBML Element within its Parent Element. Each instance of the Parent Element MUST contain at least this many instances of this EBML Element. If the EBML Element has an empty EBMLParentPath then EBMLMinOccurrence refers to constraints on the occurrence of the EBML Element within the EBML Document. If EBMLMinOccurrence is not present then that EBML Element has an EBMLMinOccurrence value of 0. The semantic meaning of EBMLMinOccurrence within an EBML Schema is analogous to the meaning of minOccurs within an XML Schema. EBML Elements with EBMLMinOccurrence set to "1" that also have a default value (see [default](#default)) declared are not REQUIRED to be stored but are REQUIRED to be interpreted, see [Note on the Use of default attributes to define Mandatory EBML Elements](#note-on-the-use-of-default-attributes-to-define-mandatory-ebml-elements). An EBML Element defined with a EBMLMinOccurrence value greater than zero is called a Mandatory EBML Element.
 
@@ -815,7 +815,7 @@ EBML allows some special Elements to be found within more than one parent in an 
 
 Global Elements are EBML Elements whose path have a EBMLGlobalParent as their EBMLLastParent. Because it is the last Parent part of the path, a Global Element might also have non-EBMLGlobalParent parts in its path. In this case the Global Element can only be found within this non-EBMLGlobalParent path, i.e. it's not fully "global".
 
-The EBMLElementOccurrence of a Global Element is the number of occurrences the Element can be found in a Parent Element. But the Global Element can be found in many Parent Elements, allowing the same number of occurrences in each Parent where this Element is found.
+The EBMLEltOccurrence of a Global Element is the number of occurrences the Element can be found in a Parent Element. But the Global Element can be found in many Parent Elements, allowing the same number of occurrences in each Parent where this Element is found.
 
 ### CRC-32 Element
 
