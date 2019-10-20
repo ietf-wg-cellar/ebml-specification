@@ -359,22 +359,22 @@ The path defines the allowed storage locations of the EBML Element within an EBM
 The path attribute is REQUIRED.
 
 ```
-EBMLFullPath             = EBMLElementOccurrence "(" EBMLMasterPath ")"
+EBMLFullPath             = EBMLEltOccurrence "(" EBMLMasterPath ")"
 EBMLMasterPath           = [EBMLParentPath] EBMLElementPath
 EBMLParentPath           = EBMLFixedParent EBMLLastParent
 EBMLFixedParent          = *(EBMLPathAtom)
 EBMLElementPath          = EBMLPathAtom / EBMLPathAtomRecursive
 EBMLPathAtom             = PathDelimiter EBMLAtomName
 EBMLPathAtomRecursive    = "(1*(" EBMLPathAtom "))"
-EBMLLastParent           = EBMLPathAtom / EBMLVariableParent
-EBMLVariableParent       = "(" VariableParentOccurrence "\)"
+EBMLLastParent           = EBMLPathAtom / EBMLGlobalParent
+EBMLGlobalParent         = "(" GlobalParentOccurence "\)"
 EBMLAtomName             = 1*(EBMLNameChar)
 EBMLNameChar             = ALPHA / DIGIT / "-" / "."
 PathDelimiter            = "\"
-EBMLElementOccurrence    = [EBMLMinOccurrence] "*" [EBMLMaxOccurrence]
+EBMLEltOccurrence        = [EBMLMinOccurrence] "*" [EBMLMaxOccurrence]
 EBMLMinOccurrence        = 1*DIGIT ; no upper limit
 EBMLMaxOccurrence        = 1*DIGIT ; no upper limit
-VariableParentOccurrence = [PathMinOccurrence] "*" [PathMaxOccurrence]
+GlobalParentOccurence    = [PathMinOccurrence] "*" [PathMaxOccurrence]
 PathMinOccurrence        = 1*DIGIT ; no upper limit
 PathMaxOccurrence        = 1*DIGIT ; no upper limit
 ```
@@ -385,15 +385,15 @@ The EBMLPathAtom part of the EBMLElementPath MUST be equal to the name attribute
 
 The starting PathDelimiter of the path corresponds to the root of the EBML Document.
 
-The EBMLElementOccurrence part is interpreted as an ABNF Variable Repetition. The repetition amounts correspond to how many times the EBML Element can be found in its Parent Element.
+The EBMLEltOccurrence part is interpreted as an ABNF Variable Repetition. The repetition amounts correspond to how many times the EBML Element can be found in its Parent Element.
 
 The EBMLMinOccurrence represents the minimum permitted number of occurrences of this EBML Element within its Parent Element. Each instance of the Parent Element MUST contain at least this many instances of this EBML Element. If the EBML Element has an empty EBMLParentPath then EBMLMinOccurrence refers to constraints on the occurrence of the EBML Element within the EBML Document. If EBMLMinOccurrence is not present then that EBML Element has an EBMLMinOccurrence value of 0. The semantic meaning of EBMLMinOccurrence within an EBML Schema is analogous to the meaning of minOccurs within an XML Schema. EBML Elements with EBMLMinOccurrence set to "1" that also have a default value (see [default](#default)) declared are not REQUIRED to be stored but are REQUIRED to be interpreted, see [Note on the Use of default attributes to define Mandatory EBML Elements](#note-on-the-use-of-default-attributes-to-define-mandatory-ebml-elements). An EBML Element defined with a EBMLMinOccurrence value greater than zero is called a Mandatory EBML Element.
 
 The EBMLMaxOccurrence represents the maximum permitted number of occurrences of this EBML Element within its Parent Element. Each instance of the Parent Element MUST contain at most this many instances of this EBML Element. If the EBML Element has an empty EBMLParentPath then EBMLMaxOccurrence refers to constraints on the occurrence of the EBML Element within the EBML Document. If EBMLMaxOccurrence is not present then there is no upper bound for the permitted number of occurrences of this EBML Element within its Parent Element resp. within the EBML Document depending on whether the EBMLParentPath of the EBML Element is empty or not. The semantic meaning of EBMLMaxOccurrence within an EBML Schema path is analogous to the meaning of maxOccurs within an XML Schema.
 
-In some cases the EBMLLastParent part of the path is an EBMLVariableParent. A path with a EBMLVariableParent defines a [Global Element](#global-elements). Any path that starts with the EBMLFixedParent of the Global Element and matches the occurrences found in the VariableParentOccurrence is a valid path for the Global Element. 
+In some cases the EBMLLastParent part of the path is an EBMLGlobalParent. A path with a EBMLGlobalParent defines a [Global Element](#global-elements). Any path that starts with the EBMLFixedParent of the Global Element and matches the occurrences found in the GlobalParentOccurence is a valid path for the Global Element. 
 
-The VariableParentOccurrence part is interpreted as an ABNF Variable Repetition. The repetition amounts correspond to the amount of unspecified Parent Element levels there can be between the EBMLFixedParent and the actual EBMLElementPath.
+The GlobalParentOccurence part is interpreted as an ABNF Variable Repetition. The repetition amounts correspond to the amount of unspecified Parent Element levels there can be between the EBMLFixedParent and the actual EBMLElementPath.
 
 PathMinOccurrence represents the minimum number of element path required between the EBMLFixedParent and the Global Element EBMLElementPath. For example 0 means the EBMLElementPath can be right after the EBMLFixedParent, 1 means there has to be at least an element between the EBMLFixedParent and the EBMLElementPath. If PathMinOccurrence is not present then that EBML Element has an PathMinOccurrence value of 0.
 
@@ -813,9 +813,9 @@ description: The version of the DocTypeExtension. Different DocTypeExtensionVers
 
 EBML allows some special Elements to be found within more than one parent in an EBML Document or optionally at the Root Level of an EBML Body. These Elements are called Global Elements. There are 2 Global Elements that can be found in any EBML Document: the CRC-32 Element and the Void Element. An EBML Schema MAY add other Global Elements to the format it defines. These extra elements apply only to the EBML Body, not the EBML Header.
 
-Global Elements are EBML Elements whose path have a EBMLVariableParent as their EBMLLastParent. Because it is the last Parent part of the path, a Global Element might also have non-EBMLVariableParent parts in its path. In this case the Global Element can only be found within this non-EBMLVariableParent path, i.e. it's not fully "global".
+Global Elements are EBML Elements whose path have a EBMLGlobalParent as their EBMLLastParent. Because it is the last Parent part of the path, a Global Element might also have non-EBMLGlobalParent parts in its path. In this case the Global Element can only be found within this non-EBMLGlobalParent path, i.e. it's not fully "global".
 
-The EBMLElementOccurrence of a Global Element is the number of occurrences the Element can be found in a Parent Element. But the Global Element can be found in many Parent Elements, allowing the same number of occurrences in each Parent where this Element is found.
+The EBMLEltOccurrence of a Global Element is the number of occurrences the Element can be found in a Parent Element. But the Global Element can be found in many Parent Elements, allowing the same number of occurrences in each Parent where this Element is found.
 
 ### CRC-32 Element
 
@@ -1002,19 +1002,19 @@ ID Values found in this document are assigned as initial values as follows:
 
  ID        | Element Name            | Reference
 ----------:|:------------------------|:-------------------------------------------
-0x1A45DFA3 | EBML                    | Described in [section EBML](#ebml-element)
-0x4286     | EBMLVersion             | Described in [section EBMLVersion](#ebmlversion-element)
-0x42F7     | EBMLReadVersion         | Described in [section EBMLReadVersion](#ebmlreadversion-element)
-0x42F2     | EBMLMaxIDLength         | Described in [section EBMLMaxIDLength](#ebmlmaxidlength-element)
-0x42F3     | EBMLMaxSizeLength       | Described in [section EBMLMaxSizeLength](#ebmlmaxsizelength-element)
-0x4282     | DocType                 | Described in [section DocType](#doctype-element)
-0x4287     | DocTypeVersion          | Described in [section DocTypeVersion](#doctypeversion-element)
-0x4285     | DocTypeReadVersion      | Described in [section DocTypeReadVersion](#doctypereadversion-element)
-0x4281     | DocTypeExtension        | Described in [section DocTypeExtension](#doctypeextension-element)
-0x4283     | DocTypeExtensionName    | Described in [section DocTypeExtensionName](#doctypeextensionname-element)
-0x4284     | DocTypeExtensionVersion | Described in [section DocTypeExtensionVersion](#doctypeextensionversion-element)
-0xBF       | CRC-32                  | Described in [section CRC-32](#crc32-element)
-0xEC       | Void                    | Described in [section Void](#void-element)
+0x1A45DFA3 | EBML                    | Described in (#ebml-element)
+0x4286     | EBMLVersion             | Described in (#ebmlversion-element)
+0x42F7     | EBMLReadVersion         | Described in (#ebmlreadversion-element)
+0x42F2     | EBMLMaxIDLength         | Described in (#ebmlmaxidlength-element)
+0x42F3     | EBMLMaxSizeLength       | Described in (#ebmlmaxsizelength-element)
+0x4282     | DocType                 | Described in (#doctype-element)
+0x4287     | DocTypeVersion          | Described in (#doctypeversion-element)
+0x4285     | DocTypeReadVersion      | Described in (#doctypereadversion-element)
+0x4281     | DocTypeExtension        | Described in (#doctypeextension-element)
+0x4283     | DocTypeExtensionName    | Described in (#doctypeextensionname-element)
+0x4284     | DocTypeExtensionVersion | Described in (#doctypeextensionversion-element)
+0xBF       | CRC-32                  | Described in (#crc-32-element)
+0xEC       | Void                    | Described in (#void-element)
 
 ## CELLAR EBML DocType Registry
 

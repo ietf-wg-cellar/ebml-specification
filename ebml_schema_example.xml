@@ -5,16 +5,17 @@
  <element name="EBMLReadVersion" path="1*1(\EBML\EBMLReadVersion)"
    id="0x42F7" minOccurs="1" maxOccurs="1" range="1" default="1"
    type="uinteger"/>
- <element name="EBMLMaxSizeLength" path="1*1(\EBML\EBMLMaxSizeLength)"
-   id="0x42F3" minOccurs="1" maxOccurs="1" range="8" default="8"
-   type="uinteger"/>
+ <element name="EBMLMaxSizeLength"
+   path="1*1(\EBML\EBMLMaxSizeLength)" id="0x42F3" minOccurs="1"
+   maxOccurs="1" range="8" default="8" type="uinteger"/>
  <!-- Root Element-->
- <element name="Files" path="*1(\Files)" id="0x1946696C" type="master">
+ <element name="Files" path="*1(\Files)" id="0x1946696C"
+   type="master">
   <documentation lang="en" purpose="definition">Container of data and
   attributes representing one or many files.</documentation>
  </element>
- <element name="File" path="1*(\Files\File)" id="0x6146" type="master"
-   minOccurs="1">
+ <element name="File" path="1*(\Files\File)" id="0x6146"
+   type="master" minOccurs="1">
   <documentation lang="en" purpose="definition">
     An attached file.
   </documentation>

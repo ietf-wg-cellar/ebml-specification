@@ -7,7 +7,7 @@
 
   <!-- for HTML in comments -->
   <xs:import namespace="http://www.w3.org/1999/xhtml"
-        schemaLocation="http://www.w3.org/MarkUp/SCHEMA/xhtml11.xsd"/>
+    schemaLocation="http://www.w3.org/MarkUp/SCHEMA/xhtml11.xsd"/>
 
   <xs:element name="EBMLSchema" type="EBMLSchemaType"/>
 
