@@ -359,24 +359,24 @@ The path defines the allowed storage locations of the EBML Element within an EBM
 The path attribute is REQUIRED.
 
 ```
-EBMLFullPath             = EBMLEltOccurrence "(" EBMLMasterPath ")"
-EBMLMasterPath           = [EBMLParentPath] EBMLElementPath
-EBMLParentPath           = EBMLFixedParent EBMLLastParent
-EBMLFixedParent          = *(EBMLPathAtom)
-EBMLElementPath          = EBMLPathAtom / EBMLPathAtomRecursive
-EBMLPathAtom             = PathDelimiter EBMLAtomName
-EBMLPathAtomRecursive    = "(1*(" EBMLPathAtom "))"
-EBMLLastParent           = EBMLPathAtom / EBMLGlobalParent
-EBMLGlobalParent         = "(" GlobalParentOccurence "\)"
-EBMLAtomName             = 1*(EBMLNameChar)
-EBMLNameChar             = ALPHA / DIGIT / "-" / "."
-PathDelimiter            = "\"
-EBMLEltOccurrence        = [EBMLMinOccurrence] "*" [EBMLMaxOccurrence]
-EBMLMinOccurrence        = 1*DIGIT ; no upper limit
-EBMLMaxOccurrence        = 1*DIGIT ; no upper limit
-GlobalParentOccurence    = [PathMinOccurrence] "*" [PathMaxOccurrence]
-PathMinOccurrence        = 1*DIGIT ; no upper limit
-PathMaxOccurrence        = 1*DIGIT ; no upper limit
+EBMLFullPath          = EBMLEltOccurrence "(" EBMLMasterPath ")"
+EBMLMasterPath        = [EBMLParentPath] EBMLElementPath
+EBMLParentPath        = EBMLFixedParent EBMLLastParent
+EBMLFixedParent       = *(EBMLPathAtom)
+EBMLElementPath       = EBMLPathAtom / EBMLPathAtomRecursive
+EBMLPathAtom          = PathDelimiter EBMLAtomName
+EBMLPathAtomRecursive = "(1*(" EBMLPathAtom "))"
+EBMLLastParent        = EBMLPathAtom / EBMLGlobalParent
+EBMLGlobalParent      = "(" GlobalParentOccurence "\)"
+EBMLAtomName          = 1*(EBMLNameChar)
+EBMLNameChar          = ALPHA / DIGIT / "-" / "."
+PathDelimiter         = "\"
+EBMLEltOccurrence     = [EBMLMinOccurrence] "*" [EBMLMaxOccurrence]
+EBMLMinOccurrence     = 1*DIGIT ; no upper limit
+EBMLMaxOccurrence     = 1*DIGIT ; no upper limit
+GlobalParentOccurence = [PathMinOccurrence] "*" [PathMaxOccurrence]
+PathMinOccurrence     = 1*DIGIT ; no upper limit
+PathMaxOccurrence     = 1*DIGIT ; no upper limit
 ```
 
 The `*`, `(` and `)` symbols are interpreted as defined in [@!RFC5234].
