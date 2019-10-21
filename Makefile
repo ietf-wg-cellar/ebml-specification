@@ -18,7 +18,7 @@ $(OUTPUT).md: specification.markdown rfc_frontmatter.markdown rfc_backmatter.mar
 	cat rfc_frontmatter.markdown $< rfc_backmatter.markdown > $(OUTPUT).md
 
 %.xml: %.md
-	$(MMARK) $< > $@
+	$(MMARK) $< | sed 's|<sourcecode type="xml">|<artwork type="ascii-art">|g;s|<sourcecode type="xsd">|<artwork type="ascii-art">|g;s|</sourcecode>|</artwork>|g' > $@
 
 %.html: %.xml
 	$(XML2RFC) --html $< -o $@
