@@ -535,6 +535,40 @@ An `<element>` SHALL NOT have more than one `<implementation_note>` of the same 
 
 The note\_attribute attribute is REQUIRED.
 
+#### \<implementation_note> Example
+
+The following fragment of an EBML Schema demonstrates how an `<implementation_note>` is used. In this case an EBML Schema documents a list of items that are described with an optional cost. The Currency Element uses an `<implementation_note>` to say that the Currency Element is REQUIRED if the Cost Element is set, otherwise not.
+
+```xml
+<element name="Item" path="1*1(\Items\)" id="0x4025" type="master">
+  <documentation lang="en" purpose="definition">
+    An set of items.
+  </documentation>
+</element>
+<element name="Item" path="0*(\Items\Item)" id="0x4026"
+  type="master">
+  <documentation lang="en" purpose="definition">
+    An item.
+  </documentation>
+</element>
+<element name="Cost" path="0*1(\Items\Item\Cost)" id="0x4024"
+  type="float" minOccurs="0" maxOccurs="1">
+  <documentation lang="en" purpose="definition">
+    The cost of the item, if any.
+  </documentation>
+</element>
+<element name="Currency" path="0*1(\Items\Item\Currency)" id="0x403F"
+  type="string" maxOccurs="1">
+  <documentation lang="en" purpose="definition">
+    The currency of the item's cost.
+  </documentation>
+  <implementation_note note_attribute="minOccurs">
+    Currency MUST be set (minOccurs=1) if the associated Item stores
+    a Cost, elseCurrent MAY be unset (minOccurs=0).
+  </implementation_note>
+</element>
+```
+
 ### \<restriction> Element
 
 The `<restriction>` element provides information about restrictions to the allowable values for the EBML Element which are listed in `<enum>` elements.
