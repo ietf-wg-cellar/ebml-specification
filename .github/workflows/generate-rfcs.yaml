@@ -1,0 +1,17 @@
+name: "Generate the EBML RFC"
+# Trigger the workflow on push or pull request
+on: [push, pull_request]
+
+jobs:
+  build:
+    name: "Build RFCS"
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Get pushed code
+        uses: actions/checkout@v1
+      - name: Get python (for xml2rfc)
+        uses: actions/setup-python@v1
+      - name: Setup toolchain
+        run: ./bootstrap
+      - name: Build
+        run: make
