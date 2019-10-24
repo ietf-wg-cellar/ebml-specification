@@ -864,6 +864,25 @@ The following scenarios describe events to consider when reading EBML Documents 
 
 If a Master Element contains a CRC-32 Element that doesn't validate, then the EBML Reader MAY ignore all contained data except for Descendant Elements that contain their own valid CRC-32 Element.
 
+In the following XML representation of a simple, hypothetical EBML fragment, a Master Element called CONTACT contains a NAME Element as well as two other Child Elements, NAME and ADDRESS. In this example, some data within the NAME Element had been altered, so that the CRC-32 of the NAME Element does not validate and thus any Ancestor Element with a CRC-32 would also no longer validate. However, even though the CONTACT Element has a CRC-32 that does not validate (because of the changed data within the NAME Element), the CRC-32 of the ADDRESS Element does validate and thus the contents and semantics of the ADDRESS Element MAY be used.
+
+```xml
+<CONTACT>
+    <CRC-32>c119a69b</CRC-32><!-- does not validate -->
+    <NAME>
+        <CRC-32>1f59ee2b</CRC-32><!-- does not validate -->
+        <FIRST-NAME>invalid data</FIRST-NAME>
+        <LAST-NAME>invalid data</LAST-NAME>
+    </NAME>
+    <ADDRESS>
+        <CRC-32>df941cc9</CRC-32><!-- validates -->
+        <STREET>valid data</STREET>
+        <CITY>valid data</CITY>
+    </ADDRESS>
+</CONTACT>
+```
+
+
 If a Master Element contains more occurrences of a Child Master Element than permitted according to the maxOccurs and recurring attributes of the definition of that Element then the occurrences in addition to maxOccurs MAY be ignored.
 
 If a Master Element contains more occurrences of a Child Element than permitted according to the maxOccurs attribute of the definition of that Element then all instances of that Element after the first maxOccur occurrences from the beginning of its Parent Element SHOULD be ignored.
