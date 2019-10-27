@@ -318,6 +318,8 @@ An EBML Schema MAY constrain the use of EBML Header Elements (see (#ebml-header-
 
 ### \<EBMLSchema> Element
 
+Within an EBML Schema, the XPath [@?W3C.REC-xpath-19991116] of `<EBMLSchema>` element is `/EBMLSchema`.
+
 As an XML Document, the EBML Schema MUST use `<EBMLSchema>` as the top level element. The `<EBMLSchema>` element can contain `<element>` sub-elements.
 
 ### \<EBMLSchema> Attributes
@@ -326,17 +328,23 @@ Within an EBML Schema the `<EBMLSchema>` element uses the following attributes:
 
 #### docType
 
+Within an EBML Schema, the XPath of `@docType` attribute is `/EBMLSchema/@docType`.
+
 The docType lists the official name of the EBML Document Type that is defined by the EBML Schema; for example, `<EBMLSchema docType="matroska">`.
 
 The docType attribute is REQUIRED within the `<EBMLSchema>` Element.
 
 #### version
 
+Within an EBML Schema, the XPath of `@version` attribute is `/EBMLSchema/@version`.
+
 The version lists a non-negative integer that specifies the version of the docType documented by the EBML Schema. Unlike XML Schemas, an EBML Schema documents all versions of a docType's definition rather than using separate EBML Schemas for each version of a docType. EBML Elements may be introduced and deprecated by using the minver and maxver attributes of `<element>`.
 
 The version attribute is REQUIRED within the `<EBMLSchema>` Element.
 
 ### \<element> Element
+  
+Within an EBML Schema, the XPath of `<element>` element is `/EBMLSchema/element`.
 
 Each `<element>` defines one EBML Element through the use of several attributes that are defined in (#ebmlschema-attributes). EBML Schemas MAY contain additional attributes to extend the semantics but MUST NOT conflict with the definitions of the `<element>` attributes defined within this document.
 
@@ -348,11 +356,15 @@ Within an EBML Schema the `<element>` uses the following attributes to define an
 
 #### name
 
+Within an EBML Schema, the XPath of `@name` attribute is `/EBMLSchema/element/@name`.
+
 The name provides the human-readable name of the EBML Element. The value of the name MUST be in the form of characters "A" to "Z", "a" to "z", "0" to "9", "-" and ".".
 
 The name attribute is REQUIRED.
 
 #### path
+
+Within an EBML Schema, the XPath of `@path` attribute is `/EBMLSchema/element/@path`.
 
 The path defines the allowed storage locations of the EBML Element within an EBML Document. This path MUST be defined with the full hierarchy of EBML Elements separated with a `\`. The top EBML Element in the path hierarchy being the first in the value. The syntax of the path attribute is defined using this Augmented Backus-Naur Form (ABNF) [@!RFC5234] with the case sensitive update [@!RFC7405] notation:
 
@@ -405,11 +417,15 @@ As an example, a `path` of `1*(\Segment\Info)` means the element Info is found i
 
 #### id
 
+Within an EBML Schema, the XPath of `@id` attribute is `/EBMLSchema/element/@id`.
+
 The Element ID encoded as a Variable Size Integer expressed in hexadecimal notation prefixed by a 0x that is read and stored in big-endian order. To reduce the risk of false positives while parsing EBML Streams, the Element IDs of the Root Element and Top-Level Elements SHOULD be at least 4 octets in length. Element IDs defined for use at Root Level or directly under the Root Level MAY use shorter octet lengths to facilitate padding and optimize edits to EBML Documents; for instance, the Void Element uses an Element ID with a one octet length to allow its usage in more writing and editing scenarios.
 
 The id attribute is REQUIRED.
 
 #### minOccurs
+
+Within an EBML Schema, the XPath of `@minOccurs` attribute is `/EBMLSchema/element/@minOccurs`.
 
 An integer expressing the minimum permitted number of occurrences of this EBML Element within its Parent Element. The minOccurs value MUST be equal to the EBMLMinOccurrence value of the path.
 
@@ -417,11 +433,15 @@ The minOccurs attribute is OPTIONAL. If the minOccurs attribute is not present t
 
 #### maxOccurs
 
+Within an EBML Schema, the XPath of `@maxOccurs` attribute is `/EBMLSchema/element/@maxOccurs`.
+
 An integer expressing the maximum permitted number of occurrences of this EBML Element within its Parent Element. The maxOccurs value MUST be equal to the EBMLMaxOccurrence value of the path.
 
 The maxOccurs attribute is OPTIONAL. If the maxOccurs attribute is not present then that EBML Element has no maximum occurrence, similar to unbounded in the XML world.
 
 #### range
+
+Within an EBML Schema, the XPath of `@range` attribute is `/EBMLSchema/element/@range`.
 
 A numerical range for EBML Elements which are of numerical types (Unsigned Integer, Signed Integer, Float, and Date). If specified the value of the EBML Element MUST be within the defined range. See (#expression-of-range) for rules applied to expression of range values.
 
@@ -444,11 +464,15 @@ A special form of lower and upper bounds using the `-` separator is possible, me
 
 #### length
 
+Within an EBML Schema, the XPath of `@length` attribute is `/EBMLSchema/element/@length`.
+
 A value to express the valid length of the Element Data as written measured in octets. The length provides a constraint in addition to the Length value of the definition of the corresponding EBML Element Type. This length MUST be expressed as either a non-negative integer or a range (see (#expression-of-range)) that consists of only non-negative integers and valid operators.
 
 The length attribute is OPTIONAL. If the length attribute is not present for that EBML Element then that EBML Element is only limited in length by the definition of the associated EBML Element Type.
 
 #### default
+
+Within an EBML Schema, the XPath of `@default` attribute is `/EBMLSchema/element/@default`.
 
 If an Element is mandatory (has a EBMLMinOccurrence value greater than zero) but not written within its Parent Element or stored as an Empty Element, then the EBML Reader of the EBML Document MUST semantically interpret the EBML Element as present with this specified default value for the EBML Element.
 An unwritten mandatory Element with a declared default value is semantically equivalent to that Element if written with the default value stored as the Element Data.
@@ -459,11 +483,15 @@ The default attribute is OPTIONAL.
 
 #### type
 
+Within an EBML Schema, the XPath of `@type` attribute is `/EBMLSchema/element/@type`.
+
 The type MUST be set to one of the following values: `integer` (signed integer), `uinteger` (unsigned integer), `float`, `string`, `date`, `utf-8`, `master`, or `binary`. The content of each type is defined within (#ebml-element-types).
 
 The type attribute is REQUIRED.
 
 #### unknownsizeallowed
+
+Within an EBML Schema, the XPath of `@unknownsizeallowed` attribute is `/EBMLSchema/element/@unknownsizeallowed`.
 
 A boolean to express if an EBML Element is permitted to be Unknown-Sized Element (having all VINT\_DATA bits of Element Data Size set to 1). EBML Elements that are not Master Elements MUST NOT set unknownsizeallowed to true. An EBML Element that is defined with an unknownsizeallowed attribute set to 1 MUST also have the unknownsizeallowed attribute of its Parent Element set to 1.
 
@@ -472,6 +500,8 @@ An EBML Element with the unknownsizeallowed attribute set to 1 MUST NOT have its
 The unknownsizeallowed attribute is OPTIONAL. If the unknownsizeallowed attribute is not used then that EBML Element is not allowed to use an unknown Element Data Size.
 
 #### recursive
+
+Within an EBML Schema, the XPath of `@recursive` attribute is `/EBMLSchema/element/@recursive`.
 
 A boolean to express if an EBML Element is permitted to be stored recursively. In this case the EBML Element MAY be stored within another EBML Element that has the same Element ID. Which itself can be stored in an EBML Element that has the same Element ID, and so on. EBML Elements that are not Master Elements MUST NOT set recursive to true.
 
@@ -483,11 +513,15 @@ The recursive attribute is OPTIONAL. If the recursive attribute is not present t
 
 #### recurring
 
+Within an EBML Schema, the XPath of `@recurring` attribute is `/EBMLSchema/element/@recurring`.
+
 A boolean to express if an EBML Element is defined as an Identically Recurring Element or not.
 
 The recurring attribute is OPTIONAL. If the recurring attribute is not present then the EBML Element is not an Identically Recurring Element.
 
 #### minver
+
+Within an EBML Schema, the XPath of `@minver` attribute is `/EBMLSchema/element/@minver`.
 
 The minver (minimum version) attribute stores a non-negative integer that represents the first version of the docType to support the EBML Element.
 
@@ -495,11 +529,15 @@ The minver attribute is OPTIONAL. If the minver attribute is not present, then t
 
 #### maxver
 
+Within an EBML Schema, the XPath of `@maxver` attribute is `/EBMLSchema/element/@maxver`.
+
 The maxver (maximum version) attribute stores a non-negative integer that represents the last or most recent version of the docType to support the element. maxver MUST be greater than or equal to minver.
 
 The maxver attribute is OPTIONAL. If the maxver attribute is not present then the EBML Element has a maximum version equal to the value stored in the version attribute of `<EBMLSchema>`.
 
 ### \<documentation> Element
+
+Within an EBML Schema, the XPath of `<documentation>` attribute is `/EBMLSchema/element/documentation`.
 
 The `<documentation>` element provides additional information about the EBML Element. Within the `<documentation>` element the following XHTML [@!W3C.SPSD-xhtml-basic-20180327] elements MAY be used: `<a>`, `<br>`, `<strong>`.
 
@@ -507,17 +545,23 @@ The `<documentation>` element provides additional information about the EBML Ele
 
 #### lang
 
+Within an EBML Schema, the XPath of `@lang` attribute is `/EBMLSchema/element/documentation/@lang`.
+
 A lang attribute which is set to the [@!RFC5646] value of the language of the element's documentation.
 
 The lang attribute is OPTIONAL.
 
 #### purpose
 
+Within an EBML Schema, the XPath of `@purpose` attribute is `/EBMLSchema/element/documentation/@purpose`.
+
 A purpose attribute distinguishes the meaning of the documentation. Values for the `<documentation>` sub-element's purpose attribute MUST include one of the following: `definition`, `rationale`, `usage notes`, and `references`.
 
 The purpose attribute is REQUIRED.
 
 ### \<implementation_note> Element
+
+Within an EBML Schema, the XPath of `<implementation_note>` attribute is `/EBMLSchema/element/implementation_note`.
 
 In some cases within an EBML Document Type, the attributes of the `<element>` element are not sufficient to clearly communicate how the defined EBML Element is intended to be implemented.
 For instance, one EBML Element might only be mandatory if another EBML Element is present, or as another example, the default value of an EBML Element might derive from a related Element's content.
@@ -527,6 +571,8 @@ The `<implementation_note>` refer to a specific attribute of the parent `<elemen
 ### \<implementation_note> Attributes
 
 #### note_attribute
+
+Within an EBML Schema, the XPath of `@note_attribute` attribute is `/EBMLSchema/element/implementation_note/@note_attribute`.
 
 The note\_attribute attribute references which of the `<element>`'s attributes that the implementation\_note is in regards to.
 The note_attribute attribute MUST be set to one of the following values (corresponding to that attribute of the parent `<element>`): `minOccurs`, `maxOccurs`, `range`, `length`, `default`, `minver`, or `maxver`.
@@ -572,9 +618,13 @@ The following fragment of an EBML Schema demonstrates how an `<implementation_no
 
 ### \<restriction> Element
 
+Within an EBML Schema, the XPath of `<restriction>` attribute is `/EBMLSchema/element/restriction`.
+
 The `<restriction>` element provides information about restrictions to the allowable values for the EBML Element which are listed in `<enum>` elements.
 
 ### \<enum> Element
+
+Within an EBML Schema, the XPath of `<enum>` attribute is `/EBMLSchema/element/restriction/enum`.
 
 The `<enum>` element stores a list of values allowed for storage in the EBML Element. The values MUST match the type of the EBML Element (for example `<enum value="Yes">` cannot be a valid value for a EBML Element that is defined as an unsigned integer). An `<enum>` element MAY also store `<documentation>` elements to further describe the `<enum>`.
 
@@ -582,11 +632,15 @@ The `<enum>` element stores a list of values allowed for storage in the EBML Ele
 
 #### label
 
+Within an EBML Schema, the XPath of `@label` attribute is `/EBMLSchema/element/restriction/enum/@label`.
+
 The label provides a concise expression for human consumption that describes what the value of the `<enum>` represents.
 
 The label attribute is OPTIONAL.
 
 #### value
+
+Within an EBML Schema, the XPath of `@value` attribute is `/EBMLSchema/element/restriction/enum/@value`.
 
 The value represents data that MAY be stored within the EBML Element.
 
@@ -594,11 +648,15 @@ The value attribute is REQUIRED.
 
 ### \<extension> Element
 
- The `<extension>` element provides an unconstrained element to contain information about the associated EBML `<element>` which is undefined by this document but MAY be defined by the associated EBML Document Type. The `<extension>` element MUST contain a `type` attribute and also MAY contain any other attribute or sub-element as long as the EBML Schema remains as a well-formed XML Document. All `<extension>` elements MUST be sub-elements of the `<element>`.
+Within an EBML Schema, the XPath of `<extension>` attribute is `/EBMLSchema/element/extension`.
+
+The `<extension>` element provides an unconstrained element to contain information about the associated EBML `<element>` which is undefined by this document but MAY be defined by the associated EBML Document Type. The `<extension>` element MUST contain a `type` attribute and also MAY contain any other attribute or sub-element as long as the EBML Schema remains as a well-formed XML Document. All `<extension>` elements MUST be sub-elements of the `<element>`.
 
 ### \<extension> Attributes
 
 #### type
+
+Within an EBML Schema, the XPath of `@type` attribute is `/EBMLSchema/element/extension/@type`.
 
 The type attribute should reference a name or identifier of the project or authority associated with the contents of the `<extension>` element.
 
