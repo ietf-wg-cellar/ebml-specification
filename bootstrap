@@ -67,7 +67,14 @@ for t in $NEEDED; do
     echo .$t: .build$t >> $BOOTSTRAP_MAKE
     PACKAGES="$PACKAGES $t"
     TARGETS="$TARGETS .build$t"
-    echo "$t" | awk '{ tool = sprintf("%s_CALL := ./%s", toupper($0), $0); print tool }' >> $RUNTIMES_MAKE
+    if [ $t = "xml2rfc" ]; then
+        # installed in the Python local user dir
+        PYTHON_USER_PATH=$(python -m site --user-base)
+        echo PYTHON_USER_PATH=$PYTHON_USER_PATH >> $RUNTIMES_MAKE
+        echo "$t" | awk '{ tool = sprintf("%s_CALL := $(PYTHON_USER_PATH)/bin/%s", toupper($0), $0); print tool }' >> $RUNTIMES_MAKE
+    else
+        echo "$t" | awk '{ tool = sprintf("%s_CALL := ./%s", toupper($0), $0); print tool }' >> $RUNTIMES_MAKE
+    fi
 done
 
 [ -n "$PACKAGES" ] && echo "To-be-built packages: $PACKAGES"
