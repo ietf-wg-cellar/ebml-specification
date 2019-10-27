@@ -543,7 +543,7 @@ The following fragment of an EBML Schema demonstrates how an `<implementation_no
 <element name="Item" path="1*1(\Items)" id="0x4025" type="master"
   minOccurs="1" maxOccurs="1">
   <documentation lang="en" purpose="definition">
-    An set of items.
+    A set of items.
   </documentation>
 </element>
 <element name="Item" path="0*(\Items\Item)" id="0x4026"
@@ -565,7 +565,7 @@ The following fragment of an EBML Schema demonstrates how an `<implementation_no
   </documentation>
   <implementation_note note_attribute="minOccurs">
     Currency MUST be set (minOccurs=1) if the associated Item stores
-    a Cost, elseCurrent MAY be unset (minOccurs=0).
+    a Cost, else Currency MAY be unset (minOccurs=0).
   </implementation_note>
 </element>
 ```
