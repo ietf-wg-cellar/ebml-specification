@@ -648,9 +648,9 @@ The value attribute is REQUIRED.
 
 ### \<extension> Element
 
- The `<extension>` element provides an unconstrained element to contain information about the associated EBML `<element>` which is undefined by this document but MAY be defined by the associated EBML Document Type. The `<extension>` element MUST contain a `type` attribute and also MAY contain any other attribute or sub-element as long as the EBML Schema remains as a well-formed XML Document. All `<extension>` elements MUST be sub-elements of the `<element>`.
 Within an EBML Schema, the XPath of `<extension>` attribute is `/EBMLSchema/element/extension`.
 
+The `<extension>` element provides an unconstrained element to contain information about the associated EBML `<element>` which is undefined by this document but MAY be defined by the associated EBML Document Type. The `<extension>` element MUST contain a `type` attribute and also MAY contain any other attribute or sub-element as long as the EBML Schema remains as a well-formed XML Document. All `<extension>` elements MUST be sub-elements of the `<element>`.
 
 ### \<extension> Attributes
 
