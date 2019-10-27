@@ -15,12 +15,12 @@ jobs:
         run: ./bootstrap
       - name: Build
         run: make
-      - name: Generated XML
+      - name: Move Generated files
         run: |
           mkdir -p artifacts
-          cp draft-ietf-cellar-ebml-??.xml artifacts
+          mv draft-ietf-cellar-ebml-??.xml artifacts
       - name: XML Artifact
         uses: actions/upload-artifact@master
         with:
-          name: All usable artifacts
-          path: artifacts
+          name: generated-xml
+          path: artifacts/*.xml
