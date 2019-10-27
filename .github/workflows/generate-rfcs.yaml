@@ -22,4 +22,5 @@ jobs:
       - name: XML Artifact
         uses: actions/upload-artifact@master
         with:
+          name: All usable artifacts
           path: artifacts
