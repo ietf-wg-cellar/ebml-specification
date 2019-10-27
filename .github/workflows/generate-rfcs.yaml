@@ -23,4 +23,4 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: generated-xml
-          path: artifacts/*.xml
+          path: artifacts/draft-ietf-cellar-ebml-14.xml
