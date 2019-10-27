@@ -864,7 +864,7 @@ The following scenarios describe events to consider when reading EBML Documents 
 
 If a Master Element contains a CRC-32 Element that doesn't validate, then the EBML Reader MAY ignore all contained data except for Descendant Elements that contain their own valid CRC-32 Element.
 
-In the following XML representation of a simple, hypothetical EBML fragment, a Master Element called CONTACT contains a NAME Element as well as two other Child Elements, NAME and ADDRESS. In this example, some data within the NAME Element had been altered, so that the CRC-32 of the NAME Element does not validate and thus any Ancestor Element with a CRC-32 would also no longer validate. However, even though the CONTACT Element has a CRC-32 that does not validate (because of the changed data within the NAME Element), the CRC-32 of the ADDRESS Element does validate and thus the contents and semantics of the ADDRESS Element MAY be used.
+In the following XML representation of a simple, hypothetical EBML fragment, a Master Element called CONTACT contains two Child Elements, NAME and ADDRESS. In this example, some data within the NAME Element had been altered, so that the CRC-32 of the NAME Element does not validate and thus any Ancestor Element with a CRC-32 would therefore also no longer validate. However, even though the CONTACT Element has a CRC-32 that does not validate (because of the changed data within the NAME Element), the CRC-32 of the ADDRESS Element does validate and thus the contents and semantics of the ADDRESS Element MAY be used.
 
 ```xml
 <CONTACT>
