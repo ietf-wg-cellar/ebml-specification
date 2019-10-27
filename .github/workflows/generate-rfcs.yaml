@@ -15,3 +15,7 @@ jobs:
         run: ./bootstrap
       - name: Build
         run: make
+      - name: XML Artifact
+        uses: actions/upload-artifact@master
+          name: Generated XML
+          path: draft-ietf-cellar-ebml-??.xml
