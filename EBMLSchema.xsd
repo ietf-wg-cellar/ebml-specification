@@ -31,7 +31,13 @@
       <xs:element name="extension" type="extensionType"
         minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
-    <xs:attribute name="name" use="required"/>
+    <xs:attribute name="name" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="([0-9A-Za-z.-])+"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
     <xs:attribute name="path" use="required"/>
     <xs:attribute name="id" use="required">
       <xs:simpleType>
