@@ -258,7 +258,7 @@ The Date Element stores an integer in the same format as the Signed Integer Elem
 
 A Master Element MUST declare a length in octets from zero to VINTMAX. The Master Element MAY also use an unknown length. See (#element-data-size) for rules that apply to elements of unknown length.
 
-The Master Element contains zero, one, or many other elements. EBML Elements contained within a Master Element MUST have the EBMLParentPath of their Element Path equal to the EBMLMasterPath of the Master Element Element Path (see (#path)). Element Data stored within Master Elements SHOULD only consist of EBML Elements and SHOULD NOT contain any data that is not part of an EBML Element. The EBML Schema identifies what Element IDs are valid within the Master Elements for that version of the EBML Document Type. Any data contained within a Master Element that is not part of a Child Element MUST be ignored.
+The Master Element contains zero, one, or many other elements. EBML Elements contained within a Master Element MUST have the EBMLParentPath of their Element Path equal to the EBMLFullPath of the Master Element Element Path (see (#path)). Element Data stored within Master Elements SHOULD only consist of EBML Elements and SHOULD NOT contain any data that is not part of an EBML Element. The EBML Schema identifies what Element IDs are valid within the Master Elements for that version of the EBML Document Type. Any data contained within a Master Element that is not part of a Child Element MUST be ignored.
 
 ## Binary Element
 
@@ -371,8 +371,7 @@ The path defines the allowed storage locations of the EBML Element within an EBM
 The path attribute is REQUIRED.
 
 ```
-EBMLFullPath          = EBMLEltOccurrence "(" EBMLMasterPath ")"
-EBMLMasterPath        = [EBMLParentPath] EBMLElementPath
+EBMLFullPath          = [EBMLParentPath] EBMLElementPath
 EBMLParentPath        = EBMLFixedParent EBMLLastParent
 EBMLFixedParent       = *(EBMLPathAtom)
 EBMLElementPath       = EBMLPathAtom / EBMLPathAtomRecursive
