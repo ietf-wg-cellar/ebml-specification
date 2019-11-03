@@ -400,8 +400,6 @@ The EBMLEltOccurrence part is interpreted as an ABNF Variable Repetition. The re
 
 The EBMLMinOccurrence represents the minimum permitted number of occurrences of this EBML Element within its Parent Element. Each instance of the Parent Element MUST contain at least this many instances of this EBML Element. If the EBML Element has an empty EBMLParentPath then EBMLMinOccurrence refers to constraints on the occurrence of the EBML Element within the EBML Document. If EBMLMinOccurrence is not present then that EBML Element has an EBMLMinOccurrence value of 0. The semantic meaning of EBMLMinOccurrence within an EBML Schema is analogous to the meaning of minOccurs within an XML Schema. EBML Elements with EBMLMinOccurrence set to "1" that also have a default value (see (#default)) declared are not REQUIRED to be stored but are REQUIRED to be interpreted, see (#note-on-the-use-of-default-attributes-to-define-mandatory-ebml-elements). An EBML Element defined with a EBMLMinOccurrence value greater than zero is called a Mandatory EBML Element.
 
-The EBMLMaxOccurrence represents the maximum permitted number of occurrences of this EBML Element within its Parent Element. Each instance of the Parent Element MUST contain at most this many instances of this EBML Element. If the EBML Element has an empty EBMLParentPath then EBMLMaxOccurrence refers to constraints on the occurrence of the EBML Element within the EBML Document. If EBMLMaxOccurrence is not present then there is no upper bound for the permitted number of occurrences of this EBML Element within its Parent Element resp. within the EBML Document depending on whether the EBMLParentPath of the EBML Element is empty or not. The semantic meaning of EBMLMaxOccurrence within an EBML Schema path is analogous to the meaning of maxOccurs within an XML Schema.
-
 In some cases the EBMLLastParent part of the path is an EBMLGlobalParent. A path with a EBMLGlobalParent defines a (#global-elements). Any path that starts with the EBMLFixedParent of the Global Element and matches the occurrences found in the GlobalParentOccurence is a valid path for the Global Element. 
 
 The GlobalParentOccurence part is interpreted as an ABNF Variable Repetition. The repetition amounts correspond to the amount of unspecified Parent Element levels there can be between the EBMLFixedParent and the actual EBMLElementPath.
@@ -434,9 +432,14 @@ The minOccurs attribute is OPTIONAL. If the minOccurs attribute is not present t
 
 Within an EBML Schema, the XPath of `@maxOccurs` attribute is `/EBMLSchema/element/@maxOccurs`.
 
-A non-negative integer expressing the maximum permitted number of occurrences of this EBML Element within its Parent Element. The maxOccurs value MUST be equal to the EBMLMaxOccurrence value of the path.
+The maxOccurs is a non-negative integer expressing the maximum permitted number of occurrences of this EBML Element within its Parent Element.
 
-The maxOccurs attribute is OPTIONAL. If the maxOccurs attribute is not present then that EBML Element has no maximum occurrence, similar to unbounded in the XML world.
+Each instance of the Parent Element MUST contain at most this many instances of this EBML Element.
+If the EBML Element has an empty EBMLParentPath then maxOccurs refers to constraints on the occurrence of the EBML Element within the EBML Document.
+
+The maxOccurs attribute is OPTIONAL. If maxOccurs is not present then there is no upper bound for the permitted number of occurrences of this EBML Element within its Parent Element or within the EBML Document depending on whether the EBMLParentPath of the EBML Element is empty or not.
+
+The semantic meaning of maxOccurs within an EBML Schema is analogous to the meaning of unbounded within an XML Schema.
 
 #### range
 
