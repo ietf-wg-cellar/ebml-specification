@@ -20,6 +20,7 @@ mmark_$(MMARK_VERSION)_linux_amd64.tgz:
 
 mmark: mmark_$(MMARK_VERSION)_linux_amd64.tgz
 	tar xvzf $^
+	touch $@
 
 .buildmmark: mmark
 
