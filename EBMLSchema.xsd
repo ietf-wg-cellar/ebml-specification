@@ -33,7 +33,13 @@
     </xs:sequence>
     <xs:attribute name="name" use="required"/>
     <xs:attribute name="path" use="required"/>
-    <xs:attribute name="id" use="required"/>
+    <xs:attribute name="id" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="0x([0-9A-F][0-9A-F])+"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
     <xs:attribute name="minOccurs" default="0" type="xs:integer"/>
     <xs:attribute name="maxOccurs" default="1" type="xs:integer"/>
     <xs:attribute name="range"/>
