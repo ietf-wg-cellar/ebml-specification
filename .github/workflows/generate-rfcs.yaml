@@ -27,5 +27,5 @@ jobs:
       - name: XML Artifact
         uses: actions/upload-artifact@master
         with:
-          name: generated-xml
+          name: ietf-xmls
           path: artifacts
