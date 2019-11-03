@@ -79,8 +79,20 @@
     </xs:attribute>
     <xs:attribute name="unknownsizeallowed" type="xs:boolean"/>
     <xs:attribute name="recurring" type="xs:boolean"/>
-    <xs:attribute name="minver" default="1" type="xs:integer"/>
-    <xs:attribute name="maxver" type="xs:integer"/>
+    <xs:attribute name="minver" default="1">
+      <xs:simpleType>
+        <xs:restriction base="xs:integer">
+          <xs:minInclusive value="0"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="maxver">
+      <xs:simpleType>
+        <xs:restriction base="xs:integer">
+          <xs:minInclusive value="0"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
   </xs:complexType>
 
   <xs:complexType name="restrictionType">
