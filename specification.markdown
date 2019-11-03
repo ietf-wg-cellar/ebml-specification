@@ -396,8 +396,6 @@ The EBMLPathAtom part of the EBMLElementPath MUST be equal to the name attribute
 
 The starting PathDelimiter of the path corresponds to the root of the EBML Document.
 
-The EBMLEltOccurrence part is interpreted as an ABNF Variable Repetition. The repetition amounts correspond to how many times the EBML Element can be found in its Parent Element.
-
 In some cases the EBMLLastParent part of the path is an EBMLGlobalParent. A path with a EBMLGlobalParent defines a (#global-elements). Any path that starts with the EBMLFixedParent of the Global Element and matches the occurrences found in the GlobalParentOccurence is a valid path for the Global Element. 
 
 The GlobalParentOccurence part is interpreted as an ABNF Variable Repetition. The repetition amounts correspond to the amount of unspecified Parent Element levels there can be between the EBMLFixedParent and the actual EBMLElementPath.
@@ -925,7 +923,7 @@ EBML allows some special Elements to be found within more than one parent in an 
 
 Global Elements are EBML Elements whose path have a EBMLGlobalParent as their EBMLLastParent. Because it is the last Parent part of the path, a Global Element might also have non-EBMLGlobalParent parts in its path. In this case the Global Element can only be found within this non-EBMLGlobalParent path, i.e. it's not fully "global".
 
-The EBMLEltOccurrence of a Global Element is the number of occurrences the Element can be found in a Parent Element. But the Global Element can be found in many Parent Elements, allowing the same number of occurrences in each Parent where this Element is found.
+A Global Element can be found in many Parent Elements, allowing the same number of occurrences in each Parent where this Element is found.
 
 ### CRC-32 Element
 
