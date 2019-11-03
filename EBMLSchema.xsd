@@ -17,7 +17,7 @@
         minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
     <xs:attribute name="docType" use="required"/>
-    <xs:attribute name="version" use="required"/>
+    <xs:attribute name="version" use="required" type="xs:integer"/>
   </xs:complexType>
 
   <xs:complexType name="elementType">
@@ -34,16 +34,16 @@
     <xs:attribute name="name" use="required"/>
     <xs:attribute name="path" use="required"/>
     <xs:attribute name="id" use="required"/>
-    <xs:attribute name="minOccurs" default="0"/>
-    <xs:attribute name="maxOccurs" default="1"/>
+    <xs:attribute name="minOccurs" default="0" type="xs:integer"/>
+    <xs:attribute name="maxOccurs" default="1" type="xs:integer"/>
     <xs:attribute name="range"/>
     <xs:attribute name="length"/>
     <xs:attribute name="default"/>
     <xs:attribute name="type" use="required"/>
-    <xs:attribute name="unknownsizeallowed"/>
-    <xs:attribute name="recurring"/>
-    <xs:attribute name="minver" default="1"/>
-    <xs:attribute name="maxver"/>
+    <xs:attribute name="unknownsizeallowed" type="xs:boolean"/>
+    <xs:attribute name="recurring" type="xs:boolean"/>
+    <xs:attribute name="minver" default="1" type="xs:integer"/>
+    <xs:attribute name="maxver" type="xs:integer"/>
   </xs:complexType>
 
   <xs:complexType name="restrictionType">
