@@ -9,16 +9,21 @@ jobs:
     steps:
       - name: Get pushed code
         uses: actions/checkout@v1
+
       - name: Get python (for xml2rfc)
         uses: actions/setup-python@v1
+
       - name: Setup toolchain
         run: ./bootstrap
+
       - name: Build
         run: make
+
       - name: Move Generated files
         run: |
           mkdir -p artifacts
           mv draft-ietf-cellar-ebml-??.xml artifacts
+
       - name: XML Artifact
         uses: actions/upload-artifact@master
         with:
