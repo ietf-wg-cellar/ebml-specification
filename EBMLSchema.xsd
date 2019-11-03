@@ -46,8 +46,20 @@
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
-    <xs:attribute name="minOccurs" default="0" type="xs:integer"/>
-    <xs:attribute name="maxOccurs" default="1" type="xs:integer"/>
+    <xs:attribute name="minOccurs" default="0">
+      <xs:simpleType>
+        <xs:restriction base="xs:integer">
+          <xs:minInclusive value="0"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="maxOccurs" default="1">
+      <xs:simpleType>
+        <xs:restriction base="xs:integer">
+          <xs:minInclusive value="0"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
     <xs:attribute name="range"/>
     <xs:attribute name="length"/>
     <xs:attribute name="default"/>

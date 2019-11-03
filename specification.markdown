@@ -427,7 +427,7 @@ The id attribute is REQUIRED.
 
 Within an EBML Schema, the XPath of `@minOccurs` attribute is `/EBMLSchema/element/@minOccurs`.
 
-An integer expressing the minimum permitted number of occurrences of this EBML Element within its Parent Element. The minOccurs value MUST be equal to the EBMLMinOccurrence value of the path.
+A non-negative integer expressing the minimum permitted number of occurrences of this EBML Element within its Parent Element. The minOccurs value MUST be equal to the EBMLMinOccurrence value of the path.
 
 The minOccurs attribute is OPTIONAL. If the minOccurs attribute is not present then that EBML Element has a minOccurs value of 0.
 
@@ -435,7 +435,7 @@ The minOccurs attribute is OPTIONAL. If the minOccurs attribute is not present t
 
 Within an EBML Schema, the XPath of `@maxOccurs` attribute is `/EBMLSchema/element/@maxOccurs`.
 
-An integer expressing the maximum permitted number of occurrences of this EBML Element within its Parent Element. The maxOccurs value MUST be equal to the EBMLMaxOccurrence value of the path.
+A non-negative integer expressing the maximum permitted number of occurrences of this EBML Element within its Parent Element. The maxOccurs value MUST be equal to the EBMLMaxOccurrence value of the path.
 
 The maxOccurs attribute is OPTIONAL. If the maxOccurs attribute is not present then that EBML Element has no maximum occurrence, similar to unbounded in the XML world.
 
