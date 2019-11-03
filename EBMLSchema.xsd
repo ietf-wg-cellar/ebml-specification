@@ -39,7 +39,20 @@
     <xs:attribute name="range"/>
     <xs:attribute name="length"/>
     <xs:attribute name="default"/>
-    <xs:attribute name="type" use="required"/>
+    <xs:attribute name="type" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="integer"/>
+          <xs:enumeration value="uinteger"/>
+          <xs:enumeration value="float"/>
+          <xs:enumeration value="string"/>
+          <xs:enumeration value="date"/>
+          <xs:enumeration value="utf-8"/>
+          <xs:enumeration value="master"/>
+          <xs:enumeration value="binary"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
     <xs:attribute name="unknownsizeallowed" type="xs:boolean"/>
     <xs:attribute name="recurring" type="xs:boolean"/>
     <xs:attribute name="minver" default="1" type="xs:integer"/>
