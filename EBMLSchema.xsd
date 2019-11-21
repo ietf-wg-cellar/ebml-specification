@@ -17,7 +17,7 @@
         minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
     <xs:attribute name="docType" use="required"/>
-    <xs:attribute name="version" use="required"/>
+    <xs:attribute name="version" use="required" type="xs:integer"/>
   </xs:complexType>
 
   <xs:complexType name="elementType">
@@ -31,19 +31,74 @@
       <xs:element name="extension" type="extensionType"
         minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
-    <xs:attribute name="name" use="required"/>
-    <xs:attribute name="path" use="required"/>
-    <xs:attribute name="id" use="required"/>
-    <xs:attribute name="minOccurs" default="0"/>
-    <xs:attribute name="maxOccurs" default="1"/>
+    <xs:attribute name="name" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[0-9A-Za-z.-]([0-9A-Za-z.-])*"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="path" use="required">
+      <!-- <xs:simpleType>
+        <xs:restriction base="xs:integer">
+          <xs:pattern value="[0-9]*\*[0-9]*()"/>
+        </xs:restriction>
+      </xs:simpleType> -->
+    </xs:attribute>
+    <xs:attribute name="id" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="0x([0-9A-F][0-9A-F])+"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="minOccurs" default="0">
+      <xs:simpleType>
+        <xs:restriction base="xs:integer">
+          <xs:minInclusive value="0"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="maxOccurs" default="1">
+      <xs:simpleType>
+        <xs:restriction base="xs:integer">
+          <xs:minInclusive value="0"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
     <xs:attribute name="range"/>
     <xs:attribute name="length"/>
     <xs:attribute name="default"/>
-    <xs:attribute name="type" use="required"/>
-    <xs:attribute name="unknownsizeallowed"/>
-    <xs:attribute name="recurring"/>
-    <xs:attribute name="minver" default="1"/>
-    <xs:attribute name="maxver"/>
+    <xs:attribute name="type" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="integer"/>
+          <xs:enumeration value="uinteger"/>
+          <xs:enumeration value="float"/>
+          <xs:enumeration value="string"/>
+          <xs:enumeration value="date"/>
+          <xs:enumeration value="utf-8"/>
+          <xs:enumeration value="master"/>
+          <xs:enumeration value="binary"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="unknownsizeallowed" type="xs:boolean"/>
+    <xs:attribute name="recurring" type="xs:boolean"/>
+    <xs:attribute name="minver" default="1">
+      <xs:simpleType>
+        <xs:restriction base="xs:integer">
+          <xs:minInclusive value="0"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="maxver">
+      <xs:simpleType>
+        <xs:restriction base="xs:integer">
+          <xs:minInclusive value="0"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
   </xs:complexType>
 
   <xs:complexType name="restrictionType">
