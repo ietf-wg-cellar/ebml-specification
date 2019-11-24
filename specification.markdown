@@ -440,7 +440,7 @@ If the EBML Element has an empty EBMLParentPath then maxOccurs refers to constra
 
 The maxOccurs attribute is OPTIONAL. If the maxOccurs attribute is not present then there is no upper bound for the permitted number of occurrences of this EBML Element within its Parent Element or within the EBML Document depending on whether the EBMLParentPath of the EBML Element is empty or not.
 
-The semantic meaning of maxOccurs within an EBML Schema is analogous to the meaning of unbounded within an XML Schema.
+The semantic meaning of maxOccurs within an EBML Schema is analogous to the meaning of maxOccurs within an XML Schema, when it is not present it's similar to xml:maxOccurs="unbounded" in an XML Schema.
 
 #### range
 
