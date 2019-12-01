@@ -258,7 +258,7 @@ The Date Element stores an integer in the same format as the Signed Integer Elem
 
 A Master Element MUST declare a length in octets from zero to VINTMAX. The Master Element MAY also use an unknown length. See (#element-data-size) for rules that apply to elements of unknown length.
 
-The Master Element contains zero, one, or many other elements. EBML Elements contained within a Master Element MUST have the EBMLParentPath of their Element Path equal to the EBMLMasterPath of the Master Element Element Path (see (#path)). Element Data stored within Master Elements SHOULD only consist of EBML Elements and SHOULD NOT contain any data that is not part of an EBML Element. The EBML Schema identifies what Element IDs are valid within the Master Elements for that version of the EBML Document Type. Any data contained within a Master Element that is not part of a Child Element MUST be ignored.
+The Master Element contains zero, one, or many other elements. EBML Elements contained within a Master Element MUST have the EBMLParentPath of their Element Path equal to the EBMLFullPath of the Master Element Element Path (see (#path)). Element Data stored within Master Elements SHOULD only consist of EBML Elements and SHOULD NOT contain any data that is not part of an EBML Element. The EBML Schema identifies what Element IDs are valid within the Master Elements for that version of the EBML Document Type. Any data contained within a Master Element that is not part of a Child Element MUST be ignored.
 
 ## Binary Element
 
@@ -371,8 +371,7 @@ The path defines the allowed storage locations of the EBML Element within an EBM
 The path attribute is REQUIRED.
 
 ```
-EBMLFullPath          = EBMLEltOccurrence "(" EBMLMasterPath ")"
-EBMLMasterPath        = [EBMLParentPath] EBMLElementPath
+EBMLFullPath          = [EBMLParentPath] EBMLElementPath
 EBMLParentPath        = EBMLFixedParent EBMLLastParent
 EBMLFixedParent       = *(EBMLPathAtom)
 EBMLElementPath       = EBMLPathAtom / EBMLPathAtomRecursive
@@ -383,9 +382,6 @@ EBMLGlobalParent      = "(" GlobalParentOccurence "\)"
 EBMLAtomName          = 1*(EBMLNameChar)
 EBMLNameChar          = ALPHA / DIGIT / "-" / "."
 PathDelimiter         = "\"
-EBMLEltOccurrence     = [EBMLMinOccurrence] "*" [EBMLMaxOccurrence]
-EBMLMinOccurrence     = 1*DIGIT ; no upper limit
-EBMLMaxOccurrence     = 1*DIGIT ; no upper limit
 GlobalParentOccurence = [PathMinOccurrence] "*" [PathMaxOccurrence]
 PathMinOccurrence     = 1*DIGIT ; no upper limit
 PathMaxOccurrence     = 1*DIGIT ; no upper limit
@@ -396,12 +392,6 @@ The `*`, `(` and `)` symbols are interpreted as defined in [@!RFC5234].
 The EBMLPathAtom part of the EBMLElementPath MUST be equal to the name attribute of the EBML Schema.
 
 The starting PathDelimiter of the path corresponds to the root of the EBML Document.
-
-The EBMLEltOccurrence part is interpreted as an ABNF Variable Repetition. The repetition amounts correspond to how many times the EBML Element can be found in its Parent Element.
-
-The EBMLMinOccurrence represents the minimum permitted number of occurrences of this EBML Element within its Parent Element. Each instance of the Parent Element MUST contain at least this many instances of this EBML Element. If the EBML Element has an empty EBMLParentPath then EBMLMinOccurrence refers to constraints on the occurrence of the EBML Element within the EBML Document. If EBMLMinOccurrence is not present then that EBML Element has an EBMLMinOccurrence value of 0. The semantic meaning of EBMLMinOccurrence within an EBML Schema is analogous to the meaning of minOccurs within an XML Schema. EBML Elements with EBMLMinOccurrence set to "1" that also have a default value (see (#default)) declared are not REQUIRED to be stored but are REQUIRED to be interpreted, see (#note-on-the-use-of-default-attributes-to-define-mandatory-ebml-elements). An EBML Element defined with a EBMLMinOccurrence value greater than zero is called a Mandatory EBML Element.
-
-The EBMLMaxOccurrence represents the maximum permitted number of occurrences of this EBML Element within its Parent Element. Each instance of the Parent Element MUST contain at most this many instances of this EBML Element. If the EBML Element has an empty EBMLParentPath then EBMLMaxOccurrence refers to constraints on the occurrence of the EBML Element within the EBML Document. If EBMLMaxOccurrence is not present then there is no upper bound for the permitted number of occurrences of this EBML Element within its Parent Element resp. within the EBML Document depending on whether the EBMLParentPath of the EBML Element is empty or not. The semantic meaning of EBMLMaxOccurrence within an EBML Schema path is analogous to the meaning of maxOccurs within an XML Schema.
 
 In some cases the EBMLLastParent part of the path is an EBMLGlobalParent. A path with a EBMLGlobalParent defines a (#global-elements). Any path that starts with the EBMLFixedParent of the Global Element and matches the occurrences found in the GlobalParentOccurence is a valid path for the Global Element. 
 
@@ -427,17 +417,30 @@ The id attribute is REQUIRED.
 
 Within an EBML Schema, the XPath of `@minOccurs` attribute is `/EBMLSchema/element/@minOccurs`.
 
-A non-negative integer expressing the minimum permitted number of occurrences of this EBML Element within its Parent Element. The minOccurs value MUST be equal to the EBMLMinOccurrence value of the path.
+The minOccurs is a non-negative integer expressing the minimum permitted number of occurrences of this EBML Element within its Parent Element.
+
+Each instance of the Parent Element MUST contain at least this many instances of this EBML Element.
+If the EBML Element has an empty EBMLParentPath then minOccurs refers to constraints on the occurrence of the EBML Element within the EBML Document.
+EBML Elements with minOccurs set to "1" that also have a default value (see (#default)) declared are not REQUIRED to be stored but are REQUIRED to be interpreted, see (#note-on-the-use-of-default-attributes-to-define-mandatory-ebml-elements).
+
+An EBML Element defined with a minOccurs value greater than zero is called a Mandatory EBML Element.
 
 The minOccurs attribute is OPTIONAL. If the minOccurs attribute is not present then that EBML Element has a minOccurs value of 0.
+
+The semantic meaning of minOccurs within an EBML Schema is analogous to the meaning of minOccurs within an XML Schema.
 
 #### maxOccurs
 
 Within an EBML Schema, the XPath of `@maxOccurs` attribute is `/EBMLSchema/element/@maxOccurs`.
 
-A non-negative integer expressing the maximum permitted number of occurrences of this EBML Element within its Parent Element. The maxOccurs value MUST be equal to the EBMLMaxOccurrence value of the path.
+The maxOccurs is a non-negative integer expressing the maximum permitted number of occurrences of this EBML Element within its Parent Element.
 
-The maxOccurs attribute is OPTIONAL. If the maxOccurs attribute is not present then that EBML Element has no maximum occurrence, similar to unbounded in the XML world.
+Each instance of the Parent Element MUST contain at most this many instances of this EBML Element, including the unwritten mandatory element with a default value, see (#note-on-the-use-of-default-attributes-to-define-mandatory-ebml-elements).
+If the EBML Element has an empty EBMLParentPath then maxOccurs refers to constraints on the occurrence of the EBML Element within the EBML Document.
+
+The maxOccurs attribute is OPTIONAL. If the maxOccurs attribute is not present then there is no upper bound for the permitted number of occurrences of this EBML Element within its Parent Element or within the EBML Document depending on whether the EBMLParentPath of the EBML Element is empty or not.
+
+The semantic meaning of maxOccurs within an EBML Schema is analogous to the meaning of maxOccurs within an XML Schema, when it is not present it's similar to xml:maxOccurs="unbounded" in an XML Schema.
 
 #### range
 
@@ -474,7 +477,7 @@ The length attribute is OPTIONAL. If the length attribute is not present for tha
 
 Within an EBML Schema, the XPath of `@default` attribute is `/EBMLSchema/element/@default`.
 
-If an Element is mandatory (has a EBMLMinOccurrence value greater than zero) but not written within its Parent Element or stored as an Empty Element, then the EBML Reader of the EBML Document MUST semantically interpret the EBML Element as present with this specified default value for the EBML Element.
+If an Element is mandatory (has a minOccurs value greater than zero) but not written within its Parent Element or stored as an Empty Element, then the EBML Reader of the EBML Document MUST semantically interpret the EBML Element as present with this specified default value for the EBML Element.
 An unwritten mandatory Element with a declared default value is semantically equivalent to that Element if written with the default value stored as the Element Data.
 EBML Elements that are Master Elements MUST NOT declare a default value.
 EBML Elements with a minOccurs value greater than 1 MUST NOT declare a default value.
@@ -917,7 +920,7 @@ EBML allows some special Elements to be found within more than one parent in an 
 
 Global Elements are EBML Elements whose path have a EBMLGlobalParent as their EBMLLastParent. Because it is the last Parent part of the path, a Global Element might also have non-EBMLGlobalParent parts in its path. In this case the Global Element can only be found within this non-EBMLGlobalParent path, i.e. it's not fully "global".
 
-The EBMLEltOccurrence of a Global Element is the number of occurrences the Element can be found in a Parent Element. But the Global Element can be found in many Parent Elements, allowing the same number of occurrences in each Parent where this Element is found.
+A Global Element can be found in many Parent Elements, allowing the same number of occurrences in each Parent where this Element is found.
 
 ### CRC-32 Element
 
