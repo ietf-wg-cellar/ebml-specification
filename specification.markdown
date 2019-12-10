@@ -52,8 +52,6 @@ This document defines specific terms in order to define the format and applicati
 
 `Element ID`: The `Element ID` is a binary value, encoded as a `Variable Size Integer`, used to uniquely identify a defined `EBML Element` within a specific `EBML Schema`.
 
-`EBML Class`: A representation of the octet length of an `Element ID`.
-
 `Element Data Size`: An expression, encoded as a `Variable Size Integer`, of the length in octets of `Element Data`.
 
 `VINTMAX`: The maximum possible value that can be stored as `Element Data Size`.
@@ -144,14 +142,14 @@ VINT_WIDTH  | VINT_MARKER  | VINT_DATA      | Element ID Status
 |           | 1            |        1111111 | Invalid: VINT_DATA MUST NOT be set to all 1
 0           | 1            | 00000001111111 | Valid
 
-The octet length of an Element ID determines its EBML Class.
+The range and count of VINT_DATA values is determined by the octet length of the VINT.
 
-EBML Class | Length |     Possible IDs        | Number of IDs
-:---------:|:------:|:-----------------------:|-------------:
-Class A    | 1      |       0x81 - 0xFE       |           126
-Class B    | 2      |     0x407F - 0x7FFE     |        16,256
-Class C    | 3      |   0x203FFF - 0x3FFFFE   |     2,080,768
-Class D    | 4      | 0x101FFFFF - 0x1FFFFFFE |   268,338,304
+VINT Length in octets | Range of Possible IDs   | Number of IDs
+:--------------------:|:-----------------------:|-------------:
+1                     |       0x81 - 0xFE       |           126
+2                     |     0x407F - 0x7FFE     |        16,256
+3                     |   0x203FFF - 0x3FFFFE   |     2,080,768
+4                     | 0x101FFFFF - 0x1FFFFFFE |   268,338,304
 
 # Element Data Size
 
