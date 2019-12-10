@@ -362,7 +362,7 @@ Within an EBML Schema the `<element>` uses the following attributes to define an
 
 Within an EBML Schema, the XPath of `@name` attribute is `/EBMLSchema/element/@name`.
 
-The name provides the human-readable name of the EBML Element. The value of the name MUST be in the form of characters "A" to "Z", "a" to "z", "0" to "9", "-" and ".".
+The name provides the human-readable name of the EBML Element. The value of the name MUST be in the form of characters "A" to "Z", "a" to "z", "0" to "9", "-" and ".". The first character of the name MUST be in the form of an "A" to "Z", "a" to "z", "0" to "9" character.
 
 The name attribute is REQUIRED.
 
