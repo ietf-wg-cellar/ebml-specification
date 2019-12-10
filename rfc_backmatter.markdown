@@ -66,3 +66,13 @@
     <date year="2019" />
   </front>
 </reference>
+
+<reference anchor="WebM" target="https://www.webmproject.org/docs/container/">
+  <front>
+    <title>WebM Container Guidelines</title>
+    <author>
+      <organization>The WebM Project</organization>
+    </author>
+    <date month="November" year="2017" />
+  </front>
+</reference>
