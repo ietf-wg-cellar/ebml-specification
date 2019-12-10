@@ -562,7 +562,15 @@ The lang attribute is OPTIONAL.
 
 Within an EBML Schema, the XPath of `@purpose` attribute is `/EBMLSchema/element/documentation/@purpose`.
 
-A purpose attribute distinguishes the meaning of the documentation. Values for the `<documentation>` sub-element's purpose attribute MUST include one of the following: `definition`, `rationale`, `usage notes`, and `references`.
+A purpose attribute distinguishes the meaning of the documentation. Values for the `<documentation>` sub-element's purpose attribute MUST include one of the values listed in [@tablePurposeDefinitions].
+
+| value of purpose attribute | definition
+|:---------------------------|:----------------------------------------|
+| definition                 | A 'definition' is recommended for every defined EBML Element. This documentation explains the semantic meaning of the EBML Element.
+| rationale                  | An explanation about the reason or catalyst for the definition of the Element.
+| usage notes                | Recommended practices or guideline for both reading, writing, or interpreting the Element.
+| references                 | Informational references to support the contextualization and understanding of the value of the Element.
+Table: Definitions of the permitted values for the purpose attribute of the documentation Element. {#tablePurposeDefinitions}
 
 The purpose attribute is REQUIRED.
 
