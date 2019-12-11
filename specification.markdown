@@ -2,9 +2,9 @@
 
 EBML, short for Extensible Binary Meta Language, specifies a binary and octet (byte) aligned format inspired by the principle of XML (a framework for structuring data).
 
-The goal of this document is to define a generic, binary, space-efficient format that can be used to define more complex formats using an EBML Schema. EBML is used by the multimedia container [Matroska](https://github.com/Matroska-Org/matroska-specification/). The applicability of EBML for other use cases is beyond the scope of this document.
+The goal of this document is to define a generic, binary, space-efficient format that can be used to define more complex formats using an EBML Schema. EBML is used by the multimedia container, Matroska [@?Matroska]. The applicability of EBML for other use cases is beyond the scope of this document.
 
-The definition of the EBML format recognizes the idea behind HTML and XML as a good one: separate structure and semantics allowing the same structural layer to be used with multiple, possibly widely differing semantic layers. Except for the EBML Header and a few Global Elements this specification does not define particular EBML format semantics; however this specification is intended to define how other EBML-based formats can be defined, such as the audio-video container formats Matroska and WebM.
+The definition of the EBML format recognizes the idea behind HTML and XML as a good one: separate structure and semantics allowing the same structural layer to be used with multiple, possibly widely differing semantic layers. Except for the EBML Header and a few Global Elements this specification does not define particular EBML format semantics; however this specification is intended to define how other EBML-based formats can be defined, such as the audio-video container formats Matroska and WebM [@?WebM].
 
 EBML uses a simple approach of building Elements upon three pieces of data (tag, length, and value) as this approach is well known, easy to parse, and allows selective data parsing. The EBML structure additionally allows for hierarchical arrangement to support complex structural formats in an efficient manner.
 
@@ -51,8 +51,6 @@ This document defines specific terms in order to define the format and applicati
 `EBML Element`: A foundation block of data that contains three parts: an `Element ID`, an `Element Data Size`, and `Element Data`.
 
 `Element ID`: The `Element ID` is a binary value, encoded as a `Variable Size Integer`, used to uniquely identify a defined `EBML Element` within a specific `EBML Schema`.
-
-`EBML Class`: A representation of the octet length of an `Element ID`.
 
 `Element Data Size`: An expression, encoded as a `Variable Size Integer`, of the length in octets of `Element Data`.
 
@@ -108,7 +106,7 @@ The VINT\_DATA portion of the Variable Size Integer includes all data that follo
 
 ## VINT Examples
 
-This table shows examples of Variable Size Integers with lengths from 1 to 5 octets. The Usable Bits column refers to the number of bits that can be used in the VINT\_DATA. The Representation column depicts a binary expression of Variable Size Integers where VINT\_WIDTH is depicted by `0`, the VINT\_MARKER as `1`, and the VINT\_DATA as `x`.
+[@tableUsableBits] shows examples of Variable Size Integers with lengths from 1 to 5 octets. The Usable Bits column refers to the number of bits that can be used in the VINT\_DATA. The Representation column depicts a binary expression of Variable Size Integers where VINT\_WIDTH is depicted by `0`, the VINT\_MARKER as `1`, and the VINT\_DATA as `x`.
 
 Octet Length | Usable Bits | Representation
 -------------|-------------|:-------------------------------------------------
@@ -117,8 +115,9 @@ Octet Length | Usable Bits | Representation
 3            | 21          | 001x xxxx xxxx xxxx xxxx xxxx
 4            | 28          | 0001 xxxx xxxx xxxx xxxx xxxx xxxx xxxx
 5            | 35          | 0000 1xxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx
+Table: VINT examples depicting usable bits {#tableUsableBits}
 
-Data encoded as a Variable Size Integer may be rendered at octet lengths larger than needed to store the data in order to facilitate overwriting it at a later date, e.g. when its final size isn't known in advance. In this table a binary value of 0b10 is shown encoded as different Variable Size Integers with lengths from one octet to four octets. All four encoded examples have identical semantic meaning though the VINT\_WIDTH and the padding of the VINT\_DATA vary.
+Data encoded as a Variable Size Integer may be rendered at octet lengths larger than needed to store the data in order to facilitate overwriting it at a later date, e.g. when its final size isn't known in advance. In [@tableVariousSizes] a binary value of 0b10 is shown encoded as different Variable Size Integers with lengths from one octet to four octets. All four encoded examples have identical semantic meaning though the VINT\_WIDTH and the padding of the VINT\_DATA vary.
 
 Binary Value | Octet Length | As Represented in Variable Size Integer
 -------------|--------------|:---------------------------------------
@@ -126,12 +125,13 @@ Binary Value | Octet Length | As Represented in Variable Size Integer
 10           | 2            | 0100 0000 0000 0010
 10           | 3            | 0010 0000 0000 0000 0000 0010
 10           | 4            | 0001 0000 0000 0000 0000 0000 0000 0010
+Table: VINT examples depicting the same integer value rendered at different VINT sizes {#tableVariousSizes}
 
 # Element ID
 
 The Element ID is encoded as a Variable Size Integer. By default, Element IDs are encoded in lengths from one octet to four octets, although Element IDs of greater lengths MAY be used if the EBMLMaxIDLength Element of the EBML Header is set to a value greater than four (see (#ebmlmaxidlength-element)). The VINT\_DATA component of the Element ID MUST NOT be either defined or written as either all zero values or all one values. Any Element ID with the VINT\_DATA component set as all zero values or all one values MUST be ignored. The VINT\_DATA component of the Element ID MUST be encoded at the shortest valid length. For example, an Element ID with binary encoding of `1011 1111` is valid, whereas an Element ID with binary encoding of `0100 0000 0011 1111` stores a semantically equal VINT\_DATA but is invalid because a shorter VINT encoding is possible. Additionally, an Element ID with binary encoding of `1111 1111` is invalid since the VINT\_DATA section is set to all one values, whereas an Element ID with binary encoding of `0100 0000 0111 1111` stores a semantically equal VINT\_DATA and is the shortest possible VINT encoding.
 
-The following table details these specific examples further:
+[@tableVintValidity] details these specific examples further:
 
 VINT_WIDTH  | VINT_MARKER  | VINT_DATA      | Element ID Status
 -----------:|-------------:|---------------:|:-----------------
@@ -143,15 +143,17 @@ VINT_WIDTH  | VINT_MARKER  | VINT_DATA      | Element ID Status
 0           | 1            | 00000000111111 | Invalid: A shorter VINT_DATA encoding is available.
 |           | 1            |        1111111 | Invalid: VINT_DATA MUST NOT be set to all 1
 0           | 1            | 00000001111111 | Valid
+Table: Examples of valid and invalid VINTs {#tableVintValidity}
 
-The octet length of an Element ID determines its EBML Class.
+The range and count of VINT_DATA values is determined by the octet length of the VINT. Examples of this are provided in [@tableVintRanges].
 
-EBML Class | Length |     Possible IDs        | Number of IDs
-:---------:|:------:|:-----------------------:|-------------:
-Class A    | 1      |       0x81 - 0xFE       |           126
-Class B    | 2      |     0x407F - 0x7FFE     |        16,256
-Class C    | 3      |   0x203FFF - 0x3FFFFE   |     2,080,768
-Class D    | 4      | 0x101FFFFF - 0x1FFFFFFE |   268,338,304
+VINT Length in octets | Range of Possible IDs   | Number of IDs
+:--------------------:|:-----------------------:|-------------:
+1                     |       0x81 - 0xFE       |           126
+2                     |     0x407F - 0x7FFE     |        16,256
+3                     |   0x203FFF - 0x3FFFFE   |     2,080,768
+4                     | 0x101FFFFF - 0x1FFFFFFE |   268,338,304
+Table: Examples of count and range for VINT_DATA per VINT length in octets {#tableVintRanges}
 
 # Element Data Size
 
@@ -165,7 +167,7 @@ Although an Element ID with all VINT\_DATA bits set to zero is invalid, an Eleme
 
 An Element Data Size with all VINT\_DATA bits set to one is reserved as an indicator that the size of the EBML Element is unknown. The only reserved value for the VINT\_DATA of Element Data Size is all bits set to one. An EBML Element with an unknown Element Data Size is referred to as an Unknown-Sized Element. A Master Element MAY be an Unknown-Sized Element; however an EBML Element that is not a Master Element MUST NOT be an Unknown-Sized Element. Master Elements MUST NOT use an unknown size unless the unknownsizeallowed attribute of their EBML Schema is set to true (see (#unknownsizeallowed)).
 
-The use of Unknown-Sized Elements allows for an EBML Element to be written and read before the size of the EBML Element is known. Unknown-Sized Element MUST NOT be used or defined unnecessarily; however if the Element Data Size is not known before the Element Data is written, such as in some cases of data streaming, then Unknown-Sized Elements MAY be used. The end of an Unknown-Sized Element is determined by whichever comes first:
+The use of Unknown-Sized Elements allows for an EBML Element to be written and read before the size of the EBML Element is known. Unknown-Sized Elements MUST only be used if the Element Data Size is not known before the Element Data is written, such as in some cases of data streaming. The end of an Unknown-Sized Element is determined by whichever comes first:
 
 - Any EBML Element that is a valid Parent Element of the Unknown-Sized Element according to the EBML Schema, Global Elements excluded.
 - Any valid EBML Element according to the EBML Schema, Global Elements excluded, that is not a Descendant Element of the Unknown-Sized Element but share a common direct parent, such as a Top-Level Element.
@@ -189,7 +191,7 @@ EBML Path of new element           | Status
 
 ## Data Size Values
 
-For Element Data Sizes encoded at octet lengths from one to eight, this table depicts the range of possible values that can be encoded as an Element Data Size. An Element Data Size with an octet length of 8 is able to express a size of 2^56-2 or 72,057,594,037,927,934 octets (or about 72 petabytes). The maximum possible value that can be stored as Element Data Size is referred to as VINTMAX.
+For Element Data Sizes encoded at octet lengths from one to eight, [@tableVintRangePerLength] depicts the range of possible values that can be encoded as an Element Data Size. An Element Data Size with an octet length of 8 is able to express a size of 2^56-2 or 72,057,594,037,927,934 octets (or about 72 petabytes). The maximum possible value that can be stored as Element Data Size is referred to as VINTMAX.
 
 Octet Length | Possible Value Range
 -------------|---------------------
@@ -201,8 +203,9 @@ Octet Length | Possible Value Range
 6            | 0 to 2^42-2
 7            | 0 to 2^49-2
 8            | 0 to 2^56-2
+Table: Possible range of values that can be stored in VINTs by octet length. {#tableVintRangePerLength}
 
-If the length of Element Data equals 2^(n\*7)-1 then the octet length of the Element Data Size MUST be at least n+1. This rule prevents an Element Data Size from being expressed as the unknown size value. The following table clarifies this rule by showing a valid and invalid expression of an Element Data Size with a VINT\_DATA of 127 (which is equal to 2^(1\*7)-1) and 16,383 (which is equal to 2^(2\*7)-1).
+If the length of Element Data equals 2^(n\*7)-1 then the octet length of the Element Data Size MUST be at least n+1. This rule prevents an Element Data Size from being expressed as the unknown size value. [@tableVintReservation] clarifies this rule by showing a valid and invalid expression of an Element Data Size with a VINT\_DATA of 127 (which is equal to 2^(1\*7)-1) and 16,383 (which is equal to 2^(2\*7)-1).
 
 VINT_WIDTH  | VINT_MARKER  | VINT_DATA             | Element Data Size Status
 -----------:|-------------:|----------------------:|---------------------------
@@ -211,6 +214,7 @@ VINT_WIDTH  | VINT_MARKER  | VINT_DATA             | Element Data Size Status
 00          | 1            | 000000000000001111111 | Valid (meaning 127 octets)
 0           | 1            |        11111111111111 | Reserved (meaning Unknown)
 00          | 1            | 000000011111111111111 | Valid (16,383 octets)
+Table: Demonstration of VINT_DATA reservation for VINTs of unknown size. {#tableVintReservation}
 
 # EBML Element Types
 
@@ -358,7 +362,7 @@ Within an EBML Schema the `<element>` uses the following attributes to define an
 
 Within an EBML Schema, the XPath of `@name` attribute is `/EBMLSchema/element/@name`.
 
-The name provides the human-readable name of the EBML Element. The value of the name MUST be in the form of characters "A" to "Z", "a" to "z", "0" to "9", "-" and ".".
+The name provides the human-readable name of the EBML Element. The value of the name MUST be in the form of characters "A" to "Z", "a" to "z", "0" to "9", "-" and ".". The first character of the name MUST be in the form of an "A" to "Z", "a" to "z", "0" to "9" character.
 
 The name attribute is REQUIRED.
 
@@ -558,7 +562,15 @@ The lang attribute is OPTIONAL.
 
 Within an EBML Schema, the XPath of `@purpose` attribute is `/EBMLSchema/element/documentation/@purpose`.
 
-A purpose attribute distinguishes the meaning of the documentation. Values for the `<documentation>` sub-element's purpose attribute MUST include one of the following: `definition`, `rationale`, `usage notes`, and `references`.
+A purpose attribute distinguishes the meaning of the documentation. Values for the `<documentation>` sub-element's purpose attribute MUST include one of the values listed in [@tablePurposeDefinitions].
+
+| value of purpose attribute | definition
+|:---------------------------|:----------------------------------------|
+| definition                 | A 'definition' is recommended for every defined EBML Element. This documentation explains the semantic meaning of the EBML Element.
+| rationale                  | An explanation about the reason or catalyst for the definition of the Element.
+| usage notes                | Recommended practices or guideline for both reading, writing, or interpreting the Element.
+| references                 | Informational references to support the contextualization and understanding of the value of the Element.
+Table: Definitions of the permitted values for the purpose attribute of the documentation Element. {#tablePurposeDefinitions}
 
 The purpose attribute is REQUIRED.
 
@@ -677,7 +689,7 @@ An Identically Recurring Element is an EBML Element that MAY occur within its Pa
 
 ### Textual expression of floats
 
-When a float value is represented textually in an EBML Schema, such as within a default or range value, the float values MUST be expressed as Hexadecimal Floating-Point Constants as defined in the C11 standard [@!ISO.9899.2011] (see section 6.4.4.2 on Floating Constants). The following table provides examples of expressions of float ranges.
+When a float value is represented textually in an EBML Schema, such as within a default or range value, the float values MUST be expressed as Hexadecimal Floating-Point Constants as defined in the C11 standard [@!ISO.9899.2011] (see section 6.4.4.2 on Floating Constants). [@tableFloatExamples] provides examples of expressions of float ranges.
 
 | as decimal        | as Hexadecimal Floating-Point Constants |
 |:------------------|:----------------------------------------|
@@ -686,6 +698,7 @@ When a float value is represented textually in an EBML Schema, such as within a 
 | 1.0-256.0         | `0x1p+0-0x1p+8`                         |
 | 0.857421875       | `0x1.b7p-1`                             |
 | -1.0--0.857421875 | `-0x1p+0--0x1.b7p-1`                    |
+Table: Example of floating point values and ranges as decimal and as Hexadecimal Floating-Point Constants. {#tableFloatExamples}
 
 Within an expression of a float range, as in an integer range, the - (hyphen) character is the separator between the minimal and maximum value permitted by the range. Hexadecimal Floating-Point Constants also use a - (hyphen) when indicating a negative binary power. Within a float range, when a - (hyphen) is immediately preceded by a letter p, then the - (hyphen) is a part of the Hexadecimal Floating-Point Constant which notes negative binary power. Within a float range, when a - (hyphen) is not immediately preceded by a letter p, then the - (hyphen) represents the separator between the minimal and maximum value permitted by the range.
 
@@ -695,7 +708,7 @@ If a Mandatory EBML Element has a default value declared by an EBML Schema and t
 
 If a Mandatory EBML Element has no default value declared by an EBML Schema and its Parent Element is present then the EBML Element MUST be present as well. If a Mandatory EBML Element has a default value declared by an EBML Schema and its Parent Element is present and the value of the EBML Element is NOT equal to the declared default value then the EBML Element MUST be present.
 
-This table clarifies if a Mandatory EBML Element MUST be written, according to if the default value is declared, if the value of the EBML Element is equal to the declared default value, and if the Parent Element is used.
+[@tableVintRequirements] clarifies if a Mandatory EBML Element MUST be written, according to if the default value is declared, if the value of the EBML Element is equal to the declared default value, and if the Parent Element is used.
 
 | Is the default value declared? | Is the value equal to default? | Is the Parent Element present? | Then is storing the EBML Element REQUIRED? |
 |:-----------------:|:-----------------------:|:--------------------:|:------------------------------------------:|
@@ -705,6 +718,7 @@ This table clarifies if a Mandatory EBML Element MUST be written, according to i
 | Yes               | No                      | No                   | No                                         |
 | No                | n/a                     | Yes                  | Yes                                        |
 | No                | n/a                     | No                   | No                                         |
+Table: Demonstration of the conditional requirements of VINT Storage. {#tableVintRequirements}
 
 ## EBML Header Elements
 
@@ -987,7 +1001,7 @@ If a Master Element contains more occurrences of a Child Element than permitted 
 
 Null Octets, which are octets with all bits set to zero, MAY follow the value of a String Element or UTF-8 Element to serve as a terminator. An EBML Writer MAY terminate a String Element or UTF-8 Element with Null Octets in order to overwrite a stored value with a new value of lesser length while maintaining the same Element Data Size (this can prevent the need to rewrite large portions of an EBML Document); otherwise the use of Null Octets within a String Element or UTF-8 Element is NOT RECOMMENDED. An EBML Reader MUST consider the value of the String Element or UTF-8 Element to be terminated upon the first read Null Octet and MUST ignore any data following the first Null Octet within that Element. A string value and a copy of that string value terminated by one or more Null Octets are semantically equal.
 
-The following table shows examples of semantics and validation for the use of Null Octets. Values to represent Stored Values and the Semantic Meaning as represented as hexadecimal values.
+[@tableNullOctetSemantics] shows examples of semantics and validation for the use of Null Octets. Values to represent Stored Values and the Semantic Meaning as represented as hexadecimal values.
 
 Stored Value        | Semantic Meaning
 :-------------------|:-------------------
@@ -995,6 +1009,7 @@ Stored Value        | Semantic Meaning
 0x65 0x62 0x00 0x6C | 0x65 0x62
 0x65 0x62 0x00 0x00 | 0x65 0x62
 0x65 0x62           | 0x65 0x62
+Table: Exmaples of semantics for Null Octets in VINT_DATA. {#tableNullOctetSemantics}
 
 # Guidelines for Updating Elements
 
@@ -1012,32 +1027,35 @@ When an EBML Element is changed to reduce its total length by more than one octe
 
 The same value for Element Data Size MAY be written in variable lengths, so for minor reductions in octet length the Element Data Size MAY be written to a longer octet length to fill the freed space.
 
-For example, the first row of the following table depicts a String Element that stores an Element ID (3 octets), Element Data Size (1 octet), and Element Data (4 octets). If the Element Data is changed to reduce the length by one octet and if the current length of the Element Data Size is less than its maximum permitted length, then the Element Data Size of that Element MAY be rewritten to increase its length by one octet. Thus before and after the change the EBML Element maintains the same length of 8 octets and data around the Element does not need to be moved.
+For example, the first row of [@tableShortenVintOneOctet] depicts a String Element that stores an Element ID (3 octets), Element Data Size (1 octet), and Element Data (4 octets). If the Element Data is changed to reduce the length by one octet and if the current length of the Element Data Size is less than its maximum permitted length, then the Element Data Size of that Element MAY be rewritten to increase its length by one octet. Thus before and after the change the EBML Element maintains the same length of 8 octets and data around the Element does not need to be moved.
 
 | Status      | Element ID | Element Data Size | Element Data       |
 |-------------|------------|-------------------|--------------------|
 | Before edit | 0x3B4040   | 0x84              | 0x65626D6C         |
 | After edit  | 0x3B4040   | 0x4003            | 0x6D6B76           |
+Table: Example of editing a VINT to reduce VINT_DATA length by one octet. {#tableShortenVintOneOctet}
 
 This method is RECOMMENDED when the Element Data is reduced by a single octet; for reductions by two or more octets it is RECOMMENDED to fill the freed space with a Void Element.
 
-Note that if the Element Data length needs to be rewritten as shortened by one octet and the Element Data Size could be rewritten as a shorter VINT then it is RECOMMENDED to rewrite the Element Data Size as one octet shorter, shorten the Element Data by one octet, and follow that Element with a Void Element. For example, the following table depicts a String Element that stores an Element ID (3 octets), Element Data Size (2 octets, but could be rewritten in one octet), and Element Data (3 octets). If the Element Data is to be rewritten to a two octet length, then another octet can be taken from Element Data Size so that there is enough space to add a two octet Void Element.
+Note that if the Element Data length needs to be rewritten as shortened by one octet and the Element Data Size could be rewritten as a shorter VINT then it is RECOMMENDED to rewrite the Element Data Size as one octet shorter, shorten the Element Data by one octet, and follow that Element with a Void Element. For example, [@tableShortenVintMoreThanOneOctet] depicts a String Element that stores an Element ID (3 octets), Element Data Size (2 octets, but could be rewritten in one octet), and Element Data (3 octets). If the Element Data is to be rewritten to a two octet length, then another octet can be taken from Element Data Size so that there is enough space to add a two octet Void Element.
 
 Status | Element ID | Element Data Size | Element Data | Void Element
 -------|------------|-------------------|--------------|-------------
 Before | 0x3B4040   | 0x4003            | 0x6D6B76     |
 After  | 0x3B4040   | 0x82              | 0x6869       | 0xEC80
+Table: Example of editing a VINT to reduce VINT_DATA length by more than one octet. {#tableShortenVintMoreThanOneOctet}
 
 ### Terminating Element Data
 
 For String Elements and UTF-8 Elements the length of Element Data MAY be reduced by adding Null Octets to terminate the Element Data (see (#terminating-elements)).
 
-In the following table, a four octets long Element Data is changed to a three octet long value followed by a Null Octet; the Element Data Size includes any Null Octets used to terminate Element Data so remains unchanged.
+In [@tableExampleNullPadding], a four octets long Element Data is changed to a three octet long value followed by a Null Octet; the Element Data Size includes any Null Octets used to terminate Element Data so remains unchanged.
 
 | Status      | Element ID | Element Data Size | Element Data       |
 |-------------|------------|-------------------|--------------------|
 | Before edit | 0x3B4040   | 0x84              | 0x65626D6C         |
 | After edit  | 0x3B4040   | 0x84              | 0x6D6B7600         |
+Table: Example of terminating VINT_DATA with a Null Octet when reducing VINT length during an edit. {#tableExampleNullPadding}
 
 Note that this method is NOT RECOMMENDED. For reductions of one octet, the method for Extending the Element Data Size SHOULD be used. For reduction by more than one octet, the method for Adding a Void Element SHOULD be used.
 
