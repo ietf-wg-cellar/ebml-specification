@@ -188,6 +188,7 @@ EBML Path of new element           | Status
 `\root\level1\level2\elt\inside`   | Doesn't end the Unknown-Sized Element, it's a child of `elt`
 `\root\level1\level2\elt\<global>` | Global Element is valid, it's a child of `elt`
 `\root\level1\level2\<global>`     | Global Element cannot be assumed to have this path, while parsing `elt` it can only be a child of `elt`
+Table: Examples of determining the end of an Unknown-Sized Element
 
 ## Data Size Values
 
@@ -1157,6 +1158,7 @@ ID Values found in this document are assigned as initial values as follows:
 0x4284     | DocTypeExtensionVersion | Described in (#doctypeextensionversion-element)
 0xBF       | CRC-32                  | Described in (#crc-32-element)
 0xEC       | Void                    | Described in (#void-element)
+Table: IDs and Names for EBML Elements assigned by this document.
 
 ## CELLAR EBML DocType Registry
 
