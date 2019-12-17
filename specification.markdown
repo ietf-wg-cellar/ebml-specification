@@ -196,14 +196,14 @@ For Element Data Sizes encoded at octet lengths from one to eight, [@tableVintRa
 
 Octet Length | Possible Value Range
 -------------|---------------------
-1            | 0 to  2^7-2
-2            | 0 to 2^14-2
-3            | 0 to 2^21-2
-4            | 0 to 2^28-2
-5            | 0 to 2^35-2
-6            | 0 to 2^42-2
-7            | 0 to 2^49-2
-8            | 0 to 2^56-2
+1            | 0 to  2^7 - 2
+2            | 0 to 2^14 - 2
+3            | 0 to 2^21 - 2
+4            | 0 to 2^28 - 2
+5            | 0 to 2^35 - 2
+6            | 0 to 2^42 - 2
+7            | 0 to 2^49 - 2
+8            | 0 to 2^56 - 2
 Table: Possible range of values that can be stored in VINTs by octet length. {#tableVintRangePerLength}
 
 If the length of Element Data equals 2^(n\*7)-1 then the octet length of the Element Data Size MUST be at least n+1. This rule prevents an Element Data Size from being expressed as the unknown size value. [@tableVintReservation] clarifies this rule by showing a valid and invalid expression of an Element Data Size with a VINT\_DATA of 127 (which is equal to 2^(1\*7)-1) and 16,383 (which is equal to 2^(2\*7)-1).
