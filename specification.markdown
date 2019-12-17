@@ -523,7 +523,7 @@ The recursive attribute is OPTIONAL. If the recursive attribute is not present t
 
 Within an EBML Schema, the XPath of `@recurring` attribute is `/EBMLSchema/element/@recurring`.
 
-A boolean to express if an EBML Element is defined as an Identically Recurring Element or not.
+A boolean to express if an EBML Element is defined as an Identically Recurring Element or not; see (#identically-recurring-elements).
 
 The recurring attribute is OPTIONAL. If the recurring attribute is not present then the EBML Element is not an Identically Recurring Element.
 
