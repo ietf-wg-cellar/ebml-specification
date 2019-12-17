@@ -1121,29 +1121,31 @@ Element IDs are described in section Element ID. Element IDs are encoded using t
 
 This IANA Registry only applies to Elements that can be contained in the EBML Header, thus including Global Elements. Elements only found in the EBML Body have their own set of independent Element IDs and are not part of this IANA Registry.
 
-The VINT Data value of one-octet Element IDs MUST be between 0x01 and 0x7E. These items are valuable because they are short, and need to be used for commonly repeated elements. Values from 1 to 126 are to be allocated according to the "RFC Required" policy [@!RFC8126].
+One-octet Element IDs MUST be between 0x81 and 0xFE. These items are valuable because they are short, and need to be used for commonly repeated elements. Element IDs are to be allocated within this range according to the "RFC Required" policy [@!RFC8126].
 
-The VINT Data value of two-octet Element IDs MUST be between 0x007F and 0x3FFE. Numbers are to be allocated within this range according to the "Specification Required" policy [@!RFC8126].
+The following one-octet Element ID is RESERVED: 0x80.
 
-The numbers 0x3FFF and 0x4000 are RESERVED.
+Two-octet Element IDs MUST be between 0x407F and 0x7FFE. Element IDs are to be allocated within this range according to the "Specification Required" policy [@!RFC8126].
 
-The VINT Data value of three-octet Element IDs MUST be between 0x4001 and 0x1FFFFE. Numbers may be allocated within this range according to the "First Come First Served" policy [@!RFC8126].
+The following two-octet Element IDs are RESERVED: 0x7FFF and 0x4000.
 
-The numbers 0x1FFFFF and 0x200000 are RESERVED.
+Three-octet Element IDs MUST be between 0x203FFF and 0x3FFFFE. Element IDs are to be allocated within this range according to the "First Come First Served" policy [@!RFC8126].
 
-Four-octet Element IDs are numbers between 0x101FFFFF and 0x1FFFFFFE. Four-octet Element IDs are somewhat special in that they are useful for resynchronizing to major structures in the event of data corruption or loss. As such four-octet Element IDs are split into two categories. Four-octet Element IDs whose lower three octets (as encoded) would make printable 7-bit ASCII values (0x20 to 0x7E, inclusive) MUST be allocated by the "Specification Required" policy. Sequential allocation of values is not required: specifications SHOULD include a specific request, and are encouraged to do early allocations.
+The following three-octet Element IDs are RESERVED: 0x3FFFFF and 0x200000.
 
-To be clear about the above category: four-octet Element IDs always start with hex 0x10 to 0x1F, and that octet may be chosen so that the entire number has some desirable property, such as a specific CRC. The other three octets, when ALL having values between 0x21 (33, ASCII !) and 0x7E (126, ASCII ~), fall into this category.
+Four-octet Element IDs MUST be between 0x101FFFFF and 0x1FFFFFFE. Four-octet Element IDs are somewhat special in that they are useful for resynchronizing to major structures in the event of data corruption or loss. As such four-octet Element IDs are split into two categories. Four-octet Element IDs whose lower three octets (as encoded) would make printable 7-bit ASCII values (0x20 to 0x7E, inclusive) MUST be allocated by the "Specification Required" policy. Sequential allocation of values is not required: specifications SHOULD include a specific request, and are encouraged to do early allocations.
+
+To be clear about the above category: four-octet Element IDs always start with hex 0x10 to 0x1F, and that octet may be chosen so that the entire VINT has some desirable property, such as a specific CRC. The other three octets, when ALL having values between 0x20 (32, ASCII Space) and 0x7E (126, ASCII "~"), fall into this category.
 
 Other four-octet Element IDs may be allocated by the "First Come First Served" policy.
 
-The numbers 0xFFFFFFF and 0x1000000 are RESERVED.
+The following four-octet Element IDs are RESERVED:  0x1FFFFFFF and 0x10000000.
 
-Five octet Element IDs (values from 0x10000001 upwards) are RESERVED according to the "Experimental Use" policy [@!RFC8126]: they may be used by anyone at any time, but there is no coordination.
+Five-octet Element IDs (values from 0x080FFFFFFF to 0x0FFFFFFFFE) are RESERVED according to the "Experimental Use" policy [@!RFC8126]: they may be used by anyone at any time, but there is no coordination.
 
 ID Values found in this document are assigned as initial values as follows:
 
- ID        | Element Name            | Reference
+Element ID | Element Name            | Reference
 ----------:|:------------------------|:-------------------------------------------
 0x1A45DFA3 | EBML                    | Described in (#ebml-element)
 0x4286     | EBMLVersion             | Described in (#ebmlversion-element)
