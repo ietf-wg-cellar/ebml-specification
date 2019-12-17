@@ -239,7 +239,7 @@ An Unsigned Integer Element stores an integer (meaning that it can be written wi
 
 A Float Element MUST declare a length of either zero octet (0 bit), four octets (32 bit) or eight octets (64 bit). If the EBML Element is not defined to have a default value, then a Float Element with a zero-octet length represents a numerical value of zero.
 
-A Float Element stores a floating-point number as defined in [@!IEEE.754.1985].
+A Float Element stores a floating-point number in the 32-bit and 64-bit binary interchange format as defined in [@!IEEE.754.1985].
 
 ## String Element
 
