@@ -1048,7 +1048,7 @@ Table: Example of editing a VINT to reduce VINT_DATA length by more than one oct
 
 ### Terminating Element Data
 
-For String Elements and UTF-8 Elements the length of Element Data MAY be reduced by adding Null Octets to terminate the Element Data (see (#terminating-elements)).
+For String Elements and UTF-8 Elements the length of Element Data could be reduced by adding Null Octets to terminate the Element Data (see (#terminating-elements)).
 
 In [@tableExampleNullPadding], a four octets long Element Data is changed to a three octet long value followed by a Null Octet; the Element Data Size includes any Null Octets used to terminate Element Data so remains unchanged.
 
