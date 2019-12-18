@@ -1125,13 +1125,19 @@ One-octet Element IDs MUST be between 0x81 and 0xFE. These items are valuable be
 
 The following one-octet Element IDs is RESERVED: 0xFF and 0x80.
 
+The one-octet range of 0x00 to 0x7F are not valid for use as an Element ID.
+
 Two-octet Element IDs MUST be between 0x407F and 0x7FFE. Element IDs are to be allocated within this range according to the "Specification Required" policy [@!RFC8126].
 
 The following two-octet Element IDs are RESERVED: 0x7FFF and 0x4000.
 
+The two-octet ranges of 0x0000 to 0x3FFF and 0x8000 to 0xFFFF are not valid for use as an Element ID.
+
 Three-octet Element IDs MUST be between 0x203FFF and 0x3FFFFE. Element IDs are to be allocated within this range according to the "First Come First Served" policy [@!RFC8126].
 
 The following three-octet Element IDs are RESERVED: 0x3FFFFF and 0x200000.
+
+The three-octet ranges of 0x000000 to 0x1FFFFF and 0x400000 to 0xFFFFFF are not valid for use as an Element ID.
 
 Four-octet Element IDs MUST be between 0x101FFFFF and 0x1FFFFFFE. Four-octet Element IDs are somewhat special in that they are useful for resynchronizing to major structures in the event of data corruption or loss. As such four-octet Element IDs are split into two categories. Four-octet Element IDs whose lower three octets (as encoded) would make printable 7-bit ASCII values (0x20 to 0x7E, inclusive) MUST be allocated by the "Specification Required" policy. Sequential allocation of values is not required: specifications SHOULD include a specific request, and are encouraged to do early allocations.
 
@@ -1140,6 +1146,8 @@ To be clear about the above category: four-octet Element IDs always start with h
 Other four-octet Element IDs may be allocated by the "First Come First Served" policy.
 
 The following four-octet Element IDs are RESERVED:  0x1FFFFFFF and 0x10000000.
+
+The four-octet ranges of 0x00000000 to 0x0FFFFFFF and 0x20000000 to 0xFFFFFFFF are not valid for use as an Element ID.
 
 Five-octet Element IDs (values from 0x080FFFFFFF to 0x0FFFFFFFFE) are RESERVED according to the "Experimental Use" policy [@!RFC8126]: they may be used by anyone at any time, but there is no coordination.
 
