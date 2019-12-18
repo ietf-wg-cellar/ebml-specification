@@ -1123,7 +1123,7 @@ This IANA Registry only applies to Elements that can be contained in the EBML He
 
 One-octet Element IDs MUST be between 0x81 and 0xFE. These items are valuable because they are short, and need to be used for commonly repeated elements. Element IDs are to be allocated within this range according to the "RFC Required" policy [@!RFC8126].
 
-The following one-octet Element ID is RESERVED: 0x80.
+The following one-octet Element IDs is RESERVED: 0xFF and 0x80.
 
 Two-octet Element IDs MUST be between 0x407F and 0x7FFE. Element IDs are to be allocated within this range according to the "Specification Required" policy [@!RFC8126].
 
