@@ -117,15 +117,15 @@ Octet Length | Usable Bits | Representation
 5            | 35          | 0000 1xxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx
 Table: VINT examples depicting usable bits {#tableUsableBits}
 
-Data encoded as a Variable Size Integer may be rendered at octet lengths larger than needed to store the data in order to facilitate overwriting it at a later date, e.g. when its final size isn't known in advance. In [@tableVariousSizes] a binary value of 0b10 is shown encoded as different Variable Size Integers with lengths from one octet to four octets. All four encoded examples have identical semantic meaning though the VINT\_WIDTH and the padding of the VINT\_DATA vary.
+A Variable Size Integer may be rendered at octet lengths larger than needed to store the data in order to facilitate overwriting it at a later date, e.g. when its final size isn't known in advance. In [@tableVariousSizes] an integer `2` (with a corresponding binary value of 0b10) is shown encoded as different Variable Size Integers with lengths from one octet to four octets. All four encoded examples have identical semantic meaning though the VINT\_WIDTH and the padding of the VINT\_DATA vary.
 
-Binary Value | Octet Length | As Represented in Variable Size Integer
--------------|--------------|:---------------------------------------
-10           | 1            | 1000 0010
-10           | 2            | 0100 0000 0000 0010
-10           | 3            | 0010 0000 0000 0000 0000 0010
-10           | 4            | 0001 0000 0000 0000 0000 0000 0000 0010
-Table: VINT examples depicting the same integer value rendered at different VINT sizes {#tableVariousSizes}
+Integer | Octet Length | As Represented in VINT (binary)         | As Represented in VINT (hexadecimal)
+--------|--------------|----------------------------------------:|------------------------------------:
+2       | 1            |                               1000 0010 |       0x82
+2       | 2            |                     0100 0000 0000 0010 |     0x4002
+2       | 3            |           0010 0000 0000 0000 0000 0010 |   0x200002
+2       | 4            | 0001 0000 0000 0000 0000 0000 0000 0010 | 0x10000002
+Table: VINT examples depicting the same integer value rendered at different VINT lengths {#tableVariousSizes}
 
 # Element ID
 
