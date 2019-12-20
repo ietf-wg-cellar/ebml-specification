@@ -92,9 +92,9 @@ The Element ID and Element Data Size are both encoded as a Variable Size Integer
 
 ## VINT_WIDTH
 
-Each Variable Size Integer begins with a VINT\_WIDTH which consists of zero or many zero-value bits. The count of consecutive zero-values of the VINT\_WIDTH plus one equals the length in octets of the Variable Size Integer. For example, a Variable Size Integer that starts with a VINT\_WIDTH which contains zero consecutive zero-value bits is one octet in length and a Variable Size Integer that starts with one consecutive zero-value bit is two octets in length. The VINT\_WIDTH MUST only contain zero-value bits or be empty.
+Each Variable Size Integer starts with a VINT\_WIDTH followed by a VINT\_MARKER. VINT\_WIDTH is a sequence of zero or more bits of value `0`, and is terminated by the VINT\_MARKER, which is a single bit of value `1`. The total length in bits of both VINT\_WIDTH and VINT\_MARKER is the total length in octets in of the Variable Size Integer.
 
-Within the EBML Header the VINT\_WIDTH of a VINT MUST NOT exceed three bits in length (meaning that the Variable Size Integer MUST NOT exceed four octets in length) except if said VINT is used to express the Element Data Size of an EBML Element with Element Name EBML and Element ID `0x1A45DFA3` (see (#ebml-element)) in which case the VINT\_WIDTH MUST NOT exceed seven bits in length. Within the EBML Body, when a VINT is used to express an Element ID, the maximum length allowed for the VINT\_WIDTH is one less than the value set in the EBMLMaxIDLength Element. Within the EBML Body, when a VINT is used to express an Element Data Size, the maximum length allowed for the VINT\_WIDTH is one less than the value set in the EBMLMaxSizeLength Element.
+The single bit `1` starts a Variable Size Integer with a length of one octet. The sequence of bits `01` starts a Variable Size Integer with a length of two octets. `001` starts a Variable Size Integer with a length of three octets, and so on, with each additional 0-bit adding one octet to the length of the Variable Size Integer.
 
 ## VINT_MARKER
 
@@ -283,9 +283,13 @@ The EBML Header documents the EBML Schema (also known as the EBML DocType) that 
 
 The EBML Header MUST contain a single Master Element with an Element Name of EBML and Element ID of 0x1A45DFA3 (see (#ebml-element)) and any number of additional EBML Elements within it. The EBML Header of an EBML Document that uses an EBMLVersion of 1 MUST only contain EBML Elements that are defined as part of this document.
 
+Elements within an EBML Header can be at most 4 octets long, except for the EBML Element with Element Name EBML and Element ID `0x1A45DFA3` (see (#ebml-element)), which can be up to 8 octets long.
+
 ## EBML Body
 
 All data of an EBML Document following the EBML Header is the EBML Body. The end of the EBML Body, as well as the end of the EBML Document that contains the EBML Body, is reached at whichever comes first: the beginning of a new EBML Header at the Root Level or the end of the file. This document defines precisely which EBML Elements are to be used within the EBML Header, but does not name or define which EBML Elements are to be used within the EBML Body. The definition of which EBML Elements are to be used within the EBML Body is defined by an EBML Schema.
+
+Within the EBML Body, the maximum octet length allowed for any Element ID is set by the EBMLMaxIDLength Element of the EBML Header and the maximum octet length allowed for any Element Data Size is set by the EBMLMaxSizeLength Element of the EBML Header.
 
 # EBML Stream
 
