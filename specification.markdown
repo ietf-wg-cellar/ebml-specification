@@ -165,7 +165,7 @@ Although an Element ID with all VINT\_DATA bits set to zero is invalid, an Eleme
 
 ## Unknown Data Size
 
-An Element Data Size with all VINT\_DATA bits set to one is reserved as an indicator that the size of the EBML Element is unknown. The only reserved value for the VINT\_DATA of Element Data Size is all bits set to one. An EBML Element with an unknown Element Data Size is referred to as an Unknown-Sized Element. A Master Element MAY be an Unknown-Sized Element; however an EBML Element that is not a Master Element MUST NOT be an Unknown-Sized Element. Master Elements MUST NOT use an unknown size unless the unknownsizeallowed attribute of their EBML Schema is set to true (see (#unknownsizeallowed)).
+An Element Data Size with all VINT\_DATA bits set to one is reserved as an indicator that the size of the EBML Element is unknown. The only reserved value for the VINT\_DATA of Element Data Size is all bits set to one. An EBML Element with an unknown Element Data Size is referred to as an Unknown-Sized Element. Only a Master Element is allowed to be of unknown size, and it can only be so if the unknownsizeallowed attribute of its EBML Schema is set to true (see (#unknownsizeallowed)).
 
 The use of Unknown-Sized Elements allows for an EBML Element to be written and read before the size of the EBML Element is known. Unknown-Sized Elements MUST only be used if the Element Data Size is not known before the Element Data is written, such as in some cases of data streaming. The end of an Unknown-Sized Element is determined by whichever comes first:
 
@@ -261,9 +261,9 @@ The Date Element stores an integer in the same format as the Signed Integer Elem
 
 ## Master Element
 
-A Master Element MUST declare a length in octets from zero to VINTMAX. The Master Element MAY also use an unknown length. See (#element-data-size) for rules that apply to elements of unknown length.
+A Master Element MUST declare a length in octets from zero to VINTMAX or be of unknown length. See (#element-data-size) for rules that apply to elements of unknown length.
 
-The Master Element contains zero, one, or many other elements. EBML Elements contained within a Master Element MUST have the EBMLParentPath of their Element Path equal to the EBMLFullPath of the Master Element Element Path (see (#path)). Element Data stored within Master Elements SHOULD only consist of EBML Elements and SHOULD NOT contain any data that is not part of an EBML Element. The EBML Schema identifies what Element IDs are valid within the Master Elements for that version of the EBML Document Type. Any data contained within a Master Element that is not part of a Child Element MUST be ignored.
+The Master Element contains zero or more other elements. EBML Elements contained within a Master Element MUST have the EBMLParentPath of their Element Path equal to the EBMLFullPath of the Master Element Element Path (see (#path)). Element Data stored within Master Elements SHOULD only consist of EBML Elements and SHOULD NOT contain any data that is not part of an EBML Element. The EBML Schema identifies what Element IDs are valid within the Master Elements for that version of the EBML Document Type. Any data contained within a Master Element that is not part of a Child Element MUST be ignored.
 
 ## Binary Element
 
