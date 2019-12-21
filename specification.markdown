@@ -131,7 +131,7 @@ Table: VINT examples depicting the same integer value rendered at different VINT
 
 The Element ID is encoded as a Variable Size Integer. By default, Element IDs are encoded in lengths from one octet to four octets, although Element IDs of greater lengths MAY be used if the EBMLMaxIDLength Element of the EBML Header is set to a value greater than four (see (#ebmlmaxidlength-element)). The VINT\_DATA component of the Element ID MUST NOT be either defined or written as either all zero values or all one values. Any Element ID with the VINT\_DATA component set as all zero values or all one values MUST be ignored. The VINT\_DATA component of the Element ID MUST be encoded at the shortest valid length. For example, an Element ID with binary encoding of `1011 1111` is valid, whereas an Element ID with binary encoding of `0100 0000 0011 1111` stores a semantically equal VINT\_DATA but is invalid because a shorter VINT encoding is possible. Additionally, an Element ID with binary encoding of `1111 1111` is invalid since the VINT\_DATA section is set to all one values, whereas an Element ID with binary encoding of `0100 0000 0111 1111` stores a semantically equal VINT\_DATA and is the shortest possible VINT encoding.
 
-[@tableVintValidity] details these specific examples further:
+[@tableElementIDValidity] details these specific examples further:
 
 VINT_WIDTH  | VINT_MARKER  | VINT_DATA      | Element ID Status
 -----------:|-------------:|---------------:|:-----------------
@@ -143,7 +143,7 @@ VINT_WIDTH  | VINT_MARKER  | VINT_DATA      | Element ID Status
 0           | 1            | 00000000111111 | Invalid: A shorter VINT_DATA encoding is available.
 |           | 1            |        1111111 | Invalid: VINT_DATA MUST NOT be set to all 1
 0           | 1            | 00000001111111 | Valid
-Table: Examples of valid and invalid VINTs {#tableVintValidity}
+Table: Examples of valid and invalid Element IDs {#tableElementIDValidity}
 
 The range and count of VINT_DATA values is determined by the octet length of the VINT. Examples of this are provided in [@tableVintRanges].
 
@@ -196,14 +196,14 @@ For Element Data Sizes encoded at octet lengths from one to eight, [@tableVintRa
 
 Octet Length | Possible Value Range
 -------------|---------------------
-1            | 0 to  2^7-2
-2            | 0 to 2^14-2
-3            | 0 to 2^21-2
-4            | 0 to 2^28-2
-5            | 0 to 2^35-2
-6            | 0 to 2^42-2
-7            | 0 to 2^49-2
-8            | 0 to 2^56-2
+1            | 0 to  2^7 - 2
+2            | 0 to 2^14 - 2
+3            | 0 to 2^21 - 2
+4            | 0 to 2^28 - 2
+5            | 0 to 2^35 - 2
+6            | 0 to 2^42 - 2
+7            | 0 to 2^49 - 2
+8            | 0 to 2^56 - 2
 Table: Possible range of values that can be stored in VINTs by octet length. {#tableVintRangePerLength}
 
 If the length of Element Data equals 2^(n\*7)-1 then the octet length of the Element Data Size MUST be at least n+1. This rule prevents an Element Data Size from being expressed as the unknown size value. [@tableVintReservation] clarifies this rule by showing a valid and invalid expression of an Element Data Size with a VINT\_DATA of 127 (which is equal to 2^(1\*7)-1) and 16,383 (which is equal to 2^(2\*7)-1).
@@ -239,7 +239,7 @@ An Unsigned Integer Element stores an integer (meaning that it can be written wi
 
 A Float Element MUST declare a length of either zero octet (0 bit), four octets (32 bit) or eight octets (64 bit). If the EBML Element is not defined to have a default value, then a Float Element with a zero-octet length represents a numerical value of zero.
 
-A Float Element stores a floating-point number as defined in [@!IEEE.754.1985].
+A Float Element stores a floating-point number in the 32-bit and 64-bit binary interchange format as defined in [@!IEEE.754.1985].
 
 ## String Element
 
@@ -273,7 +273,7 @@ The contents of a Binary Element should not be interpreted by the EBML Reader.
 
 # EBML Document
 
-An EBML Document is comprised of only two components, an EBML Header and an EBML Body. An EBML Document MUST start with an EBML Header that declares significant characteristics of the entire EBML Body. An EBML Document consists of EBML Elements and MUST NOT contain any data that is not part of an EBML Element.
+An EBML Document is composed of only two components, an EBML Header and an EBML Body. An EBML Document MUST start with an EBML Header that declares significant characteristics of the entire EBML Body. An EBML Document consists of EBML Elements and MUST NOT contain any data that is not part of an EBML Element.
 
 ## EBML Header
 
@@ -398,7 +398,7 @@ The EBMLPathAtom part of the EBMLElementPath MUST be equal to the name attribute
 
 The starting PathDelimiter of the path corresponds to the root of the EBML Document.
 
-In some cases the EBMLLastParent part of the path is an EBMLGlobalParent. A path with a EBMLGlobalParent defines a (#global-elements). Any path that starts with the EBMLFixedParent of the Global Element and matches the occurrences found in the GlobalParentOccurence is a valid path for the Global Element. 
+In some cases the EBMLLastParent part of the path is an EBMLGlobalParent. A path with a EBMLGlobalParent defines a Global Element; see (#global-elements). Any path that starts with the EBMLFixedParent of the Global Element and matches the occurrences found in the GlobalParentOccurence is a valid path for the Global Element. 
 
 The GlobalParentOccurence part is interpreted as an ABNF Variable Repetition. The repetition amounts correspond to the amount of unspecified Parent Element levels there can be between the EBMLFixedParent and the actual EBMLElementPath.
 
@@ -523,7 +523,7 @@ The recursive attribute is OPTIONAL. If the recursive attribute is not present t
 
 Within an EBML Schema, the XPath of `@recurring` attribute is `/EBMLSchema/element/@recurring`.
 
-A boolean to express if an EBML Element is defined as an Identically Recurring Element or not.
+A boolean to express if an EBML Element is defined as an Identically Recurring Element or not; see (#identically-recurring-elements).
 
 The recurring attribute is OPTIONAL. If the recurring attribute is not present then the EBML Element is not an Identically Recurring Element.
 
@@ -1048,7 +1048,7 @@ Table: Example of editing a VINT to reduce VINT_DATA length by more than one oct
 
 ### Terminating Element Data
 
-For String Elements and UTF-8 Elements the length of Element Data MAY be reduced by adding Null Octets to terminate the Element Data (see (#terminating-elements)).
+For String Elements and UTF-8 Elements the length of Element Data could be reduced by adding Null Octets to terminate the Element Data (see (#terminating-elements)).
 
 In [@tableExampleNullPadding], a four octets long Element Data is changed to a three octet long value followed by a Null Octet; the Element Data Size includes any Null Octets used to terminate Element Data so remains unchanged.
 
@@ -1121,29 +1121,39 @@ Element IDs are described in section Element ID. Element IDs are encoded using t
 
 This IANA Registry only applies to Elements that can be contained in the EBML Header, thus including Global Elements. Elements only found in the EBML Body have their own set of independent Element IDs and are not part of this IANA Registry.
 
-The VINT Data value of one-octet Element IDs MUST be between 0x01 and 0x7E. These items are valuable because they are short, and need to be used for commonly repeated elements. Values from 1 to 126 are to be allocated according to the "RFC Required" policy [@!RFC8126].
+One-octet Element IDs MUST be between 0x81 and 0xFE. These items are valuable because they are short, and need to be used for commonly repeated elements. Element IDs are to be allocated within this range according to the "RFC Required" policy [@!RFC8126].
 
-The VINT Data value of two-octet Element IDs MUST be between 0x007F and 0x3FFE. Numbers are to be allocated within this range according to the "Specification Required" policy [@!RFC8126].
+The following one-octet Element IDs are RESERVED: 0xFF and 0x80.
 
-The numbers 0x3FFF and 0x4000 are RESERVED.
+The one-octet range of 0x00 to 0x7F are not valid for use as an Element ID.
 
-The VINT Data value of three-octet Element IDs MUST be between 0x4001 and 0x1FFFFE. Numbers may be allocated within this range according to the "First Come First Served" policy [@!RFC8126].
+Two-octet Element IDs MUST be between 0x407F and 0x7FFE. Element IDs are to be allocated within this range according to the "Specification Required" policy [@!RFC8126].
 
-The numbers 0x1FFFFF and 0x200000 are RESERVED.
+The following two-octet Element IDs are RESERVED: 0x7FFF and 0x4000.
 
-Four-octet Element IDs are numbers between 0x101FFFFF and 0x1FFFFFFE. Four-octet Element IDs are somewhat special in that they are useful for resynchronizing to major structures in the event of data corruption or loss. As such four-octet Element IDs are split into two categories. Four-octet Element IDs whose lower three octets (as encoded) would make printable 7-bit ASCII values (0x20 to 0x7E, inclusive) MUST be allocated by the "Specification Required" policy. Sequential allocation of values is not required: specifications SHOULD include a specific request, and are encouraged to do early allocations.
+The two-octet ranges of 0x0000 to 0x3FFF and 0x8000 to 0xFFFF are not valid for use as an Element ID.
 
-To be clear about the above category: four-octet Element IDs always start with hex 0x10 to 0x1F, and that octet may be chosen so that the entire number has some desirable property, such as a specific CRC. The other three octets, when ALL having values between 0x21 (33, ASCII !) and 0x7E (126, ASCII ~), fall into this category.
+Three-octet Element IDs MUST be between 0x203FFF and 0x3FFFFE. Element IDs are to be allocated within this range according to the "First Come First Served" policy [@!RFC8126].
+
+The following three-octet Element IDs are RESERVED: 0x3FFFFF and 0x200000.
+
+The three-octet ranges of 0x000000 to 0x1FFFFF and 0x400000 to 0xFFFFFF are not valid for use as an Element ID.
+
+Four-octet Element IDs MUST be between 0x101FFFFF and 0x1FFFFFFE. Four-octet Element IDs are somewhat special in that they are useful for resynchronizing to major structures in the event of data corruption or loss. As such four-octet Element IDs are split into two categories. Four-octet Element IDs whose lower three octets (as encoded) would make printable 7-bit ASCII values (0x20 to 0x7E, inclusive) MUST be allocated by the "Specification Required" policy. Sequential allocation of values is not required: specifications SHOULD include a specific request, and are encouraged to do early allocations.
+
+To be clear about the above category: four-octet Element IDs always start with hex 0x10 to 0x1F, and that octet may be chosen so that the entire VINT has some desirable property, such as a specific CRC. The other three octets, when ALL having values between 0x20 (32, ASCII Space) and 0x7E (126, ASCII "~"), fall into this category.
 
 Other four-octet Element IDs may be allocated by the "First Come First Served" policy.
 
-The numbers 0xFFFFFFF and 0x1000000 are RESERVED.
+The following four-octet Element IDs are RESERVED:  0x1FFFFFFF and 0x10000000.
 
-Five octet Element IDs (values from 0x10000001 upwards) are RESERVED according to the "Experimental Use" policy [@!RFC8126]: they may be used by anyone at any time, but there is no coordination.
+The four-octet ranges of 0x00000000 to 0x0FFFFFFF and 0x20000000 to 0xFFFFFFFF are not valid for use as an Element ID.
+
+Five-octet Element IDs (values from 0x080FFFFFFF to 0x0FFFFFFFFE) are RESERVED according to the "Experimental Use" policy [@!RFC8126]: they may be used by anyone at any time, but there is no coordination.
 
 ID Values found in this document are assigned as initial values as follows:
 
- ID        | Element Name            | Reference
+Element ID | Element Name            | Reference
 ----------:|:------------------------|:-------------------------------------------
 0x1A45DFA3 | EBML                    | Described in (#ebml-element)
 0x4286     | EBMLVersion             | Described in (#ebmlversion-element)
