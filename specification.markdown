@@ -1113,9 +1113,9 @@ Side channel attacks could exploit:
 
 # IANA Considerations
 
-## CELLAR EBML Element ID Registry
+## EBML Element ID Registry
 
-This document creates a new IANA Registry called "CELLAR EBML Element ID Registry".
+This document creates a new IANA Registry called "EBML Element ID Registry".
 
 Element IDs are described in section Element ID. Element IDs are encoded using the VINT mechanism described in section (#variable-size-integer) can be between one and five octets long. Five octet long Element IDs are possible only if declared in the header.
 
@@ -1160,9 +1160,9 @@ ID Values found in this document are assigned as initial values as follows:
 0xEC       | Void                    | Described in (#void-element)
 Table: IDs and Names for EBML Elements assigned by this document.
 
-## CELLAR EBML DocType Registry
+## EBML DocType Registry
 
-This document creates a new IANA Registry called "CELLAR EBML DocType Registry".
+This document creates a new IANA Registry called "EBML DocType Registry".
 
 To register a new DocType in this registry one needs a DocType name, a Description of the DocType, a Change Controller (IESG or email of registrant) and an optional Reference to a document describing the DocType.
 
