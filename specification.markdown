@@ -409,7 +409,7 @@ If the path contains an EBMLPathAtomRecursive part, the EBML Element can occur w
 
 As an example, a `path` of `1*(\Segment\Info)` means the element Info is found inside the Segment elements at least once and with no maximum iteration. An element SeekHead with path `0*2(\Segment\SeekHead)` may not be found at all in its Segment parent, once or twice but no more than that.
 
-The `@path` value MUST be unique within the EBML Schema. So an `@id` found in the tree of EBML Elements can only match one path.
+The `@path` value MUST be unique within the EBML Schema. An `@id` found in the EBML tree of an EBML Document can only match one `@path` unambigously.
 
 #### id
 
@@ -417,7 +417,7 @@ Within an EBML Schema, the XPath of `@id` attribute is `/EBMLSchema/element/@id`
 
 The Element ID encoded as a Variable Size Integer expressed in hexadecimal notation prefixed by a 0x that is read and stored in big-endian order. To reduce the risk of false positives while parsing EBML Streams, the Element IDs of the Root Element and Top-Level Elements SHOULD be at least 4 octets in length. Element IDs defined for use at Root Level or directly under the Root Level MAY use shorter octet lengths to facilitate padding and optimize edits to EBML Documents; for instance, the Void Element uses an Element ID with a one octet length to allow its usage in more writing and editing scenarios.
 
-The `@id` value does not need to be unique within an EBML Schema, but the value of the `@path` of that Element MUST be unique within an EBML Schema.
+The `@id` value does not need to be unique within an EBML Schema, but the value of the `@path` of that Element MUST be unique within an EBML Schema. In other words when an `@id` is found in the tree of an EBML Element, it MUST only match a single `@path`. But the same `@id` MAY be found in a different `@path`.
 
 The id attribute is REQUIRED.
 
