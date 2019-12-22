@@ -409,7 +409,7 @@ If the path contains an EBMLPathAtomRecursive part, the EBML Element can occur w
 
 As an example, a `path` of `1*(\Segment\Info)` means the element Info is found inside the Segment elements at least once and with no maximum iteration. An element SeekHead with path `0*2(\Segment\SeekHead)` may not be found at all in its Segment parent, once or twice but no more than that.
 
-The `@path` value MUST be unique within the EBML Schema. An `@id` found in the EBML tree of an EBML Document can only match one `@path` unambigously.
+The `@path` value MUST be unique within the EBML Schema. The `@id` corresponding to this `@path` MUST NOT be used in another EBML Element with the same EBMLParentPath as this `@path`.
 
 #### id
 
