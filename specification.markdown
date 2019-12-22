@@ -409,7 +409,7 @@ If the path contains an EBMLPathAtomRecursive part, the EBML Element can occur w
 
 As an example, a `path` of `1*(\Segment\Info)` means the element Info is found inside the Segment elements at least once and with no maximum iteration. An element SeekHead with path `0*2(\Segment\SeekHead)` may not be found at all in its Segment parent, once or twice but no more than that.
 
-The `@path` value MUST be unique within the EBML Schema. The `@id` corresponding to this `@path` MUST NOT be used in another EBML Element with the same EBMLParentPath as this `@path`.
+The `@path` value MUST be unique within the EBML Schema. The `@id` value corresponding to this `@path` MUST NOT be defined for use within another EBML Element with the same EBMLParentPath as this `@path`.
 
 #### id
 
@@ -417,7 +417,7 @@ Within an EBML Schema, the XPath of `@id` attribute is `/EBMLSchema/element/@id`
 
 The Element ID encoded as a Variable Size Integer expressed in hexadecimal notation prefixed by a 0x that is read and stored in big-endian order. To reduce the risk of false positives while parsing EBML Streams, the Element IDs of the Root Element and Top-Level Elements SHOULD be at least 4 octets in length. Element IDs defined for use at Root Level or directly under the Root Level MAY use shorter octet lengths to facilitate padding and optimize edits to EBML Documents; for instance, the Void Element uses an Element ID with a one octet length to allow its usage in more writing and editing scenarios.
 
-The Element ID of any Element found within an EBML Document MUST only match a single `@path` of its corresponding EBML Schema, but a separate instance of that Element ID value defined by the EBML Schema MAY occur within a different `@path`. Two `@path` of two different Element using the same `@id` MUST NOT have a the same EBMLParentPath. Two Elements MUST NOT use the same `@id` if one of their common Parent Element could be an Unknown-Size Element.
+The Element ID of any Element found within an EBML Document MUST only match a single `@path` value of its corresponding EBML Schema, but a separate instance of that Element ID value defined by the EBML Schema MAY occur within a different `@path`. If more than one Element is defined to use the same `@id` value, then the `@path` values of those Elements MUST NOT share the same EBMLParentPath. Elements MUST NOT be defined to use the same `@id` value if one of their common Parent Elements could be an Unknown-Size Element.
 
 The id attribute is REQUIRED.
 
