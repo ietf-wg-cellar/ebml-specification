@@ -129,7 +129,7 @@ Table: VINT examples depicting the same integer value rendered at different VINT
 
 # Element ID
 
-The Element ID is encoded as a Variable Size Integer. By default, Element IDs are encoded in lengths from one octet to four octets, although Element IDs of greater lengths MAY be used if the EBMLMaxIDLength Element of the EBML Header is set to a value greater than four (see (#ebmlmaxidlength-element)). The VINT\_DATA component of the Element ID MUST NOT be either defined or written as either all zero values or all one values. Any Element ID with the VINT\_DATA component set as all zero values or all one values MUST be ignored. The VINT\_DATA component of the Element ID MUST be encoded at the shortest valid length. For example, an Element ID with binary encoding of `1011 1111` is valid, whereas an Element ID with binary encoding of `0100 0000 0011 1111` stores a semantically equal VINT\_DATA but is invalid because a shorter VINT encoding is possible. Additionally, an Element ID with binary encoding of `1111 1111` is invalid since the VINT\_DATA section is set to all one values, whereas an Element ID with binary encoding of `0100 0000 0111 1111` stores a semantically equal VINT\_DATA and is the shortest possible VINT encoding.
+An Element ID is a Variable Size Integer. By default, Element IDs are from one octet to four octets in length, although Element IDs of greater lengths MAY be used if the EBMLMaxIDLength Element of the EBML Header is set to a value greater than four (see (#ebmlmaxidlength-element)). The bits of the VINT\_DATA component of the Element ID MUST NOT be all `0` values or all `1` values. The VINT\_DATA component of the Element ID MUST be encoded at the shortest valid length. For example, an Element ID with binary encoding of `1011 1111` is valid, whereas an Element ID with binary encoding of `0100 0000 0011 1111` stores a semantically equal VINT\_DATA but is invalid because a shorter VINT encoding is possible. Additionally, an Element ID with binary encoding of `1111 1111` is invalid since the VINT\_DATA section is set to all one values, whereas an Element ID with binary encoding of `0100 0000 0111 1111` stores a semantically equal VINT\_DATA and is the shortest possible VINT encoding.
 
 [@tableElementIDValidity] details these specific examples further:
 
@@ -145,15 +145,15 @@ VINT_WIDTH  | VINT_MARKER  | VINT_DATA      | Element ID Status
 0           | 1            | 00000001111111 | Valid
 Table: Examples of valid and invalid Element IDs {#tableElementIDValidity}
 
-The range and count of VINT_DATA values is determined by the octet length of the VINT. Examples of this are provided in [@tableVintRanges].
+The range and count of possible Element IDs are determined by their octet length. Examples of this are provided in [@tableElementIDRanges].
 
-VINT Length in octets | Range of Possible IDs   | Number of IDs
-:--------------------:|:-----------------------:|-------------:
-1                     |       0x81 - 0xFE       |           126
-2                     |     0x407F - 0x7FFE     |        16,256
-3                     |   0x203FFF - 0x3FFFFE   |     2,080,768
-4                     | 0x101FFFFF - 0x1FFFFFFE |   268,338,304
-Table: Examples of count and range for VINT_DATA per VINT length in octets {#tableVintRanges}
+Element ID Octet Length | Range of Valid Element IDs   | Number of Valid Element IDs
+:----------------------:|:----------------------------:|-------------:
+1                       |       0x81 - 0xFE            |           126
+2                       |     0x407F - 0x7FFE          |        16,256
+3                       |   0x203FFF - 0x3FFFFE        |     2,080,768
+4                       | 0x101FFFFF - 0x1FFFFFFE      |   268,338,304
+Table: Examples of count and range for Element IDs at various octet lengths {#tableElementIDRanges}
 
 # Element Data Size
 
