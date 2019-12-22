@@ -417,7 +417,7 @@ Within an EBML Schema, the XPath of `@id` attribute is `/EBMLSchema/element/@id`
 
 The Element ID encoded as a Variable Size Integer expressed in hexadecimal notation prefixed by a 0x that is read and stored in big-endian order. To reduce the risk of false positives while parsing EBML Streams, the Element IDs of the Root Element and Top-Level Elements SHOULD be at least 4 octets in length. Element IDs defined for use at Root Level or directly under the Root Level MAY use shorter octet lengths to facilitate padding and optimize edits to EBML Documents; for instance, the Void Element uses an Element ID with a one octet length to allow its usage in more writing and editing scenarios.
 
-The `@id` value does not need to be unique within an EBML Schema, but the value of the `@path` of that Element MUST be unique within an EBML Schema. In other words, the Element ID of any Element found within an EBML Document MUST only match a single `@path` of its corresponding EBML Schema, but a separate instance of that Element ID value defined by the EBML Schema MAY  occur within a different `@path`.
+The Element ID of any Element found within an EBML Document MUST only match a single `@path` of its corresponding EBML Schema, but a separate instance of that Element ID value defined by the EBML Schema MAY occur within a different `@path`. Two `@path` of two different Element using the same `@id` MUST NOT have a the same EBMLParentPath. Two Elements MUST NOT use the same `@id` if one of their common Parent Element could be an Unknown-Size Element.
 
 The id attribute is REQUIRED.
 
