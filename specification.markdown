@@ -1034,7 +1034,7 @@ When an EBML Element is changed to reduce its total length by more than one octe
 
 ### Extending the Element Data Size
 
-The same value for Element Data Size MAY be written in variable lengths, so for minor reductions in octet length the Element Data Size MAY be written to a longer octet length to fill the freed space.
+The same value for Element Data Size MAY be written in various lengths, so for minor reductions of the Element Data, the Element Size MAY be written to a longer octet length to fill the freed space.
 
 For example, the first row of [@tableShortenVintOneOctet] depicts a String Element that stores an Element ID (3 octets), Element Data Size (1 octet), and Element Data (4 octets). If the Element Data is changed to reduce the length by one octet and if the current length of the Element Data Size is less than its maximum permitted length, then the Element Data Size of that Element MAY be rewritten to increase its length by one octet. Thus before and after the change the EBML Element maintains the same length of 8 octets and data around the Element does not need to be moved.
 
