@@ -614,25 +614,25 @@ The note\_attribute attribute is REQUIRED.
 The following fragment of an EBML Schema demonstrates how an `<implementation_note>` is used. In this case an EBML Schema documents a list of items that are described with an optional cost. The Currency Element uses an `<implementation_note>` to say that the Currency Element is REQUIRED if the Cost Element is set, otherwise not.
 
 ```xml
-<element name="Item" path="1*1(\Items)" id="0x4025" type="master"
+<element name="Items" path="\Items" id="0x4025" type="master"
   minOccurs="1" maxOccurs="1">
   <documentation lang="en" purpose="definition">
     A set of items.
   </documentation>
 </element>
-<element name="Item" path="0*(\Items\Item)" id="0x4026"
+<element name="Item" path="\Items\Item" id="0x4026"
   type="master">
   <documentation lang="en" purpose="definition">
     An item.
   </documentation>
 </element>
-<element name="Cost" path="0*1(\Items\Item\Cost)" id="0x4024"
+<element name="Cost" path="\Items\Item\Cost" id="0x4024"
   type="float" maxOccurs="1">
   <documentation lang="en" purpose="definition">
     The cost of the item, if any.
   </documentation>
 </element>
-<element name="Currency" path="0*1(\Items\Item\Currency)" id="0x403F"
+<element name="Currency" path="\Items\Item\Currency" id="0x403F"
   type="string" maxOccurs="1">
   <documentation lang="en" purpose="definition">
     The currency of the item's cost.
