@@ -187,7 +187,7 @@ EBML Path of new element           | Status
 `\root\level1\level2\elt`          | Ends the Unknown-Sized Element, as they share the same parent
 `\root\level1\level2\elt\inside`   | Doesn't end the Unknown-Sized Element, it's a child of `elt`
 `\root\level1\level2\elt\<global>` | Global Element is valid, it's a child of `elt`
-`\root\level1\level2\<global>`     | Global Element cannot be assumed to have this path, while parsing `elt` it can only be a child of `elt`
+`\root\level1\level2\<global>`     | Global Element cannot be interpreted with this path, while parsing `elt` a Global Element can only be a child of `elt`
 Table: Examples of determining the end of an Unknown-Sized Element
 
 ## Data Size Values
