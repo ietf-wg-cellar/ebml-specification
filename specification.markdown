@@ -70,7 +70,7 @@ This document defines specific terms in order to define the format and applicati
 
 `Child Element`: A `Child Element` is a relative term to describe the `EBML Elements` immediately contained within a `Master Element`.
 
-`Parent Element`: A relative term to describe the `Master Element` which contains a specified element. For any specified `EBML Element` that is not at `Root Level`, the `Parent Element` refers to the `Master Element` in which that `EBML Element` is contained.
+`Parent Element`: A relative term to describe the `Master Element` which contains a specified element. For any specified `EBML Element` that is not at `Root Level`, the `Parent Element` refers to the `Master Element` in which that `EBML Element` is directly contained.
 
 `Descendant Element`: A relative term to describe any `EBML Elements` contained within a `Master Element`, including any of the `Child Elements` of its `Child Elements`, and so on.
 
