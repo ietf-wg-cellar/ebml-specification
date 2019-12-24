@@ -735,7 +735,7 @@ This document contains definitions of all EBML Elements of the EBML Header.
 
 name: EBML
 
-path: `1*1(\EBML)`
+path: `\EBML`
 
 id: 0x1A45DFA3
 
@@ -751,7 +751,7 @@ description: Set the EBML characteristics of the data to follow. Each EBML Docum
 
 name: EBMLVersion
 
-path: `1*1(\EBML\EBMLVersion)`
+path: `\EBML\EBMLVersion`
 
 id 0x4286
 
@@ -771,7 +771,7 @@ description: The version of EBML specifications used to create the EBML Document
 
 name: EBMLReadVersion
 
-path: `1*1(\EBML\EBMLReadVersion)`
+path: `\EBML\EBMLReadVersion`
 
 id: 0x42F7
 
@@ -791,7 +791,7 @@ description: The minimum EBML version an EBML Reader has to support to read this
 
 name: EBMLMaxIDLength
 
-path: `1*1(\EBML\EBMLMaxIDLength)`
+path: `\EBML\EBMLMaxIDLength`
 
 id 0x42F2
 
@@ -811,7 +811,7 @@ description: The EBMLMaxIDLength Element stores the maximum permitted length in 
 
 name: EBMLMaxSizeLength
 
-path: `1*1(\EBML\EBMLMaxSizeLength)`
+path: `\EBML\EBMLMaxSizeLength`
 
 id 0x42F3
 
@@ -831,7 +831,7 @@ description: The EBMLMaxSizeLength Element stores the maximum permitted length i
 
 name: DocType
 
-path: `1*1(\EBML\DocType)`
+path: `\EBML\DocType`
 
 id 0x4282
 
@@ -849,7 +849,7 @@ description: A string that describes and identifies the content of the EBML Body
 
 name: DocTypeVersion
 
-path: `1*1(\EBML\DocTypeVersion)`
+path: `\EBML\DocTypeVersion`
 
 id 0x4287
 
@@ -869,7 +869,7 @@ description: The version of DocType interpreter used to create the EBML Document
 
 name: DocTypeReadVersion
 
-path: `1*1(\EBML\DocTypeReadVersion)`
+path: `\EBML\DocTypeReadVersion`
 
 id 0x4285
 
@@ -889,7 +889,7 @@ description: The minimum DocType version an EBML Reader has to support to read t
 
 name: DocTypeExtension
 
-path: `0*(\EBML\DocTypeExtension)`
+path: `\EBML\DocTypeExtension`
 
 id 0x4281
 
@@ -903,7 +903,7 @@ description: A DocTypeExtension adds extra Elements to the main DocType+DocTypeV
 
 name: DocTypeExtensionName
 
-path: `1*1(\EBML\DocTypeExtension\Name)`
+path: `\EBML\DocTypeExtension\Name`
 
 id 0x4283
 
@@ -921,7 +921,7 @@ description: The name of the DocTypeExtension to differentiate it from other Doc
 
 name: DocTypeExtensionVersion
 
-path: `1*1(\EBML\DocTypeExtension\Version)`
+path: `\EBML\DocTypeExtension\Version`
 
 id 0x4284
 
@@ -947,7 +947,7 @@ A Global Element can be found in many Parent Elements, allowing the same number 
 
 name: CRC-32
 
-path: `*1((1*\)\CRC-32)`
+path: `(1*\)\CRC-32`
 
 id: 0xBF
 
@@ -965,7 +965,7 @@ description: The CRC-32 Element contains a 32-bit Cyclic Redundancy Check value 
 
 name: Void
 
-path: `*((*\)\Void)`
+path: `(*\)\Void`
 
 id: 0xEC
 
