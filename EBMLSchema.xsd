@@ -18,6 +18,8 @@
     </xs:sequence>
     <xs:attribute name="docType" use="required"/>
     <xs:attribute name="version" use="required" type="xs:integer"/>
+    <xs:attribute name="ebml" type="xs:positiveInteger"
+      default="1"/>
   </xs:complexType>
 
   <xs:complexType name="elementType">
