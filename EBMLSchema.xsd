@@ -83,8 +83,10 @@
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
-    <xs:attribute name="unknownsizeallowed" type="xs:boolean" default="false"/>
-    <xs:attribute name="recurring" type="xs:boolean" default="false"/>
+    <xs:attribute name="unknownsizeallowed" type="xs:boolean"
+      default="false"/>
+    <xs:attribute name="recurring" type="xs:boolean"
+      default="false"/>
     <xs:attribute name="minver" default="1">
       <xs:simpleType>
         <xs:restriction base="xs:integer">
