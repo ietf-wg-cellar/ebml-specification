@@ -355,7 +355,7 @@ The version attribute is REQUIRED within the `<EBMLSchema>` Element.
   
 Within an EBML Schema, the XPath of `<element>` element is `/EBMLSchema/element`.
 
-Each `<element>` defines one EBML Element through the use of several attributes that are defined in (#ebmlschema-attributes). EBML Schemas MAY contain additional attributes to extend the semantics but MUST NOT conflict with the definitions of the `<element>` attributes defined within this document.
+Each `<element>` defines one EBML Element through the use of several attributes that are defined in (#element-attributes). EBML Schemas MAY contain additional attributes to extend the semantics but MUST NOT conflict with the definitions of the `<element>` attributes defined within this document.
 
 The `<element>` nodes contain a description of the meaning and use of the EBML Element stored within one or more `<documentation>` sub-elements, followed by optional `<implementation_note>` sub-elements, followed by zero or one `<restriction>` sub-element, followed by optional `<extension>` sub-elements. All `<element>` nodes MUST be sub-elements of the `<EBMLSchema>`.
 
