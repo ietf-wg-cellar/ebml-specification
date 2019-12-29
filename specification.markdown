@@ -355,7 +355,7 @@ The version attribute is REQUIRED within the `<EBMLSchema>` Element.
 
 Within an EBML Schema, the XPath of `@ebml` attribute is `/EBMLSchema/@ebml`.
 
-The ebml attribute is a non-negative integer that specifies the version of the EBML Header (see (#ebmlversion-element)) used by the EBML Schema. If the attribute is omitted, the EBML Header version is 1.
+The ebml attribute is a positive integer that specifies the version of the EBML Header (see (#ebmlversion-element)) used by the EBML Schema. If the attribute is omitted, the EBML Header version is 1.
 
 ### \<element> Element
   
