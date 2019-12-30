@@ -408,6 +408,7 @@ The EBMLAtomName part of the EBMLElementPath MUST be equal to the `@name` attrib
 The starting PathDelimiter of the path corresponds to the root of the EBML Document.
 
 In some cases the path contains an EBMLGlobalParent. A path with a EBMLGlobalParent defines a Global Element; see (#global-elements). Any path that starts with the EBMLParentPath of the Global Element and matches the occurrences found in the GlobalParentOccurence is a valid path for the Global Element. 
+If EBMLGlobalParent is not present then the Element is not a Global Element and only has one fixed EBMLParentPath.
 
 The GlobalParentOccurence part is interpreted as an ABNF Variable Repetition. The repetition amounts correspond to the amount of unspecified Parent Element levels there can be between the EBMLParentPath and the actual EBMLElementPath.
 
