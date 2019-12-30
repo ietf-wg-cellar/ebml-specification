@@ -386,10 +386,11 @@ The path defines the allowed storage locations of the EBML Element within an EBM
 The path attribute is REQUIRED.
 
 ```
-EBMLFullPath          = [EBMLParentPath] EBMLElementPath
+EBMLFullPath          = [EBMLParentPath] [EBMLGlobalParent] 
+                        EBMLElementPath
 EBMLParentPath        = [EBMLFixedParent] EBMLLastParent
 EBMLFixedParent       = *(EBMLElementPath)
-EBMLLastParent        = EBMLElementPath / EBMLGlobalParent
+EBMLLastParent        = EBMLElementPath
 EBMLElementPath       = EBMLPathAtom / EBMLPathAtomRecursive
 EBMLPathAtomRecursive = "(" EBMLPathAtom ")"
 EBMLPathAtom          = PathDelimiter EBMLAtomName
