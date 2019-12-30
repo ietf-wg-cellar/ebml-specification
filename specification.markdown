@@ -1016,7 +1016,7 @@ If a Master Element contains more occurrences of a Child Element than permitted 
 
 Null Octets, which are octets with all bits set to zero, MAY follow the value of a String Element or UTF-8 Element to serve as a terminator.
 An EBML Writer MAY terminate a String Element or UTF-8 Element with Null Octets in order to overwrite a stored value with a new value of lesser length while maintaining the same Element Data Size (this can prevent the need to rewrite large portions of an EBML Document); otherwise the use of Null Octets within a String Element or UTF-8 Element is NOT RECOMMENDED.
-A UTF-8 string with Null octets at the end MUST be a valid UTF-8 string. In other words a Null octet cannot be found inside a multi-octet UTF-8 codepoint.
+The Element Data of a UTF-8 Element MUST be a valid UTF-8 string up to whichever comes first: the end of the Element or the first occurring Null octet. Within the Element Data of a String or UTF-8 Element, any Null octet itself and any following data within that Element SHOULD be ignored.
 A string value and a copy of that string value terminated by one or more Null Octets are semantically equal.
 
 [@tableNullOctetSemantics] shows examples of semantics and validation for the use of Null Octets. Values to represent Stored Values and the Semantic Meaning as represented as hexadecimal values.
