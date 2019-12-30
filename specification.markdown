@@ -388,9 +388,8 @@ The path attribute is REQUIRED.
 ```
 EBMLFullPath          = [EBMLParentPath] [EBMLGlobalParent] 
                         EBMLElementPath
-EBMLParentPath        = [EBMLFixedParent] EBMLLastParent
+EBMLParentPath        = [EBMLFixedParent] EBMLElementPath
 EBMLFixedParent       = *(EBMLElementPath)
-EBMLLastParent        = EBMLElementPath
 EBMLElementPath       = EBMLPathAtom / EBMLPathAtomRecursive
 EBMLPathAtomRecursive = "(" EBMLPathAtom ")"
 EBMLPathAtom          = PathDelimiter EBMLAtomName
@@ -409,7 +408,7 @@ The EBMLAtomName part of the EBMLElementPath MUST be equal to the `@name` attrib
 
 The starting PathDelimiter of the path corresponds to the root of the EBML Document.
 
-In some cases the EBMLLastParent part of the path is an EBMLGlobalParent. A path with a EBMLGlobalParent defines a Global Element; see (#global-elements). Any path that starts with the EBMLFixedParent of the Global Element and matches the occurrences found in the GlobalParentOccurence is a valid path for the Global Element. 
+In some cases the path contains an EBMLGlobalParent. A path with a EBMLGlobalParent defines a Global Element; see (#global-elements). Any path that starts with the EBMLFixedParent of the Global Element and matches the occurrences found in the GlobalParentOccurence is a valid path for the Global Element. 
 
 The GlobalParentOccurence part is interpreted as an ABNF Variable Repetition. The repetition amounts correspond to the amount of unspecified Parent Element levels there can be between the EBMLFixedParent and the actual EBMLElementPath.
 
@@ -946,7 +945,7 @@ description: The version of the DocTypeExtension. Different DocTypeExtensionVers
 
 EBML allows some special Elements to be found within more than one parent in an EBML Document or optionally at the Root Level of an EBML Body. These Elements are called Global Elements. There are 2 Global Elements that can be found in any EBML Document: the CRC-32 Element and the Void Element. An EBML Schema MAY add other Global Elements to the format it defines. These extra elements apply only to the EBML Body, not the EBML Header.
 
-Global Elements are EBML Elements whose path have a EBMLGlobalParent as their EBMLLastParent. Because it is the last Parent part of the path, a Global Element might also have non-EBMLGlobalParent parts in its path. In this case the Global Element can only be found within this non-EBMLGlobalParent path, i.e. it's not fully "global".
+Global Elements are EBML Elements whose path have a EBMLGlobalParent. Because it is the last Parent part of the path, a Global Element might also have non-EBMLGlobalParent parts in its path. In this case the Global Element can only be found within this non-EBMLGlobalParent path, i.e. it's not fully "global".
 
 A Global Element can be found in many Parent Elements, allowing the same number of occurrences in each Parent where this Element is found.
 
