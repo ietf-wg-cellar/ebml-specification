@@ -387,7 +387,7 @@ The path attribute is REQUIRED.
 
 ```
 EBMLFullPath          = [EBMLParentPath] EBMLElementPath
-EBMLParentPath        = EBMLFixedParent EBMLLastParent
+EBMLParentPath        = [EBMLFixedParent] EBMLLastParent
 EBMLFixedParent       = *(EBMLPathAtom)
 EBMLElementPath       = EBMLPathAtom / EBMLPathAtomRecursive
 EBMLPathAtom          = PathDelimiter EBMLAtomName
