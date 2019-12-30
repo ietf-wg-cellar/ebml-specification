@@ -414,7 +414,7 @@ The GlobalParentOccurence part is interpreted as an ABNF Variable Repetition. Th
 
 PathMinOccurrence represents the minimum number of element path required between the EBMLParentPath and the Global Element EBMLElementPath. For example 0 means the EBMLElementPath can be right after the EBMLParentPath, 1 means there has to be at least an element between the EBMLParentPath and the EBMLElementPath. If PathMinOccurrence is not present then that EBML Element has an PathMinOccurrence value of 0.
 
-PathMaxOccurrence represents the maximum number of element path possible between the EBMLParentPath and the Global Element EBMLElementPath. It cannot have the value 0 as it would be the Global Element can only be found right after the EBMLParentPath, in which case it's not a Global Element anymore. If PathMaxOccurrence is not present then there is no upper bound for the permitted number of occurrences of element path possible between the EBMLParentPath and the Global Element EBMLElementPath.
+PathMaxOccurrence represents the maximum number of element path possible between the EBMLParentPath and the Global Element EBMLElementPath. It cannot have the value 0 as it would be the Global Element can only be found right after the EBMLParentPath, in which case it's not a Global Element anymore and EBMLGlobalParent MUST NOT be specified. If PathMaxOccurrence is not present then there is no upper bound for the permitted number of occurrences of element path possible between the EBMLParentPath and the Global Element EBMLElementPath.
 
 If the path contains an EBMLPathAtomRecursive part, the EBML Element can occur within itself recursively (see (#recursive)).
 
