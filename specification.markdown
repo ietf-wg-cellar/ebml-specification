@@ -407,6 +407,10 @@ The EBMLAtomName part of the EBMLElementPath MUST be equal to the `@name` attrib
 
 The starting PathDelimiter of the path corresponds to the root of the EBML Document.
 
+If the path contains an EBMLPathAtomRecursive part, the EBML Element can occur within itself recursively (see (#recursive)).
+
+The `@path` value MUST be unique within the EBML Schema. The `@id` value corresponding to this `@path` MUST NOT be defined for use within another EBML Element with the same EBMLParentPath as this `@path`.
+
 In some cases the path contains an EBMLGlobalParent. A path with a EBMLGlobalParent defines a Global Element; see (#global-elements). Any path that starts with the EBMLParentPath of the Global Element and matches the occurrences found in the GlobalParentOccurence is a valid path for the Global Element. 
 If EBMLGlobalParent is not present then the Element is not a Global Element and only has one fixed EBMLParentPath.
 
@@ -415,10 +419,6 @@ The GlobalParentOccurence part is interpreted as an ABNF Variable Repetition. Th
 PathMinOccurrence represents the minimum number of element path required between the EBMLParentPath and the Global Element EBMLElementPath. For example 0 means the EBMLElementPath can be right after the EBMLParentPath, 1 means there has to be at least an element between the EBMLParentPath and the EBMLElementPath. If PathMinOccurrence is not present then that EBML Element has a PathMinOccurrence value of 0.
 
 PathMaxOccurrence represents the maximum number of element path possible between the EBMLParentPath and the Global Element EBMLElementPath. It cannot have the value 0 as it would be the Global Element can only be found right after the EBMLParentPath, in which case it's not a Global Element anymore and EBMLGlobalParent MUST NOT be specified. If PathMaxOccurrence is not present then there is no upper bound for the permitted number of occurrences of element path possible between the EBMLParentPath and the Global Element EBMLElementPath.
-
-If the path contains an EBMLPathAtomRecursive part, the EBML Element can occur within itself recursively (see (#recursive)).
-
-The `@path` value MUST be unique within the EBML Schema. The `@id` value corresponding to this `@path` MUST NOT be defined for use within another EBML Element with the same EBMLParentPath as this `@path`.
 
 #### id
 
