@@ -418,7 +418,7 @@ If GlobalPlaceholder is not present then the Element is not a Global Element and
 Any path that starts with the EBMLParentPath of the Global Element and matches the occurrences found in the GlobalParentOccurence is a valid path for the Global Element.
 
 The GlobalParentOccurence part is interpreted as an ABNF Variable Repetition.
-The repetition amounts correspond to the amount of unspecified Parent Element levels there can be between the EBMLParentPath and the actual EBMLLastPath.
+The repetition amounts correspond to the amount of unspecified valid Elements there can be between the EBMLParentPath and the actual EBMLLastPath.
 
 PathMinOccurrence represents the minimum number of element path required between the EBMLParentPath and the EBMLLastPath. For example 0 means the EBMLLastPath can be right after the EBMLParentPath, 1 means there has to be at least an element between the EBMLParentPath and the EBMLLastPath. If PathMinOccurrence is not present then that GlobalPlaceholder has a PathMinOccurrence value of 0.
 
