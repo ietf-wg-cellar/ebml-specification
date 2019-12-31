@@ -388,9 +388,9 @@ The path attribute is REQUIRED.
 ```
 EBMLFullPath          = [EBMLParentPath] [GlobalPlaceholder] 
                         EBMLLastPath
-EBMLLastPath          = EBMLElementPath
-EBMLParentPath        = 1*(EBMLElementPath)
-EBMLElementPath       = EBMLPathAtom / EBMLPathAtomRecursive
+EBMLLastPath          = EBMLPathAtom / EBMLPathAtomRecursive
+EBMLParentPath        = 1*(IntermediatePathAtom)
+IntermediatePathAtom  = EBMLPathAtom / EBMLPathAtomRecursive
 EBMLPathAtomRecursive = "(" EBMLPathAtom ")"
 EBMLPathAtom          = PathDelimiter EBMLAtomName
 GlobalPlaceholder     = "(" GlobalParentOccurence "\)"
