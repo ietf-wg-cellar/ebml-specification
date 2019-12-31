@@ -412,10 +412,13 @@ If the EBMLLastPath is an EBMLPathAtomRecursive, the EBML Element can occur with
 
 The `@path` value MUST be unique within the EBML Schema. The `@id` value corresponding to this `@path` MUST NOT be defined for use within another EBML Element with the same EBMLParentPath as this `@path`.
 
-In some cases the path contains an GlobalPlaceholder. A path with a GlobalPlaceholder defines a Global Element; see (#global-elements). Any path that starts with the EBMLParentPath of the Global Element and matches the occurrences found in the GlobalParentOccurence is a valid path for the Global Element. 
+In some cases the path contains an GlobalPlaceholder.
+A path with a GlobalPlaceholder defines a Global Element; see (#global-elements).
 If GlobalPlaceholder is not present then the Element is not a Global Element and only has one fixed EBMLParentPath.
+Any path that starts with the EBMLParentPath of the Global Element and matches the occurrences found in the GlobalParentOccurence is a valid path for the Global Element.
 
-The GlobalParentOccurence part is interpreted as an ABNF Variable Repetition. The repetition amounts correspond to the amount of unspecified Parent Element levels there can be between the EBMLParentPath and the actual EBMLLastPath.
+The GlobalParentOccurence part is interpreted as an ABNF Variable Repetition.
+The repetition amounts correspond to the amount of unspecified Parent Element levels there can be between the EBMLParentPath and the actual EBMLLastPath.
 
 PathMinOccurrence represents the minimum number of element path required between the EBMLParentPath and the EBMLLastPath. For example 0 means the EBMLLastPath can be right after the EBMLParentPath, 1 means there has to be at least an element between the EBMLParentPath and the EBMLLastPath. If PathMinOccurrence is not present then that EBML Element has a PathMinOccurrence value of 0.
 
