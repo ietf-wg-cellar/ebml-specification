@@ -387,7 +387,8 @@ The path attribute is REQUIRED.
 
 ```
 EBMLFullPath          = [EBMLParentPath] [EBMLGlobalParent] 
-                        EBMLElementPath
+                        EBMLLastPath
+EBMLLastPath          = EBMLElementPath
 EBMLParentPath        = 1*(EBMLElementPath)
 EBMLElementPath       = EBMLPathAtom / EBMLPathAtomRecursive
 EBMLPathAtomRecursive = "(" EBMLPathAtom ")"
@@ -403,22 +404,22 @@ PathMaxOccurrence     = 1*DIGIT ; no upper limit
 
 The `*`, `(` and `)` symbols are interpreted as defined in [@!RFC5234].
 
-The EBMLAtomName part of the EBMLElementPath MUST be equal to the `@name` attribute of the EBML Schema.
+The EBMLAtomName part of the EBMLLastPath MUST be equal to the `@name` attribute of the EBML Schema.
 
 The starting PathDelimiter of the path corresponds to the root of the EBML Document.
 
-If the path contains an EBMLPathAtomRecursive part, the EBML Element can occur within itself recursively (see (#recursive)).
+If the EBMLLastPath is an EBMLPathAtomRecursive, the EBML Element can occur within itself recursively (see (#recursive)).
 
 The `@path` value MUST be unique within the EBML Schema. The `@id` value corresponding to this `@path` MUST NOT be defined for use within another EBML Element with the same EBMLParentPath as this `@path`.
 
 In some cases the path contains an EBMLGlobalParent. A path with a EBMLGlobalParent defines a Global Element; see (#global-elements). Any path that starts with the EBMLParentPath of the Global Element and matches the occurrences found in the GlobalParentOccurence is a valid path for the Global Element. 
 If EBMLGlobalParent is not present then the Element is not a Global Element and only has one fixed EBMLParentPath.
 
-The GlobalParentOccurence part is interpreted as an ABNF Variable Repetition. The repetition amounts correspond to the amount of unspecified Parent Element levels there can be between the EBMLParentPath and the actual EBMLElementPath.
+The GlobalParentOccurence part is interpreted as an ABNF Variable Repetition. The repetition amounts correspond to the amount of unspecified Parent Element levels there can be between the EBMLParentPath and the actual EBMLLastPath.
 
-PathMinOccurrence represents the minimum number of element path required between the EBMLParentPath and the Global Element EBMLElementPath. For example 0 means the EBMLElementPath can be right after the EBMLParentPath, 1 means there has to be at least an element between the EBMLParentPath and the EBMLElementPath. If PathMinOccurrence is not present then that EBML Element has a PathMinOccurrence value of 0.
+PathMinOccurrence represents the minimum number of element path required between the EBMLParentPath and the EBMLLastPath. For example 0 means the EBMLLastPath can be right after the EBMLParentPath, 1 means there has to be at least an element between the EBMLParentPath and the EBMLLastPath. If PathMinOccurrence is not present then that EBML Element has a PathMinOccurrence value of 0.
 
-PathMaxOccurrence represents the maximum number of element path possible between the EBMLParentPath and the Global Element EBMLElementPath. It cannot have the value 0 as it would be the Global Element can only be found right after the EBMLParentPath, in which case it's not a Global Element anymore and EBMLGlobalParent MUST NOT be specified. If PathMaxOccurrence is not present then there is no upper bound for the permitted number of occurrences of element path possible between the EBMLParentPath and the Global Element EBMLElementPath.
+PathMaxOccurrence represents the maximum number of element path possible between the EBMLParentPath and the EBMLLastPath. It cannot have the value 0 as it would be the Global Element can only be found right after the EBMLParentPath, in which case it's not a Global Element anymore and EBMLGlobalParent MUST NOT be specified. If PathMaxOccurrence is not present then there is no upper bound for the permitted number of occurrences of element path possible between the EBMLParentPath and the EBMLLastPath.
 
 #### id
 
@@ -525,7 +526,7 @@ Within an EBML Schema, the XPath of `@recursive` attribute is `/EBMLSchema/eleme
 
 A boolean to express if an EBML Element is permitted to be stored recursively. In this case the EBML Element MAY be stored within another EBML Element that has the same Element ID. Which itself can be stored in an EBML Element that has the same Element ID, and so on. EBML Elements that are not Master Elements MUST NOT set recursive to true.
 
-If the EBMLElementPath of the `@path` contains an EBMLPathAtomRecursive part then the recursive value MUST be true and false otherwise.
+If the EBMLLastPath of the `@path` contains an EBMLPathAtomRecursive part then the recursive value MUST be true and false otherwise.
 
 An EBML Element with the recursive attribute set to 1 MUST NOT have its unknownsizeallowed attribute set to 1.
 
