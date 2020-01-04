@@ -92,7 +92,7 @@ Element Name:   SignatureElementList
     Element Type:   Master-element
     Description:    A list consists of a number of consecutive elements
                     that represent one case where data is used in
-                    signature. Ex: <i>Cluster|Block|BlockAdditional</i>
+                    signature. Ex: Cluster|Block|BlockAdditional
                     means that the BlockAdditional of all Blocks in all
                     Clusters is used for encryption.
 
