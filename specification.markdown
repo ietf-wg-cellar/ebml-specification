@@ -1118,6 +1118,7 @@ An EBML Reader may discard some or all data if the following errors are found in
 - Missing EBML Elements that are mandatory in a Master Element and have no declared default value, making the semantic invalid at that Master Element level.
 - Usage of invalid UTF-8 encoding in EBML Elements of UTF-8 type (e.g. in order to trigger access-out-of-bounds or buffer overflow issues).
 - Usage of invalid data in EBML Elements with a date type, triggering bogus date accesses.
+- The CRC-32 Element (see (#crc-32-element)) of a Master Element doesn't match the rest of the content of that Master Element.
 
 Side channel attacks could exploit:
 
