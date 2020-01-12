@@ -389,12 +389,12 @@ The path attribute is REQUIRED.
 EBMLFullPath          = [EBMLParentPath] [GlobalPlaceholder] 
                         EBMLLastPath
 EBMLLastPath          = EBMLPathAtom / EBMLPathAtomRecursive
-EBMLParentPath        = 1*(IntermediatePathAtom)
+EBMLParentPath        = 1*IntermediatePathAtom
 IntermediatePathAtom  = EBMLPathAtom / EBMLPathAtomRecursive
 EBMLPathAtomRecursive = "(" EBMLPathAtom ")"
 EBMLPathAtom          = PathDelimiter EBMLAtomName
 GlobalPlaceholder     = "(" GlobalParentOccurence "\)"
-EBMLAtomName          = 1*(EBMLNameChar)
+EBMLAtomName          = 1*EBMLNameChar
 EBMLNameChar          = ALPHA / DIGIT / "-" / "."
 PathDelimiter         = "\"
 GlobalParentOccurence = [PathMinOccurrence] "*" [PathMaxOccurrence]
