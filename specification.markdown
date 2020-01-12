@@ -405,10 +405,9 @@ PathMaxOccurrence     = 1*DIGIT ; no upper limit
 The `*`, `(` and `)` symbols are interpreted as defined in [@!RFC5234].
 
 The EBMLAtomName part of the EBMLLastPath MUST be equal to the `@name` attribute of the EBML Schema.
+If the EBMLLastPath is an EBMLPathAtomRecursive, the EBML Element can occur within itself recursively (see (#recursive)).
 
 The starting PathDelimiter of the path corresponds to the root of the EBML Document.
-
-If the EBMLLastPath is an EBMLPathAtomRecursive, the EBML Element can occur within itself recursively (see (#recursive)).
 
 The `@path` value MUST be unique within the EBML Schema. The `@id` value corresponding to this `@path` MUST NOT be defined for use within another EBML Element with the same EBMLParentPath as this `@path`.
 
