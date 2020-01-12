@@ -2,32 +2,32 @@
 <EBMLSchema xmlns="https://ietf.org/cellar/ebml"
   docType="files-in-ebml-demo" version="1">
  <!-- constraints to the range of two EBML Header Elements -->
- <element name="EBMLReadVersion" path="1*1(\EBML\EBMLReadVersion)"
+ <element name="EBMLReadVersion" path="\EBML\EBMLReadVersion"
    id="0x42F7" minOccurs="1" maxOccurs="1" range="1" default="1"
    type="uinteger"/>
  <element name="EBMLMaxSizeLength"
-   path="1*1(\EBML\EBMLMaxSizeLength)" id="0x42F3" minOccurs="1"
+   path="\EBML\EBMLMaxSizeLength" id="0x42F3" minOccurs="1"
    maxOccurs="1" range="8" default="8" type="uinteger"/>
  <!-- Root Element-->
- <element name="Files" path="*1(\Files)" id="0x1946696C"
+ <element name="Files" path="\Files" id="0x1946696C"
    type="master">
   <documentation lang="en" purpose="definition">Container of data and
   attributes representing one or many files.</documentation>
  </element>
- <element name="File" path="1*(\Files\File)" id="0x6146"
+ <element name="File" path="\Files\File" id="0x6146"
    type="master" minOccurs="1">
   <documentation lang="en" purpose="definition">
     An attached file.
   </documentation>
  </element>
- <element name="FileName" path="1*1(\Files\File\FileName)"
+ <element name="FileName" path="\Files\File\FileName"
    id="0x614E" type="utf-8"
    minOccurs="1">
   <documentation lang="en" purpose="definition">
     Filename of the attached file.
   </documentation>
  </element>
- <element name="MimeType" path="1*1(\Files\File\MimeType)"
+ <element name="MimeType" path="\Files\File\MimeType"
    id="0x464D" type="string"
      minOccurs="1">
   <documentation lang="en" purpose="definition">
@@ -35,13 +35,13 @@
   </documentation>
  </element>
  <element name="ModificationTimestamp"
-   path="1*1(\Files\File\ModificationTimestamp)" id="0x4654"
+   path="\Files\File\ModificationTimestamp" id="0x4654"
    type="date" minOccurs="1">
   <documentation lang="en" purpose="definition">
     Modification timestamp of the file.
   </documentation>
  </element>
- <element name="Data" path="1*1(\Files\File\Data)" id="0x4664" 
+ <element name="Data" path="\Files\File\Data" id="0x4664" 
    type="binary" minOccurs="1">
   <documentation lang="en" purpose="definition">
     The data of the file.
