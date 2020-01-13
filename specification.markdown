@@ -528,7 +528,7 @@ Within an EBML Schema, the XPath of `@recursive` attribute is `/EBMLSchema/eleme
 
 A boolean to express if an EBML Element is permitted to be stored recursively. In this case the EBML Element MAY be stored within another EBML Element that has the same Element ID. Which itself can be stored in an EBML Element that has the same Element ID, and so on. EBML Elements that are not Master Elements MUST NOT set recursive to true.
 
-If the EBMLLastPath of the `@path` contains an EBMLPathAtomRecursive part then the recursive value MUST be true and false otherwise.
+If the EBMLLastPath of the `@path` contains an EBMLPathAtomRecursive part then the recursive attribute MUST be true or otherwise false.
 
 An EBML Element with the recursive attribute set to 1 MUST NOT have its unknownsizeallowed attribute set to 1.
 
