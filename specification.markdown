@@ -411,7 +411,7 @@ The starting PathDelimiter of the path corresponds to the root of the EBML Docum
 
 The `@path` value MUST be unique within the EBML Schema. The `@id` value corresponding to this `@path` MUST NOT be defined for use within another EBML Element with the same EBMLParentPath as this `@path`.
 
-In some cases the path contains an GlobalPlaceholder.
+In some cases the path contains a GlobalPlaceholder.
 A path with a GlobalPlaceholder defines a Global Element; see (#global-elements).
 If GlobalPlaceholder is not present then the Element is not a Global Element and only has one fixed EBMLParentPath.
 Any path that starts with the EBMLParentPath of the Global Element and matches the occurrences found in the GlobalParentOccurence is a valid path for the Global Element.
