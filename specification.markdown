@@ -421,11 +421,19 @@ The repetition amounts correspond to the amount of unspecified valid Elements th
 
 PathMinOccurrence represents the minimum number of path elements required between the EBMLParentPath and the EBMLLastPath.
 If PathMinOccurrence is not present then that GlobalPlaceholder has a PathMinOccurrence value of 0.
-For example 0 means the EBMLLastPath can be right after the EBMLParentPath, 1 means there has to be at least an element between the EBMLParentPath and the EBMLLastPath. 
+
+For example consider an EBML Path `\a(1*\)\global` there has to be at least one path element between the EBMLParentPath `\a` and the EBMLLastPath `\global`.
+So the `global` EBML Element cannot be found inside the `\a` EBML Element as it means the resulting path `\a\global` has zero path element between the EBMLParentPath `\a` and the EBMLLastPath `\global`.
+But the `global` EBML Element can be found inside the `\a\b` EBML Element, or inside the `\a\b\c` EBML Element, or inside the `\a\b\c\d` EBML Element, etc.
 
 PathMaxOccurrence represents the maximum number of path elements possible between the EBMLParentPath and the EBMLLastPath.
 If PathMaxOccurrence is not present then there is no upper bound for the permitted number of occurrences of path elements possible between the EBMLParentPath and the EBMLLastPath.
 PathMaxOccurrence cannot have the value 0 as it would mean the EBMLLastPath can only be found right after the EBMLParentPath, in which case it's not a Global Element anymore and a GlobalPlaceholder MUST NOT be used. 
+
+For example consider an EBML Path `\a(0*1\)\global`, there has to be at most one path element between the EBMLParentPath `\a` and the EBMLLastPath `\global`.
+So the `global` EBML Element can be found inside the `\a` EBML Element or inside the `\a\b` EBML Element.
+But it cannot be found inside the `\a\b\c` EBML Element as the resulting path `\a\b\c\global` has two path elements between the EBMLParentPath `\a` and the EBMLLastPath `\global`.
+
 
 #### id
 
