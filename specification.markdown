@@ -419,9 +419,13 @@ Any path that starts with the EBMLParentPath of the Global Element and matches t
 The GlobalParentOccurence part is interpreted as an ABNF Variable Repetition.
 The repetition amounts correspond to the amount of unspecified valid Elements that can be found in place of the GlobalPlaceholder for the path to be valid.
 
-PathMinOccurrence represents the minimum number of path elements required between the EBMLParentPath and the EBMLLastPath. For example 0 means the EBMLLastPath can be right after the EBMLParentPath, 1 means there has to be at least an element between the EBMLParentPath and the EBMLLastPath. If PathMinOccurrence is not present then that GlobalPlaceholder has a PathMinOccurrence value of 0.
+PathMinOccurrence represents the minimum number of path elements required between the EBMLParentPath and the EBMLLastPath.
+If PathMinOccurrence is not present then that GlobalPlaceholder has a PathMinOccurrence value of 0.
+For example 0 means the EBMLLastPath can be right after the EBMLParentPath, 1 means there has to be at least an element between the EBMLParentPath and the EBMLLastPath. 
 
-PathMaxOccurrence represents the maximum number of path elements possible between the EBMLParentPath and the EBMLLastPath. It cannot have the value 0 as it would mean the EBMLLastPath can only be found right after the EBMLParentPath, in which case it's not a Global Element anymore and a GlobalPlaceholder MUST NOT be used. If PathMaxOccurrence is not present then there is no upper bound for the permitted number of occurrences of path elements possible between the EBMLParentPath and the EBMLLastPath.
+PathMaxOccurrence represents the maximum number of path elements possible between the EBMLParentPath and the EBMLLastPath.
+If PathMaxOccurrence is not present then there is no upper bound for the permitted number of occurrences of path elements possible between the EBMLParentPath and the EBMLLastPath.
+PathMaxOccurrence cannot have the value 0 as it would mean the EBMLLastPath can only be found right after the EBMLParentPath, in which case it's not a Global Element anymore and a GlobalPlaceholder MUST NOT be used. 
 
 #### id
 
