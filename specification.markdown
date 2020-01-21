@@ -386,10 +386,10 @@ The path defines the allowed storage locations of the EBML Element within an EBM
 The path attribute is REQUIRED.
 
 ```
-EBMLFullPath          = [EBMLParentPath] [GlobalPlaceholder] 
+EBMLFullPath          = EBMLParentPath [GlobalPlaceholder]
                         EBMLLastPath
 EBMLLastPath          = EBMLPathAtom / EBMLPathAtomRecursive
-EBMLParentPath        = 1*IntermediatePathAtom
+EBMLParentPath        = PathDelimiter / 1*IntermediatePathAtom
 IntermediatePathAtom  = EBMLPathAtom / EBMLPathAtomRecursive
 EBMLPathAtomRecursive = "(" EBMLPathAtom ")"
 EBMLPathAtom          = PathDelimiter EBMLAtomName
@@ -407,7 +407,7 @@ The `*`, `(` and `)` symbols are interpreted as defined in [@!RFC5234].
 The EBMLAtomName part of the EBMLLastPath MUST be equal to the `@name` attribute of the EBML Schema.
 If the EBMLLastPath is an EBMLPathAtomRecursive, the EBML Element can occur within itself recursively (see (#recursive)).
 
-The starting PathDelimiter of the path corresponds to the root of the EBML Document.
+The starting PathDelimiter of EBMLParentPath corresponds to the root of the EBML Document.
 
 The `@path` value MUST be unique within the EBML Schema. The `@id` value corresponding to this `@path` MUST NOT be defined for use within another EBML Element with the same EBMLParentPath as this `@path`.
 
@@ -968,7 +968,7 @@ A Global Element can be found in many Parent Elements, allowing the same number 
 
 name: CRC-32
 
-path: `(1*\)\CRC-32`
+path: `\(1*\)\CRC-32`
 
 id: 0xBF
 
@@ -986,7 +986,7 @@ description: The CRC-32 Element contains a 32-bit Cyclic Redundancy Check value 
 
 name: Void
 
-path: `(*\)\Void`
+path: `\(*\)\Void`
 
 id: 0xEC
 
