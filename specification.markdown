@@ -388,15 +388,20 @@ The path attribute is REQUIRED.
 ```
 EBMLFullPath          = EBMLParentPath [GlobalPlaceholder]
                         EBMLLastPath
-EBMLLastPath          = EBMLPathAtom / EBMLPathAtomRecursive
+
 EBMLParentPath        = PathDelimiter / 1*IntermediatePathAtom
-IntermediatePathAtom  = EBMLPathAtom / EBMLPathAtomRecursive
-EBMLPathAtomRecursive = "(" EBMLPathAtom ")"
+
+IntermediatePathAtom  = EBMLPathAtomRecursive / EBMLPathAtom
+EBMLLastPath          = EBMLPathAtomRecursive / EBMLPathAtom
+
 EBMLPathAtom          = PathDelimiter EBMLAtomName
-GlobalPlaceholder     = "(" GlobalParentOccurence "\)"
+EBMLPathAtomRecursive = "(" EBMLPathAtom ")"
+
+PathDelimiter         = "\"
 EBMLAtomName          = ALPHA / DIGIT 0*EBMLNameChar
 EBMLNameChar          = ALPHA / DIGIT / "-" / "."
-PathDelimiter         = "\"
+
+GlobalPlaceholder     = "(" GlobalParentOccurence "\)"
 GlobalParentOccurence = [PathMinOccurrence] "*" [PathMaxOccurrence]
 PathMinOccurrence     = 1*DIGIT ; no upper limit
 PathMaxOccurrence     = 1*DIGIT ; no upper limit
