@@ -403,7 +403,7 @@ EBMLAtomName          = ALPHA / DIGIT 0*EBMLNameChar
 EBMLNameChar          = ALPHA / DIGIT / "-" / "."
 
 GlobalPlaceholder     = "(" GlobalParentOccurence "\)"
-GlobalParentOccurence = [PathMinOccurrence] "-" [PathMaxOccurrence]
+GlobalParentOccurence = [PathMinOccurrence] "*" [PathMaxOccurrence]
 PathMinOccurrence     = 1*DIGIT ; no upper limit
 PathMaxOccurrence     = 1*DIGIT ; no upper limit
 ```
@@ -428,15 +428,15 @@ If PathMinOccurrence is not present then that GlobalParentOccurence has a PathMi
 If PathMaxOccurrence is not present then there is no upper bound for the permitted amount of EBMLPathAtom possible to replace the GlobalPlaceholder.
 PathMaxOccurrence MUST NOT have the value 0 as it would mean no EBMLPathAtom can replace the GlobalPlaceholder and the EBMLFullPath would be the same without that GlobalPlaceholder part.
 
-For example in `\a\(0-1\)global`, the Element path `\a\x\global` corresponds to an EBMLPathAtom occurence of 1. The Element `\a\x\y\global` corresponds to an EBMLPathAtom occurence of 2, etc.
+For example in `\a\(0*1\)global`, the Element path `\a\x\global` corresponds to an EBMLPathAtom occurence of 1. The Element `\a\x\y\global` corresponds to an EBMLPathAtom occurence of 2, etc.
 In those case `\a\x` or `\a\x\y` MUST be valid pathes to be able to contain the element `global`.
 
-Consider another EBML Path `\a\(1-\)global`. There has to be at least one EBMLPathAtom between the `\a\` part and `global`.
+Consider another EBML Path `\a\(1*\)global`. There has to be at least one EBMLPathAtom between the `\a\` part and `global`.
 So the `global` EBML Element cannot be found inside the `\a` EBML Element as it means the resulting path `\a\global` has no EBMLPathAtom between the `\a\` and `global`.
 But the `global` EBML Element can be found inside the `\a\b` EBML Element as the resulting path `\a\b\global` has one EBMLPathAtom between the `\a\` and `global`.
 Or it can be found inside the `\a\b\c` EBML Element (two EBMLPathAtom), or inside the `\a\b\c\d` EBML Element (three EBMLPathAtom), etc.
 
-Consider another EBML Path `\a\(0-1\)global`. There has to be at most one EBMLPathAtom between the `\a\` part and `global`.
+Consider another EBML Path `\a\(0*1\)global`. There has to be at most one EBMLPathAtom between the `\a\` part and `global`.
 So the `global` EBML Element can be found inside the `\a` EBML Element (0 EBMLPathAtom replacing GlobalPlaceholder) or inside the `\a\b` EBML Element (one replacement EBMLPathAtom).
 But it cannot be found inside the `\a\b\c` EBML Element as the resulting path `\a\b\c\global` has two EBMLPathAtom between `\a\` and `global`.
 
