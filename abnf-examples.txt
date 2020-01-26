@@ -1,0 +1,88 @@
+# basic element
+\a
+EBMLParents           : 
+EBMLElementName       : a
+
+# basic element
+\a\b
+EBMLParents           : a\
+IntermediatePathAtomA : a\
+EBMLElementName       : b
+
+# global element found at \a\global, \a\x\global, \a\x\y\global, etc
+\a\(*\)global
+EBMLParents           : a\(*\)
+IntermediatePathAtomA : a\
+IntermediatePathAtomB : (*\)
+EBMLElementName       : global
+
+
+# element inside the global element matching \a\global\b, \a\x\global\b, \a\x\y\global\b, etc
+\a\(*\)global\b
+EBMLParents           : a\(*\)global\
+IntermediatePathAtomA : a\
+IntermediatePathAtomB : (*\)
+IntermediatePathAtomC : global\
+EBMLElementName       : b
+
+
+# global element found at \global, \x\global, etc
+\(*\)global
+EBMLParents           : (*\)
+IntermediatePathAtomA : (*\)
+EBMLElementName       : global
+
+
+# global element found at \x\global, \x\y\global, etc
+\(1*\)global
+EBMLParents           : (1*\)
+IntermediatePathAtomA : (1*\)
+EBMLElementName       : global
+
+
+
+# at least \ before Void
+\(*\)Void
+EBMLParents           : (*\)
+IntermediatePathAtomA : (*\)
+EBMLElementName       : Void
+
+
+# at least an extra \ before CRC-32 (\any_master\CRC-32)
+\(1*\)CRC-32
+EBMLParents           : (1*\)
+IntermediatePathAtomA : (1*\)
+EBMLElementName       : CRC-32
+
+
+# recursive element matching \a\recursive, \a\recursive\recursive, etc
+\a\+recursive
+EBMLParents           : a\
+IntermediatePathAtomA : a\
+EBMLElementName       : recursive
+
+
+# element in recursive matching \a\recursive\b, \a\recursive\recursive\b, etc
+\a\+recursive\b
+EBMLParents           : a\+recursive\
+IntermediatePathAtomA : a\
+IntermediatePathAtomB : +recursive\
+EBMLElementName       : b
+
+
+# global recursive element matching \a\recursive, \a\recursive\recursive, \a\x\recursive, \a\x\recursive\recursive, etc
+\a\(*\)+recursive
+EBMLParents           : a\(*\)
+IntermediatePathAtomA : a\
+IntermediatePathAtomB : (*\)
+EBMLElementName       : recursive
+
+
+# element in global recursive matching \a\recursive\b, \a\recursive\recursive\b, \a\x\recursive\b, \a\x\recursive\recursive\b, etc
+\a\(*\)+recursive\b
+EBMLParents           : a\(*\)+recursive\
+IntermediatePathAtomA : a\
+IntermediatePathAtomB : (*\)
+IntermediatePathAtomC : +recursive\
+EBMLElementName       : b
+
