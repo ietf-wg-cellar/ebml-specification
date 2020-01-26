@@ -975,7 +975,7 @@ A Global Element can be found in many Parent Elements, allowing the same number 
 
 name: CRC-32
 
-path: `\(-\)CRC-32`
+path: `\(1-\)CRC-32`
 
 id: 0xBF
 
