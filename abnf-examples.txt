@@ -86,3 +86,20 @@ IntermediatePathAtomB : (*\)
 IntermediatePathAtomC : +recursive\
 EBMLElementName       : b
 
+
+
+# parent Matroska global element to old custom hashes
+\Segment\(*\)MKVHash
+EBMLParents           : \Segment\(*\)
+IntermediatePathAtomA : Segment\
+IntermediatePathAtomB : (*\)
+EBMLElementName       : MKVHash
+
+# Matroska has type that can be used anywhere withing a MKVHash
+\Segment\(*\)MKVHash\HashType
+EBMLParents           : \Segment\(*\)MKVHash\
+IntermediatePathAtomA : Segment\
+IntermediatePathAtomB : (*\)
+IntermediatePathAtomC : MKVHash\
+EBMLElementName       : HashType
+
