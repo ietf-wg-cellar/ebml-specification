@@ -386,22 +386,23 @@ The path defines the allowed storage locations of the EBML Element within an EBM
 The path attribute is REQUIRED.
 
 ```
-EBMLFullPath          = EBMLParentPath [GlobalPlaceholder]
-                        EBMLLastPath
+EBMLFullPath          = EBMLParentPath EBMLElement
 
-EBMLParentPath        = PathDelimiter / 1*IntermediatePathAtom
+EBMLParentPath        = PathDelimiter [EBMLParents]
 
+EBMLParents           = 0*IntermediatePathAtom EBMLLastPath
 IntermediatePathAtom  = EBMLPathAtomRecursive / EBMLPathAtom
 EBMLLastPath          = EBMLPathAtomRecursive / EBMLPathAtom
 
-EBMLPathAtom          = PathDelimiter EBMLAtomName
-EBMLPathAtomRecursive = "(" EBMLPathAtom ")"
+EBMLPathAtom          = [IsRecursive] EBMLAtomName PathDelimiter
+EBMLElement           = [IsRecursive] EBMLAtomName
 
 PathDelimiter         = "\"
+IsRecursive           = "+"
 EBMLAtomName          = ALPHA / DIGIT 0*EBMLNameChar
 EBMLNameChar          = ALPHA / DIGIT / "-" / "."
 
-GlobalPlaceholder     = "(" GlobalParentOccurence "\)"
+EBMLPathAtomRecursive = "(" GlobalParentOccurence "\)"
 GlobalParentOccurence = [PathMinOccurrence] "*" [PathMaxOccurrence]
 PathMinOccurrence     = 1*DIGIT ; no upper limit
 PathMaxOccurrence     = 1*DIGIT ; no upper limit
@@ -409,35 +410,38 @@ PathMaxOccurrence     = 1*DIGIT ; no upper limit
 
 The `*`, `(` and `)` symbols are interpreted as defined in [@!RFC5234].
 
-The EBMLAtomName part of the EBMLLastPath MUST be equal to the `@name` attribute of the EBML Schema.
-If the EBMLLastPath is an EBMLPathAtomRecursive, the EBML Element can occur within itself recursively (see (#recursive)).
+The EBMLAtomName of the EBMLElement part MUST be equal to the `@name` attribute of the EBML Schema.
+If the EBMLElement part contains an IsRecursive part, the EBML Element can occur within itself recursively (see (#recursive)).
 
 The starting PathDelimiter of EBMLParentPath corresponds to the root of the EBML Document.
 
 The `@path` value MUST be unique within the EBML Schema. The `@id` value corresponding to this `@path` MUST NOT be defined for use within another EBML Element with the same EBMLParentPath as this `@path`.
 
-In some cases the path contains a GlobalPlaceholder.
-A path with a GlobalPlaceholder defines a Global Element; see (#global-elements).
-If GlobalPlaceholder is not present then the Element is not a Global Element and only has one fixed EBMLParentPath.
-Any path that starts with the EBMLParentPath of the Global Element and matches the occurrences found in the GlobalParentOccurence is a valid path for the Global Element.
+A path with a EBMLPathAtomRecursive as the EBMLLastPath defines a Global Element; see (#global-elements).
+If the element has no EBMLLastPath part or the EBMLLastPath part is not a EBMLPathAtomRecursive then the Element is not a Global Element.
 
 The GlobalParentOccurence part is interpreted as an ABNF Variable Repetition.
-The repetition amounts correspond to the amount of unspecified valid Elements that can be found in place of the GlobalPlaceholder for the path to be valid.
+The repetition amounts correspond to the amount of unspecified valid Elements that can be found in place of the EBMLPathAtomRecursive for the path to be valid.
+<!-- not precise enough when the global part is not the EBMLLastPath
+Any path that starts with valid EBMLParentPath of the Global Element and matches the occurrences found in the GlobalParentOccurence is a valid path for the Global Element. -->
 
-PathMinOccurrence represents the minimum number of path elements required between the EBMLParentPath and the EBMLLastPath.
-If PathMinOccurrence is not present then that GlobalPlaceholder has a PathMinOccurrence value of 0.
+<!-- TODO base on the path before and the element after
+PathMinOccurrence represents the minimum number of path elements required between the EBMLParentPath and the EBMLLastPath. -->
+If PathMinOccurrence is not present then that EBMLPathAtomRecursive has a PathMinOccurrence value of 0.
 
-For example consider an EBML Path `\a(1*\)\global` there has to be at least one path element between the EBMLParentPath `\a` and the EBMLLastPath `\global`.
-So the `global` EBML Element cannot be found inside the `\a` EBML Element as it means the resulting path `\a\global` has zero path element between the EBMLParentPath `\a` and the EBMLLastPath `\global`.
+<!-- TODO base on the path before and the element after
+For example consider an EBML Path `\a\(1*\)global` there has to be at least one path element between the EBMLParentPath `\a\` and the EBMLItem `global`.
+So the `global` EBML Element cannot be found inside the `\a` EBML Element as it means the resulting path `\a\global` has zero path element between the EBMLParentPath `\a\` and the EBMLItem `global`. -->
 But the `global` EBML Element can be found inside the `\a\b` EBML Element, or inside the `\a\b\c` EBML Element, or inside the `\a\b\c\d` EBML Element, etc.
 
+<!-- TODO base on the path before and the element after
 PathMaxOccurrence represents the maximum number of path elements possible between the EBMLParentPath and the EBMLLastPath.
 If PathMaxOccurrence is not present then there is no upper bound for the permitted number of occurrences of path elements possible between the EBMLParentPath and the EBMLLastPath.
-PathMaxOccurrence cannot have the value 0 as it would mean the EBMLLastPath can only be found right after the EBMLParentPath, in which case it's not a Global Element anymore and a GlobalPlaceholder MUST NOT be used. 
+PathMaxOccurrence cannot have the value 0 as it would mean the EBMLLastPath can only be found right after the EBMLParentPath, in which case it's not a Global Element anymore and a EBMLPathAtomRecursive MUST NOT be used.  -->
 
-For example consider an EBML Path `\a(0*1\)\global`, there has to be at most one path element between the EBMLParentPath `\a` and the EBMLLastPath `\global`.
+For example consider an EBML Path `\a\(0*1\)global`, there has to be at most one path element between the EBMLParentPath `\a\` and the EBMLItem `global`.
 So the `global` EBML Element can be found inside the `\a` EBML Element or inside the `\a\b` EBML Element.
-But it cannot be found inside the `\a\b\c` EBML Element as the resulting path `\a\b\c\global` has two path elements between the EBMLParentPath `\a` and the EBMLLastPath `\global`.
+But it cannot be found inside the `\a\b\c` EBML Element as the resulting path `\a\b\c\global` has two path elements between the EBMLParentPath `\a\` and the EBMLItem `global`.
 
 
 #### id
@@ -545,7 +549,7 @@ Within an EBML Schema, the XPath of `@recursive` attribute is `/EBMLSchema/eleme
 
 A boolean to express if an EBML Element is permitted to be stored recursively. In this case the EBML Element MAY be stored within another EBML Element that has the same Element ID. Which itself can be stored in an EBML Element that has the same Element ID, and so on. EBML Elements that are not Master Elements MUST NOT set recursive to true.
 
-If the EBMLLastPath of the `@path` contains an EBMLPathAtomRecursive part then the recursive attribute MUST be true or otherwise false.
+If the EBMLElement part of the `@path` contains an IsRecursive part then the recursive value MUST be true and false otherwise.
 
 An EBML Element with the recursive attribute set to 1 MUST NOT have its unknownsizeallowed attribute set to 1.
 
@@ -965,7 +969,7 @@ description: The version of the DocTypeExtension. Different DocTypeExtensionVers
 
 EBML allows some special Elements to be found within more than one parent in an EBML Document or optionally at the Root Level of an EBML Body. These Elements are called Global Elements. There are 2 Global Elements that can be found in any EBML Document: the CRC-32 Element and the Void Element. An EBML Schema MAY add other Global Elements to the format it defines. These extra elements apply only to the EBML Body, not the EBML Header.
 
-Global Elements are EBML Elements whose path have a GlobalPlaceholder. Because it is the last Parent part of the path, a Global Element might also have an EBMLParentPath parts in its path. In this case the Global Element can only be found within this EBMLParentPath path, i.e. it's not fully "global".
+Global Elements are EBML Elements whose path have a EBMLPathAtomRecursive. Because it is the last Parent part of the path, a Global Element might also have an EBMLParentPath parts in its path. In this case the Global Element can only be found within this EBMLParentPath path, i.e. it's not fully "global".
 
 A Global Element can be found in many Parent Elements, allowing the same number of occurrences in each Parent where this Element is found.
 
@@ -973,7 +977,7 @@ A Global Element can be found in many Parent Elements, allowing the same number 
 
 name: CRC-32
 
-path: `\(1*\)\CRC-32`
+path: `\(*\)CRC-32`
 
 id: 0xBF
 
@@ -991,7 +995,7 @@ description: The CRC-32 Element contains a 32-bit Cyclic Redundancy Check value 
 
 name: Void
 
-path: `\(*\)\Void`
+path: `\(*\)Void`
 
 id: 0xEC
 
