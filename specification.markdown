@@ -427,6 +427,7 @@ PathMaxOccurrence represents the maximum amount of EBMLPathAtom possible to repl
 If PathMinOccurrence is not present then that GlobalParentOccurence has a PathMinOccurrence value of 0.
 If PathMaxOccurrence is not present then there is no upper bound for the permitted amount of EBMLPathAtom possible to replace the GlobalPlaceholder.
 PathMaxOccurrence MUST NOT have the value 0 as it would mean no EBMLPathAtom can replace the GlobalPlaceholder and the EBMLFullPath would be the same without that GlobalPlaceholder part.
+PathMaxOccurrence MUST be bigger or equal to PathMinOccurrence.
 
 For example in `\a\(0*1\)global`, the Element path `\a\x\global` corresponds to an EBMLPathAtom occurence of 1. The Element `\a\x\y\global` corresponds to an EBMLPathAtom occurence of 2, etc.
 In those case `\a\x` or `\a\x\y` MUST be valid pathes to be able to contain the element `global`.
