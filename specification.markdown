@@ -966,7 +966,7 @@ description: The version of the DocTypeExtension. Different DocTypeExtensionVers
 
 EBML allows some special Elements to be found within more than one parent in an EBML Document or optionally at the Root Level of an EBML Body. These Elements are called Global Elements. There are 2 Global Elements that can be found in any EBML Document: the CRC-32 Element and the Void Element. An EBML Schema MAY add other Global Elements to the format it defines. These extra elements apply only to the EBML Body, not the EBML Header.
 
-Global Elements are EBML Elements whose path have a GlobalPlaceholder. Because it is the last Parent part of the path, a Global Element might also have an EBMLParentPath parts in its path. In this case the Global Element can only be found within this EBMLParentPath path, i.e. it's not fully "global".
+Global Elements are EBML Elements whose EBMLLastParent part of the path has a GlobalPlaceholder. Because it is the last Parent part of the path, a Global Element might also have an EBMLParentPath parts in its path. In this case the Global Element can only be found within this EBMLParentPath path, i.e. it's not fully "global".
 
 A Global Element can be found in many Parent Elements, allowing the same number of occurrences in each Parent where this Element is found.
 
