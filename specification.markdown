@@ -931,7 +931,7 @@ description: A DocTypeExtension adds extra Elements to the main DocType+DocTypeV
 
 name: DocTypeExtensionName
 
-path: `\EBML\DocTypeExtension\Name`
+path: `\EBML\DocTypeExtension\DocTypeExtensionName`
 
 id 0x4283
 
@@ -949,7 +949,7 @@ description: The name of the DocTypeExtension to differentiate it from other Doc
 
 name: DocTypeExtensionVersion
 
-path: `\EBML\DocTypeExtension\Version`
+path: `\EBML\DocTypeExtension\DocTypeExtensionVersion`
 
 id 0x4284
 
