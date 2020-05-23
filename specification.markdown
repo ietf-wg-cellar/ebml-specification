@@ -696,6 +696,14 @@ The value represents data that MAY be stored within the EBML Element.
 
 The value attribute is REQUIRED.
 
+#### definition
+
+Within an EBML Schema, the XPath of `@label` attribute is `/EBMLSchema/element/restriction/enum/@definition`.
+
+The definition provides a human readable explanation of the value of the `<enum>` with more information than the concise label attribute.
+
+The label attribute is OPTIONAL.
+
 ### \<extension> Element
 
 Within an EBML Schema, the XPath of `<extension>` attribute is `/EBMLSchema/element/extension`.

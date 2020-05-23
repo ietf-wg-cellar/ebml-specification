@@ -130,6 +130,7 @@
     </xs:sequence>
     <xs:attribute name="label"/>
     <xs:attribute name="value" use="required"/>
+    <xs:attribute name="definition"/>
   </xs:complexType>
 
   <xs:complexType name="documentationType" mixed="true">
