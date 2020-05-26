@@ -579,9 +579,9 @@ The maxver attribute is OPTIONAL. If the maxver attribute is not present then th
 
 ### \<documentation> Element
 
-Within an EBML Schema, the XPath of `<documentation>` element is `/EBMLSchema/element/documentation`.
+Within an EBML Schema, the XPath of `<documentation>` element are `/EBMLSchema/element/documentation` and `/EBMLSchema/element/restriction/enum/documentation`.
 
-The `<documentation>` element provides additional information about the EBML Element. Within the `<documentation>` element the following XHTML [@!W3C.SPSD-xhtml-basic-20180327] elements MAY be used: `<a>`, `<br>`, `<strong>`.
+The `<documentation>` element provides additional information about EBML Elements or enumeration values. Within the `<documentation>` element the following XHTML [@!W3C.SPSD-xhtml-basic-20180327] elements MAY be used: `<a>`, `<br>`, `<strong>`.
 
 ### \<documentation> Attributes
 
