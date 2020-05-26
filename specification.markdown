@@ -579,7 +579,7 @@ The maxver attribute is OPTIONAL. If the maxver attribute is not present then th
 
 ### \<documentation> Element
 
-Within an EBML Schema, the XPath of `<documentation>` attribute is `/EBMLSchema/element/documentation`.
+Within an EBML Schema, the XPath of `<documentation>` element is `/EBMLSchema/element/documentation`.
 
 The `<documentation>` element provides additional information about the EBML Element. Within the `<documentation>` element the following XHTML [@!W3C.SPSD-xhtml-basic-20180327] elements MAY be used: `<a>`, `<br>`, `<strong>`.
 
@@ -611,7 +611,7 @@ The purpose attribute is REQUIRED.
 
 ### \<implementation_note> Element
 
-Within an EBML Schema, the XPath of `<implementation_note>` attribute is `/EBMLSchema/element/implementation_note`.
+Within an EBML Schema, the XPath of `<implementation_note>` element is `/EBMLSchema/element/implementation_note`.
 
 In some cases within an EBML Document Type, the attributes of the `<element>` element are not sufficient to clearly communicate how the defined EBML Element is intended to be implemented.
 For instance, one EBML Element might only be mandatory if another EBML Element is present, or as another example, the default value of an EBML Element might derive from a related Element's content.
@@ -668,13 +668,13 @@ The following fragment of an EBML Schema demonstrates how an `<implementation_no
 
 ### \<restriction> Element
 
-Within an EBML Schema, the XPath of `<restriction>` attribute is `/EBMLSchema/element/restriction`.
+Within an EBML Schema, the XPath of `<restriction>` element is `/EBMLSchema/element/restriction`.
 
 The `<restriction>` element provides information about restrictions to the allowable values for the EBML Element which are listed in `<enum>` elements.
 
 ### \<enum> Element
 
-Within an EBML Schema, the XPath of `<enum>` attribute is `/EBMLSchema/element/restriction/enum`.
+Within an EBML Schema, the XPath of `<enum>` element is `/EBMLSchema/element/restriction/enum`.
 
 The `<enum>` element stores a list of values allowed for storage in the EBML Element. The values MUST match the type of the EBML Element (for example `<enum value="Yes">` cannot be a valid value for a EBML Element that is defined as an unsigned integer). An `<enum>` element MAY also store `<documentation>` elements to further describe the `<enum>`.
 
@@ -698,7 +698,7 @@ The value attribute is REQUIRED.
 
 ### \<extension> Element
 
-Within an EBML Schema, the XPath of `<extension>` attribute is `/EBMLSchema/element/extension`.
+Within an EBML Schema, the XPath of `<extension>` element is `/EBMLSchema/element/extension`.
 
 The `<extension>` element provides an unconstrained element to contain information about the associated EBML `<element>` which is undefined by this document but MAY be defined by the associated EBML Document Type. The `<extension>` element MUST contain a `type` attribute and also MAY contain any other attribute or sub-element as long as the EBML Schema remains as a well-formed XML Document. All `<extension>` elements MUST be sub-elements of the `<element>`.
 
