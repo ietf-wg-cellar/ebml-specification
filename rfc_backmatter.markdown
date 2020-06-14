@@ -23,13 +23,13 @@
   <seriesInfo name="IEEE" value="Standard 754"/>
 </reference>
 
-<reference anchor="ITU.V42.1994">
+<reference anchor="ITU.V42.2002">
   <front>
     <title>Error-correcting Procedures for DCEs Using Asynchronous-to-Synchronous Conversion</title>
     <author>
       <organization>International Telecommunications Union</organization>
     </author>
-    <date month="" year="1994"/>
+    <date day="06" month="November" year="2002"/>
   </front>
   <seriesInfo name="ITU-T" value="Recommendation V.42"/>
 </reference>
