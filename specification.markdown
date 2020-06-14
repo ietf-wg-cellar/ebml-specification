@@ -501,7 +501,7 @@ For an exclusive upper boundary the `<` sign is used and the `<=` sign is used f
 
 The lower and upper bounds can be combined into an expression to form a closed boundary. The lower boundary coming first followed by the upper boundary, separated by a comma. For example `>3,<= 20` means the Element value MUST be greater than 3 and less than or equal to 20.
 
-A special form of lower and upper bounds using the `-` separator is possible, meaning the Element value MUST be greater than or to the first value and MUST be less than or equal to the second value. For example `1-10` is equivalent to `>=1,<=10`. If the upper boundary is negative, only the latter form MUST be used.
+A special form of lower and upper bounds using the `-` separator is possible, meaning the Element value MUST be greater than, or equal to, the first value and MUST be less than, or equal to, the second value. For example `1-10` is equivalent to `>=1,<=10`. If the upper boundary is negative, only the latter form MUST be used.
 
 
 #### length
