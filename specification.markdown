@@ -535,7 +535,8 @@ The type attribute is REQUIRED.
 
 Within an EBML Schema, the XPath of `@unknownsizeallowed` attribute is `/EBMLSchema/element/@unknownsizeallowed`.
 
-A boolean to express if an EBML Element is permitted to be Unknown-Sized Element (having all VINT\_DATA bits of Element Data Size set to 1). EBML Elements that are not Master Elements MUST NOT set unknownsizeallowed to true. An EBML Element that is defined with an unknownsizeallowed attribute set to 1 MUST also have the unknownsizeallowed attribute of its Parent Element set to 1.
+This attribute is a boolean to express whether an EBML Element is permitted to be Unknown-Sized Element (having all VINT\_DATA bits of Element Data Size set to 1).
+EBML Elements that are not Master Elements MUST NOT set unknownsizeallowed to true. An EBML Element that is defined with an unknownsizeallowed attribute set to 1 MUST also have the unknownsizeallowed attribute of its Parent Element set to 1.
 
 An EBML Element with the unknownsizeallowed attribute set to 1 MUST NOT have its recursive attribute set to 1.
 
@@ -545,7 +546,8 @@ The unknownsizeallowed attribute is OPTIONAL. If the unknownsizeallowed attribut
 
 Within an EBML Schema, the XPath of `@recursive` attribute is `/EBMLSchema/element/@recursive`.
 
-A boolean to express if an EBML Element is permitted to be stored recursively. In this case the EBML Element MAY be stored within another EBML Element that has the same Element ID. Which itself can be stored in an EBML Element that has the same Element ID, and so on. EBML Elements that are not Master Elements MUST NOT set recursive to true.
+This attribute is a boolean to express whether an EBML Element is permitted to be stored recursively.
+In this case the EBML Element MAY be stored within another EBML Element that has the same Element ID. Which itself can be stored in an EBML Element that has the same Element ID, and so on. EBML Elements that are not Master Elements MUST NOT set recursive to true.
 
 If the EBMLElement part of the `@path` contains an IsRecursive part, then the recursive value MUST be true; otherwise, it MUST be false.
 
@@ -557,7 +559,7 @@ The recursive attribute is OPTIONAL. If the recursive attribute is not present t
 
 Within an EBML Schema, the XPath of `@recurring` attribute is `/EBMLSchema/element/@recurring`.
 
-A boolean to express if an EBML Element is defined as an Identically Recurring Element or not; see (#identically-recurring-elements).
+This attribute is a boolean to express whether an EBML Element is defined as an Identically Recurring Element or not; see (#identically-recurring-elements).
 
 The recurring attribute is OPTIONAL. If the recurring attribute is not present then the EBML Element is not an Identically Recurring Element.
 
