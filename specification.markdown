@@ -329,7 +329,7 @@ An EBML Schema MAY constrain the use of EBML Header Elements (see (#ebml-header-
 
 Within an EBML Schema, the XPath [@?W3C.REC-xpath-19991116] of `<EBMLSchema>` element is `/EBMLSchema`.
 
-As an XML Document, the EBML Schema MUST use `<EBMLSchema>` as the top level element. The `<EBMLSchema>` element can contain `<element>` sub-elements.
+As with an XML Document, the EBML Schema MUST use `<EBMLSchema>` as the top level element. The `<EBMLSchema>` element can contain `<element>` sub-elements.
 
 ### \<EBMLSchema> Attributes
 
