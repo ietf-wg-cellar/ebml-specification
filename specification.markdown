@@ -429,7 +429,7 @@ If PathMaxOccurrence is not present then there is no upper bound for the permitt
 PathMaxOccurrence MUST NOT have the value 0 as it would mean no EBMLPathAtom can replace the GlobalPlaceholder and the EBMLFullPath would be the same without that GlobalPlaceholder part.
 PathMaxOccurrence MUST be bigger or equal to PathMinOccurrence.
 
-For example in `\a\(0-1\)global`, the Element path `\a\x\global` corresponds to an EBMLPathAtom occurence of 1. The Element `\a\x\y\global` corresponds to an EBMLPathAtom occurence of 2, etc.
+For example in `\a\(0-1\)global`, the Element path `\a\x\global` corresponds to an EBMLPathAtom occurrence of 1. The Element `\a\x\y\global` corresponds to an EBMLPathAtom occurrence of 2, etc.
 In those case `\a\x` or `\a\x\y` MUST be valid pathes to be able to contain the element `global`.
 
 Consider another EBML Path `\a\(1-\)global`. There has to be at least one EBMLPathAtom between the `\a\` part and `global`.
