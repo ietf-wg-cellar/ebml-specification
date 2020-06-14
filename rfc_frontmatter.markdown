@@ -4,7 +4,7 @@ abbrev = "EBML"
 ipr= "trust200902"
 area = "art"
 workgroup = "cellar"
-keyword = [""]
+keyword = ["binary","storage","xml","matroska","webm"]
 
 [seriesInfo]
 name = "Internet-Draft"
