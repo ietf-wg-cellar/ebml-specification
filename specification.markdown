@@ -781,7 +781,7 @@ name: EBMLVersion
 
 path: `\EBML\EBMLVersion`
 
-id 0x4286
+id: 0x4286
 
 minOccurs: 1
 
@@ -821,7 +821,7 @@ name: EBMLMaxIDLength
 
 path: `\EBML\EBMLMaxIDLength`
 
-id 0x42F2
+id: 0x42F2
 
 minOccurs: 1
 
@@ -841,7 +841,7 @@ name: EBMLMaxSizeLength
 
 path: `\EBML\EBMLMaxSizeLength`
 
-id 0x42F3
+id: 0x42F3
 
 minOccurs: 1
 
@@ -861,7 +861,7 @@ name: DocType
 
 path: `\EBML\DocType`
 
-id 0x4282
+id: 0x4282
 
 minOccurs: 1
 
@@ -879,7 +879,7 @@ name: DocTypeVersion
 
 path: `\EBML\DocTypeVersion`
 
-id 0x4287
+id: 0x4287
 
 minOccurs: 1
 
@@ -899,7 +899,7 @@ name: DocTypeReadVersion
 
 path: `\EBML\DocTypeReadVersion`
 
-id 0x4285
+id: 0x4285
 
 minOccurs: 1
 
@@ -919,7 +919,7 @@ name: DocTypeExtension
 
 path: `\EBML\DocTypeExtension`
 
-id 0x4281
+id: 0x4281
 
 minOccurs: 0
 
@@ -933,7 +933,7 @@ name: DocTypeExtensionName
 
 path: `\EBML\DocTypeExtension\DocTypeExtensionName`
 
-id 0x4283
+id: 0x4283
 
 minOccurs: 1
 
@@ -951,7 +951,7 @@ name: DocTypeExtensionVersion
 
 path: `\EBML\DocTypeExtension\DocTypeExtensionVersion`
 
-id 0x4284
+id: 0x4284
 
 minOccurs: 1
 
