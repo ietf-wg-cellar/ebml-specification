@@ -963,7 +963,7 @@ range: not 0
 
 type: Unsigned Integer
 
-description: The version of the DocTypeExtension. Different DocTypeExtensionVersion values of the same DocType+DocTypeVersion+DocTypeExtensionName tuple MAY contain completely different sets of extra Elements. An EBML Reader MAY support multiple versions of the same DocTypeExtension, only one or none.
+description: The version of the DocTypeExtension. Different DocTypeExtensionVersion values of the same `DocType + DocTypeVersion + DocTypeExtensionName` tuple MAY contain completely different sets of extra Elements. An EBML Reader MAY support multiple versions of the same tuple, only one version of the tuple, or not support the tuple at all.
 
 ## Global Elements
 
