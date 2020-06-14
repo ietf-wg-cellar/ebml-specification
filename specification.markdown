@@ -1,6 +1,6 @@
 # Introduction
 
-EBML, short for Extensible Binary Meta Language, specifies a binary and octet (byte) aligned format inspired by the principle of XML (a framework for structuring data).
+EBML, short for Extensible Binary Meta Language, specifies a binary format aligned with octets (bytes) and inspired by the principle of XML (a framework for structuring data).
 
 The goal of this document is to define a generic, binary, space-efficient format that can be used to define more complex formats using an EBML Schema. EBML is used by the multimedia container, Matroska [@?Matroska]. The applicability of EBML for other use cases is beyond the scope of this document.
 
