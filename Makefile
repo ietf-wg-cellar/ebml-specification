@@ -25,6 +25,7 @@ rfc8794.xml: $(OUTPUT).xml
 	-e "s/docName=\"8794\"/docName=\"$(OUTPUT)\"/" \
 	-e 's@<organization></organization>@@' \
 	-e 's@<street></street>@@' \
+	-e 's@BCP 14@BCP\&nbsp;14@' \
 	$< > $@
 
 %.html: rfc8794.xml
