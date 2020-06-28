@@ -5,7 +5,7 @@ ipr= "trust200902"
 area = "art"
 submissiontype = "IETF"
 workgroup = "cellar"
-date = 2020-06-28
+date = @BUILD_DATE@
 keyword = ["binary","storage","xml","matroska","webm"]
 
 [seriesInfo]
