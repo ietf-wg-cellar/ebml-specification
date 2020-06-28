@@ -3,14 +3,15 @@ title = "Extensible Binary Meta Language"
 abbrev = "EBML"
 ipr= "trust200902"
 area = "art"
+submissiontype = "IETF"
 workgroup = "cellar"
+date = 2020-06-28
 keyword = ["binary","storage","xml","matroska","webm"]
 
 [seriesInfo]
-name = "Internet-Draft"
-stream = "IETF"
+name = "RFC"
+value = "8794"
 status = "standard"
-value = "draft-ietf-cellar-ebml-18"
 
 [[author]]
 initials="S."
