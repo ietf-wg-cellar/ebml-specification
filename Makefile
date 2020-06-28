@@ -26,7 +26,9 @@ rfc8794.xml: $(OUTPUT).xml
 	-e 's@<organization></organization>@@' \
 	-e 's@<street></street>@@' \
 	-e 's@BCP 14@BCP\&nbsp;14@' \
-	$< > $@
+	-e 's@<dd><t>@<dd>@' \
+	$< | \
+	awk 1 RS='</t>\n</dd>' ORS='</dd>' | head -n -1 > $@
 
 %.html: rfc8794.xml
 	$(XML2RFC) --html $< -o $@
