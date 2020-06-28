@@ -20,10 +20,14 @@ $(OUTPUT).md: specification.markdown rfc_frontmatter.markdown rfc_backmatter.mar
 	$(MMARK) $< > $@
 	sed -i -e 's/<sourcecode type="xsd">/<sourcecode type="xml">/' $@
 
-%.html: %.xml
+rfc8794.xml: $(OUTPUT).xml
+	sed -e 's/<?xml version="1.0" encoding="utf-8"?>/<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE rfc SYSTEM "rfc2629-xhtml.ent">/' \
+	$< > $@
+
+%.html: rfc8794.xml
 	$(XML2RFC) --html $< -o $@
 
-%.txt: %.xml
+%.txt: rfc8794.xml
 	$(XML2RFC) $< -o $@
 
 clean:
