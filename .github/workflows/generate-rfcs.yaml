@@ -24,7 +24,7 @@ jobs:
       - name: Move Generated files
         run: |
           mkdir -p artifacts
-          mv draft-ietf-cellar-ebml-??.xml artifacts
+          mv draft-ietf-cellar-ebml-??.xml rfc8794.xml artifacts
 
       - name: XML Artifact
         uses: actions/upload-artifact@master
