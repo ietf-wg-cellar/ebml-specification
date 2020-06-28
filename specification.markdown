@@ -1275,147 +1275,147 @@ This document contains definitions of all EBML Elements of the EBML Header.
 ### EBML Element
 
 name:
-EBML
+: EBML
 
 path:
-`\EBML`
+: `\EBML`
 
 id:
-0x1A45DFA3
+: 0x1A45DFA3
 
 minOccurs:
-1
+: 1
 
 maxOccurs:
-1
+: 1
 
 type:
-Master Element
+: Master Element
 
 description:
-Set the EBML characteristics of the data to follow. Each EBML Document has
+: Set the EBML characteristics of the data to follow. Each EBML Document has
 to start with this.
 
 ### EBMLVersion Element
 
 name:
-EBMLVersion
+: EBMLVersion
 
 path:
-`\EBML\EBMLVersion`
+: `\EBML\EBMLVersion`
 
 id:
-0x4286
+: 0x4286
 
 minOccurs:
-1
+: 1
 
 maxOccurs:
-1
+: 1
 
 range:
-not 0
+: not 0
 
 default:
-1
+: 1
 
 type:
-Unsigned Integer
+: Unsigned Integer
 
 description:
-The version of EBML specifications used to create the EBML Document. The
+: The version of EBML specifications used to create the EBML Document. The
 version of EBML defined in this document is 1, so EBMLVersion
 SHOULD be 1.
 
 ### EBMLReadVersion Element
 
 name:
-EBMLReadVersion
+: EBMLReadVersion
 
 path:
-`\EBML\EBMLReadVersion`
+: `\EBML\EBMLReadVersion`
 
 id:
-0x42F7
+: 0x42F7
 
 minOccurs:
-1
+: 1
 
 maxOccurs:
-1
+: 1
 
 range:
-1
+: 1
 
 default:
-1
+: 1
 
 type:
-Unsigned Integer
+: Unsigned Integer
 
 description:
-The minimum EBML version an EBML Reader has to support to read this EBML
+: The minimum EBML version an EBML Reader has to support to read this EBML
 Document. The EBMLReadVersion Element MUST be less than or equal to EBMLVersion.
 
 ### EBMLMaxIDLength Element
 
 name:
-EBMLMaxIDLength
+: EBMLMaxIDLength
 
 path:
-`\EBML\EBMLMaxIDLength`
+: `\EBML\EBMLMaxIDLength`
 
 id:
-0x42F2
+: 0x42F2
 
 minOccurs:
-1
+: 1
 
 maxOccurs:
-1
+: 1
 
 range:
->=4
+: >=4
 
 default:
-4
+: 4
 
 type:
-Unsigned Integer
+: Unsigned Integer
 
 description:
-The EBMLMaxIDLength Element stores the maximum permitted length in octets
+: The EBMLMaxIDLength Element stores the maximum permitted length in octets
 of the Element IDs to be found within the EBML Body. An EBMLMaxIDLength Element value of four
 is RECOMMENDED, though larger values are allowed.
 
 ### EBMLMaxSizeLength Element
 
 name:
-EBMLMaxSizeLength
+: EBMLMaxSizeLength
 
 path:
-`\EBML\EBMLMaxSizeLength`
+: `\EBML\EBMLMaxSizeLength`
 
 id:
-0x42F3
+: 0x42F3
 
 minOccurs:
-1
+: 1
 
 maxOccurs:
-1
+: 1
 
 range:
-not 0
+: not 0
 
 default:
-8
+: 8
 
 type:
-Unsigned Integer
+: Unsigned Integer
 
 description:
-The EBMLMaxSizeLength Element stores the maximum permitted length in
+: The EBMLMaxSizeLength Element stores the maximum permitted length in
 octets of the expressions of all Element Data Sizes to be found within the EBML Body. The
 EBMLMaxSizeLength Element documents an upper bound for the `length` of
 all Element Data Size expressions within the EBML Body and not an upper bound
@@ -1426,108 +1426,109 @@ than what is expressed by EBMLMaxSizeLength Element are invalid.
 ### DocType Element
 
 name:
-DocType
+: DocType
 
 path:
-`\EBML\DocType`
+: `\EBML\DocType`
 
 id:
-0x4282
+: 0x4282
 
 minOccurs:
-1
+: 1
 
 maxOccurs:
-1
+: 1
 
-length: >0
+length:
+: >0
 
 type:
-String
+: String
 
 description:
-A string that describes and identifies the content of the EBML Body that
+: A string that describes and identifies the content of the EBML Body that
 follows this EBML Header.
 
 ### DocTypeVersion Element
 
 name:
-DocTypeVersion
+: DocTypeVersion
 
 path:
-`\EBML\DocTypeVersion`
+: `\EBML\DocTypeVersion`
 
 id:
-0x4287
+: 0x4287
 
 minOccurs:
-1
+: 1
 
 maxOccurs:
-1
+: 1
 
 range:
-not 0
+: not 0
 
 default:
-1
+: 1
 
 type:
-Unsigned Integer
+: Unsigned Integer
 
 description:
-The version of DocType interpreter used to create the EBML Document.
+: The version of DocType interpreter used to create the EBML Document.
 
 ### DocTypeReadVersion Element
 
 name:
-DocTypeReadVersion
+: DocTypeReadVersion
 
 path:
-`\EBML\DocTypeReadVersion`
+: `\EBML\DocTypeReadVersion`
 
 id:
-0x4285
+: 0x4285
 
 minOccurs:
-1
+: 1
 
 maxOccurs:
-1
+: 1
 
 range:
-not 0
+: not 0
 
 default:
-1
+: 1
 
 type:
-Unsigned Integer
+: Unsigned Integer
 
 description:
-The minimum DocType version an EBML Reader has to support to read this
+: The minimum DocType version an EBML Reader has to support to read this
 EBML Document. The value of the DocTypeReadVersion Element MUST
 be less than or equal to the value of the DocTypeVersion Element.
 
 ### DocTypeExtension Element
 
 name:
-DocTypeExtension
+: DocTypeExtension
 
 path:
-`\EBML\DocTypeExtension`
+: `\EBML\DocTypeExtension`
 
 id:
-0x4281
+: 0x4281
 
 minOccurs:
-0
+: 0
 
 type:
-Master Element
+: Master Element
 
 description:
-A DocTypeExtension adds extra Elements to the main DocType+DocTypeVersion
+: A DocTypeExtension adds extra Elements to the main DocType+DocTypeVersion
 tuple it's attached to. An EBML Reader MAY know these extra Elements and how
 to use them. A DocTypeExtension MAY be used to iterate between
 experimental Elements before they are integrated in a regular
@@ -1538,55 +1539,56 @@ versions of this DocTypeExtension.
 ### DocTypeExtensionName Element
 
 name:
-DocTypeExtensionName
+: DocTypeExtensionName
 
 path:
-`\EBML\DocTypeExtension\DocTypeExtensionName`
+: `\EBML\DocTypeExtension\DocTypeExtensionName`
 
 id:
-0x4283
+: 0x4283
 
 minOccurs:
-1
+: 1
 
 maxOccurs:
-1
+: 1
 
-length: >0
+length:
+: >0
 
 type:
-String
+: String
 
 description:
-The name of the DocTypeExtension to differentiate it from other
+: The name of the DocTypeExtension to differentiate it from other
 DocTypeExtension of the same DocType+DocTypeVersion tuple. A DocTypeExtensionName value
 MUST be unique within the EBML Header.
 
 ### DocTypeExtensionVersion Element
 
 name:
-DocTypeExtensionVersion
+: DocTypeExtensionVersion
 
 path:
-`\EBML\DocTypeExtension\DocTypeExtensionVersion`
+: `\EBML\DocTypeExtension\DocTypeExtensionVersion`
 
 id:
-0x4284
+: 0x4284
 
 minOccurs:
-1
+: 1
 
 maxOccurs:
-1
+: 1
 
 range:
-not 0
+: not 0
 
 type:
-Unsigned Integer
+: Unsigned Integer
 
 description:
-The version of the DocTypeExtension. Different DocTypeExtensionVersion
+: The version of the DocTypeExtension. Different DocTypeExtensionVersion
 values of the same `DocType + DocTypeVersion + DocTypeExtensionName` tuple
 MAY contain completely different sets of extra Elements. An
 EBML Reader MAY support multiple versions
@@ -1613,27 +1615,28 @@ A Global Element can be found in many Parent Elements, allowing the same number 
 ### CRC-32 Element
 
 name:
-CRC-32
+: CRC-32
 
 path:
-`\(1-\)CRC-32`
+: `\(1-\)CRC-32`
 
 id:
-0xBF
+: 0xBF
 
 minOccurs:
-0
+: 0
 
 maxOccurs:
-1
+: 1
 
-length: 4
+length:
+: 4
 
 type:
-Binary
+: Binary
 
 description:
-The CRC-32 Element contains a 32-bit Cyclic Redundancy Check value of all
+: The CRC-32 Element contains a 32-bit Cyclic Redundancy Check value of all
 the Element Data of the Parent Element as stored except for the CRC-32 Element
 itself. When the CRC-32 Element is present, the CRC-32 Element
 MUST be the first ordered EBML Element within its Parent
@@ -1648,22 +1651,22 @@ MUST use little endian storage.
 ### Void Element
 
 name:
-Void
+: Void
 
 path:
-`\(-\)Void`
+: `\(-\)Void`
 
 id:
-0xEC
+: 0xEC
 
 minOccurs:
-0
+: 0
 
 type:
-Binary
+: Binary
 
 description:
-Used to void data or to avoid unexpected behaviors when using damaged
+: Used to void data or to avoid unexpected behaviors when using damaged
 data. The content is discarded. Also used to reserve space in a sub-element for
 later use.
 
