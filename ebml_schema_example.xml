@@ -11,7 +11,8 @@
  <!-- Root Element-->
  <element name="Files" path="\Files" id="0x1946696C"
    type="master">
-  <documentation lang="en" purpose="definition">Container of data and
+  <documentation lang="en" 
+    purpose="definition">Container of data and
   attributes representing one or many files.</documentation>
  </element>
  <element name="File" path="\Files\File" id="0x6146"
