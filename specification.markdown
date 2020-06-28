@@ -654,7 +654,7 @@ path attribute is defined using this Augmented Backus-Naur Form
 
 The path attribute is REQUIRED.
 
-```
+```abnf
 EBMLFullPath           = EBMLParentPath EBMLElement
 
 EBMLParentPath         = PathDelimiter [EBMLParents]
