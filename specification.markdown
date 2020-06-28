@@ -37,8 +37,8 @@ EBML Body Root (master)
 # Notation and Conventions
 
 The key words "MUST", "MUST NOT",
-"REQUIRED", "SHALL", "SHALL
-NOT", "SHOULD", "SHOULD NOT",
+"REQUIRED", "SHALL", "SHALL NOT",
+"SHOULD", "SHOULD NOT",
 "RECOMMENDED", "NOT RECOMMENDED",
 "MAY", and "OPTIONAL" in this document are to be interpreted as
 described in BCP 14 [@!RFC2119] [@!RFC8174] 
@@ -48,109 +48,109 @@ This document defines specific terms in order to define the format and
 application of `EBML`. Specific terms are defined below:
 
 `EBML`:
-Extensible Binary Meta Language
+: Extensible Binary Meta Language
 
 `EBML Document Type`:
-A name provided by an `EBML Schema` to designate a particular 
+: A name provided by an `EBML Schema` to designate a particular 
 implementation of `EBML` for a data format (e.g.: matroska and webm).
 
 `EBML Schema`:
-A standardized definition for the structure of an `EBML Document Type`.
+: A standardized definition for the structure of an `EBML Document Type`.
 
 `EBML Document`:
-A datastream comprised of only two components, an `EBML Header` and
+: A datastream comprised of only two components, an `EBML Header` and
 an `EBML Body`.
 
 `EBML Reader`:
-A data parser that interprets the semantics of an `EBML Document`
+: A data parser that interprets the semantics of an `EBML Document`
 and creates a way for programs to use `EBML`.
 
 `EBML Stream`:
-A file that consists of one or more `EBML Documents` that are
+: A file that consists of one or more `EBML Documents` that are
 concatenated together.
 
 `EBML Header`:
-A declaration that provides processing instructions and identification of
+: A declaration that provides processing instructions and identification of
  the `EBML Body`. The `EBML Header` is analogous to an XML Declaration
 [@!W3C.REC-xml-20081126] (see section 2.8 on *Prolog and Document Type Declaration*).
 
 `EBML Body`:
-All data of an `EBML Document` following the `EBML Header`.
+: All data of an `EBML Document` following the `EBML Header`.
 
 `Variable Size Integer`:
-A compact variable-length binary value which defines its own length.
+: A compact variable-length binary value which defines its own length.
 
 `VINT`:
-Also known as `Variable Size Integer`.
+: Also known as `Variable Size Integer`.
 
 `EBML Element`:
-A foundation block of data that contains three parts: an `Element ID`,
+: A foundation block of data that contains three parts: an `Element ID`,
 an `Element Data Size`, and `Element Data`.
 
 `Element ID`:
-The `Element ID` is a binary value, encoded as a `Variable Size Integer`,
+: The `Element ID` is a binary value, encoded as a `Variable Size Integer`,
 used to uniquely identify a defined `EBML Element` within a specific
 `EBML Schema`.
 
 `Element Data Size`:
-An expression, encoded as a `Variable Size Integer`, of the length
+: An expression, encoded as a `Variable Size Integer`, of the length
 in octets of `Element Data`.
 
 `VINTMAX`:
-The maximum possible value that can be stored as `Element Data Size`.
+: The maximum possible value that can be stored as `Element Data Size`.
 
 `Unknown-Sized Element`:
-An `Element` with an unknown `Element Data Size`.
+: An `Element` with an unknown `Element Data Size`.
 
 `Element Data`:
-The value(s) of the `EBML Element` which is identified by its
+: The value(s) of the `EBML Element` which is identified by its
 `Element ID` and `Element Data Size`. The form of the `Element Data` is
 defined by this document and the corresponding `EBML Schema` of the
 Element's `EBML Document Type`.
 
 `Root Level`:
-The starting level in the hierarchy of an `EBML Document`.
+: The starting level in the hierarchy of an `EBML Document`.
 
 `Root Element`:
-A mandatory, non-repeating `EBML Element` which occurs at the top
+: A mandatory, non-repeating `EBML Element` which occurs at the top
 level of the path hierarchy within an `EBML Body` and contains all other
 `EBML Elements` of the `EBML Body`, excepting optional `Void Elements`.
 
 `Top-Level Element`:
-An `EBML Element` defined to only occur as a `Child Element`
+: An `EBML Element` defined to only occur as a `Child Element`
 of the `Root Element`.
 
 `Master Element`:
-The `Master Element` contains zero, one, or many other `EBML Elements`.
+: The `Master Element` contains zero, one, or many other `EBML Elements`.
 
 `Child Element`:
-A `Child Element` is a relative term to describe the `EBML Elements`
+: A `Child Element` is a relative term to describe the `EBML Elements`
 immediately contained within a `Master Element`.
 
 `Parent Element`:
-A relative term to describe the `Master Element` which contains a
+: A relative term to describe the `Master Element` which contains a
 specified element. For any specified `EBML Element` that is not at
 `Root Level`, the `Parent Element` refers to the `Master Element`
 in which that `EBML Element` is directly contained.
 
 `Descendant Element`:
-A relative term to describe any `EBML Elements` contained within a
+: A relative term to describe any `EBML Elements` contained within a
 `Master Element`, including any of the `Child Elements` of its
 `Child Elements`, and so on.
 
 `Void Element`:
-A `Void Element` is an `Element` used to overwrite data or reserve
-space within a `Master Element` for later use.
+: A `Void Element` is an `Element` used to overwrite data or
+reserve space within a `Master Element` for later use.
 
 `Element Name`:
-The human-readable name of the `EBML Element`.
+: The human-readable name of the `EBML Element`.
 
 `Element Path`:
-The hierarchy of `Parent Element` where the `EBML Element` is
-expected to be found in the `EBML Body`.
+: The hierarchy of `Parent Element` where the `EBML Element`
+is expected to be found in the `EBML Body`.
 
 `Empty Element`:
-An `EBML Element` that has an `Element Data Size` with all
+: An `EBML Element` that has an `Element Data Size` with all
 `VINT_DATA` bits set to zero, which indicates
 that the `Element Data` of the `Element` is zero octets in
 length.
