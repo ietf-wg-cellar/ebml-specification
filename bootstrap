@@ -78,7 +78,7 @@ for t in $NEEDED; do
     TARGETS="$TARGETS .build$t"
     if [ $t = "xml2rfc" ]; then
         # installed in the Python local user dir
-        PYTHON_USER_PATH=$(python -m site --user-base)
+        PYTHON_USER_PATH=$(python3 -m site --user-base)
         echo PYTHON_USER_PATH=$PYTHON_USER_PATH >> $RUNTIMES_MAKE
         echo "$t" | awk '{ tool = sprintf("%s_CALL := $(PYTHON_USER_PATH)/bin/%s", toupper($0), $0); print tool }' >> $RUNTIMES_MAKE
     else
