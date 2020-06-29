@@ -14,7 +14,7 @@ all: $(OUTPUT).html $(OUTPUT).txt $(OUTPUT).xml
 	$(info RFC rendering has been tested with mmark version 2.1.1 and xml2rfc 2.30.0, please ensure these are installed and recent enough.)
 
 $(OUTPUT).md: specification.markdown rfc_frontmatter.markdown rfc_backmatter.markdown EBMLSchema.xsd ebml_schema_example.xml
-	cat rfc_frontmatter.markdown $< rfc_backmatter.markdown | sed "s/@BUILD_DATE@/$(shell date -I)/" > $(OUTPUT).md
+	cat rfc_frontmatter.markdown $< rfc_backmatter.markdown | sed "s/@BUILD_DATE@/$(shell date +'%F')/" > $(OUTPUT).md
 
 %.xml: %.md
 	$(MMARK) $< > $@
