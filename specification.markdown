@@ -1903,8 +1903,8 @@ Side channel attacks could exploit:
 
 ## EBML Element ID Registry
 
-This document creates a new IANA Registry called
-"EBML Element ID Registry".
+This document creates a new IANA Registry called the
+"EBML Element ID" registry.
 
 Element IDs are described in section Element ID. Element
 IDs are encoded using the VINT mechanism described in section
@@ -1995,7 +1995,7 @@ Table: IDs and Names for EBML Elements assigned by this document.
 
 ## EBML DocTypes Registry
 
-This document creates a new IANA Registry called "EBML DocTypes Registry".
+This document creates a new IANA Registry called the "EBML DocTypes" Registry.
 
 To register a new DocType in this registry one needs a DocType name, a Description of the DocType, a Change Controller (IESG or email of registrant) and an optional Reference to a document describing the DocType.
 
