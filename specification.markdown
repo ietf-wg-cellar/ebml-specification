@@ -690,16 +690,16 @@ A path with a GlobalPlaceholder as the EBMLLastParent defines a Global Element; 
 If the element has no EBMLLastParent part, or the EBMLLastParent part is not a
 GlobalPlaceholder, then the Element is not a Global Element.
 
-The GlobalParentOccurrence part is interpreted as the amount of valid
+The GlobalParentOccurrence part is interpreted as the number of valid
  EBMLPathAtom parts that can replace the GlobalPlaceholder in the path.
-PathMinOccurrence represents the minimum amount of EBMLPathAtoms required to
-replace the GlobalPlaceholder. PathMaxOccurrence represents the maximum amount
+PathMinOccurrence represents the minimum number of EBMLPathAtoms required to
+replace the GlobalPlaceholder. PathMaxOccurrence represents the maximum number
 of EBMLPathAtoms possible to replace the GlobalPlaceholder.
 
 If PathMinOccurrence is not present, then that GlobalParentOccurrence has a
 PathMinOccurrence value of 0.
 If PathMaxOccurrence is not present, then there is no upper bound for the
-permitted amount of EBMLPathAtoms possible to replace the GlobalPlaceholder.
+permitted number of EBMLPathAtoms possible to replace the GlobalPlaceholder.
 PathMaxOccurrence **MUST NOT** have the value 0, as it would mean
 no EBMLPathAtom can replace the GlobalPlaceholder, and the EBMLFullPath would
 be the same without that GlobalPlaceholder part.
