@@ -1906,8 +1906,8 @@ Side channel attacks could exploit:
 This document creates a new IANA Registry called
 "EBML Element ID Registry".
 
-Element IDs are described in section Element ID. Element
-IDs are encoded using the VINT mechanism described in section
+Element IDs are described in (#element-id). Element
+IDs are encoded using the VINT mechanism described in
 (#variable-size-integer) and can be between one and five
 octets long. Five octet long Element IDs are possible only if declared
 in the header.
