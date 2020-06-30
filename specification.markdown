@@ -327,7 +327,7 @@ The use of Unknown-Sized Elements allows for an EBML Element to be written and r
 - Any EBML Element that is a valid Parent Element of the Unknown-Sized Element according to the EBML Schema, Global Elements excluded.
 - Any valid EBML Element according to the EBML Schema, Global Elements
 excluded, that is not a Descendant Element of the Unknown-Sized Element but
-share a common direct parent, such as a Top-Level Element.
+shares a common direct parent, such as a Top-Level Element.
 - Any EBML Element that is a valid Root Element according to the EBML Schema, Global Elements excluded.
 - The end of the Parent Element with a known size has been reached.
 - The end of the EBML Document, either when reaching the end of the file or because a new EBML Header started.
@@ -498,7 +498,7 @@ Element of the EBML Header.
 
 # EBML Stream
 
-An EBML Stream is a file that consists of one or more EBML Documents that are concatenated together. An occurrence of a EBML Header at the Root Level marks the beginning of an EBML Document.
+An EBML Stream is a file that consists of one or more EBML Documents that are concatenated together. An occurrence of an EBML Header at the Root Level marks the beginning of an EBML Document.
 
 # EBML Versioning
 
@@ -527,7 +527,7 @@ Types. An EBML Document Type is identified by a string stored within the EBML
 Header in the DocType Element; for example matroska or webm (see
 (#doctype-element)). The DocType value for an EBML Document Type
 **MUST** be unique, persistent and described in the IANA Registry
-(see (#ebml-doctype-registry)).
+(see (#ebml-doctypes-registry)).
 
 An EBML Schema **MUST** declare exactly one EBML Element at Root Level (referred to as the Root Element) that occurs exactly once within an EBML Document. The Void Element **MAY** also occur at Root Level but is not a Root Element (see (#void-element)).
 
@@ -692,14 +692,14 @@ GlobalPlaceholder then the Element is not a Global Element.
 
 The GlobalParentOccurrence part is interpreted as the amount of valid
  EBMLPathAtom parts that can replace the GlobalPlaceholder in the path.
-PathMinOccurrence represents the minimum amount of EBMLPathAtom required to
+PathMinOccurrence represents the minimum amount of EBMLPathAtoms required to
 replace the GlobalPlaceholder. PathMaxOccurrence represents the maximum amount
-of EBMLPathAtom possible to replace the GlobalPlaceholder.
+of EBMLPathAtoms possible to replace the GlobalPlaceholder.
 
 If PathMinOccurrence is not present then that GlobalParentOccurrence has a
 PathMinOccurrence value of 0.
 If PathMaxOccurrence is not present then there is no upper bound for the
-permitted amount of EBMLPathAtom possible to replace the GlobalPlaceholder.
+permitted amount of EBMLPathAtoms possible to replace the GlobalPlaceholder.
 PathMaxOccurrence **MUST NOT** have the value 0 as it would mean
 no EBMLPathAtom can replace the GlobalPlaceholder and the EBMLFullPath would
 be the same without that GlobalPlaceholder part.
@@ -710,7 +710,7 @@ For example in `\a\(0-1\)global`, the Element path
 `\a\x\global` corresponds to an EBMLPathAtom occurrence of 1. The
 Element `\a\x\y\global` corresponds to an EBMLPathAtom occurrence of 2,
 etc. In those case `\a\x` or `\a\x\y` **MUST** be valid
-pathes to be able to contain the element `global`.
+paths to be able to contain the element `global`.
 
 Consider another EBML Path `\a\(1-\)global`. There has to be at
 least one EBMLPathAtom between the `\a\` part and `global`.
@@ -748,7 +748,7 @@ facilitate padding and optimize edits to EBML Documents; for instance, the
 Void Element uses an Element ID with a one octet length to allow its usage
 in more writing and editing scenarios.
 
-The Element ID of any Element found within an EBML Document **MUST** only match a single `@path` value of its corresponding EBML Schema, but a separate instance of that Element ID value defined by the EBML Schema **MAY** occur within a different `@path`. If more than one Element is defined to use the same `@id` value, then the `@path` values of those Elements **MUST NOT** share the same EBMLParentPath. Elements **MUST NOT** be defined to use the same `@id` value if one of their common Parent Elements could be an Unknown-Size Element.
+The Element ID of any Element found within an EBML Document **MUST** only match a single `@path` value of its corresponding EBML Schema, but a separate instance of that Element ID value defined by the EBML Schema **MAY** occur within a different `@path`. If more than one Element is defined to use the same `@id` value, then the `@path` values of those Elements **MUST NOT** share the same EBMLParentPath. Elements **MUST NOT** be defined to use the same `@id` value if one of their common Parent Elements could be an Unknown-Sized Element.
 
 The id attribute is **REQUIRED**.
 
@@ -846,10 +846,10 @@ For an exclusive upper boundary the `<` sign is used and the
 `<=` sign is used for an inclusive upper boundary. For example
 `<-2` meaning the Element value **MUST** be less than -2
 or `<=10` meaning the Element value **MUST** be less than
-or equal to the 10.
+or equal to 10.
 
 The lower and upper bounds can be combined into an expression to form a
-closed boundary. The lower boundary coming first followed by the upper
+closed boundary. The lower boundary comes first followed by the upper
 boundary, separated by a comma. For example `>3,<= 20` means the
 Element value **MUST** be greater than 3 and less than or equal to
 20.
@@ -911,7 +911,7 @@ Within an EBML Schema, the XPath of the `@unknownsizeallowed`
 attribute is `/EBMLSchema/element/@unknownsizeallowed`.
 
 This attribute is a boolean to express whether an EBML Element is permitted to
-be Unknown-Sized Element (having all VINT\_DATA bits of Element Data Size set
+be an Unknown-Sized Element (having all VINT\_DATA bits of Element Data Size set
 to 1). EBML Elements that are not Master Elements **MUST NOT** set
 unknownsizeallowed to true. An EBML Element that is defined with an
 unknownsizeallowed attribute set to 1 **MUST** also have the
@@ -1021,7 +1021,7 @@ for the `<documentation>` sub-element's purpose attribute
 |:---------------------------|:----------------------------------------|
 | definition                 | A 'definition' is recommended for every defined EBML Element. This documentation explains the semantics meaning of the EBML Element.
 | rationale                  | An explanation about the reason or catalyst for the definition of the Element.
-| usage notes                | Recommended practices or guideline for both reading, writing, or interpreting the Element.
+| usage notes                | Recommended practices or guidelines for both reading, writing, or interpreting the Element.
 | references                 | Informational references to support the contextualization and understanding of the value of the Element.
 Table: Definitions of the permitted
 values for the purpose attribute of the documentation Element. {#tablePurposeDefinitions}
@@ -1042,7 +1042,7 @@ derive from a related Element's content. In these cases where the Element's
 definition is conditional or advanced implementation notes are needed, one or many
 `<implementation_note>` elements can be used to store that
 information.
-The `<implementation_note>` refer to a specific attribute of the
+The `<implementation_note>` refers to a specific attribute of the
 parent `<element>` as expressed by the `note_attribute`
 attribute (#note-attribute).
 
@@ -1123,7 +1123,7 @@ Within an EBML Schema, the XPath of the `<enum>` element is
 The `<enum>` element stores a list of values allowed for
 storage in the EBML Element. The values **MUST** match the type of
 the EBML Element (for example `<enum value="Yes">`
-cannot be a valid value for a EBML Element that is defined as an unsigned
+cannot be a valid value for an EBML Element that is defined as an unsigned
 integer). An `<enum>` element **MAY** also store
 `<documentation>` elements to further describe the
 `<enum>`.
@@ -1227,14 +1227,14 @@ Table: Example of floating point values and
 ranges as decimal and as Hexadecimal Floating-Point Constants. {#tableFloatExamples}
 
 Within an expression of a float range, as in an integer range, the
-- (hyphen) character is the separator between the minimal and maximum value
+- (hyphen) character is the separator between the minimal and maximum values
 permitted by the range. Hexadecimal Floating-Point Constants also use a -
 (hyphen) when indicating a negative binary power. Within a float range, when a
 - (hyphen) is immediately preceded by a letter p, then the - (hyphen) is a
 part of the Hexadecimal Floating-Point Constant which notes negative binary
 power. Within a float range, when a - (hyphen) is not immediately preceded by
 a letter p, then the - (hyphen) represents the separator between the minimal
-and maximum value permitted by the range.
+and maximum values permitted by the range.
 
 ### Note on the use of default attributes to define Mandatory EBML Elements
 
@@ -1561,7 +1561,7 @@ type:
 
 description:
 : The name of the DocTypeExtension to differentiate it from other
-DocTypeExtension of the same DocType+DocTypeVersion tuple. A DocTypeExtensionName value
+DocTypeExtensions of the same DocType+DocTypeVersion tuple. A DocTypeExtensionName value
 **MUST** be unique within the EBML Header.
 
 ### DocTypeExtensionVersion Element
@@ -1606,7 +1606,7 @@ Header.
 
 Global Elements are EBML Elements whose EBMLLastParent part of the path has
 a GlobalPlaceholder. Because it is the last Parent part of the path, a Global
-Element might also have an EBMLParentPath parts in its path. In this case the
+Element might also have EBMLParentPath parts in its path. In this case the
 Global Element can only be found within this EBMLParentPath path, i.e. it's
 not fully "global".
 
@@ -1743,7 +1743,7 @@ Stored Value        | Semantics Meaning
 0x65 0x62 0x00 0x6C | 0x65 0x62
 0x65 0x62 0x00 0x00 | 0x65 0x62
 0x65 0x62           | 0x65 0x62
-Table: Exmaples of semantics for Null
+Table: Examples of semantics for Null
 Octets in VINT_DATA. {#tableNullOctetSemantics}
 
 # Guidelines for Updating Elements
@@ -1853,7 +1853,7 @@ causes no compatibility issue.
 
 EBML Elements **MAY** be marked as deprecated in a new
 EBMLDocTypeVersion using the maxver attribute of the EBML Schema. If such an
-Element is found in an EBML Document with newer version of the
+Element is found in an EBML Document with a newer version of the
 EBMLDocTypeVersion it **SHOULD** be discarded.
 
 # Security Considerations
@@ -1896,8 +1896,8 @@ Side channel attacks could exploit:
 - The semantic equivalence of VINT\_DATA within Element Data Size with two different lengths due to left-padding zero bits, making comparison at the semantics level invalid.
 - Data contained within a Master Element that is not itself part of a Child Element, which can trigger incorrect parsing behavior in EBML Readers.
 - Extraneous copies of Identically Recurring Element, making parsing unnecessarily slow to the point of not being usable.
-- Copies of Identically Recurring Element within a Parent Element that contain invalid CRC-32 Elements. EBML Readers not checking the CRC-32 might use the version of the element with mismatching CRC-32.
-- Use of Void Elements which could be used to hide content or create bogus resynchronization points seen by some EBML Reader and not others.
+- Copies of Identically Recurring Element within a Parent Element that contain invalid CRC-32 Elements. EBML Readers not checking the CRC-32 might use the version of the element with mismatching CRC-32s.
+- Use of Void Elements which could be used to hide content or create bogus resynchronization points seen by some EBML Readers and not others.
 
 # IANA Considerations
 
@@ -1993,9 +1993,9 @@ Element ID | Element Name            | Reference
 0xEC       | Void                    | Described in (#void-element)
 Table: IDs and Names for EBML Elements assigned by this document.
 
-## EBML DocType Registry
+## EBML DocTypes Registry
 
-This document creates a new IANA Registry called "EBML DocType Registry".
+This document creates a new IANA Registry called "EBML DocTypes Registry".
 
 To register a new DocType in this registry one needs a DocType name, a Description of the DocType, a Change Controller (IESG or email of registrant) and an optional Reference to a document describing the DocType.
 
