@@ -557,7 +557,7 @@ the EBML Schema. This document provides an example of an EBML Schema, see
 
 ### \<EBMLSchema> Element
 
-Within an EBML Schema, the XPath [@?W3C.REC-xpath-19991116] of
+Within an EBML Schema, the XPath [@?W3C.REC-xpath-19991116] of the
 `<EBMLSchema>` element is `/EBMLSchema`.
 
 As with an XML Document, the EBML Schema **MUST** use
@@ -572,7 +572,7 @@ following attributes:
 
 #### docType
 
-Within an EBML Schema, the XPath of `@docType` attribute is
+Within an EBML Schema, the XPath of the `@docType` attribute is
 `/EBMLSchema/@docType`.
 
 The docType lists the official name of the EBML Document Type that is
@@ -584,7 +584,7 @@ The docType attribute is **REQUIRED** within the
 
 #### version
 
-Within an EBML Schema, the XPath of `@version` attribute is
+Within an EBML Schema, the XPath of the `@version` attribute is
 `/EBMLSchema/@version`.
 
 The version lists a non-negative integer that specifies the version of the
@@ -599,7 +599,7 @@ The version attribute is **REQUIRED** within the
 
 #### ebml
 
-Within an EBML Schema, the XPath of `@ebml` attribute is `/EBMLSchema/@ebml`.
+Within an EBML Schema, the XPath of the `@ebml` attribute is `/EBMLSchema/@ebml`.
 
 The ebml attribute is a positive integer that specifies the
 version of the EBML Header (see (#ebmlversion-element))
@@ -608,7 +608,7 @@ is 1.
 
 ### \<element> Element
 
-Within an EBML Schema, the XPath of `<element>` element is
+Within an EBML Schema, the XPath of the `<element>` element is
 `/EBMLSchema/element`.
 
 Each `<element>` defines one EBML Element through the use of
@@ -627,7 +627,7 @@ attributes to define an EBML Element:
 
 #### name
 
-Within an EBML Schema, the XPath of `@name` attribute is
+Within an EBML Schema, the XPath of the `@name` attribute is
 `/EBMLSchema/element/@name`.
 
 The name provides the human-readable name of the EBML Element. The value of
@@ -641,7 +641,7 @@ The name attribute is **REQUIRED**.
 
 #### path
 
-Within an EBML Schema, the XPath of `@path` attribute is
+Within an EBML Schema, the XPath of the `@path` attribute is
 `/EBMLSchema/element/@path`.
 
 The path defines the allowed storage locations of the EBML Element within
@@ -735,7 +735,7 @@ resulting path `\a\b\c\global` has two EBMLPathAtom between
 
 #### id
 
-Within an EBML Schema, the XPath of `@id` attribute is
+Within an EBML Schema, the XPath of the `@id` attribute is
 `/EBMLSchema/element/@id`.
 
 The Element ID is encoded as a Variable Size Integer and expressed in
@@ -754,7 +754,7 @@ The id attribute is **REQUIRED**.
 
 #### minOccurs
 
-Within an EBML Schema, the XPath of `@minOccurs` attribute is
+Within an EBML Schema, the XPath of the `@minOccurs` attribute is
 `/EBMLSchema/element/@minOccurs`.
 
 The minOccurs is a non-negative integer expressing the minimum permitted number
@@ -780,7 +780,7 @@ The semantics meaning of minOccurs within an EBML Schema is analogous to the mea
 
 #### maxOccurs
 
-Within an EBML Schema, the XPath of `@maxOccurs` attribute is
+Within an EBML Schema, the XPath of the `@maxOccurs` attribute is
 `/EBMLSchema/element/@maxOccurs`.
 
 The maxOccurs is a non-negative integer expressing the maximum permitted number
@@ -806,7 +806,7 @@ similar to xml:maxOccurs="unbounded" in an XML Schema.
 
 #### range
 
-Within an EBML Schema, the XPath of `@range` attribute is
+Within an EBML Schema, the XPath of the `@range` attribute is
 `/EBMLSchema/element/@range`.
 
 A numerical range for EBML Elements which are of numerical types (Unsigned
@@ -864,7 +864,7 @@ attribute **MUST** use only the latter form.
 
 #### length
 
-Within an EBML Schema, the XPath of `@length` attribute is
+Within an EBML Schema, the XPath of the `@length` attribute is
 `/EBMLSchema/element/@length`.
 
 A value to express the valid length of the Element
@@ -882,7 +882,7 @@ length by the definition of the associated EBML Element Type.
 
 #### default
 
-Within an EBML Schema, the XPath of `@default` attribute is
+Within an EBML Schema, the XPath of the `@default` attribute is
 `/EBMLSchema/element/@default`.
 
 If an Element is mandatory (has a minOccurs value greater than zero) but not written within its Parent Element or stored as an Empty Element, then the EBML Reader of the EBML Document **MUST** semantically interpret the EBML Element as present with this specified default value for the EBML Element.
@@ -894,7 +894,7 @@ The default attribute is **OPTIONAL**.
 
 #### type
 
-Within an EBML Schema, the XPath of `@type` attribute is
+Within an EBML Schema, the XPath of the `@type` attribute is
 `/EBMLSchema/element/@type`.
 
 The type **MUST** be set to one of the following values:
@@ -907,7 +907,7 @@ The type attribute is **REQUIRED**.
 
 #### unknownsizeallowed
 
-Within an EBML Schema, the XPath of `@unknownsizeallowed`
+Within an EBML Schema, the XPath of the `@unknownsizeallowed`
 attribute is `/EBMLSchema/element/@unknownsizeallowed`.
 
 This attribute is a boolean to express whether an EBML Element is permitted to
@@ -926,7 +926,7 @@ allowed to use an unknown Element Data Size.
 
 #### recursive
 
-Within an EBML Schema, the XPath of `@recursive` attribute is
+Within an EBML Schema, the XPath of the `@recursive` attribute is
 `/EBMLSchema/element/@recursive`.
 
 This attribute is a boolean to express whether an EBML Element is permitted to
@@ -949,7 +949,7 @@ used recursively.
 
 #### recurring
 
-Within an EBML Schema, the XPath of `@recurring` attribute is
+Within an EBML Schema, the XPath of the `@recurring` attribute is
 `/EBMLSchema/element/@recurring`.
 
 This attribute is a boolean to express whether an EBML Element is defined as an
@@ -962,7 +962,7 @@ Recurring Element.
 
 #### minver
 
-Within an EBML Schema, the XPath of `@minver` attribute is
+Within an EBML Schema, the XPath of the `@minver` attribute is
 `/EBMLSchema/element/@minver`.
 
 The minver (minimum version) attribute stores a non-negative integer that
@@ -974,7 +974,7 @@ attribute is not present, then the EBML Element has a minimum version of
 
 #### maxver
 
-Within an EBML Schema, the XPath of `@maxver` attribute is
+Within an EBML Schema, the XPath of the `@maxver` attribute is
 `/EBMLSchema/element/@maxver`.
 
 The maxver (maximum version) attribute stores a non-negative integer that
@@ -987,7 +987,7 @@ stored in the version attribute of `<EBMLSchema>`.
 
 ### \<documentation> Element
 
-Within an EBML Schema, the XPaths of `<documentation>`
+Within an EBML Schema, the XPaths of the `<documentation>`
 elements are `/EBMLSchema/element/documentation` and `/EBMLSchema/element/restriction/enum/documentation`.
 
 The `<documentation>` element provides additional information
@@ -999,7 +999,7 @@ used: `<a>`, `<br>`, `<strong>`.
 
 #### lang
 
-Within an EBML Schema, the XPath of `@lang` attribute is
+Within an EBML Schema, the XPath of the `@lang` attribute is
 `/EBMLSchema/element/documentation/@lang`.
 
 A lang attribute which is set to the [@!RFC5646] value of
@@ -1009,7 +1009,7 @@ The lang attribute is **OPTIONAL**.
 
 #### purpose
 
-Within an EBML Schema, the XPath of `@purpose` attribute is
+Within an EBML Schema, the XPath of the `@purpose` attribute is
 `/EBMLSchema/element/documentation/@purpose`.
 
 A purpose attribute distinguishes the meaning of the documentation. Values
@@ -1030,7 +1030,7 @@ The purpose attribute is **REQUIRED**.
 
 ### \<implementation_note> Element
 
-Within an EBML Schema, the XPath of `<implementation_note>`
+Within an EBML Schema, the XPath of the `<implementation_note>`
 element is `/EBMLSchema/element/implementation_note`.
 
 In some cases within an EBML Document Type, the attributes of the
@@ -1050,7 +1050,7 @@ attribute (#note-attribute).
 
 #### note_attribute
 
-Within an EBML Schema, the XPath of `@note_attribute` attribute
+Within an EBML Schema, the XPath of the `@note_attribute` attribute
 is `/EBMLSchema/element/implementation_note/@note_attribute`.
 
 The note\_attribute attribute references which of the
@@ -1108,7 +1108,7 @@ otherwise not.
 
 ### \<restriction> Element
 
-Within an EBML Schema, the XPath of `<restriction>`
+Within an EBML Schema, the XPath of the `<restriction>`
 element is `/EBMLSchema/element/restriction`.
 
 The `<restriction>` element provides information about
@@ -1117,7 +1117,7 @@ restrictions to the allowable values for the EBML Element which are listed in
 
 ### \<enum> Element
 
-Within an EBML Schema, the XPath of `<enum>` element is
+Within an EBML Schema, the XPath of the `<enum>` element is
 `/EBMLSchema/element/restriction/enum`.
 
 The `<enum>` element stores a list of values allowed for
@@ -1132,7 +1132,7 @@ integer). An `<enum>` element **MAY** also store
 
 #### label
 
-Within an EBML Schema, the XPath of `@label` attribute is
+Within an EBML Schema, the XPath of the `@label` attribute is
 `/EBMLSchema/element/restriction/enum/@label`.
 
 The label provides a concise expression for human consumption that
@@ -1142,7 +1142,7 @@ The label attribute is **OPTIONAL**.
 
 #### value
 
-Within an EBML Schema, the XPath of `@value` attribute is
+Within an EBML Schema, the XPath of the `@value` attribute is
 `/EBMLSchema/element/restriction/enum/@value`.
 
 The value represents data that **MAY** be stored within the EBML Element.
@@ -1151,7 +1151,7 @@ The value attribute is **REQUIRED**.
 
 ### \<extension> Element
 
-Within an EBML Schema, the XPath of `<extension>`
+Within an EBML Schema, the XPath of the `<extension>`
 element is `/EBMLSchema/element/extension`.
 
 The `<extension>` element provides an unconstrained element to
@@ -1168,7 +1168,7 @@ EBML Schema remains as a well-formed XML Document. All
 
 #### type
 
-Within an EBML Schema, the XPath of `@type` attribute is
+Within an EBML Schema, the XPath of the `@type` attribute is
 `/EBMLSchema/element/extension/@type`.
 
 The type attribute should reference a name or identifier of the
