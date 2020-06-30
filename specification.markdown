@@ -179,7 +179,7 @@ total length in octets in of the Variable Size Integer.
 The single bit `1` starts a Variable Size Integer with a length of
 one octet. The sequence of bits `01` starts a Variable Size Integer 
 with a length of two octets. `001` starts a Variable Size Integer with
-a length of three octets, and so on, with each additional 0-bit adding one
+a length of three octets, and so on, with each additional `0` bit adding one
 octet to the length of the Variable Size Integer.
 
 ## VINT_MARKER
