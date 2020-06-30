@@ -88,7 +88,7 @@ concatenated together.
 an `Element Data Size`, and `Element Data`.
 
 `Element ID`:
-: The `Element ID` is a binary value, encoded as a `Variable Size Integer`,
+: A binary value, encoded as a `Variable Size Integer`,
 used to uniquely identify a defined `EBML Element` within a specific
 `EBML Schema`.
 
@@ -139,7 +139,7 @@ in which that `EBML Element` is directly contained.
 `Child Elements`, and so on.
 
 `Void Element`:
-: A `Void Element` is an `Element` used to overwrite data or
+: An `Element` used to overwrite data or
 reserve space within a `Master Element` for later use.
 
 `Element Name`:
