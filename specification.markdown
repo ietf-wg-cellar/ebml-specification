@@ -52,7 +52,7 @@ application of `EBML`. Specific terms are defined below:
 
 `EBML Document Type`:
 : A name provided by an `EBML Schema` to designate a particular 
-implementation of `EBML` for a data format (e.g., matroska and webm).
+implementation of `EBML` for a data format (e.g., Matroska and WebM).
 
 `EBML Schema`:
 : A standardized definition for the structure of an `EBML Document Type`.
@@ -524,7 +524,7 @@ the relationship of an XML Schema [@!W3C.REC-xmlschema-0-20041028] to an XML
 Document [@!W3C.REC-xml-20081126]. An EBML Schema
 **MUST** be clearly associated with one or more EBML Document
 Types. An EBML Document Type is identified by a string stored within the EBML
-Header in the DocType Element -- for example, matroska or webm (see
+Header in the DocType Element -- for example, Matroska or WebM (see
 (#doctype-element)). The DocType value for an EBML Document Type
 **MUST** be unique, persistent, and described in the IANA Registry
 (see (#ebml-doctypes-registry)).
