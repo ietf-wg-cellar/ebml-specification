@@ -78,7 +78,7 @@ concatenated together.
 : All data of an `EBML Document` following the `EBML Header`.
 
 `Variable Size Integer`:
-: A compact variable-length binary value which defines its own length.
+: A compact variable-length binary value that defines its own length.
 
 `VINT`:
 : Also known as `Variable Size Integer`.
@@ -112,7 +112,7 @@ Element's `EBML Document Type`.
 : The starting level in the hierarchy of an `EBML Document`.
 
 `Root Element`:
-: A mandatory, non-repeating `EBML Element` which occurs at the top
+: A mandatory, non-repeating `EBML Element` that occurs at the top
 level of the path hierarchy within an `EBML Body` and contains all other
 `EBML Elements` of the `EBML Body`, excepting optional `Void Elements`.
 
@@ -128,7 +128,7 @@ of the `Root Element`.
 immediately contained within a `Master Element`.
 
 `Parent Element`:
-: A relative term to describe the `Master Element` which contains a
+: A relative term to describe the `Master Element` that contains a
 specified element. For any specified `EBML Element` that is not at
 `Root Level`, the `Parent Element` refers to the `Master Element`
 in which that `EBML Element` is directly contained.
@@ -302,7 +302,7 @@ represent the integer 63).
 
 Although an Element ID with all VINT\_DATA bits set to zero is invalid, an
 Element Data Size with all VINT\_DATA bits set to zero is allowed for EBML
-Element Types which do not mandate a non-zero length (see
+Element Types that do not mandate a non-zero length (see
 (#ebml-element-types)). An Element Data Size with all VINT\_DATA
 bits set to zero indicates that the Element Data is zero octets in
 length. Such an EBML Element is referred to as an Empty Element. If an Empty
@@ -398,7 +398,7 @@ following EBML Element Types for each EBML Element. An EBML Element Type
 defines a concept of storing data within an EBML Element that describes such
 characteristics as length, endianness, and definition.
 
-EBML Elements which are defined as a Signed Integer Element, Unsigned
+EBML Elements that are defined as a Signed Integer Element, Unsigned
 Integer Element, Float Element, or Date Element use big endian storage.
 
 ## Signed Integer Element
@@ -406,7 +406,7 @@ Integer Element, Float Element, or Date Element use big endian storage.
 A Signed Integer Element **MUST** declare a length from zero to eight octets. If the EBML Element is not defined to have a default value, then a Signed Integer Element with a zero-octet length represents an integer value of zero.
 
 A Signed Integer Element stores an integer (meaning that it can be written
-without a fractional component) which could be negative, positive, or
+without a fractional component) that could be negative, positive, or
 zero. Signed Integers are stored with two's complement notation with the
 leftmost bit being the sign bit. Because EBML limits Signed Integers to 8
 octets in length, a Signed Integer Element stores a number from
@@ -417,7 +417,7 @@ octets in length, a Signed Integer Element stores a number from
 An Unsigned Integer Element **MUST** declare a length from zero to eight octets. If the EBML Element is not defined to have a default value, then an Unsigned Integer Element with a zero-octet length represents an integer value of zero.
 
 An Unsigned Integer Element stores an integer (meaning that it can be
-written without a fractional component) which could be positive or
+written without a fractional component) that could be positive or
 zero. Because EBML limits Unsigned Integers to 8 octets in length, an Unsigned
 Integer Element stores a number from 0 to 18,446,744,073,709,551,615.
 
@@ -484,7 +484,7 @@ are defined as part of this document.
 
 Elements within an EBML Header can be at most 4 octets long, except for the
 EBML Element with Element Name EBML and Element ID
-`0x1A45DFA3` (see (#ebml-element)); this Element can be up
+`0x1A45DFA3` (see (#ebml-element)); that Element can be up
 to 8 octets long.
 
 ## EBML Body
@@ -809,7 +809,7 @@ similar to xml:maxOccurs="unbounded" in an XML Schema.
 Within an EBML Schema, the XPath of the `@range` attribute is
 `/EBMLSchema/element/@range`.
 
-A numerical range for EBML Elements which are of numerical types (Unsigned
+A numerical range for EBML Elements that are of numerical types (Unsigned
 Integer, Signed Integer, Float, and Date). If specified, the value of the EBML
 Element **MUST** be within the defined range. See
 (#expression-of-range) for rules applied to expression of range
@@ -1194,15 +1194,15 @@ and semantics. Identically Recurring Elements are permitted to be stored
 multiple times within the same Parent Element in order to increase data
 resilience and optimize the use of EBML in transmission. For instance, a
 pertinent Top-Level Element could be periodically resent within a data stream
-so that an EBML Reader which starts reading the stream from the middle could
+so that an EBML Reader that starts reading the stream from the middle could
 better interpret the contents. Identically Recurring Elements
 **SHOULD** include a CRC-32 Element as a Child Element; this is
 especially recommended when EBML is used for long-term storage or
 transmission. If a Parent Element contains more than one copy of an
-Identically Recurring Element which includes a CRC-32 Element as a Child
+Identically Recurring Element that includes a CRC-32 Element as a Child
 Element, then the first instance of the Identically Recurring Element with a
 valid CRC-32 value should be used for interpretation. If a Parent Element
-contains more than one copy of an Identically Recurring Element which does not
+contains more than one copy of an Identically Recurring Element that does not
 contain a CRC-32 Element, or if CRC-32 Elements are present but none are valid,
 then the first instance of the Identically Recurring Element should be used
 for interpretation.
@@ -1231,7 +1231,7 @@ Within an expression of a float range, as in an integer range, the
 permitted by the range. Hexadecimal Floating-Point Constants also use a -
 (hyphen) when indicating a negative binary power. Within a float range, when a
 - (hyphen) is immediately preceded by a letter p, then the - (hyphen) is a
-part of the Hexadecimal Floating-Point Constant which notes negative binary
+part of the Hexadecimal Floating-Point Constant that notes negative binary
 power. Within a float range, when a - (hyphen) is not immediately preceded by
 a letter p, then the - (hyphen) represents the separator between the minimum
 and maximum values permitted by the range.
@@ -1420,7 +1420,7 @@ octets of the expressions of all Element Data Sizes to be found within the EBML 
 EBMLMaxSizeLength Element documents an upper bound for the `length` of
 all Element Data Size expressions within the EBML Body and not an upper bound
 for the `value` of all Element Data Size expressions
-within the EBML Body. EBML Elements that have an Element Data Size expression which is larger in octets
+within the EBML Body. EBML Elements that have an Element Data Size expression that is larger in octets
 than what is expressed by EBMLMaxSizeLength Element are invalid.
 
 ### DocType Element
@@ -1897,7 +1897,7 @@ Side channel attacks could exploit:
 - Data contained within a Master Element that is not itself part of a Child Element, which can trigger incorrect parsing behavior in EBML Readers.
 - Extraneous copies of Identically Recurring Element, making parsing unnecessarily slow to the point of not being usable.
 - Copies of Identically Recurring Element within a Parent Element that contain invalid CRC-32 Elements. EBML Readers not checking the CRC-32 might use the version of the element with mismatching CRC-32s.
-- Use of Void Elements which could be used to hide content or create bogus resynchronization points seen by some EBML Readers and not others.
+- Use of Void Elements that could be used to hide content or create bogus resynchronization points seen by some EBML Readers and not others.
 
 # IANA Considerations
 
