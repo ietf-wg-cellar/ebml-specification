@@ -112,7 +112,7 @@ Element's `EBML Document Type`.
 : The starting level in the hierarchy of an `EBML Document`.
 
 `Root Element`:
-: A mandatory, non-repeating `EBML Element` that occurs at the top
+: A mandatory, nonrepeating `EBML Element` that occurs at the top
 level of the path hierarchy within an `EBML Body` and contains all other
 `EBML Elements` of the `EBML Body`, excepting optional `Void Elements`.
 
@@ -165,7 +165,7 @@ The Element ID and Element Data Size are both encoded as a Variable Size
 Integer. The Variable Size Integer is composed of a VINT\_WIDTH, VINT\_MARKER,
 and VINT\_DATA, in that order. Variable Size Integers  **MUST**
 left-pad the VINT\_DATA value with zero bits so that the whole Variable Size
-Integer is octet-aligned. The Variable Size Integer will be referred to as 
+Integer is octet aligned. The Variable Size Integer will be referred to as 
 VINT for shorthand.
 
 ## VINT_WIDTH
@@ -192,9 +192,9 @@ The VINT\_DATA portion of the Variable Size Integer includes all data following
 (but not including) the VINT\_MARKER until end of the Variable Size 
 Integer whose length is derived from the VINT\_WIDTH. The bits required for the
 VINT\_WIDTH and the VINT\_MARKER use one out of every eight bits of the total
-length of the Variable Size Integer. Thus, a Variable Size Integer of 1 octet
-length supplies 7 bits for VINT\_DATA, a 2 octet length supplies 14 bits for
-VINT\_DATA, and a 3 octet length supplies 21 bits for VINT\_DATA. If the number
+length of the Variable Size Integer. Thus, a Variable Size Integer of 1-octet
+length supplies 7 bits for VINT\_DATA, a 2-octet length supplies 14 bits for
+VINT\_DATA, and a 3-octet length supplies 21 bits for VINT\_DATA. If the number
 of bits required for VINT\_DATA is less than the bit size of VINT\_DATA, then
 VINT\_DATA **MUST** be zero-padded to the left to a size that 
 fits. The VINT\_DATA value **MUST** be expressed as a big-endian
@@ -252,7 +252,7 @@ semantically equal VINT\_DATA but is invalid, because a shorter VINT encoding is
 possible. Additionally, an Element ID with binary encoding of `1111 1111`
 is invalid, since the VINT\_DATA section is set to all one values,
 whereas an Element ID with binary encoding of `0100 0000 0111 1111`
-stores a semantically equal VINT\_DATA and is the shortest possible VINT 
+stores a semantically equal VINT\_DATA and is the shortest-possible VINT 
 encoding.
 
 [@tableElementIDValidity] details these specific examples further:
@@ -302,7 +302,7 @@ represent the integer 63).
 
 Although an Element ID with all VINT\_DATA bits set to zero is invalid, an
 Element Data Size with all VINT\_DATA bits set to zero is allowed for EBML
-Element Types that do not mandate a non-zero length (see
+Element Types that do not mandate a nonzero length (see
 (#ebml-element-types)). An Element Data Size with all VINT\_DATA
 bits set to zero indicates that the Element Data is zero octets in
 length. Such an EBML Element is referred to as an Empty Element. If an Empty
@@ -374,7 +374,7 @@ can be stored in VINTs, by octet length {#tableVintRangePerLength}
 
 If the length of Element Data equals 2^(n\*7)^-1, then the octet 
 length of the Element Data Size **MUST** be at least n+1. This rule
-prevents an Element Data Size from being expressed as the unknown size
+prevents an Element Data Size from being expressed as the unknown-size
 value. [@tableVintReservation] clarifies this rule by
 showing a valid and invalid expression of an Element Data Size with a
 VINT\_DATA of 127 (which is equal to 2^1\*7^-1) and 16,383 (which is equal to
@@ -399,7 +399,7 @@ defines a concept of storing data within an EBML Element that describes such
 characteristics as length, endianness, and definition.
 
 EBML Elements that are defined as a Signed Integer Element, Unsigned
-Integer Element, Float Element, or Date Element use big endian storage.
+Integer Element, Float Element, or Date Element use big-endian storage.
 
 ## Signed Integer Element
 
@@ -544,7 +544,7 @@ An EBML Schema **MAY** constrain the use of EBML Header Elements
 that Element's `range` attribute. For example, an EBML Schema
 **MAY** constrain the EBMLMaxSizeLength to a maximum value of
 `8` or **MAY** constrain the EBMLVersion to only support a
-value of `1`. If an EBML Schema adopts the EBML Header Element as-is,
+value of `1`. If an EBML Schema adopts the EBML Header Element as is,
 then it is not required to document that Element within the EBML Schema. If an
 EBML Schema constrains the range of an EBML Header Element, then that Element
 **MUST** be documented within an `<element>` node of
@@ -561,9 +561,9 @@ Within an EBML Schema, the XPath [@?XPath] of the
 `<EBMLSchema>` element is `/EBMLSchema`.
 
 As an XML Document, the EBML Schema **MUST** use
-`<EBMLSchema>` as the top level element. The
+`<EBMLSchema>` as the top-level element. The
 `<EBMLSchema>` element can contain `<element>`
-sub-elements.
+subelements.
 
 ### \<EBMLSchema> Attributes
 
@@ -587,7 +587,7 @@ The docType attribute is **REQUIRED** within the
 Within an EBML Schema, the XPath of the `@version` attribute is
 `/EBMLSchema/@version`.
 
-The version lists a non-negative integer that specifies the version of the
+The version lists a nonnegative integer that specifies the version of the
  docType documented by the EBML Schema. Unlike XML Schemas, an EBML Schema
 documents all versions of a docType's definition rather than using separate
 EBML Schemas for each version of a docType. EBML Elements may be introduced
@@ -618,7 +618,7 @@ additional attributes to extend the semantics but **MUST NOT**
 conflict with the definitions of the `<element>` attributes
 defined within this document.
 
-The `<element>` nodes contain a description of the meaning and use of the EBML Element stored within one or more `<documentation>` sub-elements, followed by optional `<implementation_note>` sub-elements, followed by zero or one `<restriction>` sub-element, followed by optional `<extension>` sub-elements. All `<element>` nodes **MUST** be sub-elements of the `<EBMLSchema>`.
+The `<element>` nodes contain a description of the meaning and use of the EBML Element stored within one or more `<documentation>` subelements, followed by optional `<implementation_note>` subelements, followed by zero or one `<restriction>` subelement, followed by optional `<extension>` subelements. All `<element>` nodes **MUST** be subelements of the `<EBMLSchema>`.
 
 ### \<element> Attributes
 
@@ -649,7 +649,7 @@ an EBML Document. This path **MUST** be defined with the full
 hierarchy of EBML Elements separated with a `\`. The top EBML Element
 in the path hierarchy is the first in the value. The syntax of the
 path attribute is defined using this Augmented Backus-Naur Form
-(ABNF) [@!RFC5234] with the case sensitive update
+(ABNF) [@!RFC5234] with the case-sensitive update
 [@!RFC7405] notation:
 
 The path attribute is **REQUIRED**.
@@ -757,7 +757,7 @@ The id attribute is **REQUIRED**.
 Within an EBML Schema, the XPath of the `@minOccurs` attribute is
 `/EBMLSchema/element/@minOccurs`.
 
-minOccurs is a non-negative integer expressing the minimum permitted number
+minOccurs is a nonnegative integer expressing the minimum permitted number
 of occurrences of this EBML Element within its Parent Element.
 
 Each instance of the Parent Element **MUST** contain at least this many instances of this EBML Element.
@@ -783,7 +783,7 @@ The semantics meaning of minOccurs within an EBML Schema is analogous to the mea
 Within an EBML Schema, the XPath of the `@maxOccurs` attribute is
 `/EBMLSchema/element/@maxOccurs`.
 
-maxOccurs is a non-negative integer expressing the maximum permitted number
+maxOccurs is a nonnegative integer expressing the maximum permitted number
 of occurrences of this EBML Element within its Parent Element.
 
 Each instance of the Parent Element **MUST** contain at most
@@ -871,8 +871,8 @@ The `length` attribute is a value to express the valid length of the Element
 Data as written, measured in octets. The length provides a constraint in
 addition to the Length value of the definition of the corresponding EBML
 Element Type. This length **MUST** be expressed as either a
-non-negative integer or a range (see
-(#expression-of-range)) that consists of only non-negative
+nonnegative integer or a range (see
+(#expression-of-range)) that consists of only nonnegative
 integers and valid operators.
 
 The length attribute is **OPTIONAL**. If the
@@ -965,7 +965,7 @@ Recurring Element.
 Within an EBML Schema, the XPath of the `@minver` attribute is
 `/EBMLSchema/element/@minver`.
 
-The minver (minimum version) attribute stores a non-negative integer that
+The minver (minimum version) attribute stores a nonnegative integer that
 represents the first version of the docType to support the EBML Element.
 
 The minver attribute is **OPTIONAL**. If the minver
@@ -977,7 +977,7 @@ attribute is not present, then the EBML Element has a minimum version of
 Within an EBML Schema, the XPath of the `@maxver` attribute is
 `/EBMLSchema/element/@maxver`.
 
-The maxver (maximum version) attribute stores a non-negative integer that
+The maxver (maximum version) attribute stores a nonnegative integer that
 represents the last or most recent version of the docType to support the
 element. maxver **MUST** be greater than or equal to minver.
 
@@ -1013,7 +1013,7 @@ Within an EBML Schema, the XPath of the `@purpose` attribute is
 `/EBMLSchema/element/documentation/@purpose`.
 
 A purpose attribute distinguishes the meaning of the documentation. Values
-for the `<documentation>` sub-element's purpose attribute
+for the `<documentation>` subelement's purpose attribute
 **MUST** include one of the values listed in
 [@tablePurposeDefinitions].
 
@@ -1159,9 +1159,9 @@ contain information about the associated EBML `<element>`, which
 is undefined by this document but **MAY** be defined by the
 associated EBML Document Type. The `<extension>` element
 **MUST** contain a `type` attribute and also
-**MAY** contain any other attribute or sub-element as long as the
+**MAY** contain any other attribute or subelement as long as the
 EBML Schema remains as a well-formed XML Document. All
-`<extension>` elements **MUST** be sub-elements of the
+`<extension>` elements **MUST** be subelements of the
 `<element>`.
 
 ### \<extension> Attributes
@@ -1223,7 +1223,7 @@ expressions of float ranges.
 | 1.0-256.0         | `0x1p+0-0x1p+8`                         |
 | 0.857421875       | `0x1.b7p-1`                             |
 | -1.0--0.857421875 | `-0x1p+0--0x1.b7p-1`                    |
-Table: Example of floating point values and
+Table: Example of Floating-Point values and
 ranges as decimal and Hexadecimal Floating-Point Constants {#tableFloatExamples}
 
 Within an expression of a float range, as in an integer range, the
@@ -1645,8 +1645,8 @@ are Master Elements **SHOULD** include a CRC-32 Element as a Child
 Element. The CRC in use is the IEEE-CRC-32 algorithm as used in the
 [@!ISO.3309.1979] standard and in section 8.1.1.6.2 of
 [@!ITU.V42], with initial value of 0xFFFFFFFF. The CRC value
-**MUST** be computed on a little endian bytestream and
-**MUST** use little endian storage.
+**MUST** be computed on a little-endian bytestream and
+**MUST** use little-endian storage.
 
 ### Void Element
 
@@ -1667,7 +1667,7 @@ type:
 
 description:
 : Used to void data or to avoid unexpected behaviors when using damaged
-data. The content is discarded. Also used to reserve space in a sub-element for
+data. The content is discarded. Also used to reserve space in a subelement for
 later use.
 
 # Considerations for Reading EBML Data
@@ -1794,8 +1794,8 @@ Void Element. For example,
 [@tableShortenVintMoreThanOneOctet] depicts a String Element
 that stores an Element ID (3 octets), Element Data Size (2 octets, but could
 be rewritten in one octet), and Element Data (3 octets). If the Element Data
-is to be rewritten to a two octet length, then another octet can be taken from
-Element Data Size so that there is enough space to add a two octet Void
+is to be rewritten to a two-octet length, then another octet can be taken from
+Element Data Size so that there is enough space to add a two-octet Void
 Element.
 
 Status | Element ID | Element Data Size | Element Data | Void Element
@@ -1890,7 +1890,7 @@ An EBML Reader may discard some or all data if the following errors are found in
 - Usage of invalid data in EBML Elements with a date type, triggering bogus date accesses.
 - The CRC-32 Element (see (#crc-32-element)) of a Master Element doesn't match the rest of the content of that Master Element.
 
-Side channel attacks could exploit:
+Side-channel attacks could exploit:
 
 - The semantic equivalence of the same string stored in a String Element or UTF-8 Element with and without zero-bit padding, making comparison at the semantics level invalid.
 - The semantic equivalence of VINT\_DATA within Element Data Size with two different lengths due to left-padding zero bits, making comparison at the semantics level invalid.
@@ -1909,7 +1909,7 @@ This document creates a new IANA Registry called
 Element IDs are described in (#element-id). Element
 IDs are encoded using the VINT mechanism described in
 (#variable-size-integer) and can be between one and five
-octets long. Five octet long Element IDs are possible only if declared
+octets long. Five-octet-long Element IDs are possible only if declared
 in the header.
 
 This IANA Registry only applies to Elements that can be contained
