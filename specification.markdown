@@ -224,7 +224,7 @@ date -- e.g., when its final size isn't known in advance. In
 [@tableVariousSizes], an integer `2` (with a 
 corresponding binary value of 0b10) is shown encoded as different Variable 
 Size Integers with lengths from one octet to four octets. All four encoded
-examples have identical semantics meaning, though the VINT\_WIDTH and the  padding
+examples have identical semantic meaning, though the VINT\_WIDTH and the  padding
 of the VINT\_DATA vary.
 
 Integer | Octet Length | As Represented in VINT (binary)         | As Represented in VINT (hexadecimal)
@@ -776,7 +776,7 @@ The minOccurs attribute is **OPTIONAL**. If the minOccurs
 attribute is not present, then that EBML Element has a minOccurs value of
 0.
 
-The semantics meaning of minOccurs within an EBML Schema is analogous to the meaning of minOccurs within an XML Schema.
+The semantic meaning of minOccurs within an EBML Schema is analogous to the meaning of minOccurs within an XML Schema.
 
 #### maxOccurs
 
@@ -800,7 +800,7 @@ number of occurrences of this EBML Element within its Parent Element or within
 the EBML Document, depending on whether or not the EBMLParentPath of the EBML Element
 is empty.
 
-The semantics meaning of maxOccurs within an EBML Schema is analogous to the
+The semantic meaning of maxOccurs within an EBML Schema is analogous to the
 meaning of maxOccurs within an XML Schema; when it is not present, it's
 similar to xml:maxOccurs="unbounded" in an XML Schema.
 
@@ -1019,7 +1019,7 @@ for the `<documentation>` sub-element's purpose attribute
 
 | value of purpose attribute | definition
 |:---------------------------|:----------------------------------------|
-| definition                 | A "definition" is recommended for every defined EBML Element. This documentation explains the semantics meaning of the EBML Element.
+| definition                 | A "definition" is recommended for every defined EBML Element. This documentation explains the semantic meaning of the EBML Element.
 | rationale                  | An explanation about the reason or catalyst for the definition of the Element.
 | usage notes                | Recommended practices or guidelines for both reading, writing, or interpreting the Element.
 | references                 | Informational references to support the contextualization and understanding of the value of the Element.
@@ -1735,9 +1735,9 @@ value terminated by one or more Null Octets are semantically equal.
 
 [@tableNullOctetSemantics] shows examples of semantics
 and validation for the use of Null Octets. Values to represent Stored Values
-and the Semantics Meaning as represented as hexadecimal values.
+and the Semantic Meaning as represented as hexadecimal values.
 
-Stored Value        | Semantics Meaning
+Stored Value        | Semantic Meaning
 :-------------------|:-------------------
 0x65 0x62 0x6D 0x6C | 0x65 0x62 0x6D 0x6C
 0x65 0x62 0x00 0x6C | 0x65 0x62
@@ -1885,15 +1885,15 @@ An EBML Reader may discard some or all data if the following errors are found in
 
 - Invalid Element Data Size values (e.g., extending the length of the EBML Element beyond the scope of the Parent Element, possibly triggering access-out-of-bounds issues).
 - Very high lengths in order to force out-of-memory situations resulting in a denial of service, access-out-of-bounds issues, etc.
-- Missing EBML Elements that are mandatory in a Master Element and have no declared default value, making the semantics invalid at that Master Element level.
+- Missing EBML Elements that are mandatory in a Master Element and have no declared default value, making the semantic invalid at that Master Element level.
 - Usage of invalid UTF-8 encoding in EBML Elements of UTF-8 type (e.g., in order to trigger access-out-of-bounds or buffer-overflow issues).
 - Usage of invalid data in EBML Elements with a date type, triggering bogus date accesses.
 - The CRC-32 Element (see (#crc-32-element)) of a Master Element doesn't match the rest of the content of that Master Element.
 
 Side channel attacks could exploit:
 
-- The semantic equivalence of the same string stored in a String Element or UTF-8 Element with and without zero-bit padding, making comparison at the semantics level invalid.
-- The semantic equivalence of VINT\_DATA within Element Data Size with two different lengths due to left-padding zero bits, making comparison at the semantics level invalid.
+- The semantic equivalence of the same string stored in a String Element or UTF-8 Element with and without zero-bit padding, making comparison at the semantic level invalid.
+- The semantic equivalence of VINT\_DATA within Element Data Size with two different lengths due to left-padding zero bits, making comparison at the semantic level invalid.
 - Data contained within a Master Element that is not itself part of a Child Element, which can trigger incorrect parsing behavior in EBML Readers.
 - Extraneous copies of Identically Recurring Element, making parsing unnecessarily slow to the point of not being usable.
 - Copies of Identically Recurring Element within a Parent Element that contain invalid CRC-32 Elements. EBML Readers not checking the CRC-32 might use the version of the element with mismatching CRC-32s.
