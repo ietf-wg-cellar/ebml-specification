@@ -72,7 +72,7 @@ concatenated together.
 `EBML Header`:
 : A declaration that provides processing instructions and identification of
  the `EBML Body`. The `EBML Header` is analogous to an XML Declaration
-[@!W3C.REC-xml-20081126] (see section 2.8 on "Prolog and Document Type Declaration").
+[@!XML] (see section 2.8 on "Prolog and Document Type Declaration").
 
 `EBML Body`:
 : All data of an `EBML Document` following the `EBML Header`.
@@ -429,7 +429,7 @@ is not defined to have a default value, then a Float Element with a zero-octet
 length represents a numerical value of zero.
 
 A Float Element stores a floating-point number in the 32-bit and 64-bit
-binary interchange format, as defined in [@!IEEE.754.1985].
+binary interchange format, as defined in [@!IEEE.754].
 
 ## String Element
 
@@ -517,11 +517,11 @@ The version of the EBML Body is found in EBMLDocTypeVersion. A parser for the pa
 ## EBML Schema
 
 An EBML Schema is a well-formed XML Document
-[@!W3C.REC-xml-20081126] that defines the properties,
+[@!XML] that defines the properties,
 arrangement, and usage of EBML Elements that compose a specific EBML Document
 Type. The relationship of an EBML Schema to an EBML Document is analogous to
-the relationship of an XML Schema [@!W3C.REC-xmlschema-0-20041028] to an XML
-Document [@!W3C.REC-xml-20081126]. An EBML Schema
+the relationship of an XML Schema [@!XML-SCHEMA] to an XML
+Document [@!XML]. An EBML Schema
 **MUST** be clearly associated with one or more EBML Document
 Types. An EBML Document Type is identified by a string stored within the EBML
 Header in the DocType Element -- for example, Matroska or WebM (see
@@ -557,7 +557,7 @@ the EBML Schema. This document provides an example of an EBML Schema; see
 
 ### \<EBMLSchema> Element
 
-Within an EBML Schema, the XPath [@?W3C.REC-xpath-19991116] of the
+Within an EBML Schema, the XPath [@?XPath] of the
 `<EBMLSchema>` element is `/EBMLSchema`.
 
 As an XML Document, the EBML Schema **MUST** use
@@ -992,7 +992,7 @@ elements are `/EBMLSchema/element/documentation` and `/EBMLSchema/element/restri
 
 The `<documentation>` element provides additional information
 about EBML Elements or enumeration values. Within the `<documentation>` element, the
-following XHTML [@!W3C.SPSD-xhtml-basic-20180327] elements **MAY** be
+following XHTML [@!XHTML] elements **MAY** be
 used: `<a>`, `<br>`, and `<strong>`.
 
 ### \<documentation> Attributes
@@ -1179,7 +1179,7 @@ The type attribute is **REQUIRED**.
 
 ### XML Schema for EBML Schema
 
-The following provides an XML Schema [@!W3C.REC-xmlschema-0-20041028] for
+The following provides an XML Schema [@!XML-SCHEMA] for
 facilitating verification of an EBML Schema to the definition described in
 (#ebml-header).
 
@@ -1212,7 +1212,7 @@ for interpretation.
 When a float value is represented textually in an EBML Schema, such as
 within a default or range value, the float values **MUST** be
 expressed as Hexadecimal Floating-Point Constants as defined in the C11
-standard [@!ISO.9899.2011] (see section 6.4.4.2 on Floating
+standard [@!ISO.9899] (see section 6.4.4.2 on Floating
 Constants). [@tableFloatExamples] provides examples of
 expressions of float ranges.
 
@@ -1644,7 +1644,7 @@ Element for easier reading. All Top-Level Elements of an EBML Document that
 are Master Elements **SHOULD** include a CRC-32 Element as a Child
 Element. The CRC in use is the IEEE-CRC-32 algorithm as used in the
 [@!ISO.3309.1979] standard and in section 8.1.1.6.2 of
-[@!ITU.V42.2002], with initial value of 0xFFFFFFFF. The CRC value
+[@!ITU.V42], with initial value of 0xFFFFFFFF. The CRC value
 **MUST** be computed on a little endian bytestream and
 **MUST** use little endian storage.
 
