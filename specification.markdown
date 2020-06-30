@@ -203,8 +203,8 @@ unsigned integer.
 ## VINT Examples
 
 [@tableUsableBits] shows examples of Variable Size
-Integers with lengths from 1 to 5 octets. The Usable Bits column refers to the
-number of bits that can be used in the VINT\_DATA. The Representation column
+Integers with lengths from 1 to 5 octets. The "Usable Bits" column refers to the
+number of bits that can be used in the VINT\_DATA. The "Representation" column
 depicts a binary expression of Variable Size Integers where VINT\_WIDTH is
 depicted by `0`, the VINT\_MARKER as `1`, and the VINT\_DATA as
 `x`.
