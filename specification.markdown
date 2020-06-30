@@ -410,7 +410,7 @@ without a fractional component) which could be negative, positive, or
 zero. Signed Integers are stored with two's complement notation with the
 leftmost bit being the sign bit. Because EBML limits Signed Integers to 8
 octets in length, a Signed Integer Element stores a number from
-−9,223,372,036,854,775,808 to +9,223,372,036,854,775,807.
+-9,223,372,036,854,775,808 to +9,223,372,036,854,775,807.
 
 ## Unsigned Integer Element
 
