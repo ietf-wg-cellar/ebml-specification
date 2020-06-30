@@ -1019,7 +1019,7 @@ for the `<documentation>` sub-element's purpose attribute
 
 | value of purpose attribute | definition
 |:---------------------------|:----------------------------------------|
-| definition                 | A 'definition' is recommended for every defined EBML Element. This documentation explains the semantics meaning of the EBML Element.
+| definition                 | A "definition" is recommended for every defined EBML Element. This documentation explains the semantics meaning of the EBML Element.
 | rationale                  | An explanation about the reason or catalyst for the definition of the Element.
 | usage notes                | Recommended practices or guidelines for both reading, writing, or interpreting the Element.
 | references                 | Informational references to support the contextualization and understanding of the value of the Element.
