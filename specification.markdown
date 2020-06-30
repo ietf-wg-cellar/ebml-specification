@@ -1,7 +1,7 @@
 # Introduction
 
-EBML, short for Extensible Binary Meta Language, specifies a binary
-format aligned with octets (bytes) and inspired by the principle of XML (a framework for
+EBML, short for Extensible Binary Meta Language, specifies a binary and
+octet (byte) aligned format inspired by the principle of XML (a framework for
 structuring data).
 
 The goal of this document is to define a generic, binary, space-efficient
@@ -165,7 +165,7 @@ The Element ID and Element Data Size are both encoded as a Variable Size
 Integer. The Variable Size Integer is composed of a VINT\_WIDTH, VINT\_MARKER,
 and VINT\_DATA, in that order. Variable Size Integers  **MUST**
 left-pad the VINT\_DATA value with zero bits so that the whole Variable Size
-Integer is octet-aligned. Variable Size Integer will be referred to as 
+Integer is octet-aligned. The Variable Size Integer will be referred to as 
 VINT for shorthand.
 
 ## VINT_WIDTH
@@ -188,14 +188,14 @@ The VINT\_MARKER serves as a separator between the VINT\_WIDTH and VINT\_DATA. E
 
 ## VINT_DATA
 
-The VINT\_DATA portion of the Variable Size Integer includes all data that follows
+The VINT\_DATA portion of the Variable Size Integer includes all data following
 (but not including) the VINT\_MARKER until end of the Variable Size 
 Integer whose length is derived from the VINT\_WIDTH. The bits required for the
 VINT\_WIDTH and the VINT\_MARKER use one out of every eight bits of the total
 length of the Variable Size Integer. Thus a Variable Size Integer of 1 octet
 length supplies 7 bits for VINT\_DATA, a 2 octet length supplies 14 bits for
 VINT\_DATA, and a 3 octet length supplies 21 bits for VINT\_DATA. If the number
-of bits required for VINT\_DATA are less than the bit size of VINT\_DATA, then
+of bits required for VINT\_DATA is less than the bit size of VINT\_DATA, then
 VINT\_DATA **MUST** be zero-padded to the left to a size that 
 fits. The VINT\_DATA value **MUST** be expressed as a big-endian
 unsigned integer.
@@ -322,7 +322,7 @@ Element. Only a Master Element is allowed to be of unknown size, and it can
 only be so if the unknownsizeallowed attribute of its EBML Schema is
 set to true (see (#unknownsizeallowed)).
 
-The use of Unknown-Sized Elements allows for an EBML Element to be written and read before the size of the EBML Element is known. Unknown-Sized Elements **MUST** only be used if the Element Data Size is not known before the Element Data is written, such as in some cases of data streaming. The end of an Unknown-Sized Element is determined by whichever comes first:
+The use of Unknown-Sized Elements allows an EBML Element to be written and read before the size of the EBML Element is known. Unknown-Sized Elements **MUST** only be used if the Element Data Size is not known before the Element Data is written, such as in some cases of data streaming. The end of an Unknown-Sized Element is determined by whichever comes first:
 
 - Any EBML Element that is a valid Parent Element of the Unknown-Sized Element according to the EBML Schema, Global Elements excluded.
 - Any valid EBML Element according to the EBML Schema, Global Elements
@@ -332,7 +332,7 @@ shares a common direct parent, such as a Top-Level Element.
 - The end of the Parent Element with a known size has been reached.
 - The end of the EBML Document, either when reaching the end of the file or because a new EBML Header started.
 
-Consider an Unknown-Sized Element which EBML path is
+Consider an Unknown-Sized Element whose EBML path is
 `\root\level1\level2\elt`. When reading a new Element ID, assuming the
 EBML Path of that new Element is valid, here are some possible and impossible
 ways that this new Element is ending `elt`:
@@ -423,7 +423,7 @@ Integer Element stores a number from 0 to 18,446,744,073,709,551,615.
 
 ## Float Element
 
-A Float Element **MUST** declare a length of either zero octet
+A Float Element **MUST** declare a length of either zero octets
 (0 bit), four octets (32 bit) or eight octets (64 bit). If the EBML Element
 is not defined to have a default value, then a Float Element with a zero-octet
 length represents a numerical value of zero.
@@ -477,14 +477,14 @@ required to read the EBML Document.
 
 The EBML Header **MUST** contain a single Master Element with an
 Element Name of EBML and Element ID of 0x1A45DFA3 (see
-(#ebml-element)) and any number of
+(#ebml-element)); the Master Element may have any number of
 additional EBML Elements within it. The EBML Header of an EBML Document that
 uses an EBMLVersion of 1 **MUST** only contain EBML Elements that
 are defined as part of this document.
 
 Elements within an EBML Header can be at most 4 octets long, except for the
 EBML Element with Element Name EBML and Element ID
-`0x1A45DFA3` (see (#ebml-element)), which can be up
+`0x1A45DFA3` (see (#ebml-element)); this Element can be up
 to 8 octets long.
 
 ## EBML Body
@@ -536,8 +536,8 @@ Body. The EBML Schema does not document Global Elements that are defined by
 this document (namely the Void Element and the CRC-32 Element).
 
 The EBML Schema **MUST NOT** use the Element ID
-`0x1A45DFA3` which is reserved for the EBML Header for
-resynchronization purpose.
+`0x1A45DFA3` which is reserved for the EBML Header for the purpose of
+resynchronization.
 
 An EBML Schema **MAY** constrain the use of EBML Header Elements
 (see (#ebml-header-elements)) by adding or constraining
@@ -560,7 +560,7 @@ the EBML Schema. This document provides an example of an EBML Schema, see
 Within an EBML Schema, the XPath [@?W3C.REC-xpath-19991116] of the
 `<EBMLSchema>` element is `/EBMLSchema`.
 
-As with an XML Document, the EBML Schema **MUST** use
+As an XML Document, the EBML Schema **MUST** use
 `<EBMLSchema>` as the top level element. The
 `<EBMLSchema>` element can contain `<element>`
 sub-elements.
@@ -568,7 +568,7 @@ sub-elements.
 ### \<EBMLSchema> Attributes
 
 Within an EBML Schema the `<EBMLSchema>` element uses the
-following attributes:
+following attributes to define an EBML Element:
 
 #### docType
 
@@ -635,7 +635,7 @@ the name **MUST** be in the form of characters "A" to
 "Z", "a" to "z", "0" to "9",
 "-" and ".". The first character of the name
 **MUST** be in the form of an "A" to "Z",
-"a" to "z", "0" to "9" character.
+"a" to "z", or "0" to "9" character.
 
 The name attribute is **REQUIRED**.
 
@@ -647,7 +647,7 @@ Within an EBML Schema, the XPath of the `@path` attribute is
 The path defines the allowed storage locations of the EBML Element within
 an EBML Document. This path **MUST** be defined with the full
 hierarchy of EBML Elements separated with a `\`. The top EBML Element
-in the path hierarchy being the first in the value. The syntax of the
+in the path hierarchy is the first in the value. The syntax of the
 path attribute is defined using this Augmented Backus-Naur Form
 (ABNF) [@!RFC5234] with the case sensitive update
 [@!RFC7405] notation:
@@ -703,7 +703,7 @@ permitted amount of EBMLPathAtoms possible to replace the GlobalPlaceholder.
 PathMaxOccurrence **MUST NOT** have the value 0 as it would mean
 no EBMLPathAtom can replace the GlobalPlaceholder and the EBMLFullPath would
 be the same without that GlobalPlaceholder part.
-PathMaxOccurrence **MUST** be bigger or equal to
+PathMaxOccurrence **MUST** be bigger than, or equal to,
 PathMinOccurrence.
 
 For example in `\a\(0-1\)global`, the Element path
@@ -716,20 +716,20 @@ Consider another EBML Path `\a\(1-\)global`. There has to be at
 least one EBMLPathAtom between the `\a\` part and `global`.
 So the `global` EBML Element cannot be found inside the `\a`
 EBML Element as it means the resulting path `\a\global` has no
-EBMLPathAtom between the `\a\` and `global`. But the
+EBMLPathAtom between the `\a\` and `global`. However, the
 `global` EBML Element can be found inside the `\a\b` EBML
-Element as the resulting path `\a\b\global` has one EBMLPathAtom
-between the `\a\` and `global`. Or it can be found
+Element, because the resulting path, `\a\b\global`, has one EBMLPathAtom
+between the `\a\` and `global`. Alternatively, it can be found
 inside the `\a\b\c` EBML Element (two EBMLPathAtom), or inside the
 `\a\b\c\d` EBML Element (three EBMLPathAtom), etc.
 
 Consider another EBML Path `\a\(0-1\)global`. There has to be at
 most one EBMLPathAtom between the `\a\` part and `global`.
-So the `global` EBML Element can be found inside the `\a`
-EBML Element (0 EBMLPathAtom replacing GlobalPlaceholder) or inside the
+So the `global` EBML Element can be found inside either the `\a`
+EBML Element (0 EBMLPathAtom replacing GlobalPlaceholder) or the
 `\a\b` EBML Element (one replacement EBMLPathAtom).
-But it cannot be found inside the `\a\b\c` EBML Element as the
-resulting path `\a\b\c\global` has two EBMLPathAtom between
+But it cannot be found inside the `\a\b\c` EBML Element, because the
+resulting path, `\a\b\c\global`, has two EBMLPathAtom between
 `\a\` and `global`.
 
 
@@ -738,14 +738,14 @@ resulting path `\a\b\c\global` has two EBMLPathAtom between
 Within an EBML Schema, the XPath of the `@id` attribute is
 `/EBMLSchema/element/@id`.
 
-The Element ID is encoded as a Variable Size Integer and expressed in
-hexadecimal notation prefixed by a 0x; the Element ID is read and stored in big-endian
+The Element ID is encoded as a Variable Size Integer expressed in
+hexadecimal notation prefixed by a 0x that is read and stored in big-endian
 order. To reduce the risk of false positives while parsing EBML Streams, the
 Element IDs of the Root Element and Top-Level Elements **SHOULD**
 be at least 4 octets in length. Element IDs defined for use at Root Level or
 directly under the Root Level **MAY** use shorter octet lengths to
 facilitate padding and optimize edits to EBML Documents; for instance, the
-Void Element uses an Element ID with a one octet length to allow its usage
+Void Element uses an Element ID with a length of one octet to allow its usage
 in more writing and editing scenarios.
 
 The Element ID of any Element found within an EBML Document **MUST** only match a single `@path` value of its corresponding EBML Schema, but a separate instance of that Element ID value defined by the EBML Schema **MAY** occur within a different `@path`. If more than one Element is defined to use the same `@id` value, then the `@path` values of those Elements **MUST NOT** share the same EBMLParentPath. Elements **MUST NOT** be defined to use the same `@id` value if one of their common Parent Elements could be an Unknown-Sized Element.
@@ -757,7 +757,7 @@ The id attribute is **REQUIRED**.
 Within an EBML Schema, the XPath of the `@minOccurs` attribute is
 `/EBMLSchema/element/@minOccurs`.
 
-The minOccurs is a non-negative integer expressing the minimum permitted number
+minOccurs is a non-negative integer expressing the minimum permitted number
 of occurrences of this EBML Element within its Parent Element.
 
 Each instance of the Parent Element **MUST** contain at least this many instances of this EBML Element.
@@ -783,7 +783,7 @@ The semantics meaning of minOccurs within an EBML Schema is analogous to the mea
 Within an EBML Schema, the XPath of the `@maxOccurs` attribute is
 `/EBMLSchema/element/@maxOccurs`.
 
-The maxOccurs is a non-negative integer expressing the maximum permitted number
+maxOccurs is a non-negative integer expressing the maximum permitted number
 of occurrences of this EBML Element within its Parent Element.
 
 Each instance of the Parent Element **MUST** contain at most
@@ -797,8 +797,8 @@ Document.
 The maxOccurs attribute is **OPTIONAL**. If the maxOccurs
 attribute is not present then there is no upper bound for the permitted
 number of occurrences of this EBML Element within its Parent Element or within
-the EBML Document depending on whether the EBMLParentPath of the EBML Element
-is empty or not.
+the EBML Document, depending on whether or not the EBMLParentPath of the EBML Element
+is empty.
 
 The semantics meaning of maxOccurs within an EBML Schema is analogous to the
 meaning of maxOccurs within an XML Schema, when it is not present it's
@@ -835,17 +835,17 @@ value. For example `1234` means the EBML element always has the value
 value **MUST NOT** be used for that Element. For example
 `not 1234` means the Element can use all values of its type except 1234.
 
-For an exclusive lower boundary the `>` sign is used and the
-`>=` sign is used for an inclusive lower boundary. For example
-`>3` meaning the Element value **MUST** be greater than 3
-or `>=0x1p+0` meaning the Element value **MUST** be
+The `>` sign is used for an exclusive lower boundary and the
+`>=` sign is used for an inclusive lower boundary. For example,
+`>3` means the Element value **MUST** be greater than 3,
+and `>=0x1p+0` means the Element value **MUST** be
 greater than or equal to the floating value 1.0, see
 (#textual-expression-of-floats).
 
-For an exclusive upper boundary the `<` sign is used and the
-`<=` sign is used for an inclusive upper boundary. For example
-`<-2` meaning the Element value **MUST** be less than -2
-or `<=10` meaning the Element value **MUST** be less than
+The `<` sign is used for an exclusive upper boundary, and the
+`<=` sign is used for an inclusive upper boundary. For example,
+`<-2` means the Element value **MUST** be less than -2,
+and `<=10` means the Element value **MUST** be less than
 or equal to 10.
 
 The lower and upper bounds can be combined into an expression to form a
@@ -867,7 +867,7 @@ attribute **MUST** use only the latter form.
 Within an EBML Schema, the XPath of the `@length` attribute is
 `/EBMLSchema/element/@length`.
 
-A value to express the valid length of the Element
+The `length` attribute is a value to express the valid length of the Element
 Data as written measured in octets. The length provides a constraint in
 addition to the Length value of the definition of the corresponding EBML
 Element Type. This length **MUST** be expressed as either a
@@ -901,7 +901,7 @@ The type **MUST** be set to one of the following values:
 `integer` (signed integer), `uinteger` (unsigned integer),
 `float`, `string`, `date`, `utf-8`,
 `master`, or `binary`. The content of each type is defined
-within (#ebml-element-types).
+in (#ebml-element-types).
 
 The type attribute is **REQUIRED**.
 
@@ -930,7 +930,7 @@ Within an EBML Schema, the XPath of the `@recursive` attribute is
 `/EBMLSchema/element/@recursive`.
 
 This attribute is a boolean to express whether an EBML Element is permitted to
-be stored recursively. If it is allowed, the EBML Element **MAY** be
+be stored recursively. In this case, the EBML Element **MAY** be
 stored within another EBML Element that has the same Element ID. Which itself
 can be stored in an EBML Element that has the same Element ID, and so on. EBML
 Elements that are not Master Elements **MUST NOT** set recursive to 
@@ -952,8 +952,8 @@ used recursively.
 Within an EBML Schema, the XPath of the `@recurring` attribute is
 `/EBMLSchema/element/@recurring`.
 
-This attribute is a boolean to express whether an EBML Element is defined as an
-Identically Recurring Element or not; see
+This attribute is a boolean to express whether or not an EBML Element is defined as an
+Identically Recurring Element; see
 (#identically-recurring-elements).
 
 The recurring attribute is **OPTIONAL**. If the recurring
@@ -993,7 +993,7 @@ elements are `/EBMLSchema/element/documentation` and `/EBMLSchema/element/restri
 The `<documentation>` element provides additional information
 about EBML Elements or enumeration values. Within the `<documentation>` element the
 following XHTML [@!W3C.SPSD-xhtml-basic-20180327] elements **MAY** be
-used: `<a>`, `<br>`, `<strong>`.
+used: `<a>`, `<br>`, and `<strong>`.
 
 ### \<documentation> Attributes
 
@@ -1002,7 +1002,7 @@ used: `<a>`, `<br>`, `<strong>`.
 Within an EBML Schema, the XPath of the `@lang` attribute is
 `/EBMLSchema/element/documentation/@lang`.
 
-A lang attribute which is set to the [@!RFC5646] value of
+The lang attribute is set to the value from [@!RFC5646] of
 the language of the element's documentation.
 
 The lang attribute is **OPTIONAL**.
@@ -1037,14 +1037,14 @@ In some cases within an EBML Document Type, the attributes of the
 `<element>` element are not sufficient to clearly communicate how
 the defined EBML Element is intended to be implemented.
 For instance, one EBML Element might only be mandatory if another EBML Element
-is present, or as another example, the default value of an EBML Element might
-derive from a related Element's content. In these cases where the Element's
+is present. As another example, the default value of an EBML Element might
+be derived from a related Element's content. In these cases where the Element's
 definition is conditional or advanced implementation notes are needed, one or many
 `<implementation_note>` elements can be used to store that
 information.
 The `<implementation_note>` refers to a specific attribute of the
 parent `<element>` as expressed by the `note_attribute`
-attribute (#note-attribute).
+attribute (see (#note-attribute)).
 
 ### \<implementation_note> Attributes
 
@@ -1053,8 +1053,8 @@ attribute (#note-attribute).
 Within an EBML Schema, the XPath of the `@note_attribute` attribute
 is `/EBMLSchema/element/implementation_note/@note_attribute`.
 
-The note\_attribute attribute references which of the
-`<element>`'s attributes that the implementation\_note is in regards to.
+The note\_attribute attribute references which of the attributes of the
+`<element>` the implementation\_note relates to.
 The note_attribute attribute **MUST** be set to one of the
 following values (corresponding to that attribute of the parent
 `<element>`): `minOccurs`, `maxOccurs`,
@@ -1136,7 +1136,7 @@ Within an EBML Schema, the XPath of the `@label` attribute is
 `/EBMLSchema/element/restriction/enum/@label`.
 
 The label provides a concise expression for human consumption that
-describes what the value of the `<enum>` represents.
+describes what the value of `<enum>` represents.
 
 The label attribute is **OPTIONAL**.
 
@@ -1179,7 +1179,7 @@ The type attribute is **REQUIRED**.
 
 ### XML Schema for EBML Schema
 
-This following provides an XML Schema [@!W3C.REC-xmlschema-0-20041028] for
+The following provides an XML Schema [@!W3C.REC-xmlschema-0-20041028] for
 facilitating verification of an EBML Schema to the definition described in
 (#ebml-header).
 
@@ -1188,7 +1188,7 @@ facilitating verification of an EBML Schema to the definition described in
 ### Identically Recurring Elements
 
 An Identically Recurring Element is an EBML Element that **MAY**
-occur within its Parent Element more than once but that each recurrence
+occur within its Parent Element more than once, but each recurrence of it
 within that Parent Element **MUST** be identical both in storage
 and semantics. Identically Recurring Elements are permitted to be stored
 multiple times within the same Parent Element in order to increase data
@@ -1224,16 +1224,16 @@ expressions of float ranges.
 | 0.857421875       | `0x1.b7p-1`                             |
 | -1.0--0.857421875 | `-0x1p+0--0x1.b7p-1`                    |
 Table: Example of floating point values and
-ranges as decimal and as Hexadecimal Floating-Point Constants. {#tableFloatExamples}
+ranges as decimal and Hexadecimal Floating-Point Constants. {#tableFloatExamples}
 
 Within an expression of a float range, as in an integer range, the
-- (hyphen) character is the separator between the minimal and maximum values
+- (hyphen) character is the separator between the minimum and maximum values
 permitted by the range. Hexadecimal Floating-Point Constants also use a -
 (hyphen) when indicating a negative binary power. Within a float range, when a
 - (hyphen) is immediately preceded by a letter p, then the - (hyphen) is a
 part of the Hexadecimal Floating-Point Constant which notes negative binary
 power. Within a float range, when a - (hyphen) is not immediately preceded by
-a letter p, then the - (hyphen) represents the separator between the minimal
+a letter p, then the - (hyphen) represents the separator between the minimum
 and maximum values permitted by the range.
 
 ### Note on the use of default attributes to define Mandatory EBML Elements
@@ -1252,10 +1252,10 @@ by an EBML Schema and its Parent Element is present and the value of the EBML
 Element is NOT equal to the declared default value then the EBML Element
  **MUST** be present.
 
-[@tableVintRequirements] clarifies if a Mandatory
-EBML Element **MUST** be written, according to if the default value
-is declared, if the value of the EBML Element is equal to the declared default
-value, and if the Parent Element is used.
+[@tableVintRequirements] clarifies whether a Mandatory
+EBML Element **MUST** be written, according to whether the default value
+is declared, the value of the EBML Element is equal to the declared default
+value, and/or the Parent Element is used.
 
 | Is the default value declared? | Is the value equal to default? | Is the Parent Element present? | Then is storing the EBML Element **REQUIRED**? |
 |:-----------------:|:-----------------------:|:--------------------:|:------------------------------------------:|
@@ -1531,7 +1531,7 @@ description:
 : A DocTypeExtension adds extra Elements to the main DocType+DocTypeVersion
 tuple it's attached to. An EBML Reader **MAY** know these extra Elements and how
 to use them. A DocTypeExtension **MAY** be used to iterate between
-experimental Elements before they are integrated in a regular
+experimental Elements before they are integrated into a regular
 DocTypeVersion. Reading one DocTypeExtension version of a
 DocType+DocTypeVersion tuple doesn't imply one should be able to read upper
 versions of this DocTypeExtension.
@@ -1598,7 +1598,7 @@ of the same tuple, only one version of the tuple, or not support the tuple at al
 
 EBML allows some special Elements to be found within more than one parent
 in an EBML Document or optionally at the Root Level of an EBML Body. These
-Elements are called Global Elements. There are 2 Global Elements that can be
+Elements are called Global Elements. There are two Global Elements that can be
 found in any EBML Document: the CRC-32 Element and the Void Element. An EBML
 Schema **MAY** add other Global Elements to the format it
 defines. These extra elements apply only to the EBML Body, not the EBML
@@ -1673,7 +1673,7 @@ later use.
 # Considerations for Reading EBML Data
 
 The following scenarios describe events to consider when reading EBML
-Documents and the recommended design of an EBML Reader.
+Documents, as well as the recommended design of an EBML Reader.
 
 If a Master Element contains a CRC-32 Element that doesn't validate, then
 the EBML Reader **MAY** ignore all contained data except for
@@ -1749,11 +1749,11 @@ Octets in VINT_DATA. {#tableNullOctetSemantics}
 # Guidelines for Updating Elements
 
 An EBML Document can be updated without requiring that the entire EBML
-Document be rewritten. These recommendations describe strategies to change
+Document be rewritten. These recommendations describe strategies for changing
 the Element Data of a written EBML Element with minimal disruption to the rest
 of the EBML Document.
 
-## Reducing a Element Data in Size
+## Reducing Element Data in Size
 
 There are three methods to reduce the size of Element Data of a written EBML Element.
 
@@ -1811,9 +1811,9 @@ For String Elements and UTF-8 Elements the length of Element Data could be
 reduced by adding Null Octets to terminate the Element Data (see
 (#terminating-elements)).
 
-In [@tableExampleNullPadding], a four octets
-long Element Data is changed to a three octet long value followed by a Null Octet; the
-Element Data Size includes any Null Octets used to terminate Element Data so
+In [@tableExampleNullPadding], Element Data four octets
+long is changed to a value three octet long, followed by a Null Octet; the
+Element Data Size includes any Null Octets used to terminate Element Data and therefore
 remains unchanged.
 
 | Status      | Element ID | Element Data Size | Element Data       |
@@ -1908,7 +1908,7 @@ This document creates a new IANA Registry called
 
 Element IDs are described in section Element ID. Element
 IDs are encoded using the VINT mechanism described in section
-(#variable-size-integer) can be between one and five
+(#variable-size-integer) and can be between one and five
 octets long. Five octet long Element IDs are possible only if declared
 in the header.
 
@@ -1918,7 +1918,7 @@ found in the EBML Body have their own set of independent Element IDs
 and are not part of this IANA Registry.
 
 One-octet Element IDs **MUST** be between 0x81 and
-0xFE. These items are valuable because they are short, and need
+0xFE. These items are valuable because they are short, and they need
 to be used for commonly repeated elements. Element IDs are to be
 allocated within this range according to the "RFC Required"
 policy [@!RFC8126].
@@ -1926,7 +1926,7 @@ policy [@!RFC8126].
 The following one-octet Element IDs are RESERVED: 0xFF and
 0x80.
 
-The one-octet range of 0x00 to 0x7F are not valid for use
+Values in the one-octet range of 0x00 to 0x7F are not valid for use
 as an Element ID.
 
 Two-octet Element IDs **MUST** be between 0x407F and
@@ -1937,7 +1937,7 @@ the "Specification Required" policy
 The following two-octet Element IDs are RESERVED: 0x7FFF and
 0x4000.
 
-The two-octet ranges of 0x0000 to 0x3FFF and 0x8000 to 0xFFFF are
+Values in the two-octet ranges of 0x0000 to 0x3FFF and 0x8000 to 0xFFFF are
 not valid for use as an Element ID.
 
 Three-octet Element IDs **MUST** be between 0x203FFF and 0x3FFFFE. Element IDs are to be allocated within this range according to the "First Come First Served" policy [@!RFC8126].
@@ -1945,7 +1945,7 @@ Three-octet Element IDs **MUST** be between 0x203FFF and 0x3FFFFE. Element IDs a
 The following three-octet Element IDs are RESERVED: 0x3FFFFF and
 0x200000.
 
-The three-octet ranges of 0x000000 to 0x1FFFFF and
+Values in the three-octet ranges of 0x000000 to 0x1FFFFF and
 0x400000 to 0xFFFFFF are not valid for use as an Element ID.
 
 Four-octet Element IDs **MUST** be between 0x101FFFFF
@@ -1969,7 +1969,7 @@ Other four-octet Element IDs may be allocated by the "First Come First Served" p
 
 The following four-octet Element IDs are RESERVED:  0x1FFFFFFF and 0x10000000.
 
-The four-octet ranges of 0x00000000 to 0x0FFFFFFF and 0x20000000
+Values in the four-octet ranges of 0x00000000 to 0x0FFFFFFF and 0x20000000
 to 0xFFFFFFFF are not valid for use as an Element ID.
 
 Five-octet Element IDs (values from 0x080FFFFFFF to 0x0FFFFFFFFE) are RESERVED according to the "Experimental Use" policy [@!RFC8126]: they may be used by anyone at any time, but there is no coordination.
