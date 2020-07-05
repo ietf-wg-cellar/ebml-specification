@@ -11,7 +11,7 @@ XML2RFC := $(XML2RFC_CALL) --v3
 MMARK := $(MMARK_CALL)
 
 all: $(OUTPUT).html $(OUTPUT).txt $(OUTPUT).xml
-	$(info RFC rendering has been tested with mmark version 2.1.1 and xml2rfc 2.30.0, please ensure these are installed and recent enough.)
+	$(info RFC rendering has been tested with mmark version 2.2.8 and xml2rfc 2.46.0, please ensure these are installed and recent enough.)
 
 $(OUTPUT).md: specification.markdown rfc_frontmatter.markdown rfc_backmatter.markdown EBMLSchema.xsd ebml_schema_example.xml
 	cat rfc_frontmatter.markdown $< rfc_backmatter.markdown | sed "s/@BUILD_DATE@/$(shell date +'%F')/" > $(OUTPUT).md
@@ -23,6 +23,7 @@ $(OUTPUT).md: specification.markdown rfc_frontmatter.markdown rfc_backmatter.mar
 rfc8794.xml: $(OUTPUT).xml
 	sed -e 's/<?xml version="1.0" encoding="utf-8"?>/<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE rfc SYSTEM "rfc2629-xhtml.ent">/' \
 	-e "s/docName=\"8794\"/docName=\"$(OUTPUT)\"/" \
+	-e "s@\"http://www.w3.org/2001/XInclude\"@\"http://www.w3.org/2001/XInclude\" tocInclude=\"true\" symRefs=\"true\"@" \
 	-e 's@<organization></organization>@@' \
 	-e 's@<street></street>@@' \
 	-e 's@<li>@<li><t>@' \
