@@ -372,7 +372,7 @@ Octet Length | Possible Value Range
 Table: Possible range of values that
 can be stored in VINTs, by octet length {#tableVintRangePerLength}
 
-If the length of Element Data equals 2^(n\*7)^-1, then the octet 
+If the length of Element Data equals 2^n\*7^-1, then the octet 
 length of the Element Data Size **MUST** be at least n+1. This rule
 prevents an Element Data Size from being expressed as the unknown-size
 value. [@tableVintReservation] clarifies this rule by
