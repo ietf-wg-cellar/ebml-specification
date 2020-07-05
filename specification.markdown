@@ -484,7 +484,7 @@ are defined as part of this document.
 
 Elements within an EBML Header can be at most 4 octets long, except for the
 EBML Element with Element Name `EBML` and Element ID
-`0x1A45DFA3` (see (#ebml-element)); that Element can be up
+`0x1A45DFA3` (see (#ebml-element)); this Element can be up
 to 8 octets long.
 
 ## EBML Body
@@ -709,7 +709,7 @@ PathMinOccurrence.
 For example, in `\a\(0-1\)global`, the Element path
 `\a\x\global` corresponds to an EBMLPathAtom occurrence of 1. The
 Element `\a\x\y\global` corresponds to an EBMLPathAtom occurrence of 2,
-etc. In those case, `\a\x` or `\a\x\y` **MUST** be valid
+etc. In those cases, `\a\x` or `\a\x\y` **MUST** be valid
 paths to be able to contain the element `global`.
 
 Consider another EBML Path, `\a\(1-\)global`. There has to be at
@@ -858,8 +858,8 @@ A special form of lower and upper bounds using the `-` separator is
 possible, meaning the Element value **MUST** be greater than, or equal to,
 the first value and **MUST** be less than or equal to the
 second value. For example, `1-10` is equivalent to
-`>=1,<=10`. If the upper boundary is negative, the `range` 
-attribute **MUST** use only the latter form.
+`>=1,<=10`. If the upper boundary is negative, only the latter
+form **MUST** be used.
 
 
 #### length
@@ -1054,7 +1054,7 @@ Within an EBML Schema, the XPath of the `@note_attribute` attribute
 is `/EBMLSchema/element/implementation_note/@note_attribute`.
 
 The `note_attribute` attribute references which of the attributes of the
-`<element>` the implementation\_note relates to.
+`<element>` the `<implementation_note>` relates to.
 The `note_attribute` attribute **MUST** be set to one of the
 following values (corresponding to that attribute of the parent
 `<element>`): `minOccurs`, `maxOccurs`,
@@ -1812,7 +1812,7 @@ reduced by adding Null Octets to terminate the Element Data (see
 (#terminating-elements)).
 
 In [@tableExampleNullPadding], Element Data four octets
-long is changed to a value three octet long, followed by a Null Octet; the
+long is changed to a value three octets long, followed by a Null Octet; the
 Element Data Size includes any Null Octets used to terminate Element Data and therefore
 remains unchanged.
 
