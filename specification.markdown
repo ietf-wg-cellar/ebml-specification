@@ -835,7 +835,7 @@ value. For example, `1234` means the EBML element always has the value
 value **MUST NOT** be used for that Element. For example,
 `not 1234` means the Element can use all values of its type except 1234.
 
-The `>` sign is used for an exclusive lower boundary and the
+The `>` sign is used for an exclusive lower boundary, and the
 `>=` sign is used for an inclusive lower boundary. For example,
 `>3` means the Element value **MUST** be greater than 3,
 and `>=0x1p+0` means the Element value **MUST** be
@@ -1013,7 +1013,7 @@ Within an EBML Schema, the XPath of the `@purpose` attribute is
 `/EBMLSchema/element/documentation/@purpose`.
 
 A `purpose` attribute distinguishes the meaning of the documentation. Values
-for the `<documentation>` subelement's purpose attribute
+for the `<documentation>` subelement's `purpose` attribute
 **MUST** include one of the values listed in
 [@tablePurposeDefinitions].
 
