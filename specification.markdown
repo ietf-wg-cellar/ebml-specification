@@ -526,7 +526,7 @@ Document [@!XML]. An EBML Schema
 Types. An EBML Document Type is identified by a string stored within the EBML
 Header in the DocType Element -- for example, Matroska or WebM (see
 (#doctype-element)). The DocType value for an EBML Document Type
-**MUST** be unique, persistent, and described in the IANA Registry
+**MUST** be unique, persistent, and described in the IANA registry
 (see (#ebml-doctypes-registry)).
 
 An EBML Schema **MUST** declare exactly one EBML Element at Root Level (referred to as the Root Element) that occurs exactly once within an EBML Document. The Void Element **MAY** also occur at Root Level but is not a Root Element (see (#void-element)).
@@ -1903,7 +1903,7 @@ Side-channel attacks could exploit:
 
 ## EBML Element ID Registry
 
-This document creates a new IANA Registry called the
+This document creates a new IANA registry called the
 "EBML Element ID" registry.
 
 Element IDs are described in (#element-id). Element
@@ -1912,10 +1912,10 @@ IDs are encoded using the VINT mechanism described in
 octets long. Five-octet-long Element IDs are possible only if declared
 in the header.
 
-This IANA Registry only applies to Elements that can be contained
+This IANA registry only applies to Elements that can be contained
 in the EBML Header, thus including Global Elements. Elements only
 found in the EBML Body have their own set of independent Element IDs
-and are not part of this IANA Registry.
+and are not part of this IANA registry.
 
 One-octet Element IDs **MUST** be between 0x81 and
 0xFE. These items are valuable because they are short, and they need
@@ -1995,7 +1995,7 @@ Table: IDs and Names for EBML Elements assigned by this document
 
 ## EBML DocTypes Registry
 
-This document creates a new IANA Registry called the "EBML DocTypes" registry.
+This document creates a new IANA registry called the "EBML DocTypes" registry.
 
 To register a new DocType in this registry, one needs a DocType name, a Description of the DocType, a Change Controller (IESG or email of registrant), and an optional Reference to a document describing the DocType.
 
