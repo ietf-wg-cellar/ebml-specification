@@ -7,7 +7,7 @@ structuring data).
 The goal of this document is to define a generic, binary, space-efficient
 format that can be used to define more complex formats using an EBML
 Schema. EBML is used by the multimedia container, Matroska
-[@?I-D.ietf-cellar-matroska].The applicability of EBML for other
+[@?I-D.ietf-cellar-matroska]. The applicability of EBML for other
 use cases is beyond the scope of this document.
 
 The definition of the EBML format recognizes the idea behind HTML and XML
