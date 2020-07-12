@@ -858,8 +858,8 @@ A special form of lower and upper bounds using the `-` separator is
 possible, meaning the Element value **MUST** be greater than, or equal to,
 the first value and **MUST** be less than or equal to the
 second value. For example, `1-10` is equivalent to
-`>=1,<=10`. If the upper boundary is negative, only the latter
-form **MUST** be used.
+`>=1,<=10`. If the upper boundary is negative, the `range` attribute
+**MUST** only use the latter form.
 
 
 #### length
