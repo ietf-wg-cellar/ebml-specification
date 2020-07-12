@@ -1,7 +1,7 @@
 # Introduction
 
-EBML, short for Extensible Binary Meta Language, specifies a binary and
-octet (byte) aligned format inspired by the principle of XML (a framework for
+EBML, short for Extensible Binary Meta Language, specifies a binary format
+aligned with octets (bytes) and inspired by the principle of XML (a framework for
 structuring data).
 
 The goal of this document is to define a generic, binary, space-efficient
