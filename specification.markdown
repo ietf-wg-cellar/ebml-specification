@@ -322,7 +322,7 @@ Element. Only a Master Element is allowed to be of unknown size, and it can
 only be so if the `unknownsizeallowed` attribute of its EBML Schema is
 set to true (see (#unknownsizeallowed)).
 
-The use of Unknown-Sized Elements allows an EBML Element to be written and read before the size of the EBML Element is known. Unknown-Sized Elements **MUST** only be used if the Element Data Size is not known before the Element Data is written, such as in some cases of data streaming. The end of an Unknown-Sized Element is determined by whichever comes first:
+The use of Unknown-Sized Elements allows an EBML Element to be written and read before the size of the EBML Element is known. Unknown-Sized Elements **MUST** only be used if the Element Data Size is not known before the Element Data is written, such as in some cases of datastreaming. The end of an Unknown-Sized Element is determined by whichever comes first:
 
 - Any EBML Element that is a valid Parent Element of the Unknown-Sized Element according to the EBML Schema, Global Elements excluded.
 - Any valid EBML Element according to the EBML Schema, Global Elements
@@ -1193,7 +1193,7 @@ within that Parent Element **MUST** be identical both in storage
 and semantics. Identically Recurring Elements are permitted to be stored
 multiple times within the same Parent Element in order to increase data
 resilience and optimize the use of EBML in transmission. For instance, a
-pertinent Top-Level Element could be periodically resent within a data stream
+pertinent Top-Level Element could be periodically resent within a datastream
 so that an EBML Reader that starts reading the stream from the middle could
 better interpret the contents. Identically Recurring Elements
 **SHOULD** include a CRC-32 Element as a Child Element; this is
