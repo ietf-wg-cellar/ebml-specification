@@ -77,23 +77,23 @@ concatenated together.
 `EBML Body`:
 : All data of an `EBML Document` following the `EBML Header`.
 
-`Variable Size Integer`:
+`Variable-Size Integer`:
 : A compact variable-length binary value that defines its own length.
 
 `VINT`:
-: Also known as `Variable Size Integer`.
+: Also known as `Variable-Size Integer`.
 
 `EBML Element`:
 : A foundation block of data that contains three parts: an `Element ID`,
 an `Element Data Size`, and `Element Data`.
 
 `Element ID`:
-: A binary value, encoded as a `Variable Size Integer`,
+: A binary value, encoded as a `Variable-Size Integer`,
 used to uniquely identify a defined `EBML Element` within a specific
 `EBML Schema`.
 
 `Element Data Size`:
-: An expression, encoded as a `Variable Size Integer`, of the length
+: An expression, encoded as a `Variable-Size Integer`, of the length
 in octets of `Element Data`.
 
 `VINTMAX`:
@@ -159,40 +159,40 @@ length.
 
 EBML uses a system of Elements to compose an EBML Document. EBML Elements incorporate three parts: an Element ID, an Element Data Size, and Element Data. The Element Data, which is described by the Element ID, includes either binary data, one or more other EBML Elements, or both.
 
-# Variable Size Integer
+# Variable-Size Integer
 
-The Element ID and Element Data Size are both encoded as a Variable Size
-Integer. The Variable Size Integer is composed of a VINT\_WIDTH, VINT\_MARKER,
-and VINT\_DATA, in that order. Variable Size Integers  **MUST**
-left-pad the VINT\_DATA value with zero bits so that the whole Variable Size
-Integer is octet aligned. The Variable Size Integer will be referred to as 
+The Element ID and Element Data Size are both encoded as a Variable-Size
+Integer. The Variable-Size Integer is composed of a VINT\_WIDTH, VINT\_MARKER,
+and VINT\_DATA, in that order. Variable-Size Integers  **MUST**
+left-pad the VINT\_DATA value with zero bits so that the whole Variable-Size
+Integer is octet aligned. The Variable-Size Integer will be referred to as 
 VINT for shorthand.
 
 ## VINT_WIDTH
 
-Each Variable Size Integer starts with a VINT\_WIDTH followed by a
+Each Variable-Size Integer starts with a VINT\_WIDTH followed by a
 VINT\_MARKER. VINT\_WIDTH is a sequence of zero or more bits of value `0`
 and is terminated by the VINT\_MARKER, which is a single bit of value 
 `1`. The total length in bits of both VINT\_WIDTH and VINT\_MARKER is the 
-total length in octets in of the Variable Size Integer.
+total length in octets in of the Variable-Size Integer.
 
-The single bit `1` starts a Variable Size Integer with a length of
-one octet. The sequence of bits `01` starts a Variable Size Integer 
-with a length of two octets. `001` starts a Variable Size Integer with
+The single bit `1` starts a Variable-Size Integer with a length of
+one octet. The sequence of bits `01` starts a Variable-Size Integer 
+with a length of two octets. `001` starts a Variable-Size Integer with
 a length of three octets, and so on, with each additional `0` bit adding one
-octet to the length of the Variable Size Integer.
+octet to the length of the Variable-Size Integer.
 
 ## VINT_MARKER
 
-The VINT\_MARKER serves as a separator between the VINT\_WIDTH and VINT\_DATA. Each Variable Size Integer **MUST** contain exactly one VINT\_MARKER. The VINT\_MARKER is one bit in length and contain a bit with a value of one. The first bit with a value of one within the Variable Size Integer is the VINT\_MARKER.
+The VINT\_MARKER serves as a separator between the VINT\_WIDTH and VINT\_DATA. Each Variable-Size Integer **MUST** contain exactly one VINT\_MARKER. The VINT\_MARKER is one bit in length and contain a bit with a value of one. The first bit with a value of one within the Variable-Size Integer is the VINT\_MARKER.
 
 ## VINT_DATA
 
-The VINT\_DATA portion of the Variable Size Integer includes all data following
-(but not including) the VINT\_MARKER until end of the Variable Size 
+The VINT\_DATA portion of the Variable-Size Integer includes all data following
+(but not including) the VINT\_MARKER until end of the Variable-Size 
 Integer whose length is derived from the VINT\_WIDTH. The bits required for the
 VINT\_WIDTH and the VINT\_MARKER use one out of every eight bits of the total
-length of the Variable Size Integer. Thus, a Variable Size Integer of 1-octet
+length of the Variable-Size Integer. Thus, a Variable-Size Integer of 1-octet
 length supplies 7 bits for VINT\_DATA, a 2-octet length supplies 14 bits for
 VINT\_DATA, and a 3-octet length supplies 21 bits for VINT\_DATA. If the number
 of bits required for VINT\_DATA is less than the bit size of VINT\_DATA, then
@@ -202,10 +202,10 @@ unsigned integer.
 
 ## VINT Examples
 
-[@tableUsableBits] shows examples of Variable Size
+[@tableUsableBits] shows examples of Variable-Size
 Integers with lengths from 1 to 5 octets. The "Usable Bits" column refers to the
 number of bits that can be used in the VINT\_DATA. The "Representation" column
-depicts a binary expression of Variable Size Integers where VINT\_WIDTH is
+depicts a binary expression of Variable-Size Integers where VINT\_WIDTH is
 depicted by `0`, the VINT\_MARKER as `1`, and the VINT\_DATA as
 `x`.
 
@@ -218,7 +218,7 @@ Octet Length | Usable Bits | Representation
 5            | 35          | 0000 1xxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx
 Table: VINT examples depicting usable bits {#tableUsableBits}
 
-A Variable Size Integer may be rendered at octet lengths larger 
+A Variable-Size Integer may be rendered at octet lengths larger 
 than needed to store the data in order to facilitate overwriting it at a later
 date -- e.g., when its final size isn't known in advance. In
 [@tableVariousSizes], an integer `2` (with a 
@@ -238,7 +238,7 @@ integer value rendered at different VINT lengths {#tableVariousSizes}
 
 # Element ID
 
-An Element ID is a Variable Size Integer. By default, Element IDs are from
+An Element ID is a Variable-Size Integer. By default, Element IDs are from
 one octet to four octets in length, although Element IDs of greater lengths
 **MAY** be used if the EBMLMaxIDLength Element of the EBML Header
 is set to a value greater than four (see
@@ -287,7 +287,7 @@ Element IDs at various octet lengths {#tableElementIDRanges}
 ## Data Size Format
 
 The Element Data Size expresses the length in octets of Element Data. The 
-Element Data Size itself is encoded as a Variable Size Integer. By default,
+Element Data Size itself is encoded as a Variable-Size Integer. By default,
 Element Data Sizes can be encoded in lengths from one octet to eight octets,
 although Element Data Sizes of greater lengths **MAY** be used if
 the octet length of the longest Element Data Size of the EBML Document is 
@@ -738,7 +738,7 @@ resulting path, `\a\b\c\global`, has two EBMLPathAtom between
 Within an EBML Schema, the XPath of the `@id` attribute is
 `/EBMLSchema/element/@id`.
 
-The Element ID is encoded as a Variable Size Integer expressed in
+The Element ID is encoded as a Variable-Size Integer expressed in
 hexadecimal notation prefixed by a 0x that is read and stored in big-endian
 order. To reduce the risk of false positives while parsing EBML Streams, the
 Element IDs of the Root Element and Top-Level Elements **SHOULD**
