@@ -1,32 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE rfc SYSTEM "rfc2629-xhtml.ent">
-<!-- updated by Chris 02/26/20 -->
-
-
-
-<rfc version="3" ipr="trust200902" docName="draft-ietf-cellar-ebml-17"
-     number="8794" submissionType="IETF" category="std" consensus="true"
-     xml:lang="en" xmlns:xi="http://www.w3.org/2001/XInclude"
-     tocInclude="true" symRefs="true">
+<!-- name="GENERATOR" content="github.com/mmarkdown/mmark Mmark Markdown Processor - mmark.miek.nl" -->
+<rfc version="3" ipr="trust200902" docName="draft-ietf-cellar-ebml-18" submissionType="IETF" category="std" xml:lang="en" xmlns:xi="http://www.w3.org/2001/XInclude" tocInclude="true" symRefs="true" consensus="true" number="8794">
 
 <front>
-<title abbrev="EBML">Extensible Binary Meta Language</title>
-<seriesInfo name="RFC" value="8794"/>
-
-<author initials="S." surname="Lhomme" fullname="Steve Lhomme"><address><email>slhomme@matroska.org</email>
+<title abbrev="EBML">Extensible Binary Meta Language</title><seriesInfo value="8794" status="standard" name="RFC"></seriesInfo>
+<author initials="S." surname="Lhomme" fullname="Steve Lhomme"><address><postal>
+</postal><email>slhomme@matroska.org</email>
 </address></author>
-<author initials="D." surname="Rice" fullname="Dave Rice"><address><email>dave@dericed.com</email>
+<author initials="D." surname="Rice" fullname="Dave Rice"><address><postal>
+</postal><email>dave@dericed.com</email>
 </address></author>
-<author initials="M." surname="Bunkus" fullname="Moritz Bunkus"><address><email>moritz@bunkus.org</email>
+<author initials="M." surname="Bunkus" fullname="Moritz Bunkus"><address><postal>
+</postal><email>moritz@bunkus.org</email>
 </address></author>
-<date year="2020" month="June" />
+<date year="2020" month="July" day="5"></date>
 <area>art</area>
 <workgroup>cellar</workgroup>
-
-<!-- [rfced] Please insert any keywords (beyond those that appear in the
-title) for use on https://www.rfc-editor.org/search. -->
-
-<keyword>example</keyword>
+<keyword>binary</keyword>
+<keyword>storage</keyword>
+<keyword>xml</keyword>
+<keyword>matroska</keyword>
+<keyword>webm</keyword>
 
 <abstract>
 <t>This document defines the Extensible Binary Meta Language (EBML) format as a binary container format designed for audio/video storage. EBML is designed as a binary equivalent to XML and uses a storage-efficient approach to build nested Elements with identifiers, lengths, and values. Similar to how an XML Schema defines the structure and semantics of an XML Document, this document defines how EBML Schemas are created to convey the semantics of an EBML Document.</t>
@@ -37,24 +32,13 @@ title) for use on https://www.rfc-editor.org/search. -->
 <middle>
 
 <section anchor="introduction"><name>Introduction</name>
-<!--[rfced] To avoid awkward hyphenation, we'd like to reword the following
-sentence. Please review for accuracy.
-
-Original:
-EBML, short for Extensible Binary Meta Language, specifies a binary
-and octet (byte) aligned format inspired by the principle of XML (a
-framework for structuring data).
-
-Perhaps:
-... specifies a binary format aligned with octets (bytes) and inspired by ...
--->
 <t>EBML, short for Extensible Binary Meta Language, specifies a binary and
 octet (byte) aligned format inspired by the principle of XML (a framework for
 structuring data).</t>
 <t>The goal of this document is to define a generic, binary, space-efficient
 format that can be used to define more complex formats using an EBML
-Schema. EBML is used by the multimedia container, Matroska <xref
-target="I-D.ietf-cellar-matroska"></xref>. The applicability of EBML for other
+Schema. EBML is used by the multimedia container, Matroska
+<xref target="I-D.ietf-cellar-matroska"></xref>. The applicability of EBML for other
 use cases is beyond the scope of this document.</t>
 <t>The definition of the EBML format recognizes the idea behind HTML and XML
 as a good one: separate structure and semantics allowing the same structural
@@ -62,14 +46,13 @@ layer to be used with multiple, possibly widely differing, semantic
 layers. Except for the EBML Header and a few Global Elements, this
 specification does not define particular EBML format semantics; however, this
 specification is intended to define how other EBML-based formats can be
-defined, such as the audio/video container formats Matroska and WebM <xref
-target="WebM"></xref>.</t>
+defined, such as the audio/video container formats Matroska and WebM <xref target="WebM"></xref>.</t>
 <t>EBML uses a simple approach of building Elements upon three pieces of data (tag, length, and value), as this approach is well known, easy to parse, and allows selective data parsing. The EBML structure additionally allows for hierarchical arrangement to support complex structural formats in an efficient manner.</t>
 <t>A typical EBML file has the following structure:</t>
 
 <artwork>EBML Header (master)
   + DocType (string)
-  + DocTypeVersion (Unsigned Integer)
+  + DocTypeVersion (unsigned integer)
 EBML Body Root (master)
   + ElementA (utf-8)
   + Parent (master)
@@ -80,125 +63,93 @@ EBML Body Root (master)
 </section>
 
 <section anchor="notation-and-conventions"><name>Notation and Conventions</name>
-        <t>
-    The key words "<bcp14>MUST</bcp14>", "<bcp14>MUST NOT</bcp14>",
-    "<bcp14>REQUIRED</bcp14>", "<bcp14>SHALL</bcp14>", "<bcp14>SHALL
-    NOT</bcp14>", "<bcp14>SHOULD</bcp14>", "<bcp14>SHOULD NOT</bcp14>",
-    "<bcp14>RECOMMENDED</bcp14>", "<bcp14>NOT RECOMMENDED</bcp14>",
-    "<bcp14>MAY</bcp14>", and "<bcp14>OPTIONAL</bcp14>" in this document are to be interpreted as
-    described in BCP&nbsp;14 <xref target="RFC2119"/> <xref target="RFC8174"/> 
-    when, and only when, they appear in all capitals, as shown here.
-        </t>
-
+<t>The key words &quot;<bcp14>MUST</bcp14>&quot;, &quot;<bcp14>MUST NOT</bcp14>&quot;,
+&quot;<bcp14>REQUIRED</bcp14>&quot;, &quot;<bcp14>SHALL</bcp14>&quot;, &quot;<bcp14>SHALL NOT</bcp14>&quot;,
+&quot;<bcp14>SHOULD</bcp14>&quot;, &quot;<bcp14>SHOULD NOT</bcp14>&quot;,
+&quot;<bcp14>RECOMMENDED</bcp14>&quot;, &quot;<bcp14>NOT RECOMMENDED</bcp14>&quot;,
+&quot;<bcp14>MAY</bcp14>&quot;, and &quot;<bcp14>OPTIONAL</bcp14>&quot; in this document are to be interpreted as
+described in BCP&nbsp;14 <xref target="RFC2119"></xref> <xref target="RFC8174"></xref>
+when, and only when, they appear in all capitals, as shown here.</t>
 <t>This document defines specific terms in order to define the format and
 application of <tt>EBML</tt>. Specific terms are defined below:</t>
 
 <dl>
 <dt><tt>EBML</tt>:</dt>
 <dd>Extensible Binary Meta Language</dd>
-
 <dt><tt>EBML Document Type</tt>:</dt>
 <dd>A name provided by an <tt>EBML Schema</tt> to designate a particular
 implementation of <tt>EBML</tt> for a data format (e.g., Matroska and WebM).</dd>
-
 <dt><tt>EBML Schema</tt>:</dt>
 <dd>A standardized definition for the structure of an <tt>EBML Document Type</tt>.</dd>
-
 <dt><tt>EBML Document</tt>:</dt>
-<dd>A data stream comprised of only two components, an <tt>EBML Header</tt> and
+<dd>A datastream comprised of only two components, an <tt>EBML Header</tt> and
 an <tt>EBML Body</tt>.</dd>
-
 <dt><tt>EBML Reader</tt>:</dt>
 <dd>A data parser that interprets the semantics of an <tt>EBML Document</tt>
 and creates a way for programs to use <tt>EBML</tt>.</dd>
-
 <dt><tt>EBML Stream</tt>:</dt>
 <dd>A file that consists of one or more <tt>EBML Documents</tt> that are
 concatenated together.</dd>
-
 <dt><tt>EBML Header</tt>:</dt>
 <dd>A declaration that provides processing instructions and identification of
-the <tt>EBML Body</tt>. The <tt>EBML Header</tt> is analogous to an XML Declaration <xref
-target="XML"></xref> (see Section 2.8 on "Prolog and Document Type Declaration").</dd>
-
+the <tt>EBML Body</tt>. The <tt>EBML Header</tt> is analogous to an XML Declaration
+<xref target="XML"></xref> (see Section 2.8 on &quot;Prolog and Document Type Declaration&quot;).</dd>
 <dt><tt>EBML Body</tt>:</dt>
 <dd>All data of an <tt>EBML Document</tt> following the <tt>EBML Header</tt>.</dd>
-<!--[rfced] Typically, we would hyphenate a phrase like "Variable Size
-Integer" as "Variable-Size Integer". However, is this term already established
-as unhyphenated?
--->
 <dt><tt>Variable Size Integer</tt>:</dt>
 <dd>A compact variable-length binary value that defines its own length.</dd>
-
 <dt><tt>VINT</tt>:</dt>
 <dd>Also known as <tt>Variable Size Integer</tt>.</dd>
-
 <dt><tt>EBML Element</tt>:</dt>
-<dd>A foundation block of data that contains three parts: an <tt>Element
-ID</tt>, an <tt>Element Data Size</tt>, and <tt>Element Data</tt>.</dd>
-
+<dd>A foundation block of data that contains three parts: an <tt>Element ID</tt>,
+an <tt>Element Data Size</tt>, and <tt>Element Data</tt>.</dd>
 <dt><tt>Element ID</tt>:</dt>
-<dd>A binary value, encoded as a <tt>Variable Size
-Integer</tt>, used to uniquely identify a defined <tt>EBML Element</tt> within a specific
+<dd>A binary value, encoded as a <tt>Variable Size Integer</tt>,
+used to uniquely identify a defined <tt>EBML Element</tt> within a specific
 <tt>EBML Schema</tt>.</dd>
-
 <dt><tt>Element Data Size</tt>:</dt>
 <dd>An expression, encoded as a <tt>Variable Size Integer</tt>, of the length
 in octets of <tt>Element Data</tt>.</dd>
-
 <dt><tt>VINTMAX</tt>:</dt>
 <dd>The maximum possible value that can be stored as <tt>Element Data Size</tt>.</dd>
-
 <dt><tt>Unknown-Sized Element</tt>:</dt>
 <dd>An <tt>Element</tt> with an unknown <tt>Element Data Size</tt>.</dd>
-
 <dt><tt>Element Data</tt>:</dt>
 <dd>The value(s) of the <tt>EBML Element</tt>, which is identified by its
 <tt>Element ID</tt> and <tt>Element Data Size</tt>. The form of the <tt>Element Data</tt> is
 defined by this document and the corresponding <tt>EBML Schema</tt> of the
 Element's <tt>EBML Document Type</tt>.</dd>
-
 <dt><tt>Root Level</tt>:</dt>
 <dd>The starting level in the hierarchy of an <tt>EBML Document</tt>.</dd>
-
 <dt><tt>Root Element</tt>:</dt>
 <dd>A mandatory, nonrepeating <tt>EBML Element</tt> that occurs at the top
-level of the path hierarchy within an <tt>EBML Body</tt> and contains all other <tt>EBML
-Elements</tt> of the <tt>EBML Body</tt>, excepting optional <tt>Void Elements</tt>.</dd>
-
+level of the path hierarchy within an <tt>EBML Body</tt> and contains all other
+<tt>EBML Elements</tt> of the <tt>EBML Body</tt>, excepting optional <tt>Void Elements</tt>.</dd>
 <dt><tt>Top-Level Element</tt>:</dt>
 <dd>An <tt>EBML Element</tt> defined to only occur as a <tt>Child Element</tt>
 of the <tt>Root Element</tt>.</dd>
-
 <dt><tt>Master Element</tt>:</dt>
 <dd>The <tt>Master Element</tt> contains zero, one, or many other <tt>EBML Elements</tt>.</dd>
-
 <dt><tt>Child Element</tt>:</dt>
-<dd>A <tt>Child Element</tt> is a relative term to describe the <tt>EBML
-Elements</tt> immediately contained within a <tt>Master Element</tt>.</dd>
-
+<dd>A <tt>Child Element</tt> is a relative term to describe the <tt>EBML Elements</tt>
+immediately contained within a <tt>Master Element</tt>.</dd>
 <dt><tt>Parent Element</tt>:</dt>
 <dd>A relative term to describe the <tt>Master Element</tt> that contains a
-specified Element. For any specified <tt>EBML Element</tt> that is not at <tt>Root
-Level</tt>, the <tt>Parent Element</tt> refers to the <tt>Master Element</tt>
+specified element. For any specified <tt>EBML Element</tt> that is not at
+<tt>Root Level</tt>, the <tt>Parent Element</tt> refers to the <tt>Master Element</tt>
 in which that <tt>EBML Element</tt> is directly contained.</dd>
-
 <dt><tt>Descendant Element</tt>:</dt>
 <dd>A relative term to describe any <tt>EBML Elements</tt> contained within a
-<tt>Master Element</tt>, including any of the <tt>Child Elements</tt> of its <tt>Child
-Elements</tt>, and so on.</dd>
-
+<tt>Master Element</tt>, including any of the <tt>Child Elements</tt> of its
+<tt>Child Elements</tt>, and so on.</dd>
 <dt><tt>Void Element</tt>:</dt>
 <dd>An <tt>Element</tt> used to overwrite data or
 reserve space within a <tt>Master Element</tt> for later use.</dd>
-
 <dt><tt>Element Name</tt>:</dt>
 <dd>The human-readable name of the <tt>EBML Element</tt>.</dd>
-
 <dt><tt>Element Path</tt>:</dt>
 <dd>The hierarchy of <tt>Parent Element</tt> where the <tt>EBML Element</tt>
 is expected to be found in the <tt>EBML Body</tt>.</dd>
-
 <dt><tt>Empty Element</tt>:</dt>
 <dd>An <tt>EBML Element</tt> that has an <tt>Element Data Size</tt> with all
 <tt>VINT_DATA</tt> bits set to zero, which indicates
@@ -214,7 +165,7 @@ length.</dd>
 <section anchor="variable-size-integer"><name>Variable Size Integer</name>
 <t>The Element ID and Element Data Size are both encoded as a Variable Size
 Integer. The Variable Size Integer is composed of a VINT_WIDTH, VINT_MARKER,
-and VINT_DATA, in that order. Variable Size Integers <bcp14>MUST</bcp14>
+and VINT_DATA, in that order. Variable Size Integers  <bcp14>MUST</bcp14>
 left-pad the VINT_DATA value with zero bits so that the whole Variable Size
 Integer is octet aligned. The Variable Size Integer will be referred to as
 VINT for shorthand.</t>
@@ -241,23 +192,23 @@ octet to the length of the Variable Size Integer.</t>
 (but not including) the VINT_MARKER until end of the Variable Size
 Integer whose length is derived from the VINT_WIDTH. The bits required for the
 VINT_WIDTH and the VINT_MARKER use one out of every eight bits of the total
-length of the Variable Size Integer. Thus, a Variable Size Integer of 1 octet
+length of the Variable Size Integer. Thus, a Variable Size Integer of 1-octet
 length supplies 7 bits for VINT_DATA, a 2-octet length supplies 14 bits for
 VINT_DATA, and a 3-octet length supplies 21 bits for VINT_DATA. If the number
 of bits required for VINT_DATA is less than the bit size of VINT_DATA, then
 VINT_DATA <bcp14>MUST</bcp14> be zero-padded to the left to a size that
 fits. The VINT_DATA value <bcp14>MUST</bcp14> be expressed as a big-endian
-Unsigned Integer.</t>
+unsigned integer.</t>
 </section>
 
 <section anchor="vint-examples"><name>VINT Examples</name>
 <t><xref target="tableUsableBits"></xref> shows examples of Variable Size
-Integers with lengths from 1 to 5 octets. The "Usable Bits" column refers to the
-number of bits that can be used in the VINT_DATA. The "Representation" column
+Integers with lengths from 1 to 5 octets. The &quot;Usable Bits&quot; column refers to the
+number of bits that can be used in the VINT_DATA. The &quot;Representation&quot; column
 depicts a binary expression of Variable Size Integers where VINT_WIDTH is
 depicted by <tt>0</tt>, the VINT_MARKER as <tt>1</tt>, and the VINT_DATA as
 <tt>x</tt>.</t>
-<table anchor="tableUsableBits"><name>VINT Examples Depicting Usable Bits</name>
+<table anchor="tableUsableBits"><name>VINT examples depicting usable bits </name>
 <thead>
 <tr>
 <th>Octet Length</th>
@@ -299,14 +250,14 @@ depicted by <tt>0</tt>, the VINT_MARKER as <tt>1</tt>, and the VINT_DATA as
 </tbody>
 </table><t>A Variable Size Integer may be rendered at octet lengths larger
 than needed to store the data in order to facilitate overwriting it at a later
-date -- e.g., when its final size isn't known in advance. In <xref
-target="tableVariousSizes"></xref>, an integer <tt>2</tt> (with a
+date -- e.g., when its final size isn't known in advance. In
+<xref target="tableVariousSizes"></xref>, an integer <tt>2</tt> (with a
 corresponding binary value of 0b10) is shown encoded as different Variable
 Size Integers with lengths from one octet to four octets. All four encoded
-examples have identical semantic meaning, though the VINT_WIDTH and the padding
+examples have identical semantic meaning, though the VINT_WIDTH and the  padding
 of the VINT_DATA vary.</t>
-<table anchor="tableVariousSizes"><name>VINT Examples Depicting the Same
-Integer Value Rendered at Different VINT Lengths</name>
+<table anchor="tableVariousSizes"><name>VINT examples depicting the same
+integer value rendered at different VINT lengths </name>
 <thead>
 <tr>
 <th>Integer</th>
@@ -352,21 +303,21 @@ Integer Value Rendered at Different VINT Lengths</name>
 <t>An Element ID is a Variable Size Integer. By default, Element IDs are from
 one octet to four octets in length, although Element IDs of greater lengths
 <bcp14>MAY</bcp14> be used if the EBMLMaxIDLength Element of the EBML Header
-is set to a value greater than four (see <xref
-target="ebmlmaxidlength-element"></xref>). The bits of the VINT_DATA component
+is set to a value greater than four (see
+<xref target="ebmlmaxidlength-element"></xref>). The bits of the VINT_DATA component
 of the Element ID <bcp14>MUST NOT</bcp14> be all <tt>0</tt> values or all
-<tt>1</tt> values. The VINT_DATA component of the Element ID
+ <tt>1</tt> values. The VINT_DATA component of the Element ID
 <bcp14>MUST</bcp14> be encoded at the shortest valid length. For example, an
 Element ID with binary encoding of <tt>1011 1111</tt> is valid, whereas an
 Element ID with binary encoding of <tt>0100 0000 0011 1111</tt> stores a
 semantically equal VINT_DATA but is invalid, because a shorter VINT encoding is
-possible. Additionally, an Element ID with binary encoding of <tt>1111
-1111</tt> is invalid, since the VINT_DATA section is set to all one values,
+possible. Additionally, an Element ID with binary encoding of <tt>1111 1111</tt>
+is invalid, since the VINT_DATA section is set to all one values,
 whereas an Element ID with binary encoding of <tt>0100 0000 0111 1111</tt>
 stores a semantically equal VINT_DATA and is the shortest-possible VINT
 encoding.</t>
 <t><xref target="tableElementIDValidity"></xref> details these specific examples further:</t>
-<table anchor="tableElementIDValidity"><name>Examples of Valid and Invalid Element IDs</name>
+<table anchor="tableElementIDValidity"><name>Examples of valid and invalid Element IDs </name>
 <thead>
 <tr>
 <th align="right">VINT_WIDTH</th>
@@ -434,11 +385,10 @@ encoding.</t>
 </tr>
 </tbody>
 </table><t>The range and count of possible Element IDs are determined by their
-octet length. Examples of this are provided in <xref
-target="tableElementIDRanges"></xref>.</t>
-
-<table anchor="tableElementIDRanges"><name>Examples of Count and Range for
-Element IDs at Various Octet Lengths</name>
+octet length. Examples of this are provided in
+<xref target="tableElementIDRanges"></xref>.</t>
+<table anchor="tableElementIDRanges"><name>Examples of count and range for
+Element IDs at various octet lengths </name>
 <thead>
 <tr>
 <th align="center">Element ID Octet Length</th>
@@ -482,8 +432,8 @@ Element Data Size itself is encoded as a Variable Size Integer. By default,
 Element Data Sizes can be encoded in lengths from one octet to eight octets,
 although Element Data Sizes of greater lengths <bcp14>MAY</bcp14> be used if
 the octet length of the longest Element Data Size of the EBML Document is
-declared in the EBMLMaxSizeLength Element of the EBML Header (see <xref
-target="ebmlmaxsizelength-element"></xref>). Unlike the VINT_DATA of the
+declared in the EBMLMaxSizeLength Element of the EBML Header (see
+<xref target="ebmlmaxsizelength-element"></xref>). Unlike the VINT_DATA of the
 Element ID, the VINT_DATA component of the Element Data Size is not mandated
 to be encoded at the shortest valid length. For example, an Element Data Size
 with binary encoding of 1011 1111 or a binary encoding of 0100 0000 0011 1111
@@ -492,8 +442,8 @@ are both valid Element Data Sizes and both store a semantically equal value
 represent the integer 63).</t>
 <t>Although an Element ID with all VINT_DATA bits set to zero is invalid, an
 Element Data Size with all VINT_DATA bits set to zero is allowed for EBML
-Element Types that do not mandate a nonzero length (see <xref
-target="ebml-element-types"></xref>). An Element Data Size with all VINT_DATA
+Element Types that do not mandate a nonzero length (see
+<xref target="ebml-element-types"></xref>). An Element Data Size with all VINT_DATA
 bits set to zero indicates that the Element Data is zero octets in
 length. Such an EBML Element is referred to as an Empty Element. If an Empty
 Element has a default value declared, then the EBML Reader <bcp14>MUST</bcp14>
@@ -511,7 +461,7 @@ Element with an unknown Element Data Size is referred to as an Unknown-Sized
 Element. Only a Master Element is allowed to be of unknown size, and it can
 only be so if the <tt>unknownsizeallowed</tt> attribute of its EBML Schema is
 set to true (see <xref target="unknownsizeallowed"></xref>).</t>
-<t>The use of Unknown-Sized Elements allows an EBML Element to be written and read before the size of the EBML Element is known. Unknown-Sized Elements <bcp14>MUST</bcp14> only be used if the Element Data Size is not known before the Element Data is written, such as in some cases of data streaming. The end of an Unknown-Sized Element is determined by whichever comes first:</t>
+<t>The use of Unknown-Sized Elements allows an EBML Element to be written and read before the size of the EBML Element is known. Unknown-Sized Elements <bcp14>MUST</bcp14> only be used if the Element Data Size is not known before the Element Data is written, such as in some cases of datastreaming. The end of an Unknown-Sized Element is determined by whichever comes first:</t>
 
 <ul>
 <li><t>Any EBML Element that is a valid Parent Element of the Unknown-Sized Element according to the EBML Schema, Global Elements excluded.</t>
@@ -531,11 +481,11 @@ shares a common direct parent, such as a Top-Level Element.</t>
 <tt>\root\level1\level2\elt</tt>. When reading a new Element ID, assuming the
 EBML Path of that new Element is valid, here are some possible and impossible
 ways that this new Element is ending <tt>elt</tt>:</t>
-<table><name>Examples of Determining the End of an Unknown-Sized Element
+<table><name>Examples of determining the end of an Unknown-Sized Element
 </name>
 <thead>
 <tr>
-<th align="left">EBML Path of New Element</th>
+<th align="left">EBML Path of new element</th>
 <th align="left">Status</th>
 </tr>
 </thead>
@@ -583,26 +533,20 @@ ways that this new Element is ending <tt>elt</tt>:</t>
 
 <tr>
 <td align="left"><tt>\root\level1\level2\&lt;global&gt;</tt></td>
-<td align="left">Global Element cannot be interpreted with this path; while
-parsing <tt>elt</tt>, a Global Element can only be a child of
-<tt>elt</tt></td>
+<td align="left">Global Element cannot be interpreted with this path; while parsing <tt>elt</tt>, a Global Element can only be a child of <tt>elt</tt></td>
 </tr>
 </tbody>
 </table></section>
 
 <section anchor="data-size-values"><name>Data Size Values</name>
-<t>For Element Data Sizes encoded at octet lengths from one to eight, <xref
-target="tableVintRangePerLength"></xref> depicts the range of possible values
-<!--[rfced] FYI, we added superscript formatting to equations. Please let us
-know if we have changed any intended meanings.
--->
+<t>For Element Data Sizes encoded at octet lengths from one to eight,
+<xref target="tableVintRangePerLength"></xref> depicts the range of possible values
 that can be encoded as an Element Data Size. An Element Data Size with an
 octet length of 8 is able to express a size of 2<sup>56</sup>-2 or
 72,057,594,037,927,934 octets (or about 72 petabytes). The maximum possible
 value that can be stored as Element Data Size is referred to as VINTMAX.</t>
-
-<table anchor="tableVintRangePerLength"><name>Possible Range of Values That
-Can Be Stored in VINTs, by Octet Length</name>
+<table anchor="tableVintRangePerLength"><name>Possible range of values that
+can be stored in VINTs, by octet length </name>
 <thead>
 <tr>
 <th>Octet Length</th>
@@ -657,9 +601,9 @@ prevents an Element Data Size from being expressed as the unknown-size
 value. <xref target="tableVintReservation"></xref> clarifies this rule by
 showing a valid and invalid expression of an Element Data Size with a
 VINT_DATA of 127 (which is equal to 2<sup>1*7</sup>-1) and 16,383 (which is equal to
-2<sup>2*7-1</sup>).</t>
+2<sup>2*7</sup>-1).</t>
 <table anchor="tableVintReservation"><name>Demonstration of VINT_DATA
-Reservation for VINTs of Unknown Size</name>
+reservation for VINTs of unknown size </name>
 <thead>
 <tr>
 <th align="right">VINT_WIDTH</th>
@@ -709,13 +653,13 @@ Reservation for VINTs of Unknown Size</name>
 </section>
 
 <section anchor="ebml-element-types"><name>EBML Element Types</name>
-<t>EBML Elements are defined by an EBML Schema (see <xref
-target="ebml-schema"></xref>), which <bcp14>MUST</bcp14> declare one of the
+<t>EBML Elements are defined by an EBML Schema (see
+<xref target="ebml-schema"></xref>), which <bcp14>MUST</bcp14> declare one of the
 following EBML Element Types for each EBML Element. An EBML Element Type
 defines a concept of storing data within an EBML Element that describes such
 characteristics as length, endianness, and definition.</t>
 <t>EBML Elements that are defined as a Signed Integer Element, Unsigned
-Integer Element, Float Element, or Date Element use big endian storage.</t>
+Integer Element, Float Element, or Date Element use big-endian storage.</t>
 
 <section anchor="signed-integer-element"><name>Signed Integer Element</name>
 <t>A Signed Integer Element <bcp14>MUST</bcp14> declare a length from zero to eight octets. If the EBML Element is not defined to have a default value, then a Signed Integer Element with a zero-octet length represents an integer value of zero.</t>
@@ -775,18 +719,14 @@ binary interchange format, as defined in <xref target="IEEE.754"></xref>.</t>
 
 <section anchor="ebml-header"><name>EBML Header</name>
 <t>The EBML Header is a declaration that provides processing instructions and identification of the EBML Body. The EBML Header of an EBML Document is analogous to the XML Declaration of an XML Document.</t>
-<!--[rfced] This document uses both "docType" and "DocType" (different
-capitalizations). Please review whether these represent different concepts or
-should be standardized.
--->
 <t>The EBML Header documents the EBML Schema (also known as the EBML DocType)
 that is used to semantically interpret the structure and meaning of the EBML
 Document. Additionally, the EBML Header documents the versions of both EBML
 and the EBML Schema that were used to write the EBML Document and the versions
 required to read the EBML Document.</t>
 <t>The EBML Header <bcp14>MUST</bcp14> contain a single Master Element with an
-Element Name of <tt>EBML</tt> and Element ID of <tt>0x1A45DFA3</tt> (see <xref
-target="ebml-element"></xref>); the Master Element may have any number of
+Element Name of <tt>EBML</tt> and Element ID of <tt>0x1A45DFA3</tt> (see
+<xref target="ebml-element"></xref>); the Master Element may have any number of
 additional EBML Elements within it. The EBML Header of an EBML Document that
 uses an EBMLVersion of 1 <bcp14>MUST</bcp14> only contain EBML Elements that
 are defined as part of this document.</t>
@@ -821,22 +761,21 @@ Element of the EBML Header.</t>
 </section>
 </section>
 
-<section anchor="elements-semantic"><name>Elements semantic</name>
+<section anchor="elements-semantics"><name>Elements semantics</name>
 
 <section anchor="ebml-schema"><name>EBML Schema</name>
-<t>An EBML Schema is a well-formed XML Document <xref
-target="XML"></xref> that defines the properties,
+<t>An EBML Schema is a well-formed XML Document
+<xref target="XML"></xref> that defines the properties,
 arrangement, and usage of EBML Elements that compose a specific EBML Document
 Type. The relationship of an EBML Schema to an EBML Document is analogous to
 the relationship of an XML Schema <xref target="XML-SCHEMA"></xref> to an XML
 Document <xref target="XML"></xref>. An EBML Schema
 <bcp14>MUST</bcp14> be clearly associated with one or more EBML Document
 Types. An EBML Document Type is identified by a string stored within the EBML
-Header in the DocType Element -- for example, Matroska or WebM (see <xref
-target="doctype-element"></xref>). The DocType value for an EBML Document Type
+Header in the DocType Element -- for example, Matroska or WebM (see
+<xref target="doctype-element"></xref>). The DocType value for an EBML Document Type
 <bcp14>MUST</bcp14> be unique, persistent, and described in the IANA Registry
-(see <xref target="ebml-doctype-registry"></xref>).</t>
-
+(see <xref target="ebml-doctypes-registry"></xref>).</t>
 <t>An EBML Schema <bcp14>MUST</bcp14> declare exactly one EBML Element at Root Level (referred to as the Root Element) that occurs exactly once within an EBML Document. The Void Element <bcp14>MAY</bcp14> also occur at Root Level but is not a Root Element (see <xref target="void-element"></xref>).</t>
 <t>The EBML Schema <bcp14>MUST</bcp14> document all Elements of the EBML
 Body. The EBML Schema does not document Global Elements that are defined by
@@ -871,8 +810,8 @@ the EBML Schema. This document provides an example of an EBML Schema; see
  &lt;!-- Root Element--&gt;
  &lt;element name=&quot;Files&quot; path=&quot;\Files&quot; id=&quot;0x1946696C&quot;
    type=&quot;master&quot;&gt;
-  &lt;documentation lang=&quot;en&quot;
-  purpose=&quot;definition&quot;&gt;Container of data and
+  &lt;documentation lang=&quot;en&quot; 
+    purpose=&quot;definition&quot;&gt;Container of data and
   attributes representing one or many files.&lt;/documentation&gt;
  &lt;/element&gt;
  &lt;element name=&quot;File&quot; path=&quot;\Files\File&quot; id=&quot;0x6146&quot;
@@ -914,40 +853,23 @@ the EBML Schema. This document provides an example of an EBML Schema; see
 
 <section anchor="ebmlschema-element"><name><tt>&lt;EBMLSchema&gt;</tt> Element</name>
 <t>Within an EBML Schema, the XPath <xref target="XPath"></xref> of the
-<tt>&lt;EBMLSchema&gt;</tt> Element is <tt>/EBMLSchema</tt>.</t>
-<!--[rfced] As currently written, the sentence below suggests that the EBML
-Schema might be used as an XML Document. Is that your intention, or do you
-want to compare something that is similar in an XML Document and an EBML
-Schema?
-
-Original:
-As an XML Document, the EBML Schema MUST use "<EBMLSchema>" as the
-top level element.  The "<EBMLSchema>" element can contain
-"<element>" sub-elements.
-
-Perhaps 1:
-As with an XML Document, the EBML Schema MUST ...
-
-Perhaps 2:
-When used as an XML Document, the EBML Schema MUST ...
--->
+<tt>&lt;EBMLSchema&gt;</tt> element is <tt>/EBMLSchema</tt>.</t>
 <t>As an XML Document, the EBML Schema <bcp14>MUST</bcp14> use
-<tt>&lt;EBMLSchema&gt;</tt> as the top-level Element. The
-<tt>&lt;EBMLSchema&gt;</tt> Element can contain <tt>&lt;element&gt;</tt>
+<tt>&lt;EBMLSchema&gt;</tt> as the top-level element. The
+<tt>&lt;EBMLSchema&gt;</tt> element can contain <tt>&lt;element&gt;</tt>
 subelements.</t>
 </section>
 
-<section anchor="ebmlschema-attributes"><name><tt>&lt;EBMLSchema&gt;</tt>
-Attributes</name>
-<t>Within an EBML Schema, the <tt>&lt;EBMLSchema&gt;</tt> Element uses the
-following attributes to define an EBML Element.</t>
+<section anchor="ebmlschema-attributes"><name><tt>&lt;EBMLSchema&gt;</tt> Attributes</name>
+<t>Within an EBML Schema, the <tt>&lt;EBMLSchema&gt;</tt> element uses the
+following attributes to define an EBML Element:</t>
 
 <section anchor="doctype"><name>docType</name>
 <t>Within an EBML Schema, the XPath of the <tt>@docType</tt> attribute is
 <tt>/EBMLSchema/@docType</tt>.</t>
 <t>The docType lists the official name of the EBML Document Type that is
-defined by the EBML Schema; for example, <tt>&lt;EBMLSchema
-docType=&quot;matroska&quot;&gt;</tt>.</t>
+defined by the EBML Schema; for example,
+<tt>&lt;EBMLSchema docType=&quot;matroska&quot;&gt;</tt>.</t>
 <t>The <tt>docType</tt> attribute is <bcp14>REQUIRED</bcp14> within the
 <tt>&lt;EBMLSchema&gt;</tt> Element.</t>
 </section>
@@ -956,7 +878,7 @@ docType=&quot;matroska&quot;&gt;</tt>.</t>
 <t>Within an EBML Schema, the XPath of the <tt>@version</tt> attribute is
 <tt>/EBMLSchema/@version</tt>.</t>
 <t>The version lists a nonnegative integer that specifies the version of the
-docType documented by the EBML Schema. Unlike XML Schemas, an EBML Schema
+ docType documented by the EBML Schema. Unlike XML Schemas, an EBML Schema
 documents all versions of a docType's definition rather than using separate
 EBML Schemas for each version of a docType. EBML Elements may be introduced
 and deprecated by using the <tt>minver</tt> and <tt>maxver</tt> attributes of
@@ -969,17 +891,17 @@ and deprecated by using the <tt>minver</tt> and <tt>maxver</tt> attributes of
 <t>Within an EBML Schema, the XPath of the <tt>@ebml</tt> attribute is <tt>/EBMLSchema/@ebml</tt>.</t>
 <t>The <tt>ebml</tt> attribute is a positive integer that specifies the
 version of the EBML Header (see <xref target="ebmlversion-element"></xref>)
-used by the EBML Schema. If the attribute is omitted, the EBML Header version
+used by the EBML Schema. If the  attribute is omitted, the EBML Header version
 is 1.</t>
 </section>
 </section>
 
 <section anchor="element-element"><name><tt>&lt;element&gt;</tt> Element</name>
-<t>Within an EBML Schema, the XPath of the <tt>&lt;element&gt;</tt> Element is
+<t>Within an EBML Schema, the XPath of the <tt>&lt;element&gt;</tt> element is
 <tt>/EBMLSchema/element</tt>.</t>
 <t>Each <tt>&lt;element&gt;</tt> defines one EBML Element through the use of
-several attributes that are defined in <xref
-target="element-attributes"></xref>. EBML Schemas <bcp14>MAY</bcp14> contain
+several attributes that are defined in
+<xref target="element-attributes"></xref>. EBML Schemas <bcp14>MAY</bcp14> contain
 additional attributes to extend the semantics but <bcp14>MUST NOT</bcp14>
 conflict with the definitions of the <tt>&lt;element&gt;</tt> attributes
 defined within this document.</t>
@@ -988,7 +910,7 @@ defined within this document.</t>
 
 <section anchor="element-attributes"><name><tt>&lt;element&gt;</tt> Attributes</name>
 <t>Within an EBML Schema, the <tt>&lt;element&gt;</tt> uses the following
-attributes to define an EBML Element to define an EBML Element:</t>
+attributes to define an EBML Element:</t>
 
 <section anchor="name"><name>name</name>
 <t>Within an EBML Schema, the XPath of the <tt>@name</tt> attribute is
@@ -1010,34 +932,30 @@ an EBML Document. This path <bcp14>MUST</bcp14> be defined with the full
 hierarchy of EBML Elements separated with a <tt>\</tt>. The top EBML Element
 in the path hierarchy is the first in the value. The syntax of the
 <tt>path</tt> attribute is defined using this Augmented Backus-Naur Form
-(ABNF) <xref target="RFC5234"></xref> with the case-sensitive update <xref
-target="RFC7405"></xref> notation:</t>
+(ABNF) <xref target="RFC5234"></xref> with the case-sensitive update
+<xref target="RFC7405"></xref> notation:</t>
 <t>The <tt>path</tt> attribute is <bcp14>REQUIRED</bcp14>.</t>
 
-<!--[rfced] Note that GlobalParentOccurence is spelled throughout with only
-one r in "occurence", unlike PathMinOccurrence and PathMaxOccurrence. The
-correct spelling of the word has two r's; should we update this term?
--->
-<sourcecode type="abnf">EBMLFullPath          = EBMLParentPath EBMLElement
+<sourcecode type="abnf">EBMLFullPath           = EBMLParentPath EBMLElement
 
-EBMLParentPath        = PathDelimiter [EBMLParents]
+EBMLParentPath         = PathDelimiter [EBMLParents]
 
-EBMLParents           = 0*IntermediatePathAtom EBMLLastParent
-IntermediatePathAtom  = EBMLPathAtom / GlobalPlaceholder
-EBMLLastParent        = EBMLPathAtom / GlobalPlaceholder
+EBMLParents            = 0*IntermediatePathAtom EBMLLastParent
+IntermediatePathAtom   = EBMLPathAtom / GlobalPlaceholder
+EBMLLastParent         = EBMLPathAtom / GlobalPlaceholder
 
-EBMLPathAtom          = [IsRecursive] EBMLAtomName PathDelimiter
-EBMLElement           = [IsRecursive] EBMLAtomName
+EBMLPathAtom           = [IsRecursive] EBMLAtomName PathDelimiter
+EBMLElement            = [IsRecursive] EBMLAtomName
 
-PathDelimiter         = &quot;\&quot;
-IsRecursive           = &quot;+&quot;
-EBMLAtomName          = ALPHA / DIGIT 0*EBMLNameChar
-EBMLNameChar          = ALPHA / DIGIT / &quot;-&quot; / &quot;.&quot;
+PathDelimiter          = &quot;\&quot;
+IsRecursive            = &quot;+&quot;
+EBMLAtomName           = ALPHA / DIGIT 0*EBMLNameChar
+EBMLNameChar           = ALPHA / DIGIT / &quot;-&quot; / &quot;.&quot;
 
-GlobalPlaceholder     = &quot;(&quot; GlobalParentOccurence &quot;\)&quot;
-GlobalParentOccurence = [PathMinOccurrence] &quot;-&quot; [PathMaxOccurrence]
-PathMinOccurrence     = 1*DIGIT ; no upper limit
-PathMaxOccurrence     = 1*DIGIT ; no upper limit
+GlobalPlaceholder      = &quot;(&quot; GlobalParentOccurrence &quot;\)&quot;
+GlobalParentOccurrence = [PathMinOccurrence] &quot;-&quot; [PathMaxOccurrence]
+PathMinOccurrence      = 1*DIGIT ; no upper limit
+PathMaxOccurrence      = 1*DIGIT ; no upper limit
 </sourcecode>
 <t>The <tt>*</tt>, <tt>(</tt>, and <tt>)</tt> symbols are interpreted as defined in <xref target="RFC5234"></xref>.</t>
 <t>The EBMLAtomName of the EBMLElement part <bcp14>MUST</bcp14> be equal to the <tt>@name</tt> attribute of the EBML Schema.
@@ -1045,14 +963,14 @@ If the EBMLElement part contains an IsRecursive part, the EBML Element can occur
 <t>The starting PathDelimiter of EBMLParentPath corresponds to the root of the EBML Document.</t>
 <t>The <tt>@path</tt> value <bcp14>MUST</bcp14> be unique within the EBML Schema. The <tt>@id</tt> value corresponding to this <tt>@path</tt> <bcp14>MUST NOT</bcp14> be defined for use within another EBML Element with the same EBMLParentPath as this <tt>@path</tt>.</t>
 <t>A path with a GlobalPlaceholder as the EBMLLastParent defines a Global Element; see <xref target="global-elements"></xref>.
-If the Element has no EBMLLastParent part, or the EBMLLastParent part is not a
+If the element has no EBMLLastParent part, or the EBMLLastParent part is not a
 GlobalPlaceholder, then the Element is not a Global Element.</t>
-<t>The GlobalParentOccurence part is interpreted as the number of valid
-EBMLPathAtom parts that can replace the GlobalPlaceholder in the path.
+<t>The GlobalParentOccurrence part is interpreted as the number of valid
+ EBMLPathAtom parts that can replace the GlobalPlaceholder in the path.
 PathMinOccurrence represents the minimum number of EBMLPathAtoms required to
 replace the GlobalPlaceholder. PathMaxOccurrence represents the maximum number
 of EBMLPathAtoms possible to replace the GlobalPlaceholder.</t>
-<t>If PathMinOccurrence is not present, then that GlobalParentOccurence has a
+<t>If PathMinOccurrence is not present, then that GlobalParentOccurrence has a
 PathMinOccurrence value of 0.
 If PathMaxOccurrence is not present, then there is no upper bound for the
 permitted number of EBMLPathAtoms possible to replace the GlobalPlaceholder.
@@ -1065,8 +983,7 @@ PathMinOccurrence.</t>
 <tt>\a\x\global</tt> corresponds to an EBMLPathAtom occurrence of 1. The
 Element <tt>\a\x\y\global</tt> corresponds to an EBMLPathAtom occurrence of 2,
 etc. In those cases, <tt>\a\x</tt> or <tt>\a\x\y</tt> <bcp14>MUST</bcp14> be valid
-paths to be able to contain the Element <tt>global</tt>.</t>
-
+paths to be able to contain the element <tt>global</tt>.</t>
 <t>Consider another EBML Path, <tt>\a\(1-\)global</tt>. There has to be at
 least one EBMLPathAtom between the <tt>\a\</tt> part and <tt>global</tt>.
 So the <tt>global</tt> EBML Element cannot be found inside the <tt>\a</tt>
@@ -1090,20 +1007,6 @@ resulting path, <tt>\a\b\c\global</tt>, has two EBMLPathAtom between
 <section anchor="id"><name>id</name>
 <t>Within an EBML Schema, the XPath of the <tt>@id</tt> attribute is
 <tt>/EBMLSchema/element/@id</tt>.</t>
-<!--[rfced] We're having difficulty parsing the following sentence. In
-particular, what is read and stored in big-endian order - the Element ID or
-the 0x?
-
-Original:
-The Element ID encoded as a Variable Size Integer expressed in
-hexadecimal notation prefixed by a 0x that is read and stored in big-
-endian order.
-
-Perhaps:
-The Element ID is encoded as a Variable Size Integer expressed in
-hexadecimal notation prefixed by a 0x; the Element ID is read and stored in
-big-endian order.
---> 
 <t>The Element ID is encoded as a Variable Size Integer expressed in
 hexadecimal notation prefixed by a 0x that is read and stored in big-endian
 order. To reduce the risk of false positives while parsing EBML Streams, the
@@ -1128,8 +1031,8 @@ constraints on the occurrence of the EBML Element within the EBML Document.
 EBML Elements with <tt>minOccurs</tt> set to &quot;1&quot; that also have a default
 value (see <xref target="default"></xref>) declared are not
 <bcp14>REQUIRED</bcp14> to be stored but are <bcp14>REQUIRED</bcp14> to be
-interpreted; see <xref
-target="note-on-the-use-of-default-attributes-to-define-mandatory-ebml-elements"></xref>.</t>
+interpreted; see
+<xref target="note-on-the-use-of-default-attributes-to-define-mandatory-ebml-elements"></xref>.</t>
 <t>An EBML Element defined with a <tt>minOccurs</tt> value greater than zero is called
 a Mandatory EBML Element.</t>
 <t>The <tt>minOccurs</tt> attribute is <bcp14>OPTIONAL</bcp14>. If the <tt>minOccurs</tt>
@@ -1145,8 +1048,8 @@ attribute is not present, then that EBML Element has a <tt>minOccurs</tt> value 
 of occurrences of this EBML Element within its Parent Element.</t>
 <t>Each instance of the Parent Element <bcp14>MUST</bcp14> contain at most
 this many instances of this EBML Element, including the unwritten mandatory
-Element with a default value; see <xref
-target="note-on-the-use-of-default-attributes-to-define-mandatory-ebml-elements"></xref>.
+element with a default value; see
+<xref target="note-on-the-use-of-default-attributes-to-define-mandatory-ebml-elements"></xref>.
 If the EBML Element has an empty EBMLParentPath, then <tt>maxOccurs</tt> refers to
 constraints on the occurrence of the EBML Element within the EBML
 Document.</t>
@@ -1165,8 +1068,8 @@ similar to xml:maxOccurs=&quot;unbounded&quot; in an XML Schema.</t>
 <tt>/EBMLSchema/element/@range</tt>.</t>
 <t>A numerical range for EBML Elements that are of numerical types (Unsigned
 Integer, Signed Integer, Float, and Date). If specified, the value of the EBML
-Element <bcp14>MUST</bcp14> be within the defined range. See <xref
-target="expression-of-range"></xref> for rules applied to expression of range
+Element <bcp14>MUST</bcp14> be within the defined range. See
+<xref target="expression-of-range"></xref> for rules applied to expression of range
 values.</t>
 <t>The <tt>range</tt> attribute is <bcp14>OPTIONAL</bcp14>. If the
 <tt>range</tt> attribute is
@@ -1174,25 +1077,23 @@ not present, then any value legal for the <tt>type</tt> attribute is valid.</t>
 
 <section anchor="expression-of-range"><name>Expression of range</name>
 <t>The <tt>range</tt> attribute <bcp14>MUST</bcp14> only be used with EBML Elements
-that are either Signed Integer, Unsigned Integer, Float, or Date. The
+that are either signed integer, unsigned integer, float, or date. The
 expression defines the upper, lower, exact, or excluded value of the EBML
 Element and optionally an upper boundary value combined with a lower
 boundary. The range expression may contain whitespace (using the ASCII 0x20
 character) for readability, but whitespace within a range expression
 <bcp14>MUST NOT</bcp14> convey meaning.</t>
 <t>To set a fixed value for the range, the value is used as the attribute
-value. For example, <tt>1234</tt> means the EBML Element always has the value
+value. For example, <tt>1234</tt> means the EBML element always has the value
 1234. The value can be prefixed with <tt>not</tt> to indicate that the fixed
-value <bcp14>MUST NOT</bcp14> be used for that Element. For example, <tt>not
-1234</tt> means the Element can use all values of its type except 1234.</t>
-
+value <bcp14>MUST NOT</bcp14> be used for that Element. For example,
+<tt>not 1234</tt> means the Element can use all values of its type except 1234.</t>
 <t>The <tt>&gt;</tt> sign is used for an exclusive lower boundary, and the
 <tt>&gt;=</tt> sign is used for an inclusive lower boundary. For example,
 <tt>&gt;3</tt> means the Element value <bcp14>MUST</bcp14> be greater than 3,
 and <tt>&gt;=0x1p+0</tt> means the Element value <bcp14>MUST</bcp14> be
-greater than or equal to the floating value 1.0; see <xref
-target="textual-expression-of-floats"></xref>.</t>
-
+greater than or equal to the floating value 1.0; see
+<xref target="textual-expression-of-floats"></xref>.</t>
 <t>The <tt>&lt;</tt> sign is used for an exclusive upper boundary, and the
 <tt>&lt;=</tt> sign is used for an inclusive upper boundary. For example,
 <tt>&lt;-2</tt> means the Element value <bcp14>MUST</bcp14> be less than -2,
@@ -1203,34 +1104,10 @@ closed boundary. The lower boundary comes first, followed by the upper
 boundary, separated by a comma. For example, <tt>&gt;3,&lt;= 20</tt> means the
 Element value <bcp14>MUST</bcp14> be greater than 3 and less than or equal to
 20.</t>
-
-<!--[rfced] There seems to be a word missing in the following sentence
-("greater than or to"). Please verify that the suggested change does not alter
-the intended meaning.
-
-Original:
-A special form of lower and upper bounds using the "-" separator is
-possible, meaning the Element value MUST be greater than or to the
-first value and MUST be less than or equal to the second value.
-
-Perhaps:
-A special form of lower and upper bounds using the "-" separator is
-possible, meaning the Element value MUST be greater than, or equal to, the
-first value and MUST be less than or equal to the second value.
--->
 <t>A special form of lower and upper bounds using the <tt>-</tt> separator is
-possible, meaning the Element value <bcp14>MUST</bcp14> be greater than or to
+possible, meaning the Element value <bcp14>MUST</bcp14> be greater than, or equal to,
 the first value and <bcp14>MUST</bcp14> be less than or equal to the
 second value. For example, <tt>1-10</tt> is equivalent to
-<!--[rfced] We're having difficulty parsing the following sentence.
-
-Original:
-If the upper boundary is negative, only the latter form MUST be used.
-
-Perhaps:
-If the upper boundary is negative, the range attribute MUST use only the
-latter form.
--->
 <tt>&gt;=1,&lt;=10</tt>. If the upper boundary is negative, only the latter
 form <bcp14>MUST</bcp14> be used.</t>
 </section>
@@ -1243,8 +1120,8 @@ form <bcp14>MUST</bcp14> be used.</t>
 Data as written, measured in octets. The length provides a constraint in
 addition to the Length value of the definition of the corresponding EBML
 Element Type. This length <bcp14>MUST</bcp14> be expressed as either a
-nonnegative integer or a range (see <xref
-target="expression-of-range"></xref>) that consists of only nonnegative
+nonnegative integer or a range (see
+<xref target="expression-of-range"></xref>) that consists of only nonnegative
 integers and valid operators.</t>
 <t>The <tt>length</tt> attribute is <bcp14>OPTIONAL</bcp14>. If the
 <tt>length</tt> attribute is
@@ -1266,7 +1143,7 @@ EBML Elements with a <tt>minOccurs</tt> value greater than 1 <bcp14>MUST NOT</bc
 <t>Within an EBML Schema, the XPath of the <tt>@type</tt> attribute is
 <tt>/EBMLSchema/element/@type</tt>.</t>
 <t>The type <bcp14>MUST</bcp14> be set to one of the following values:
-<tt>integer</tt> (Signed Integer), <tt>uinteger</tt> (Unsigned Integer),
+<tt>integer</tt> (signed integer), <tt>uinteger</tt> (unsigned integer),
 <tt>float</tt>, <tt>string</tt>, <tt>date</tt>, <tt>utf-8</tt>,
 <tt>master</tt>, or <tt>binary</tt>. The content of each type is defined
 in <xref target="ebml-element-types"></xref>.</t>
@@ -1283,7 +1160,7 @@ to 1). EBML Elements that are not Master Elements <bcp14>MUST NOT</bcp14> set
 <tt>unknownsizeallowed</tt> attribute set to 1 <bcp14>MUST</bcp14> also have the
 <tt>unknownsizeallowed</tt> attribute of its Parent Element set to 1.</t>
 <t>An EBML Element with the <tt>unknownsizeallowed</tt> attribute set to 1
-<bcp14>MUST NOT</bcp14> have its recursive attribute set to 1.</t>
+<bcp14>MUST NOT</bcp14> have its <tt>recursive</tt> attribute set to 1.</t>
 <t>The <tt>unknownsizeallowed</tt> attribute is <bcp14>OPTIONAL</bcp14>. If the
 <tt>unknownsizeallowed</tt> attribute is not used, then that EBML Element is not
 allowed to use an unknown Element Data Size.</t>
@@ -1293,43 +1170,16 @@ allowed to use an unknown Element Data Size.</t>
 <t>Within an EBML Schema, the XPath of the <tt>@recursive</tt> attribute is
 <tt>/EBMLSchema/element/@recursive</tt>.</t>
 <t>This attribute is a boolean to express whether an EBML Element is permitted to
-<!--[rfced] In the following sentence, what does "in this case" refer to?
-
-Original:
-A boolean to express if an EBML Element is permitted to be stored
-recursively.  In this case the EBML Element MAY be stored within
-another EBML Element that has the same Element ID.
-
-Perhaps:
-This attribute is a boolean to express whether an EBML Element is
-permitted to be stored recursively. If it is allowed, the EBML Element
-MAY be stored within another EBML Element that has the same Element
-ID.
---> 
-
 be stored recursively. In this case, the EBML Element <bcp14>MAY</bcp14> be
 stored within another EBML Element that has the same Element ID, which itself
 can be stored in an EBML Element that has the same Element ID, and so on. EBML
 Elements that are not Master Elements <bcp14>MUST NOT</bcp14> set recursive to
 true.</t>
-<!--[rfced] We reworded the following sentence for clarity. Please verify that
-the intended meaning has been preserved.
-
-Original:
-If the EBMLElement part of the "@path" contains an IsRecursive part
-then the recursive value MUST be true and false otherwise.
-
-Changed to:
-If the EBMLElement part of the "@path" contains an IsRecursive part,
-then the recursive value MUST be true; otherwise, it MUST be
-false.
---> 
-
 <t>If the EBMLElement part of the <tt>@path</tt> contains an IsRecursive part,
 then the <tt>recursive</tt> value <bcp14>MUST</bcp14> be true; otherwise, it
-MUST be false.</t>
-<t>An EBML Element with the <tt>recursive</tt> attribute set to 1 <bcp14>MUST
-NOT</bcp14> have its <tt>unknownsizeallowed</tt> attribute set to 1.</t>
+<bcp14>MUST</bcp14> be false.</t>
+<t>An EBML Element with the <tt>recursive</tt> attribute set to 1 <bcp14>MUST NOT</bcp14>
+have its <tt>unknownsizeallowed</tt> attribute set to 1.</t>
 <t>The <tt>recursive</tt> attribute is <bcp14>OPTIONAL</bcp14>. If the <tt>recursive</tt>
 attribute is not present, then the EBML Element <bcp14>MUST NOT</bcp14> be
 used recursively.</t>
@@ -1339,8 +1189,8 @@ used recursively.</t>
 <t>Within an EBML Schema, the XPath of the <tt>@recurring</tt> attribute is
 <tt>/EBMLSchema/element/@recurring</tt>.</t>
 <t>This attribute is a boolean to express whether or not an EBML Element is defined as an
-Identically Recurring Element; see <xref
-target="identically-recurring-elements"></xref>.</t>
+Identically Recurring Element; see
+<xref target="identically-recurring-elements"></xref>.</t>
 <t>The <tt>recurring</tt> attribute is <bcp14>OPTIONAL</bcp14>. If the <tt>recurring</tt>
 attribute is not present, then the EBML Element is not an Identically
 Recurring Element.</t>
@@ -1361,54 +1211,29 @@ attribute is not present, then the EBML Element has a minimum version of
 <tt>/EBMLSchema/element/@maxver</tt>.</t>
 <t>The <tt>maxver</tt> (maximum version) attribute stores a nonnegative integer that
 represents the last or most recent version of the docType to support the
-Element. <tt>maxver</tt> <bcp14>MUST</bcp14> be greater than or equal to minver.</t>
+element. <tt>maxver</tt> <bcp14>MUST</bcp14> be greater than or equal to <tt>minver</tt>.</t>
 <t>The <tt>maxver</tt> attribute is <bcp14>OPTIONAL</bcp14>. If the <tt>maxver</tt> attribute is
 not present, then the EBML Element has a maximum version equal to the value
 stored in the <tt>version</tt> attribute of <tt>&lt;EBMLSchema&gt;</tt>.</t>
 </section>
 </section>
 
-<section anchor="documentation-element"><name><tt>&lt;documentation&gt;</tt>
-Element</name>
-<!--[rfced] Several sections are titled "___ Element" and describe an
-     element, but the statement of the XPath uses the to define an
-     EBML Elementword "attribute". Please review whether we should
-     change "attribute" to "element" in these cases.
-
-Originals:
-Within an EBML Schema, the XPath of "<documentation>" attribute is
-"/EBMLSchema/element/documentation".
-
-Within an EBML Schema, the XPath of "<implementation_note>" attribute
-is "/EBMLSchema/element/implementation_note".
-
-Within an EBML Schema, the XPath of "<restriction>" attribute is
-"/EBMLSchema/element/restriction".
-
-Within an EBML Schema, the XPath of "<enum>" attribute is
-"/EBMLSchema/element/restriction/enum".
-
-Within an EBML Schema, the XPath of "<extension>" attribute is
-"/EBMLSchema/element/extension".
---> 
-
-<t>Within an EBML Schema, the XPath of the <tt>&lt;documentation&gt;</tt>
-attribute is <tt>/EBMLSchema/element/documentation</tt>.</t>
-<t>The <tt>&lt;documentation&gt;</tt> Element provides additional information
-about the EBML Element. Within the <tt>&lt;documentation&gt;</tt> Element, the
-following XHTML <xref target="XHTML"></xref> Elements <bcp14>MAY</bcp14> be
+<section anchor="documentation-element"><name><tt>&lt;documentation&gt;</tt> Element</name>
+<t>Within an EBML Schema, the XPaths of the <tt>&lt;documentation&gt;</tt>
+elements are <tt>/EBMLSchema/element/documentation</tt> and <tt>/EBMLSchema/element/restriction/enum/documentation</tt>.</t>
+<t>The <tt>&lt;documentation&gt;</tt> element provides additional information
+about EBML Elements or enumeration values. Within the <tt>&lt;documentation&gt;</tt> element, the
+following XHTML <xref target="XHTML"></xref> elements <bcp14>MAY</bcp14> be
 used: <tt>&lt;a&gt;</tt>, <tt>&lt;br&gt;</tt>, and <tt>&lt;strong&gt;</tt>.</t>
 </section>
 
-<section
-    anchor="documentation-attributes"><name><tt>&lt;documentation&gt;</tt>
-Attributes</name>
+<section anchor="documentation-attributes"><name><tt>&lt;documentation&gt;</tt> Attributes</name>
 
 <section anchor="lang"><name>lang</name>
 <t>Within an EBML Schema, the XPath of the <tt>@lang</tt> attribute is
 <tt>/EBMLSchema/element/documentation/@lang</tt>.</t>
 <t>The <tt>lang</tt> attribute is set to the value from <xref target="RFC5646"></xref> of
-the language of the Element's documentation.</t>
+the language of the element's documentation.</t>
 <t>The <tt>lang</tt> attribute is <bcp14>OPTIONAL</bcp14>.</t>
 </section>
 
@@ -1417,23 +1242,21 @@ the language of the Element's documentation.</t>
 <tt>/EBMLSchema/element/documentation/@purpose</tt>.</t>
 <t>A <tt>purpose</tt> attribute distinguishes the meaning of the documentation. Values
 for the <tt>&lt;documentation&gt;</tt> subelement's <tt>purpose</tt> attribute
-<bcp14>MUST</bcp14> include one of the values listed in <xref
-target="tablePurposeDefinitions"></xref>.</t>
-<table anchor="tablePurposeDefinitions"><name>Definitions of the Permitted
-Values for the <tt>purpose</tt> Attribute of the Documentation Element</name>
+<bcp14>MUST</bcp14> include one of the values listed in
+<xref target="tablePurposeDefinitions"></xref>.</t>
+<table anchor="tablePurposeDefinitions"><name>Definitions of the permitted
+values for the <tt>purpose</tt> attribute of the documentation Element </name>
 <thead>
 <tr>
-<th align="left">Value of <tt>purpose</tt> Attribute</th>
-<th align="left">Definition</th>
+<th align="left">value of <tt>purpose</tt> attribute</th>
+<th align="left">definition</th>
 </tr>
 </thead>
 
 <tbody>
 <tr>
 <td align="left">definition</td>
-<td align="left">A "definition" is recommended for every defined EBML
-Element. This documentation explains the semantic meaning of the EBML
-Element.</td>
+<td align="left">A &quot;definition&quot; is recommended for every defined EBML Element. This documentation explains the semantic meaning of the EBML Element.</td>
 </tr>
 
 <tr>
@@ -1443,8 +1266,7 @@ Element.</td>
 
 <tr>
 <td align="left">usage notes</td>
-<td align="left">Recommended practices or guidelines for both reading,
-writing, or interpreting the Element.</td>
+<td align="left">Recommended practices or guidelines for both reading, writing, or interpreting the Element.</td>
 </tr>
 
 <tr>
@@ -1457,25 +1279,23 @@ writing, or interpreting the Element.</td>
 </section>
 
 <section anchor="implementation-note-element"><name><tt>&lt;implementation_note&gt;</tt> Element</name>
-<t>Within an EBML Schema, the XPath of <tt>&lt;implementation_note&gt;</tt>
-attribute is <tt>/EBMLSchema/element/implementation_note</tt>.</t>
+<t>Within an EBML Schema, the XPath of the <tt>&lt;implementation_note&gt;</tt>
+element is <tt>/EBMLSchema/element/implementation_note</tt>.</t>
 <t>In some cases within an EBML Document Type, the attributes of the
-<tt>&lt;element&gt;</tt> Element are not sufficient to clearly communicate how
+<tt>&lt;element&gt;</tt> element are not sufficient to clearly communicate how
 the defined EBML Element is intended to be implemented.
 For instance, one EBML Element might only be mandatory if another EBML Element
 is present. As another example, the default value of an EBML Element might
 be derived from a related Element's content. In these cases where the Element's
 definition is conditional or advanced implementation notes are needed, one or many
-<tt>&lt;implementation_note&gt;</tt> Elements can be used to store that
+<tt>&lt;implementation_note&gt;</tt> elements can be used to store that
 information.
 The <tt>&lt;implementation_note&gt;</tt> refers to a specific attribute of the
 parent <tt>&lt;element&gt;</tt> as expressed by the <tt>note_attribute</tt>
 attribute (see <xref target="note-attribute"></xref>).</t>
 </section>
 
-<section
-    anchor="implementation-note-attributes"><name><tt>&lt;implementation_note&gt;</tt>
-Attributes</name>
+<section anchor="implementation-note-attributes"><name><tt>&lt;implementation_note&gt;</tt> Attributes</name>
 
 <section anchor="note-attribute"><name>note_attribute</name>
 <t>Within an EBML Schema, the XPath of the <tt>@note_attribute</tt> attribute
@@ -1493,9 +1313,7 @@ An <tt>&lt;element&gt;</tt> <bcp14>SHALL NOT</bcp14> have more than one <tt>&lt;
 <t>The <tt>note_attribute</tt> attribute is <bcp14>REQUIRED</bcp14>.</t>
 </section>
 
-<section
-    anchor="implementation-note-example"><name><tt>&lt;implementation_note&gt;</tt>
-Example</name>
+<section anchor="implementation-note-example"><name><tt>&lt;implementation_note&gt;</tt> Example</name>
 <t>The following fragment of an EBML Schema demonstrates how an
 <tt>&lt;implementation_note&gt;</tt> is used. In this case, an EBML Schema
 documents a list of items that are described with an optional cost. The
@@ -1537,21 +1355,21 @@ otherwise not.</t>
 
 <section anchor="restriction-element"><name><tt>&lt;restriction&gt;</tt> Element</name>
 <t>Within an EBML Schema, the XPath of the <tt>&lt;restriction&gt;</tt>
-attribute is <tt>/EBMLSchema/element/restriction</tt>.</t>
-<t>The <tt>&lt;restriction&gt;</tt> Element provides information about
+element is <tt>/EBMLSchema/element/restriction</tt>.</t>
+<t>The <tt>&lt;restriction&gt;</tt> element provides information about
 restrictions to the allowable values for the EBML Element, which are listed in
-<tt>&lt;enum&gt;</tt> Elements.</t>
+<tt>&lt;enum&gt;</tt> elements.</t>
 </section>
 
 <section anchor="enum-element"><name><tt>&lt;enum&gt;</tt> Element</name>
-<t>Within an EBML Schema, the XPath of the <tt>&lt;enum&gt;</tt> attribute is
+<t>Within an EBML Schema, the XPath of the <tt>&lt;enum&gt;</tt> element is
 <tt>/EBMLSchema/element/restriction/enum</tt>.</t>
-<t>The <tt>&lt;enum&gt;</tt> Element stores a list of values allowed for
+<t>The <tt>&lt;enum&gt;</tt> element stores a list of values allowed for
 storage in the EBML Element. The values <bcp14>MUST</bcp14> match the type of
 the EBML Element (for example, <tt>&lt;enum value=&quot;Yes&quot;&gt;</tt>
-cannot be a valid value for an EBML Element that is defined as an Unsigned
-Integer). An <tt>&lt;enum&gt;</tt> Element <bcp14>MAY</bcp14> also store
-<tt>&lt;documentation&gt;</tt> Elements to further describe the
+cannot be a valid value for an EBML Element that is defined as an unsigned
+integer). An <tt>&lt;enum&gt;</tt> element <bcp14>MAY</bcp14> also store
+<tt>&lt;documentation&gt;</tt> elements to further describe the
 <tt>&lt;enum&gt;</tt>.</t>
 </section>
 
@@ -1575,15 +1393,15 @@ describes what the value of <tt>&lt;enum&gt;</tt> represents.</t>
 
 <section anchor="extension-element"><name><tt>&lt;extension&gt;</tt> Element</name>
 <t>Within an EBML Schema, the XPath of the <tt>&lt;extension&gt;</tt>
-attribute is <tt>/EBMLSchema/element/extension</tt>.</t>
-<t>The <tt>&lt;extension&gt;</tt> Element provides an unconstrained Element to
+element is <tt>/EBMLSchema/element/extension</tt>.</t>
+<t>The <tt>&lt;extension&gt;</tt> element provides an unconstrained element to
 contain information about the associated EBML <tt>&lt;element&gt;</tt>, which
 is undefined by this document but <bcp14>MAY</bcp14> be defined by the
-associated EBML Document Type. The <tt>&lt;extension&gt;</tt> Element
+associated EBML Document Type. The <tt>&lt;extension&gt;</tt> element
 <bcp14>MUST</bcp14> contain a <tt>type</tt> attribute and also
 <bcp14>MAY</bcp14> contain any other attribute or subelement as long as the
 EBML Schema remains as a well-formed XML Document. All
-<tt>&lt;extension&gt;</tt> Elements <bcp14>MUST</bcp14> be subelements of the
+<tt>&lt;extension&gt;</tt> elements <bcp14>MUST</bcp14> be subelements of the
 <tt>&lt;element&gt;</tt>.</t>
 </section>
 
@@ -1594,30 +1412,12 @@ EBML Schema remains as a well-formed XML Document. All
 <tt>/EBMLSchema/element/extension/@type</tt>.</t>
 <t>The <tt>type</tt> attribute should reference a name or identifier of the
 project or authority associated with the contents of the
-<tt>&lt;extension&gt;</tt> Element.</t>
+<tt>&lt;extension&gt;</tt> element.</t>
 <t>The <tt>type</tt> attribute is <bcp14>REQUIRED</bcp14>.</t>
 </section>
 </section>
 
 <section anchor="xml-schema-for-ebml-schema"><name>XML Schema for EBML Schema</name>
-<!--[rfced] We have several questions about the following passage.
-
-Original:
-This following provides an XML Schema [W3C.REC-xmlschema-0-20041028]
-for facilitating verification of an EBML Schema to the definition
-described in Section 8.1.
-
-1) We're having difficulty parsing this sentence,
-specifically the phrasing "to the definition". Please clarify how the
-definition relates to the verification process.
-
-2) Note: Based on this sentence, we changed the sourcecode type of the
-schema from "xsd" to "xml". Please let us know if we should revert.
-
-3) In the XML Schema for EBML Schema, the URL https://ietf.org/cellar/ebml
-is provided, but it doesn't seem to be a valid site. Please confirm that this
-is okay.
---> 
 <t>The following provides an XML Schema <xref target="XML-SCHEMA"></xref> for
 facilitating verification of an EBML Schema to the definition described in
 <xref target="ebml-header"></xref>.</t>
@@ -1808,7 +1608,7 @@ within that Parent Element <bcp14>MUST</bcp14> be identical both in storage
 and semantics. Identically Recurring Elements are permitted to be stored
 multiple times within the same Parent Element in order to increase data
 resilience and optimize the use of EBML in transmission. For instance, a
-pertinent Top-Level Element could be periodically resent within a data stream
+pertinent Top-Level Element could be periodically resent within a datastream
 so that an EBML Reader that starts reading the stream from the middle could
 better interpret the contents. Identically Recurring Elements
 <bcp14>SHOULD</bcp14> include a CRC-32 Element as a Child Element; this is
@@ -1823,19 +1623,19 @@ then the first instance of the Identically Recurring Element should be used
 for interpretation.</t>
 </section>
 
-<section anchor="textual-expression-of-floats"><name>Textual Expression of Floats</name>
-<t>When a Float value is represented textually in an EBML Schema, such as
-within a default or range value, the Float values <bcp14>MUST</bcp14> be
+<section anchor="textual-expression-of-floats"><name>Textual expression of floats</name>
+<t>When a float value is represented textually in an EBML Schema, such as
+within a default or range value, the float values <bcp14>MUST</bcp14> be
 expressed as Hexadecimal Floating-Point Constants as defined in the C11
-standard <xref target="ISO.9899"></xref> (see Section 6.4.4.2 on Floating
+standard <xref target="ISO.9899"></xref> (see section 6.4.4.2 on Floating
 Constants). <xref target="tableFloatExamples"></xref> provides examples of
-expressions of Float ranges.</t>
-<table anchor="tableFloatExamples"><name>Example of Floating-Point Values and
-Ranges as Decimal and Hexadecimal Floating-Point Constants</name>
+expressions of float ranges.</t>
+<table anchor="tableFloatExamples"><name>Example of Floating-Point values and
+ranges as decimal and Hexadecimal Floating-Point Constants </name>
 <thead>
 <tr>
-<th align="left">As Decimal</th>
-<th align="left">As Hexadecimal Floating-Point Constants</th>
+<th align="left">as decimal</th>
+<th align="left">as Hexadecimal Floating-Point Constants</th>
 </tr>
 </thead>
 
@@ -1865,20 +1665,18 @@ Ranges as Decimal and Hexadecimal Floating-Point Constants</name>
 <td align="left"><tt>-0x1p+0--0x1.b7p-1</tt></td>
 </tr>
 </tbody>
-</table><t>Within an expression of a Float range, as in an integer range, the
+</table><t>Within an expression of a float range, as in an integer range, the
 - (hyphen) character is the separator between the minimum and maximum values
 permitted by the range. Hexadecimal Floating-Point Constants also use a -
-(hyphen) when indicating a negative binary power. Within a Float range, when a
+(hyphen) when indicating a negative binary power. Within a float range, when a
 - (hyphen) is immediately preceded by a letter p, then the - (hyphen) is a
 part of the Hexadecimal Floating-Point Constant that notes negative binary
-power. Within a Float range, when a - (hyphen) is not immediately preceded by
+power. Within a float range, when a - (hyphen) is not immediately preceded by
 a letter p, then the - (hyphen) represents the separator between the minimum
 and maximum values permitted by the range.</t>
 </section>
 
-<section
-    anchor="note-on-the-use-of-default-attributes-to-define-mandatory-ebml-elements"><name>Note
-on the Use of Default Attributes to Define Mandatory EBML Elements</name>
+<section anchor="note-on-the-use-of-default-attributes-to-define-mandatory-ebml-elements"><name>Note on the use of default attributes to define Mandatory EBML Elements</name>
 <t>If a Mandatory EBML Element has a default value declared by an EBML Schema
 and the value of the EBML Element is equal to the declared default value, then
 that EBML Element is not required to be present within the EBML Document if
@@ -1890,13 +1688,13 @@ and its Parent Element is present, then the EBML Element <bcp14>MUST</bcp14>
 be present, as well. If a Mandatory EBML Element has a default value declared
 by an EBML Schema, and its Parent Element is present, and the value of the EBML
 Element is NOT equal to the declared default value, then the EBML Element
-<bcp14>MUST</bcp14> be present.</t>
+ <bcp14>MUST</bcp14> be present.</t>
 <t><xref target="tableVintRequirements"></xref> clarifies whether a Mandatory
 EBML Element <bcp14>MUST</bcp14> be written, according to whether the default value
 is declared, the value of the EBML Element is equal to the declared default
 value, and/or the Parent Element is used.</t>
-<table anchor="tableVintRequirements"><name>Demonstration of the Conditional
-Requirements of VINT Storage</name>
+<table anchor="tableVintRequirements"><name>Demonstration of the conditional
+requirements of VINT Storage </name>
 <thead>
 <tr>
 <th align="center">Is the default value declared?</th>
@@ -1956,6 +1754,7 @@ Requirements of VINT Storage</name>
 <t>This document contains definitions of all EBML Elements of the EBML Header.</t>
 
 <section anchor="ebml-element"><name>EBML Element</name>
+
 <dl>
 <dt>name:</dt>
 <dd>EBML</dd>
@@ -1976,6 +1775,7 @@ to start with this.</dd>
 </section>
 
 <section anchor="ebmlversion-element"><name>EBMLVersion Element</name>
+
 <dl>
 <dt>name:</dt>
 <dd>EBMLVersion</dd>
@@ -2001,6 +1801,7 @@ version of EBML defined in this document is 1, so EBMLVersion
 </section>
 
 <section anchor="ebmlreadversion-element"><name>EBMLReadVersion Element</name>
+
 <dl>
 <dt>name:</dt>
 <dd>EBMLReadVersion</dd>
@@ -2025,6 +1826,7 @@ Document. The EBMLReadVersion Element <bcp14>MUST</bcp14> be less than or equal 
 </section>
 
 <section anchor="ebmlmaxidlength-element"><name>EBMLMaxIDLength Element</name>
+
 <dl>
 <dt>name:</dt>
 <dd>EBMLMaxIDLength</dd>
@@ -2050,6 +1852,7 @@ is <bcp14>RECOMMENDED</bcp14>, though larger values are allowed.</dd>
 </section>
 
 <section anchor="ebmlmaxsizelength-element"><name>EBMLMaxSizeLength Element</name>
+
 <dl>
 <dt>name:</dt>
 <dd>EBMLMaxSizeLength</dd>
@@ -2079,6 +1882,7 @@ than what is expressed by EBMLMaxSizeLength Element are invalid.</dd>
 </section>
 
 <section anchor="doctype-element"><name>DocType Element</name>
+
 <dl>
 <dt>name:</dt>
 <dd>DocType</dd>
@@ -2101,6 +1905,7 @@ follows this EBML Header.</dd>
 </section>
 
 <section anchor="doctypeversion-element"><name>DocTypeVersion Element</name>
+
 <dl>
 <dt>name:</dt>
 <dd>DocTypeVersion</dd>
@@ -2124,6 +1929,7 @@ follows this EBML Header.</dd>
 </section>
 
 <section anchor="doctypereadversion-element"><name>DocTypeReadVersion Element</name>
+
 <dl>
 <dt>name:</dt>
 <dd>DocTypeReadVersion</dd>
@@ -2149,6 +1955,7 @@ be less than or equal to the value of the DocTypeVersion Element.</dd>
 </section>
 
 <section anchor="doctypeextension-element"><name>DocTypeExtension Element</name>
+
 <dl>
 <dt>name:</dt>
 <dd>DocTypeExtension</dd>
@@ -2172,11 +1979,12 @@ versions of this DocTypeExtension.</dd>
 </section>
 
 <section anchor="doctypeextensionname-element"><name>DocTypeExtensionName Element</name>
+
 <dl>
 <dt>name:</dt>
 <dd>DocTypeExtensionName</dd>
 <dt>path:</dt>
-<dd><tt>\EBML\DocTypeExtension\Name</tt></dd>
+<dd><tt>\EBML\DocTypeExtension\DocTypeExtensionName</tt></dd>
 <dt>id:</dt>
 <dd>0x4283</dd>
 <dt>minOccurs:</dt>
@@ -2195,11 +2003,12 @@ DocTypeExtensions of the same DocType+DocTypeVersion tuple. A DocTypeExtensionNa
 </section>
 
 <section anchor="doctypeextensionversion-element"><name>DocTypeExtensionVersion Element</name>
+
 <dl>
 <dt>name:</dt>
 <dd>DocTypeExtensionVersion</dd>
 <dt>path:</dt>
-<dd><tt>\EBML\DocTypeExtension\Version</tt></dd>
+<dd><tt>\EBML\DocTypeExtension\DocTypeExtensionVersion</tt></dd>
 <dt>id:</dt>
 <dd>0x4284</dd>
 <dt>minOccurs:</dt>
@@ -2212,18 +2021,10 @@ DocTypeExtensions of the same DocType+DocTypeVersion tuple. A DocTypeExtensionNa
 <dd>Unsigned Integer</dd>
 <dt>description:</dt>
 <dd>The version of the DocTypeExtension. Different DocTypeExtensionVersion
-values of the same DocType+DocTypeVersion+DocTypeExtensionName tuple
+values of the same DocType + DocTypeVersion + DocTypeExtensionName tuple
 <bcp14>MAY</bcp14> contain completely different sets of extra Elements. An
-<!--[rfced] We're having difficulty parsing the following sentence,
-specifically what "only one or none" refers to. Does it mean that an EBML
-Reader may only support 0 or 1 versions of the same DocTypeExtension?
-
-Original:
-An EBML Reader MAY support multiple versions of the same DocTypeExtension,
-only one or none.
---> 
 EBML Reader <bcp14>MAY</bcp14> support multiple versions
-of the same DocTypeExtension, only one or none.</dd>
+of the same tuple, only one version of the tuple, or not support the tuple at all.</dd>
 </dl>
 </section>
 </section>
@@ -2234,7 +2035,7 @@ in an EBML Document or optionally at the Root Level of an EBML Body. These
 Elements are called Global Elements. There are two Global Elements that can be
 found in any EBML Document: the CRC-32 Element and the Void Element. An EBML
 Schema <bcp14>MAY</bcp14> add other Global Elements to the format it
-defines. These extra Elements apply only to the EBML Body, not the EBML
+defines. These extra elements apply only to the EBML Body, not the EBML
 Header.</t>
 <t>Global Elements are EBML Elements whose EBMLLastParent part of the path has
 a GlobalPlaceholder. Because it is the last Parent part of the path, a Global
@@ -2244,6 +2045,7 @@ not fully &quot;global&quot;.</t>
 <t>A Global Element can be found in many Parent Elements, allowing the same number of occurrences in each Parent where this Element is found.</t>
 
 <section anchor="crc-32-element"><name>CRC-32 Element</name>
+
 <dl>
 <dt>name:</dt>
 <dd>CRC-32</dd>
@@ -2266,15 +2068,16 @@ itself. When the CRC-32 Element is present, the CRC-32 Element
 <bcp14>MUST</bcp14> be the first ordered EBML Element within its Parent
 Element for easier reading. All Top-Level Elements of an EBML Document that
 are Master Elements <bcp14>SHOULD</bcp14> include a CRC-32 Element as a Child
-Element. The CRC in use is the IEEE-CRC-32 algorithm as used in the <xref
-target="ISO.3309.1979"></xref> standard and in Section 8.1.1.6.2 of <xref
-target="ITU.V42" />, with initial value of 0xFFFFFFFF. The CRC value
+Element. The CRC in use is the IEEE-CRC-32 algorithm as used in the
+<xref target="ISO.3309.1979"></xref> standard and in section 8.1.1.6.2 of
+<xref target="ITU.V42"></xref>, with initial value of 0xFFFFFFFF. The CRC value
 <bcp14>MUST</bcp14> be computed on a little-endian bytestream and
 <bcp14>MUST</bcp14> use little-endian storage.</dd>
 </dl>
 </section>
 
 <section anchor="void-element"><name>Void Element</name>
+
 <dl>
 <dt>name:</dt>
 <dd>Void</dd>
@@ -2295,8 +2098,7 @@ later use.</dd>
 </section>
 </section>
 
-<section anchor="considerations-for-reading-ebml-data"><name>Considerations
-for Reading EBML Data</name>
+<section anchor="considerations-for-reading-ebml-data"><name>Considerations for Reading EBML Data</name>
 <t>The following scenarios describe events to consider when reading EBML
 Documents, as well as the recommended design of an EBML Reader.</t>
 <t>If a Master Element contains a CRC-32 Element that doesn't validate, then
@@ -2344,8 +2146,8 @@ An EBML Writer <bcp14>MAY</bcp14> terminate a String Element or UTF-8 Element
 with Null Octets in order to overwrite a stored value with a new value of
 lesser length while maintaining the same Element Data Size; this can prevent
 the need to rewrite large portions of an EBML Document. Otherwise, the use of
-Null Octets within a String Element or UTF-8 Element is <bcp14>NOT
-RECOMMENDED</bcp14>. The Element Data of a UTF-8 Element <bcp14>MUST</bcp14>
+Null Octets within a String Element or UTF-8 Element is <bcp14>NOT RECOMMENDED</bcp14>.
+The Element Data of a UTF-8 Element <bcp14>MUST</bcp14>
 be a valid UTF-8 string up to whichever comes first: the end of the Element or
 the first occurring Null octet. Within the Element Data of a String or UTF-8 Element,
 any Null octet itself and any following data within that Element
@@ -2354,9 +2156,8 @@ value terminated by one or more Null Octets are semantically equal.</t>
 <t><xref target="tableNullOctetSemantics"></xref> shows examples of semantics
 and validation for the use of Null Octets. Values to represent Stored Values
 and the Semantic Meaning as represented as hexadecimal values.</t>
-
-<table anchor="tableNullOctetSemantics"><name>Examples of Semantics for Null
-Octets in VINT_DATA</name>
+<table anchor="tableNullOctetSemantics"><name>Examples of semantics for Null
+Octets in VINT_DATA </name>
 <thead>
 <tr>
 <th align="left">Stored Value</th>
@@ -2393,7 +2194,7 @@ Document be rewritten. These recommendations describe strategies for changing
 the Element Data of a written EBML Element with minimal disruption to the rest
 of the EBML Document.</t>
 
-<section anchor="reducing-a-element-data-in-size"><name>Reducing Element Data in Size</name>
+<section anchor="reducing-element-data-in-size"><name>Reducing Element Data in Size</name>
 <t>There are three methods to reduce the size of Element Data of a written EBML Element.</t>
 
 <section anchor="adding-a-void-element"><name>Adding a Void Element</name>
@@ -2402,8 +2203,8 @@ of the EBML Document.</t>
 
 <section anchor="extending-the-element-data-size"><name>Extending the Element Data Size</name>
 <t>The same value for Element Data Size <bcp14>MAY</bcp14> be written in various lengths, so for minor reductions of the Element Data, the Element Size <bcp14>MAY</bcp14> be written to a longer octet length to fill the freed space.</t>
-<t>For example, the first row of <xref
-target="tableShortenVintOneOctet"></xref> depicts a String Element that stores
+<t>For example, the first row of
+<xref target="tableShortenVintOneOctet"></xref> depicts a String Element that stores
 an Element ID (3 octets), Element Data Size (1 octet), and Element Data (4
 octets). If the Element Data is changed to reduce the length by one octet, and
 if the current length of the Element Data Size is less than its maximum
@@ -2411,8 +2212,8 @@ permitted length, then the Element Data Size of that Element
 <bcp14>MAY</bcp14> be rewritten to increase its length by one octet. Thus,
 before and after the change, the EBML Element maintains the same length of 8
 octets, and data around the Element does not need to be moved.</t>
-<table anchor="tableShortenVintOneOctet"><name>Example of Editing a VINT to
-Reduce VINT_DATA Length by One Octet</name>
+<table anchor="tableShortenVintOneOctet"><name>Example of editing a VINT to
+reduce VINT_DATA length by one octet </name>
 <thead>
 <tr>
 <th>Status</th>
@@ -2444,15 +2245,15 @@ reduced by a single octet; for reductions by two or more octets, it is
 one octet and the Element Data Size could be rewritten as a shorter VINT, then
 it is <bcp14>RECOMMENDED</bcp14> to rewrite the Element Data Size as one octet
 shorter, shorten the Element Data by one octet, and follow that Element with a
-Void Element. For example, <xref
-target="tableShortenVintMoreThanOneOctet"></xref> depicts a String Element
+Void Element. For example,
+<xref target="tableShortenVintMoreThanOneOctet"></xref> depicts a String Element
 that stores an Element ID (3 octets), Element Data Size (2 octets, but could
 be rewritten in one octet), and Element Data (3 octets). If the Element Data
 is to be rewritten to a two-octet length, then another octet can be taken from
 Element Data Size so that there is enough space to add a two-octet Void
 Element.</t>
-<table anchor="tableShortenVintMoreThanOneOctet"><name>Example of Editing a
-VINT to Reduce VINT_DATA Length by More Than One Octet</name>
+<table anchor="tableShortenVintMoreThanOneOctet"><name>Example of editing a
+VINT to reduce VINT_DATA length by more than one octet </name>
 <thead>
 <tr>
 <th>Status</th>
@@ -2484,14 +2285,14 @@ VINT to Reduce VINT_DATA Length by More Than One Octet</name>
 
 <section anchor="terminating-element-data"><name>Terminating Element Data</name>
 <t>For String Elements and UTF-8 Elements, the length of Element Data could be
-reduced by adding Null Octets to terminate the Element Data (see <xref
-target="terminating-elements"></xref>).</t>
+reduced by adding Null Octets to terminate the Element Data (see
+<xref target="terminating-elements"></xref>).</t>
 <t>In <xref target="tableExampleNullPadding"></xref>, Element Data four octets
 long is changed to a value three octets long, followed by a Null Octet; the
 Element Data Size includes any Null Octets used to terminate Element Data and therefore
 remains unchanged.</t>
-<table anchor="tableExampleNullPadding"><name>Example of Terminating VINT_DATA
-with a Null Octet When Reducing VINT Length during an Edit</name>
+<table anchor="tableExampleNullPadding"><name>Example of terminating VINT_DATA
+with a Null Octet when reducing VINT length during an edit </name>
 <thead>
 <tr>
 <th>Status</th>
@@ -2517,15 +2318,13 @@ with a Null Octet When Reducing VINT Length during an Edit</name>
 </tr>
 </tbody>
 </table><t>Note that this method is <bcp14>NOT RECOMMENDED</bcp14>. For
-reductions of one octet, the method for extending the Element Data Size
+reductions of one octet, the method for Extending the Element Data Size
 <bcp14>SHOULD</bcp14> be used. For reduction by more than one octet, the
 method for Adding a Void Element <bcp14>SHOULD</bcp14> be used.</t>
 </section>
 </section>
 
-<section
-    anchor="considerations-when-updating-elements-with-cyclic-redundancy-check-crc"><name>Considerations
-When Updating Elements with Cyclic Redundancy Check (CRC)</name>
+<section anchor="considerations-when-updating-elements-with-cyclic-redundancy-check-crc"><name>Considerations when Updating Elements with Cyclic Redundancy Check (CRC)</name>
 <t>If the Element to be changed is a Descendant Element of any Master Element
 that contains a CRC-32 Element (see <xref target="crc-32-element"></xref>),
 then the CRC-32 Element <bcp14>MUST</bcp14> be verified before permitting the
@@ -2538,8 +2337,8 @@ subsequently updated to reflect the changed data.</t>
 <t>Elements of an EBML format <bcp14>SHOULD</bcp14> be designed with backward and forward compatibility in mind.</t>
 
 <section anchor="backward-compatibility"><name>Backward Compatibility</name>
-<t>Backward compatibility of new EBML Elements can be achieved by using default values for mandatory Elements. The default value <bcp14>MUST</bcp14> represent the state that was assumed for previous versions of the EBML Schema, without this new EBML Element. If such a state doesn't make sense for previous versions, then the new EBML Element <bcp14>SHOULD NOT</bcp14> be mandatory.</t>
-<t>Nonmandatory EBML Elements can be added in a new EBMLDocTypeVersion. Since
+<t>Backward compatibility of new EBML Elements can be achieved by using default values for mandatory elements. The default value <bcp14>MUST</bcp14> represent the state that was assumed for previous versions of the EBML Schema, without this new EBML Element. If such a state doesn't make sense for previous versions, then the new EBML Element <bcp14>SHOULD NOT</bcp14> be mandatory.</t>
+<t>Non-mandatory EBML Elements can be added in a new EBMLDocTypeVersion. Since
 they are not mandatory, they won't be found in older versions of the
 EBMLDocTypeVersion, just as they might not be found in newer versions. This
 causes no compatibility issue.</t>
@@ -2554,7 +2353,7 @@ EBMLDocTypeVersion, it <bcp14>SHOULD</bcp14> be discarded.</t>
 </section>
 
 <section anchor="security-considerations"><name>Security Considerations</name>
-<t>EBML itself does not offer any kind of security and does not provide confidentiality. EBML does not provide any kind of authorization. EBML only offers marginally useful and effective data integrity options, such as CRC Elements.</t>
+<t>EBML itself does not offer any kind of security and does not provide confidentiality. EBML does not provide any kind of authorization. EBML only offers marginally useful and effective data integrity options, such as CRC elements.</t>
 <t>Even if the semantic layer offers any kind of encryption, EBML itself could
 leak information at both the semantic layer (as declared via the DocType
 Element) and within the EBML structure (the presence of EBML Elements can be
@@ -2573,120 +2372,80 @@ Reader wants to be:</t>
 </li>
 </ul>
 <t>Element IDs that are unknown to the EBML Reader <bcp14>MAY</bcp14> be
-accepted as valid EBML IDs in order to skip such Elements.</t>
+accepted as valid EBML IDs in order to skip such elements.</t>
 <t>EBML Elements with a string type may contain extra data after the first
-0x00. These data <bcp14>MUST</bcp14> be discarded according to the <xref
-target="terminating-elements"></xref> rules.</t>
+0x00. These data <bcp14>MUST</bcp14> be discarded according to the
+<xref target="terminating-elements"></xref> rules.</t>
 <t>An EBML Reader may discard some or all data if the following errors are found in the EBML Document:</t>
 
 <ul>
-<li><t>Invalid Element Data Size values (e.g., extending the length of the
-EBML Element beyond the scope of the Parent Element, possibly triggering
-access-out-of-bounds issues).</t>
+<li><t>Invalid Element Data Size values (e.g., extending the length of the EBML Element beyond the scope of the Parent Element, possibly triggering access-out-of-bounds issues).</t>
 </li>
 <li><t>Very high lengths in order to force out-of-memory situations resulting in a denial of service, access-out-of-bounds issues, etc.</t>
 </li>
-<!--[rfced] Is there a missing noun after "semantic" in the following
-bullet-list item, or is "semantic" itself the noun?
-
-Original:
-Missing EBML Elements that are mandatory in a Master Element and
-have no declared default value, making the semantic invalid at
-that Master Element level.
--->
-<li><t>Missing EBML Elements that are mandatory in a Master Element and have
-no declared default value, making the semantic invalid at that Master Element
-level.</t>
+<li><t>Missing EBML Elements that are mandatory in a Master Element and have no declared default value, making the semantic invalid at that Master Element level.</t>
 </li>
-<li><t>Usage of invalid UTF-8 encoding in EBML Elements of UTF-8 type (e.g.,
-in order to trigger access-out-of-bounds or buffer-overflow issues).</t>
+<li><t>Usage of invalid UTF-8 encoding in EBML Elements of UTF-8 type (e.g., in order to trigger access-out-of-bounds or buffer-overflow issues).</t>
 </li>
 <li><t>Usage of invalid data in EBML Elements with a date type, triggering bogus date accesses.</t>
 </li>
 <li><t>The CRC-32 Element (see <xref target="crc-32-element"></xref>) of a Master Element doesn't match the rest of the content of that Master Element.</t>
 </li>
 </ul>
-
 <t>Side-channel attacks could exploit:</t>
+
 <ul>
 <li><t>The semantic equivalence of the same string stored in a String Element or UTF-8 Element with and without zero-bit padding, making comparison at the semantic level invalid.</t>
 </li>
 <li><t>The semantic equivalence of VINT_DATA within Element Data Size with two different lengths due to left-padding zero bits, making comparison at the semantic level invalid.</t>
 </li>
-<!--[rfced] FYI, we edited the following bullet-list item to match the rest of
-the list, where items flow from the introductory phrase "Side channel attacks
-could exploit:"
-
-Original:
-Data contained within a Master Element which is not itself part of
-a Child Element can trigger incorrect parsing behavior in EBML
-Readers.
-
-Changed to:
-Data contained within a Master Element that is not itself part of a                    Child Element, which can trigger incorrect parsing behavior in EBML Readers.
--->
-<li><t>Data contained within a Master Element that is not itself part of a
-Child Element, which can trigger incorrect parsing behavior in EBML Readers.</t>
+<li><t>Data contained within a Master Element that is not itself part of a Child Element, which can trigger incorrect parsing behavior in EBML Readers.</t>
 </li>
 <li><t>Extraneous copies of Identically Recurring Element, making parsing unnecessarily slow to the point of not being usable.</t>
 </li>
-<li><t>Copies of Identically Recurring Element within a Parent Element that
-contain invalid CRC-32 Elements. EBML Readers not checking the CRC-32 might
-use the version of the Element with mismatching CRC-32s.</t>
+<li><t>Copies of Identically Recurring Element within a Parent Element that contain invalid CRC-32 Elements. EBML Readers not checking the CRC-32 might use the version of the element with mismatching CRC-32s.</t>
 </li>
-<li><t>Use of Void Elements that could be used to hide content or create bogus
-resynchronization points seen by some EBML Readers and not others.</t>
+<li><t>Use of Void Elements that could be used to hide content or create bogus resynchronization points seen by some EBML Readers and not others.</t>
 </li>
 </ul>
 </section>
 
 <section anchor="iana-considerations"><name>IANA Considerations</name>
 
-<section anchor="ebml-element-id-registry"><name>EBML Element ID
-Registry</name> <t>This document creates a new IANA Registry called the
+<section anchor="ebml-element-id-registry"><name>EBML Element ID Registry</name>
+<t>This document creates a new IANA Registry called the
 &quot;EBML Element IDs&quot; registry.</t>
-<t>Element IDs are described in <xref target="element-id"/>. Element
-IDs are encoded using the VINT mechanism described in <xref
-target="variable-size-integer"></xref> and can be between one and five
+<t>Element IDs are described in <xref target="element-id"></xref>. Element
+IDs are encoded using the VINT mechanism described in
+<xref target="variable-size-integer"></xref> and can be between one and five
 octets long. Five-octet-long Element IDs are possible only if declared
-in the Header.</t>
-
+in the header.</t>
 <t>This IANA registry only applies to Elements that can be contained
 in the EBML Header, thus including Global Elements. Elements only
 found in the EBML Body have their own set of independent Element IDs
 and are not part of this IANA registry.</t>
-
 <t>One-octet Element IDs <bcp14>MUST</bcp14> be between 0x81 and
 0xFE. These items are valuable because they are short, and they need
-to be used for commonly repeated Elements. Element IDs are to be
+to be used for commonly repeated elements. Element IDs are to be
 allocated within this range according to the &quot;RFC Required&quot;
 policy <xref target="RFC8126"></xref>.</t>
-
 <t>The following one-octet Element IDs are RESERVED: 0xFF and
 0x80.</t>
-
 <t>Values in the one-octet range of 0x00 to 0x7F are not valid for use
 as an Element ID.</t>
-
 <t>Two-octet Element IDs <bcp14>MUST</bcp14> be between 0x407F and
 0x7FFE. Element IDs are to be allocated within this range according to
-the &quot;Specification Required&quot; policy <xref
-target="RFC8126"></xref>.</t>
-
+the &quot;Specification Required&quot; policy
+<xref target="RFC8126"></xref>.</t>
 <t>The following two-octet Element IDs are RESERVED: 0x7FFF and
 0x4000.</t>
-
 <t>Values in the two-octet ranges of 0x0000 to 0x3FFF and 0x8000 to 0xFFFF are
 not valid for use as an Element ID.</t>
-
 <t>Three-octet Element IDs <bcp14>MUST</bcp14> be between 0x203FFF and 0x3FFFFE. Element IDs are to be allocated within this range according to the &quot;First Come First Served&quot; policy <xref target="RFC8126"></xref>.</t>
-
 <t>The following three-octet Element IDs are RESERVED: 0x3FFFFF and
 0x200000.</t>
-
 <t>Values in the three-octet ranges of 0x000000 to 0x1FFFFF and
 0x400000 to 0xFFFFFF are not valid for use as an Element ID.</t>
-
 <t>Four-octet Element IDs <bcp14>MUST</bcp14> be between 0x101FFFFF
 and 0x1FFFFFFE. Four-octet Element IDs are somewhat special in that
 they are useful for resynchronizing to major structures in the event
@@ -2697,7 +2456,6 @@ inclusive) <bcp14>MUST</bcp14> be allocated by the &quot;Specification
 Required&quot; policy. Sequential allocation of values is not
 required: specifications <bcp14>SHOULD</bcp14> include a specific
 request and are encouraged to do early allocations.</t>
-
 <t>To be clear about the above category: four-octet Element IDs always start
 with hex 0x10 to 0x1F, and that octet may be chosen so that the entire VINT
 has some desirable property, such as a specific CRC. The other three octets,
@@ -2708,8 +2466,9 @@ when ALL having values between 0x20 (32, ASCII Space) and 0x7E (126, ASCII
 <t>Values in the four-octet ranges of 0x00000000 to 0x0FFFFFFF and 0x20000000
 to 0xFFFFFFFF are not valid for use as an Element ID.</t>
 <t>Five-octet Element IDs (values from 0x080FFFFFFF to 0x0FFFFFFFFE) are RESERVED according to the &quot;Experimental Use&quot; policy <xref target="RFC8126"></xref>: they may be used by anyone at any time, but there is no coordination.</t>
-<t>ID values found in this document are assigned as initial values as follows:</t>
-<table><name>IDs and Names for EBML Elements Assigned by this Document</name>
+<t>ID Values found in this document are assigned as initial values as follows:</t>
+<table><name>IDs and Names for EBML Elements assigned by this document
+</name>
 <thead>
 <tr>
 <th align="right">Element ID</th>
@@ -2799,46 +2558,16 @@ to 0xFFFFFFFF are not valid for use as an Element ID.</t>
 </tbody>
 </table></section>
 
-<!--[rfced] In looking at the IANA registry "EBML DocTypes"
-    (https://www.iana.org/assignments/ebml/ebml.xhtml#ebml-doctype),
-    please confirm that no mention of RESERVED values should be made
-    nor the use of the IESG Approval or RFC Required policies
-    mentioned in the final paragraph of Section 17.2.
-
-Original:
-   This document creates a new IANA Registry called "EBML DocType
-   Registry".
-
-   To register a new DocType in this registry one needs a DocType name,
-   a Description of the DocType, a Change Controller (IESG or email of
-   registrant) and an optional Reference to a document describing the
-   DocType.
-
-   DocType values are described in Section 11.1.3.1.  DocTypes are ASCII
-   strings, defined in Section 7.4, which label the official name of the
-   EBML Document Type.  The strings may be allocated according to the
-   "First Come First Served" policy.
-
-   The use of ASCII corresponds to the types and code already in use,
-   the value is not meant to be visible to the user.
-
-   DocType string values of "matroska" and "webm" are RESERVED to the
-   IETF for future use.  These can be assigned via the "IESG Approval"
-   or "RFC Required" policies [RFC8126].
-
--->
-
-<section anchor="ebml-doctype-registry"><name>EBML DocTypes Registry</name>
-<t>This document creates a new IANA registry called the &quot;EBML
-DocTypes&quot; registry.</t>
+<section anchor="ebml-doctypes-registry"><name>EBML DocTypes Registry</name>
+<t>This document creates a new IANA registry called the &quot;EBML DocTypes&quot; registry.</t>
 <t>To register a new DocType in this registry, one needs a DocType name, a Description of the DocType, a Change Controller (IESG or email of registrant), and an optional Reference to a document describing the DocType.</t>
 <t>DocType values are described in <xref target="doctype"></xref>. DocTypes
-are ASCII Strings, defined in <xref target="string-element"></xref>, which
+are ASCII strings, defined in <xref target="string-element"></xref>, which
 label the official name of the EBML Document Type. The strings may be
 allocated according to the &quot;First Come First Served&quot; policy.</t>
 <t>The use of ASCII corresponds to the types and code already in use; the
 value is not meant to be visible to the user.</t>
-<t>DocType string values of &quot;Matroska&quot; and &quot;WebM&quot; are RESERVED to the IETF for future use.
+<t>DocType string values of &quot;matroska&quot; and &quot;webm&quot; are RESERVED to the IETF for future use.
 These can be assigned via the &quot;IESG Approval&quot; or &quot;RFC Required&quot; policies <xref target="RFC8126"></xref>.</t>
 </section>
 </section>
@@ -2846,43 +2575,12 @@ These can be assigned via the &quot;IESG Approval&quot; or &quot;RFC Required&qu
 </middle>
 
 <back>
-
 <displayreference target="I-D.ietf-cellar-matroska" to="Matroska"/>
-
-<!-- [rfced] Would you like the references to be alphabetized
-or left in their current order?
--->
-
 <references><name>Normative References</name>
-
-<reference anchor="XML-SCHEMA" target="https://www.w3.org/TR/2004/REC-xmlschema-0-20041028/">
-     <front>
-       <title>XML Schema Part 0: Primer Second Edition</title>
-       <author initials="D.C." surname="Fallside" fullname="David C. Fallside">
-         <organization />
-       </author>
-       <author initials="P" surname="Walmsley" fullname="Priscilla Walmsley">
-         <organization />
-       </author>
-       <date day="28" month="October" year="2004" />
-     </front>
-     <seriesInfo name="W3C" value="Recommendation" />
-     <seriesInfo name="Latest version available at" value="http://www.w3.org/TR/xmlschema-0/" />
-</reference>
-
 <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5234.xml"/>
-
-
-<!--[rfced] The latest version of the referenced recommendation is from
-2002. Moreover, there does not appear to be a 1994 version. Please verify the
-details of this reference.
-
-Original:
-[ITU.V42.1994]
-              International Telecommunications Union, "Error-correcting
-              Procedures for DCEs Using Asynchronous-to-Synchronous
-              Conversion", 1994.
---> 
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3629.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7405.xml"/>
 <reference anchor="ITU.V42" target="https://www.itu.int/rec/T-REC-V.42/en">
   <front>
     <title>Error-correcting procedures for DCEs using asynchronous-to-synchronous conversion</title>
@@ -2891,16 +2589,44 @@ Original:
     </author>
     <date year="1994"></date>
   </front>
-     <seriesInfo name="ITU-T Recommendation" value="V.42" />
+  <seriesInfo name="ITU-T Recommendation" value="V.42"></seriesInfo>
 </reference>
-
-
+<reference anchor="XML" target="http://www.w3.org/TR/2008/REC-xml-20081126/">
+  <front>
+    <title>Extensible Markup Language (XML) 1.0 (Fifth Edition)</title>
+    <author initials="T." surname="Bray" role="editor">
+      <organization>Textuality and Netscape</organization>
+    </author>
+    <author initials="J" surname="Paoli" role="editor">
+      
+    </author>
+    <author initials="C.M" surname="Sperberg-McQueen" role="editor">
+      
+    </author>
+    <author initials="E." surname="Maler" role="editor">
+      
+    </author>
+    <author initials="F." surname="Yergeau" role="editor">
+      
+    </author>
+    <date year="2008" month="November" day="26"></date>
+  </front>
+  <seriesInfo name="Latest version available at" value="http://www.w3.org/TR/xml/"></seriesInfo>
+</reference>
+<reference anchor="XML-SCHEMA" target="https://www.w3.org/TR/2004/REC-xmlschema-0-20041028/">
+  <front>
+    <title>XML Schema Part 0: Primer Second Edition</title>
+    <author fullname="David C. Fallside" initials="D.C." surname="Fallside">
+      
+    </author>
+    <author fullname="Priscilla Walmsley" initials="P" surname="Walmsley">
+      
+    </author>
+    <date year="2004" month="October" day="28"></date>
+  </front>
+  <seriesInfo name="Latest version available at" value="http://www.w3.org/TR/xmlschema-0/"></seriesInfo>
+</reference>
 <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8174.xml"/>
-<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.0020.xml"/>
-
-<!--[rfced] ISO/IEC 9899:2011 has been revised by ISO/IEC 9899:2018. Would it
-be appropriate to change the reference to the newer version?
---> 
 <reference anchor="ISO.9899" target="https://www.iso.org/standard/57853.html">
   <front>
     <title>Information technology -- Programming languages -- C</title>
@@ -2909,82 +2635,45 @@ be appropriate to change the reference to the newer version?
     </author>
     <date year="2011"></date>
   </front>
-<seriesInfo name="ISO/IEC" value="9899:2011" />
+  <seriesInfo name="ISO/IEC" value="9899:2011"></seriesInfo>
 </reference>
-
-<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.0020.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3339.xml"/>
 <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5646.xml"/>
-<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7405.xml"/>
-
 <reference anchor="XHTML" target="http://www.w3.org/TR/2018/SPSD-xhtml-basic-20180327/">
   <front>
     <title>XHTML(tm) Basic 1.1 -- Second Edition</title>
-    <author fullname="Shane McCarron" initials="S." surname="McCarron" role="editor">
-      <organization></organization>
+    <author fullname="Shane McCarron" initials="S." surname="McCarron">
+      
     </author>
     <date year="2018" month="March" day="27"></date>
   </front>
-     <seriesInfo name="W3C" value="Recommendation" />
-     <seriesInfo name="Latest version available at" value="http://www.w3.org/TR/xhtml-basic" />
+  <seriesInfo name="Latest version available at" value="http://www.w3.org/TR/xhtml-basic"></seriesInfo>
 </reference>
-
+<reference anchor="ISO.3309.1979" target="">
+  <front>
+    <title>Data communication -- High-level data link control procedures -- Frame structure</title>
+    <author>
+      <organization>International Organization for Standardization</organization>
+    </author>
+    <date year="1979"></date>
+  </front>
+  <seriesInfo name="ISO" value="Standard 3309"></seriesInfo>
+</reference>
 <xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8126.xml"/>
-
 <reference anchor="IEEE.754" target="https://standards.ieee.org/standard/754-2019.html">
   <front>
     <title>IEEE Standard for Binary Floating-Point Arithmetic</title>
     <author>
       <organization>IEEE</organization>
     </author>
+    <date></date>
   </front>
 </reference>
-
-<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3629.xml"/>
-<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3339.xml"/>
-
-<reference anchor="XML" target="http://www.w3.org/TR/2008/REC-xml-20081126/">
-     <front>
-       <title>Extensible Markup Language (XML) 1.0 (Fifth Edition)</title>
-       <author initials="T." surname="Bray" role="editor" >
-         <organization>Textuality and Netscape</organization>
-       </author>
-       <author initials="J" surname="Paoli" role="editor" >
-         <organization />
-       </author>
-       <author initials="C.M" surname="Sperberg-McQueen" role="editor" >
-         <organization />
-       </author>
-       <author initials="E." surname="Maler" role="editor" >
-         <organization />
-       </author>
-       <author initials="F." surname="Yergeau" role="editor" >
-         <organization />
-       </author>
-       <date day="26" month="November" year="2008" />
-     </front>
-     <seriesInfo name="W3C" value="Recommendation" />
-     <seriesInfo name="Latest version available at" value="http://www.w3.org/TR/xml/" />
-</reference>
-
-<reference anchor="ISO.3309.1979" target="">
-  <front>
-    <title>Data communication -- High-level
-    data link control procedures -- Frame structure</title>
-    <author>
-      <organization>International Organization for Standardization</organization>
-    </author>
-    <date year="1979"></date>
-  </front>
-</reference>
-
 </references>
-
 <references><name>Informative References</name>
 
-<!-- draft-ietf-cellar-matroska Exists --> 
-<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-cellar-matroska.xml"/>
 
-<!-- [WebM] the URL below is correct --> 
 
 <reference anchor="WebM" target="https://www.webmproject.org/docs/container/">
   <front>
@@ -2996,20 +2685,27 @@ be appropriate to change the reference to the newer version?
   </front>
 </reference>
 
+
+
+
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml-ids/reference.I-D.ietf-cellar-matroska.xml"/>
+
 <reference anchor="XPath" target="http://www.w3.org/TR/1999/REC-xpath-19991116">
-     <front>
-       <title>XML Path Language (XPath) Version 1.0</title>
-       <author initials="J." surname="Clark" role="editor">
-         <organization />
-       </author>
-       <author initials="S" surname="DeRose">
-         <organization />
-       </author>
-       <date day="16" month="November" year="1999" />
-     </front>
-     <seriesInfo name="W3C" value="Recommendation" />
-     <seriesInfo name="Latest version available at" value="http://www.w3.org/TR/xpath" />
+  <front>
+    <title>XML Path Language (XPath) Version 1.0</title>
+    <author initials="J." surname="Clark" role="editor">
+      
+    </author>
+    <author initials="S" surname="DeRose">
+      
+    </author>
+    <date year="1999" month="November" day="16"></date>
+  </front>
+  <seriesInfo name="Latest version available at" value="http://www.w3.org/TR/xpath"></seriesInfo>
 </reference>
+
+
+
 
 
 </references>
