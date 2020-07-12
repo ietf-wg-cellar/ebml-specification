@@ -1901,10 +1901,10 @@ Side-channel attacks could exploit:
 
 # IANA Considerations
 
-## EBML Element ID Registry
+## EBML Element IDs Registry
 
 This document creates a new IANA registry called the
-"EBML Element ID" registry.
+"EBML Element IDs" registry.
 
 Element IDs are described in (#element-id). Element
 IDs are encoded using the VINT mechanism described in
