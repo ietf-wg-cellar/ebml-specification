@@ -1180,8 +1180,8 @@ The `type` attribute is **REQUIRED**.
 ### XML Schema for EBML Schema
 
 The following provides an XML Schema [@!XML-SCHEMA] for
-facilitating verification of an EBML Schema to the definition described in
-(#ebml-header).
+facilitating verification of an EBML Schema described in
+(#ebml-schema).
 
 <{{EBMLSchema.xsd}}
 
