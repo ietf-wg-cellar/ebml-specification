@@ -21,13 +21,13 @@
   </front>
 </reference>
 
-<reference anchor="ITU.V42" target="https://www.itu.int/rec/T-REC-V.42/en">
+<reference anchor="ITU.V42" target="https://www.itu.int/ITU-T/recommendations/rec.aspx?rec=5692">
   <front>
     <title>Error-correcting procedures for DCEs using asynchronous-to-synchronous conversion</title>
     <author>
       <organization>International Telecommunications Union</organization>
     </author>
-    <date year="1994"></date>
+    <date month="March" year="2002"></date>
   </front>
   <seriesInfo name="ITU-T Recommendation" value="V.42" />
 </reference>
