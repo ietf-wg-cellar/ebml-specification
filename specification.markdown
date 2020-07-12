@@ -1844,7 +1844,7 @@ Elements of an EBML format **SHOULD** be designed with backward and forward comp
 
 Backward compatibility of new EBML Elements can be achieved by using default values for mandatory elements. The default value **MUST** represent the state that was assumed for previous versions of the EBML Schema, without this new EBML Element. If such a state doesn't make sense for previous versions, then the new EBML Element **SHOULD NOT** be mandatory.
 
-Non mandatory EBML Elements can be added in a new EBMLDocTypeVersion. Since
+Non-mandatory EBML Elements can be added in a new EBMLDocTypeVersion. Since
 they are not mandatory, they won't be found in older versions of the
 EBMLDocTypeVersion, just as they might not be found in newer versions. This
 causes no compatibility issue.
