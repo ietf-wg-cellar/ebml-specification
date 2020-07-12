@@ -930,7 +930,7 @@ Within an EBML Schema, the XPath of the `@recursive` attribute is
 `/EBMLSchema/element/@recursive`.
 
 This attribute is a boolean to express whether an EBML Element is permitted to
-be stored recursively. In this case, the EBML Element **MAY** be
+be stored recursively. If it is allowed, the EBML Element **MAY** be
 stored within another EBML Element that has the same Element ID, which itself
 can be stored in an EBML Element that has the same Element ID, and so on. EBML
 Elements that are not Master Elements **MUST NOT** set recursive to 
