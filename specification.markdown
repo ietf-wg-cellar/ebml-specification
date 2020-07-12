@@ -163,7 +163,7 @@ EBML uses a system of Elements to compose an EBML Document. EBML Elements incorp
 
 The Element ID and Element Data Size are both encoded as a Variable-Size
 Integer. The Variable-Size Integer is composed of a VINT\_WIDTH, VINT\_MARKER,
-and VINT\_DATA, in that order. Variable-Size Integers  **MUST**
+and VINT\_DATA, in that order. Variable-Size Integers **MUST**
 left-pad the VINT\_DATA value with zero bits so that the whole Variable-Size
 Integer is octet aligned. The Variable-Size Integer will be referred to as 
 VINT for shorthand.
@@ -224,7 +224,7 @@ date -- e.g., when its final size isn't known in advance. In
 [@tableVariousSizes], an integer `2` (with a 
 corresponding binary value of 0b10) is shown encoded as different Variable 
 Size Integers with lengths from one octet to four octets. All four encoded
-examples have identical semantic meaning, though the VINT\_WIDTH and the  padding
+examples have identical semantic meaning, though the VINT\_WIDTH and the padding
 of the VINT\_DATA vary.
 
 Integer | Octet Length | As Represented in VINT (binary)         | As Represented in VINT (hexadecimal)
@@ -603,7 +603,7 @@ Within an EBML Schema, the XPath of the `@ebml` attribute is `/EBMLSchema/@ebml`
 
 The `ebml` attribute is a positive integer that specifies the
 version of the EBML Header (see (#ebmlversion-element))
-used by the EBML Schema. If the  attribute is omitted, the EBML Header version
+used by the EBML Schema. If the attribute is omitted, the EBML Header version
 is 1.
 
 ### `<element>` Element
