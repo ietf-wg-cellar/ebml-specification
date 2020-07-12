@@ -560,7 +560,7 @@ the EBML Schema. This document provides an example of an EBML Schema; see
 Within an EBML Schema, the XPath [@?XPath] of the
 `<EBMLSchema>` element is `/EBMLSchema`.
 
-As an XML Document, the EBML Schema **MUST** use
+When used as an XML Document, the EBML Schema **MUST** use
 `<EBMLSchema>` as the top-level element. The
 `<EBMLSchema>` element can contain `<element>`
 subelements.
