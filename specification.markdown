@@ -72,7 +72,7 @@ concatenated together.
 `EBML Header`:
 : A declaration that provides processing instructions and identification of
  the `EBML Body`. The `EBML Header` is analogous to an XML Declaration
-[@!XML] (see section 2.8 on "Prolog and Document Type Declaration").
+[@!XML] (see Section 2.8 on "Prolog and Document Type Declaration").
 
 `EBML Body`:
 : All data of an `EBML Document` following the `EBML Header`.
