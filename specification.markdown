@@ -1643,7 +1643,7 @@ itself. When the CRC-32 Element is present, the CRC-32 Element
 Element for easier reading. All Top-Level Elements of an EBML Document that
 are Master Elements **SHOULD** include a CRC-32 Element as a Child
 Element. The CRC in use is the IEEE-CRC-32 algorithm as used in the
-[@!ISO.3309.1979] standard and in section 8.1.1.6.2 of
+[@!ISO.3309] standard and in Section 8.1.1.6.2 of
 [@!ITU.V42], with initial value of 0xFFFFFFFF. The CRC value
 **MUST** be computed on a little-endian bytestream and
 **MUST** use little-endian storage.

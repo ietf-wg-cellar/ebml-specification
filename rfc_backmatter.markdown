@@ -32,15 +32,15 @@
   <seriesInfo name="ITU-T Recommendation" value="V.42" />
 </reference>
 
-<reference anchor="ISO.3309.1979">
+<reference anchor="ISO.3309">
   <front>
     <title>Data communication -- High-level data link control procedures -- Frame structure</title>
     <author>
       <organization>International Organization for Standardization</organization>
     </author>
-    <date month="" year="1979"/>
+    <date month="October" year="1984"/>
   </front>
-  <seriesInfo name="ISO" value="Standard 3309"/>
+  <seriesInfo name="ISO" value="3309, 3rd Edition"/>
 </reference>
 
 <reference anchor="XHTML" target="http://www.w3.org/TR/2018/SPSD-xhtml-basic-20180327/">
