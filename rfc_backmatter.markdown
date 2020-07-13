@@ -1,17 +1,6 @@
 
 {backmatter}
 
-<reference anchor="ISO.9899" target="https://www.iso.org/standard/57853.html">
-  <front>
-    <title>Information technology -- Programming languages -- C</title>
-    <author>
-      <organization>International Organization for Standardization</organization>
-    </author>
-    <date month="" year="2011" />
-  </front>
-  <seriesInfo name="ISO/IEC" value="9899:2011" />
-</reference>
-
 <reference anchor="IEEE.754" target="https://standards.ieee.org/standard/754-2019.html">
   <front>
     <title>IEEE Standard for Binary Floating-Point Arithmetic</title>
@@ -19,17 +8,6 @@
       <organization>IEEE</organization>
     </author>
   </front>
-</reference>
-
-<reference anchor="ITU.V42" target="https://www.itu.int/ITU-T/recommendations/rec.aspx?rec=5692">
-  <front>
-    <title>Error-correcting procedures for DCEs using asynchronous-to-synchronous conversion</title>
-    <author>
-      <organization>International Telecommunications Union</organization>
-    </author>
-    <date month="March" year="2002"></date>
-  </front>
-  <seriesInfo name="ITU-T Recommendation" value="V.42" />
 </reference>
 
 <reference anchor="ISO.3309">
@@ -43,16 +21,26 @@
   <seriesInfo name="ISO" value="3309, 3rd Edition"/>
 </reference>
 
-<reference anchor="XHTML" target="http://www.w3.org/TR/2018/SPSD-xhtml-basic-20180327/">
+<reference anchor="ISO.9899" target="https://www.iso.org/standard/57853.html">
   <front>
-    <title>XHTML(tm) Basic 1.1 -- Second Edition</title>
-  <author initials='S.' surname='McCarron' fullname='Shane McCarron'>
-      <organization />
-  </author>
-    <date year="2018" month="March" day="27"></date>
+    <title>Information technology -- Programming languages -- C</title>
+    <author>
+      <organization>International Organization for Standardization</organization>
+    </author>
+    <date month="" year="2011" />
   </front>
-  <seriesInfo name="W3C" value="Recommendation" />
-  <seriesInfo name="Latest version available at" value="http://www.w3.org/TR/xhtml-basic" />
+  <seriesInfo name="ISO/IEC" value="9899:2011" />
+</reference>
+
+<reference anchor="ITU.V42" target="https://www.itu.int/ITU-T/recommendations/rec.aspx?rec=5692">
+  <front>
+    <title>Error-correcting procedures for DCEs using asynchronous-to-synchronous conversion</title>
+    <author>
+      <organization>International Telecommunications Union</organization>
+    </author>
+    <date month="March" year="2002"></date>
+  </front>
+  <seriesInfo name="ITU-T Recommendation" value="V.42" />
 </reference>
 
 <reference anchor="WebM" target="https://www.webmproject.org/docs/container/">
@@ -63,6 +51,18 @@
     </author>
     <date month="November" year="2017" day="28" />
   </front>
+</reference>
+
+<reference anchor="XHTML" target="http://www.w3.org/TR/2018/SPSD-xhtml-basic-20180327/">
+  <front>
+    <title>XHTML(tm) Basic 1.1 -- Second Edition</title>
+  <author initials='S.' surname='McCarron' fullname='Shane McCarron'>
+      <organization />
+  </author>
+    <date year="2018" month="March" day="27"></date>
+  </front>
+  <seriesInfo name="W3C" value="Recommendation" />
+  <seriesInfo name="Latest version available at" value="http://www.w3.org/TR/xhtml-basic" />
 </reference>
 
 <reference anchor="XML" target="http://www.w3.org/TR/2008/REC-xml-20081126/">
