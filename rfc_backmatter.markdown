@@ -32,7 +32,7 @@
   <seriesInfo name="ISO/IEC" value="9899:2011" />
 </reference>
 
-<reference anchor="ITU.V42" target="https://www.itu.int/ITU-T/recommendations/rec.aspx?rec=5692">
+<reference anchor="ITU.V42" target="https://www.itu.int/rec/T-REC-V.42">
   <front>
     <title>Error-correcting procedures for DCEs using asynchronous-to-synchronous conversion</title>
     <author>
