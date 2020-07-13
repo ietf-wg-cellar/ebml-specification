@@ -10,7 +10,7 @@
   </front>
 </reference>
 
-<reference anchor="ISO.3309">
+<reference anchor="ISO3309">
   <front>
     <title>Data communication -- High-level data link control procedures -- Frame structure</title>
     <author>
@@ -21,7 +21,7 @@
   <seriesInfo name="ISO" value="3309, 3rd Edition"/>
 </reference>
 
-<reference anchor="ISO.9899" target="https://www.iso.org/standard/57853.html">
+<reference anchor="ISO9899" target="https://www.iso.org/standard/57853.html">
   <front>
     <title>Information technology -- Programming languages -- C</title>
     <author>

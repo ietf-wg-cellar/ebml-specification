@@ -1212,7 +1212,7 @@ for interpretation.
 When a float value is represented textually in an EBML Schema, such as
 within a default or range value, the float values **MUST** be
 expressed as Hexadecimal Floating-Point Constants as defined in the C11
-standard [@!ISO.9899] (see section 6.4.4.2 on Floating
+standard [@!ISO9899] (see Section 6.4.4.2 on Floating
 Constants). [@tableFloatExamples] provides examples of
 expressions of float ranges.
 
@@ -1643,7 +1643,7 @@ itself. When the CRC-32 Element is present, the CRC-32 Element
 Element for easier reading. All Top-Level Elements of an EBML Document that
 are Master Elements **SHOULD** include a CRC-32 Element as a Child
 Element. The CRC in use is the IEEE-CRC-32 algorithm as used in the
-[@!ISO.3309] standard and in Section 8.1.1.6.2 of
+[@!ISO3309] standard and in Section 8.1.1.6.2 of
 [@!ITU.V42], with initial value of 0xFFFFFFFF. The CRC value
 **MUST** be computed on a little-endian bytestream and
 **MUST** use little-endian storage.
