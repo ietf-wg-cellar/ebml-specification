@@ -30,6 +30,7 @@ rfc8794.xml: $(OUTPUT).xml
 	-e 's@</li>@</t>\n</li>@' \
 	-e 's@BCP 14@BCP\&nbsp;14@' \
 	-e 's@<dd><t>@<dd>@' \
+	-e 's@<date></date>@@' \
 	-e 's@<back>@<back>\n<displayreference target="I-D.ietf-cellar-matroska" to="Matroska"/>@' \
 	$< | \
 	awk 1 RS='</t>\n</dd>' ORS='</dd>' | head -n -1 > $@
