@@ -17,7 +17,7 @@
     <author>
       <organization>International Organization for Standardization</organization>
     </author>
-    <date month="October" year="1984"/>
+    <date year="1984" month="October"/>
   </front>
   <seriesInfo name="ISO" value="3309, 3rd Edition"/>
 </reference>
@@ -28,7 +28,7 @@
     <author>
       <organization>International Organization for Standardization</organization>
     </author>
-    <date month="" year="2011" />
+    <date year="2011" />
   </front>
   <seriesInfo name="ISO/IEC" value="9899:2011" />
 </reference>
@@ -39,7 +39,7 @@
     <author>
       <organization>International Telecommunications Union</organization>
     </author>
-    <date month="March" year="2002"></date>
+    <date year="2002" month="March"/>
   </front>
   <seriesInfo name="ITU-T Recommendation" value="V.42" />
 </reference>
@@ -50,7 +50,7 @@
     <author>
       <organization>The WebM Project</organization>
     </author>
-    <date month="November" year="2017" day="28" />
+    <date year="2017" month="November" day="28" />
   </front>
 </reference>
 
@@ -60,7 +60,7 @@
   <author initials='S.' surname='McCarron' fullname='Shane McCarron'>
       <organization />
   </author>
-    <date year="2018" month="March" day="27"></date>
+    <date year="2018" month="March" day="27"/>
   </front>
   <seriesInfo name="W3C" value="Recommendation" />
   <seriesInfo name="Latest version available at" value="http://www.w3.org/TR/xhtml-basic" />
@@ -84,7 +84,7 @@
        <author initials="F." surname="Yergeau" role="editor" >
          <organization />
        </author>
-       <date day="26" month="November" year="2008" />
+       <date year="2008" month="November" day="26"/>
      </front>
      <seriesInfo name="W3C" value="Recommendation" />
      <seriesInfo name="Latest version available at" value="http://www.w3.org/TR/xml/" />
@@ -99,7 +99,7 @@
        <author initials="P" surname="Walmsley" fullname="Priscilla Walmsley">
          <organization />
        </author>
-       <date day="28" month="October" year="2004" />
+       <date year="2004" month="October" day="28"/>
      </front>
      <seriesInfo name="W3C" value="Recommendation" />
      <seriesInfo name="Latest version available at" value="http://www.w3.org/TR/xmlschema-0/" />
@@ -114,7 +114,7 @@
        <author initials="S" surname="DeRose">
          <organization />
        </author>
-       <date day="16" month="November" year="1999" />
+       <date year="1999" month="November" day="16"/>
      </front>
      <seriesInfo name="W3C" value="Recommendation" />
      <seriesInfo name="Latest version available at" value="http://www.w3.org/TR/xpath" />
