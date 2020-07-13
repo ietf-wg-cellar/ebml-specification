@@ -10,7 +10,7 @@
   </front>
 </reference>
 
-<reference anchor="ISO3309">
+<reference anchor="ISO3309" target="https://www.iso.org/standard/8558.html">
   <front>
     <title>Data communication -- High-level data link control procedures -- Frame structure</title>
     <author>
