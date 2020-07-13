@@ -216,7 +216,7 @@ Octet Length | Usable Bits | Representation
 3            | 21          | 001x xxxx xxxx xxxx xxxx xxxx
 4            | 28          | 0001 xxxx xxxx xxxx xxxx xxxx xxxx xxxx
 5            | 35          | 0000 1xxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx
-Table: VINT examples depicting usable bits {#tableUsableBits}
+Table: VINT examples depicting usable bits{#tableUsableBits}
 
 A Variable-Size Integer may be rendered at octet lengths larger 
 than needed to store the data in order to facilitate overwriting it at a later
@@ -234,7 +234,7 @@ Integer | Octet Length | As Represented in VINT (binary)         | As Represente
 2       | 3            |           0010 0000 0000 0000 0000 0010 |   0x200002
 2       | 4            | 0001 0000 0000 0000 0000 0000 0000 0010 | 0x10000002
 Table: VINT examples depicting the same
-integer value rendered at different VINT lengths {#tableVariousSizes}
+integer value rendered at different VINT lengths{#tableVariousSizes}
 
 # Element ID
 
@@ -267,7 +267,7 @@ VINT_WIDTH  | VINT_MARKER  | VINT_DATA      | Element ID Status
 0           | 1            | 00000000111111 | Invalid: A shorter VINT_DATA encoding is available.
 |           | 1            |        1111111 | Invalid: VINT_DATA **MUST NOT** be set to all 1
 0           | 1            | 00000001111111 | Valid
-Table: Examples of valid and invalid Element IDs {#tableElementIDValidity}
+Table: Examples of valid and invalid Element IDs{#tableElementIDValidity}
 
 The range and count of possible Element IDs are determined by their
 octet length. Examples of this are provided in
@@ -280,7 +280,7 @@ Element ID Octet Length | Range of Valid Element IDs   | Number of Valid Element
 3                       |   0x203FFF - 0x3FFFFE        |     2,080,768
 4                       | 0x101FFFFF - 0x1FFFFFFE      |   268,338,304
 Table: Examples of count and range for 
-Element IDs at various octet lengths {#tableElementIDRanges}
+Element IDs at various octet lengths{#tableElementIDRanges}
 
 # Element Data Size
 
@@ -370,7 +370,7 @@ Octet Length | Possible Value Range
 7            | 0 to 2^49^ - 2
 8            | 0 to 2^56^ - 2
 Table: Possible range of values that
-can be stored in VINTs, by octet length {#tableVintRangePerLength}
+can be stored in VINTs, by octet length{#tableVintRangePerLength}
 
 If the length of Element Data equals 2^n\*7^-1, then the octet 
 length of the Element Data Size **MUST** be at least n+1. This rule
@@ -388,7 +388,7 @@ VINT_WIDTH  | VINT_MARKER  | VINT_DATA             | Element Data Size Status
 0           | 1            |        11111111111111 | Reserved (meaning Unknown)
 00          | 1            | 000000011111111111111 | Valid (16,383 octets)
 Table: Demonstration of VINT_DATA
-reservation for VINTs of unknown size {#tableVintReservation}
+reservation for VINTs of unknown size{#tableVintReservation}
 
 # EBML Element Types
 
@@ -1024,7 +1024,7 @@ for the `<documentation>` subelement's `purpose` attribute
 | usage notes                | Recommended practices or guidelines for both reading, writing, or interpreting the Element.
 | references                 | Informational references to support the contextualization and understanding of the value of the Element.
 Table: Definitions of the permitted
-values for the `purpose` attribute of the documentation Element {#tablePurposeDefinitions}
+values for the `purpose` attribute of the documentation Element{#tablePurposeDefinitions}
 
 The `purpose` attribute is **REQUIRED**.
 
@@ -1224,7 +1224,7 @@ expressions of float ranges.
 | 0.857421875       | `0x1.b7p-1`                             |
 | -1.0--0.857421875 | `-0x1p+0--0x1.b7p-1`                    |
 Table: Example of Floating-Point values and
-ranges as decimal and Hexadecimal Floating-Point Constants {#tableFloatExamples}
+ranges as decimal and Hexadecimal Floating-Point Constants{#tableFloatExamples}
 
 Within an expression of a float range, as in an integer range, the
 - (hyphen) character is the separator between the minimum and maximum values
@@ -1266,7 +1266,7 @@ value, and/or the Parent Element is used.
 | No                | n/a                     | Yes                  | Yes                                        |
 | No                | n/a                     | No                   | No                                         |
 Table: Demonstration of the conditional 
-requirements of VINT Storage {#tableVintRequirements}
+requirements of VINT Storage{#tableVintRequirements}
 
 ## EBML Header Elements
 
@@ -1744,7 +1744,7 @@ Stored Value        | Semantic Meaning
 0x65 0x62 0x00 0x00 | 0x65 0x62
 0x65 0x62           | 0x65 0x62
 Table: Examples of semantics for Null
-Octets in VINT_DATA {#tableNullOctetSemantics}
+Octets in VINT_DATA{#tableNullOctetSemantics}
 
 # Guidelines for Updating Elements
 
@@ -1780,7 +1780,7 @@ octets, and data around the Element does not need to be moved.
 | Before edit | 0x3B4040   | 0x84              | 0x65626D6C         |
 | After edit  | 0x3B4040   | 0x4003            | 0x6D6B76           |
 Table: Example of editing a VINT to
-reduce VINT_DATA length by one octet {#tableShortenVintOneOctet}
+reduce VINT_DATA length by one octet{#tableShortenVintOneOctet}
 
 This method is **RECOMMENDED** when the Element Data is
 reduced by a single octet; for reductions by two or more octets, it is
@@ -1803,7 +1803,7 @@ Status | Element ID | Element Data Size | Element Data | Void Element
 Before | 0x3B4040   | 0x4003            | 0x6D6B76     |
 After  | 0x3B4040   | 0x82              | 0x6869       | 0xEC80
 Table: Example of editing a 
-VINT to reduce VINT_DATA length by more than one octet {#tableShortenVintMoreThanOneOctet}
+VINT to reduce VINT_DATA length by more than one octet{#tableShortenVintMoreThanOneOctet}
 
 ### Terminating Element Data
 
@@ -1821,7 +1821,7 @@ remains unchanged.
 | Before edit | 0x3B4040   | 0x84              | 0x65626D6C         |
 | After edit  | 0x3B4040   | 0x84              | 0x6D6B7600         |
 Table: Example of terminating VINT_DATA
-with a Null Octet when reducing VINT length during an edit {#tableExampleNullPadding}
+with a Null Octet when reducing VINT length during an edit{#tableExampleNullPadding}
 
 Note that this method is **NOT RECOMMENDED**. For
 reductions of one octet, the method for Extending the Element Data Size
