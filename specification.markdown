@@ -739,7 +739,7 @@ Within an EBML Schema, the XPath of the `@id` attribute is
 `/EBMLSchema/element/@id`.
 
 The Element ID is encoded as a Variable-Size Integer. It is read and stored in big-endian
-order. In the EBML Schema it is expressed in
+order. In the EBML Schema, it is expressed in
 hexadecimal notation prefixed by a 0x. To reduce the risk of false positives while parsing EBML Streams, the
 Element IDs of the Root Element and Top-Level Elements **SHOULD**
 be at least 4 octets in length. Element IDs defined for use at Root Level or
