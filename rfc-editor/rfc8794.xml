@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE rfc SYSTEM "rfc2629-xhtml.ent">
 <!-- name="GENERATOR" content="github.com/mmarkdown/mmark Mmark Markdown Processor - mmark.miek.nl" -->
-<rfc version="3" ipr="trust200902" docName="draft-ietf-cellar-ebml-18" submissionType="IETF" category="std" xml:lang="en" xmlns:xi="http://www.w3.org/2001/XInclude" tocInclude="true" symRefs="true" consensus="true" number="8794">
+<rfc version="3" ipr="trust200902" docName="draft-ietf-cellar-ebml-19" submissionType="IETF" category="std" xml:lang="en" xmlns:xi="http://www.w3.org/2001/XInclude" tocInclude="true" sortRefs="true" symRefs="true" consensus="true" number="8794">
 
 <front>
 <title abbrev="EBML">Extensible Binary Meta Language</title><seriesInfo value="8794" status="standard" name="RFC"></seriesInfo>
@@ -14,7 +14,7 @@
 <author initials="M." surname="Bunkus" fullname="Moritz Bunkus"><address><postal>
 </postal><email>moritz@bunkus.org</email>
 </address></author>
-<date year="2020" month="July" day="5"></date>
+<date year="2020" month="July"></date>
 <area>art</area>
 <workgroup>cellar</workgroup>
 <keyword>binary</keyword>
@@ -32,8 +32,8 @@
 <middle>
 
 <section anchor="introduction"><name>Introduction</name>
-<t>EBML, short for Extensible Binary Meta Language, specifies a binary and
-octet (byte) aligned format inspired by the principle of XML (a framework for
+<t>EBML, short for Extensible Binary Meta Language, specifies a binary format
+aligned with octets (bytes) and inspired by the principle of XML (a framework for
 structuring data).</t>
 <t>The goal of this document is to define a generic, binary, space-efficient
 format that can be used to define more complex formats using an EBML
@@ -96,19 +96,19 @@ the <tt>EBML Body</tt>. The <tt>EBML Header</tt> is analogous to an XML Declarat
 <xref target="XML"></xref> (see Section 2.8 on &quot;Prolog and Document Type Declaration&quot;).</dd>
 <dt><tt>EBML Body</tt>:</dt>
 <dd>All data of an <tt>EBML Document</tt> following the <tt>EBML Header</tt>.</dd>
-<dt><tt>Variable Size Integer</tt>:</dt>
+<dt><tt>Variable-Size Integer</tt>:</dt>
 <dd>A compact variable-length binary value that defines its own length.</dd>
 <dt><tt>VINT</tt>:</dt>
-<dd>Also known as <tt>Variable Size Integer</tt>.</dd>
+<dd>Also known as <tt>Variable-Size Integer</tt>.</dd>
 <dt><tt>EBML Element</tt>:</dt>
 <dd>A foundation block of data that contains three parts: an <tt>Element ID</tt>,
 an <tt>Element Data Size</tt>, and <tt>Element Data</tt>.</dd>
 <dt><tt>Element ID</tt>:</dt>
-<dd>A binary value, encoded as a <tt>Variable Size Integer</tt>,
+<dd>A binary value, encoded as a <tt>Variable-Size Integer</tt>,
 used to uniquely identify a defined <tt>EBML Element</tt> within a specific
 <tt>EBML Schema</tt>.</dd>
 <dt><tt>Element Data Size</tt>:</dt>
-<dd>An expression, encoded as a <tt>Variable Size Integer</tt>, of the length
+<dd>An expression, encoded as a <tt>Variable-Size Integer</tt>, of the length
 in octets of <tt>Element Data</tt>.</dd>
 <dt><tt>VINTMAX</tt>:</dt>
 <dd>The maximum possible value that can be stored as <tt>Element Data Size</tt>.</dd>
@@ -162,37 +162,37 @@ length.</dd>
 <t>EBML uses a system of Elements to compose an EBML Document. EBML Elements incorporate three parts: an Element ID, an Element Data Size, and Element Data. The Element Data, which is described by the Element ID, includes either binary data, one or more other EBML Elements, or both.</t>
 </section>
 
-<section anchor="variable-size-integer"><name>Variable Size Integer</name>
-<t>The Element ID and Element Data Size are both encoded as a Variable Size
-Integer. The Variable Size Integer is composed of a VINT_WIDTH, VINT_MARKER,
-and VINT_DATA, in that order. Variable Size Integers  <bcp14>MUST</bcp14>
-left-pad the VINT_DATA value with zero bits so that the whole Variable Size
-Integer is octet aligned. The Variable Size Integer will be referred to as
+<section anchor="variable-size-integer"><name>Variable-Size Integer</name>
+<t>The Element ID and Element Data Size are both encoded as a Variable-Size
+Integer. The Variable-Size Integer is composed of a VINT_WIDTH, VINT_MARKER,
+and VINT_DATA, in that order. Variable-Size Integers <bcp14>MUST</bcp14>
+left-pad the VINT_DATA value with zero bits so that the whole Variable-Size
+Integer is octet aligned. The Variable-Size Integer will be referred to as
 VINT for shorthand.</t>
 
 <section anchor="vint-width"><name>VINT_WIDTH</name>
-<t>Each Variable Size Integer starts with a VINT_WIDTH followed by a
+<t>Each Variable-Size Integer starts with a VINT_WIDTH followed by a
 VINT_MARKER. VINT_WIDTH is a sequence of zero or more bits of value <tt>0</tt>
 and is terminated by the VINT_MARKER, which is a single bit of value
 <tt>1</tt>. The total length in bits of both VINT_WIDTH and VINT_MARKER is the
-total length in octets in of the Variable Size Integer.</t>
-<t>The single bit <tt>1</tt> starts a Variable Size Integer with a length of
-one octet. The sequence of bits <tt>01</tt> starts a Variable Size Integer
-with a length of two octets. <tt>001</tt> starts a Variable Size Integer with
+total length in octets in of the Variable-Size Integer.</t>
+<t>The single bit <tt>1</tt> starts a Variable-Size Integer with a length of
+one octet. The sequence of bits <tt>01</tt> starts a Variable-Size Integer
+with a length of two octets. <tt>001</tt> starts a Variable-Size Integer with
 a length of three octets, and so on, with each additional <tt>0</tt> bit adding one
-octet to the length of the Variable Size Integer.</t>
+octet to the length of the Variable-Size Integer.</t>
 </section>
 
 <section anchor="vint-marker"><name>VINT_MARKER</name>
-<t>The VINT_MARKER serves as a separator between the VINT_WIDTH and VINT_DATA. Each Variable Size Integer <bcp14>MUST</bcp14> contain exactly one VINT_MARKER. The VINT_MARKER is one bit in length and contain a bit with a value of one. The first bit with a value of one within the Variable Size Integer is the VINT_MARKER.</t>
+<t>The VINT_MARKER serves as a separator between the VINT_WIDTH and VINT_DATA. Each Variable-Size Integer <bcp14>MUST</bcp14> contain exactly one VINT_MARKER. The VINT_MARKER is one bit in length and contain a bit with a value of one. The first bit with a value of one within the Variable-Size Integer is the VINT_MARKER.</t>
 </section>
 
 <section anchor="vint-data"><name>VINT_DATA</name>
-<t>The VINT_DATA portion of the Variable Size Integer includes all data following
-(but not including) the VINT_MARKER until end of the Variable Size
+<t>The VINT_DATA portion of the Variable-Size Integer includes all data following
+(but not including) the VINT_MARKER until end of the Variable-Size
 Integer whose length is derived from the VINT_WIDTH. The bits required for the
 VINT_WIDTH and the VINT_MARKER use one out of every eight bits of the total
-length of the Variable Size Integer. Thus, a Variable Size Integer of 1-octet
+length of the Variable-Size Integer. Thus, a Variable-Size Integer of 1-octet
 length supplies 7 bits for VINT_DATA, a 2-octet length supplies 14 bits for
 VINT_DATA, and a 3-octet length supplies 21 bits for VINT_DATA. If the number
 of bits required for VINT_DATA is less than the bit size of VINT_DATA, then
@@ -202,13 +202,13 @@ unsigned integer.</t>
 </section>
 
 <section anchor="vint-examples"><name>VINT Examples</name>
-<t><xref target="tableUsableBits"></xref> shows examples of Variable Size
+<t><xref target="tableUsableBits"></xref> shows examples of Variable-Size
 Integers with lengths from 1 to 5 octets. The &quot;Usable Bits&quot; column refers to the
 number of bits that can be used in the VINT_DATA. The &quot;Representation&quot; column
-depicts a binary expression of Variable Size Integers where VINT_WIDTH is
+depicts a binary expression of Variable-Size Integers where VINT_WIDTH is
 depicted by <tt>0</tt>, the VINT_MARKER as <tt>1</tt>, and the VINT_DATA as
 <tt>x</tt>.</t>
-<table anchor="tableUsableBits"><name>VINT examples depicting usable bits </name>
+<table anchor="tableUsableBits"><name>VINT examples depicting usable bits</name>
 <thead>
 <tr>
 <th>Octet Length</th>
@@ -248,16 +248,16 @@ depicted by <tt>0</tt>, the VINT_MARKER as <tt>1</tt>, and the VINT_DATA as
 <td align="left">0000 1xxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx xxxx</td>
 </tr>
 </tbody>
-</table><t>A Variable Size Integer may be rendered at octet lengths larger
+</table><t>A Variable-Size Integer may be rendered at octet lengths larger
 than needed to store the data in order to facilitate overwriting it at a later
 date -- e.g., when its final size isn't known in advance. In
 <xref target="tableVariousSizes"></xref>, an integer <tt>2</tt> (with a
-corresponding binary value of 0b10) is shown encoded as different Variable
-Size Integers with lengths from one octet to four octets. All four encoded
-examples have identical semantic meaning, though the VINT_WIDTH and the  padding
+corresponding binary value of 0b10) is shown encoded as different Variable-Size
+Integers with lengths from one octet to four octets. All four encoded
+examples have identical semantic meaning, though the VINT_WIDTH and the padding
 of the VINT_DATA vary.</t>
 <table anchor="tableVariousSizes"><name>VINT examples depicting the same
-integer value rendered at different VINT lengths </name>
+integer value rendered at different VINT lengths</name>
 <thead>
 <tr>
 <th>Integer</th>
@@ -300,7 +300,7 @@ integer value rendered at different VINT lengths </name>
 </section>
 
 <section anchor="element-id"><name>Element ID</name>
-<t>An Element ID is a Variable Size Integer. By default, Element IDs are from
+<t>An Element ID is a Variable-Size Integer. By default, Element IDs are from
 one octet to four octets in length, although Element IDs of greater lengths
 <bcp14>MAY</bcp14> be used if the EBMLMaxIDLength Element of the EBML Header
 is set to a value greater than four (see
@@ -317,7 +317,7 @@ whereas an Element ID with binary encoding of <tt>0100 0000 0111 1111</tt>
 stores a semantically equal VINT_DATA and is the shortest-possible VINT
 encoding.</t>
 <t><xref target="tableElementIDValidity"></xref> details these specific examples further:</t>
-<table anchor="tableElementIDValidity"><name>Examples of valid and invalid Element IDs </name>
+<table anchor="tableElementIDValidity"><name>Examples of valid and invalid Element IDs</name>
 <thead>
 <tr>
 <th align="right">VINT_WIDTH</th>
@@ -388,7 +388,7 @@ encoding.</t>
 octet length. Examples of this are provided in
 <xref target="tableElementIDRanges"></xref>.</t>
 <table anchor="tableElementIDRanges"><name>Examples of count and range for
-Element IDs at various octet lengths </name>
+Element IDs at various octet lengths</name>
 <thead>
 <tr>
 <th align="center">Element ID Octet Length</th>
@@ -428,7 +428,7 @@ Element IDs at various octet lengths </name>
 
 <section anchor="data-size-format"><name>Data Size Format</name>
 <t>The Element Data Size expresses the length in octets of Element Data. The
-Element Data Size itself is encoded as a Variable Size Integer. By default,
+Element Data Size itself is encoded as a Variable-Size Integer. By default,
 Element Data Sizes can be encoded in lengths from one octet to eight octets,
 although Element Data Sizes of greater lengths <bcp14>MAY</bcp14> be used if
 the octet length of the longest Element Data Size of the EBML Document is
@@ -546,7 +546,7 @@ octet length of 8 is able to express a size of 2<sup>56</sup>-2 or
 72,057,594,037,927,934 octets (or about 72 petabytes). The maximum possible
 value that can be stored as Element Data Size is referred to as VINTMAX.</t>
 <table anchor="tableVintRangePerLength"><name>Possible range of values that
-can be stored in VINTs, by octet length </name>
+can be stored in VINTs, by octet length</name>
 <thead>
 <tr>
 <th>Octet Length</th>
@@ -603,7 +603,7 @@ showing a valid and invalid expression of an Element Data Size with a
 VINT_DATA of 127 (which is equal to 2<sup>1*7</sup>-1) and 16,383 (which is equal to
 2<sup>2*7</sup>-1).</t>
 <table anchor="tableVintReservation"><name>Demonstration of VINT_DATA
-reservation for VINTs of unknown size </name>
+reservation for VINTs of unknown size</name>
 <thead>
 <tr>
 <th align="right">VINT_WIDTH</th>
@@ -774,7 +774,7 @@ Document <xref target="XML"></xref>. An EBML Schema
 Types. An EBML Document Type is identified by a string stored within the EBML
 Header in the DocType Element -- for example, Matroska or WebM (see
 <xref target="doctype-element"></xref>). The DocType value for an EBML Document Type
-<bcp14>MUST</bcp14> be unique, persistent, and described in the IANA Registry
+<bcp14>MUST</bcp14> be unique, persistent, and described in the IANA registry
 (see <xref target="ebml-doctypes-registry"></xref>).</t>
 <t>An EBML Schema <bcp14>MUST</bcp14> declare exactly one EBML Element at Root Level (referred to as the Root Element) that occurs exactly once within an EBML Document. The Void Element <bcp14>MAY</bcp14> also occur at Root Level but is not a Root Element (see <xref target="void-element"></xref>).</t>
 <t>The EBML Schema <bcp14>MUST</bcp14> document all Elements of the EBML
@@ -854,7 +854,7 @@ the EBML Schema. This document provides an example of an EBML Schema; see
 <section anchor="ebmlschema-element"><name><tt>&lt;EBMLSchema&gt;</tt> Element</name>
 <t>Within an EBML Schema, the XPath <xref target="XPath"></xref> of the
 <tt>&lt;EBMLSchema&gt;</tt> element is <tt>/EBMLSchema</tt>.</t>
-<t>As an XML Document, the EBML Schema <bcp14>MUST</bcp14> use
+<t>When used as an XML Document, the EBML Schema <bcp14>MUST</bcp14> use
 <tt>&lt;EBMLSchema&gt;</tt> as the top-level element. The
 <tt>&lt;EBMLSchema&gt;</tt> element can contain <tt>&lt;element&gt;</tt>
 subelements.</t>
@@ -891,7 +891,7 @@ and deprecated by using the <tt>minver</tt> and <tt>maxver</tt> attributes of
 <t>Within an EBML Schema, the XPath of the <tt>@ebml</tt> attribute is <tt>/EBMLSchema/@ebml</tt>.</t>
 <t>The <tt>ebml</tt> attribute is a positive integer that specifies the
 version of the EBML Header (see <xref target="ebmlversion-element"></xref>)
-used by the EBML Schema. If the  attribute is omitted, the EBML Header version
+used by the EBML Schema. If the attribute is omitted, the EBML Header version
 is 1.</t>
 </section>
 </section>
@@ -1007,9 +1007,9 @@ resulting path, <tt>\a\b\c\global</tt>, has two EBMLPathAtom between
 <section anchor="id"><name>id</name>
 <t>Within an EBML Schema, the XPath of the <tt>@id</tt> attribute is
 <tt>/EBMLSchema/element/@id</tt>.</t>
-<t>The Element ID is encoded as a Variable Size Integer expressed in
-hexadecimal notation prefixed by a 0x that is read and stored in big-endian
-order. To reduce the risk of false positives while parsing EBML Streams, the
+<t>The Element ID is encoded as a Variable-Size Integer. It is read and stored in big-endian
+order. In the EBML Schema, it is expressed in
+hexadecimal notation prefixed by a 0x. To reduce the risk of false positives while parsing EBML Streams, the
 Element IDs of the Root Element and Top-Level Elements <bcp14>SHOULD</bcp14>
 be at least 4 octets in length. Element IDs defined for use at Root Level or
 directly under the Root Level <bcp14>MAY</bcp14> use shorter octet lengths to
@@ -1108,8 +1108,8 @@ Element value <bcp14>MUST</bcp14> be greater than 3 and less than or equal to
 possible, meaning the Element value <bcp14>MUST</bcp14> be greater than, or equal to,
 the first value and <bcp14>MUST</bcp14> be less than or equal to the
 second value. For example, <tt>1-10</tt> is equivalent to
-<tt>&gt;=1,&lt;=10</tt>. If the upper boundary is negative, only the latter
-form <bcp14>MUST</bcp14> be used.</t>
+<tt>&gt;=1,&lt;=10</tt>. If the upper boundary is negative, the <tt>range</tt> attribute
+<bcp14>MUST</bcp14> only use the latter form.</t>
 </section>
 </section>
 
@@ -1170,7 +1170,7 @@ allowed to use an unknown Element Data Size.</t>
 <t>Within an EBML Schema, the XPath of the <tt>@recursive</tt> attribute is
 <tt>/EBMLSchema/element/@recursive</tt>.</t>
 <t>This attribute is a boolean to express whether an EBML Element is permitted to
-be stored recursively. In this case, the EBML Element <bcp14>MAY</bcp14> be
+be stored recursively. If it is allowed, the EBML Element <bcp14>MAY</bcp14> be
 stored within another EBML Element that has the same Element ID, which itself
 can be stored in an EBML Element that has the same Element ID, and so on. EBML
 Elements that are not Master Elements <bcp14>MUST NOT</bcp14> set recursive to
@@ -1245,7 +1245,7 @@ for the <tt>&lt;documentation&gt;</tt> subelement's <tt>purpose</tt> attribute
 <bcp14>MUST</bcp14> include one of the values listed in
 <xref target="tablePurposeDefinitions"></xref>.</t>
 <table anchor="tablePurposeDefinitions"><name>Definitions of the permitted
-values for the <tt>purpose</tt> attribute of the documentation Element </name>
+values for the <tt>purpose</tt> attribute of the documentation Element</name>
 <thead>
 <tr>
 <th align="left">value of <tt>purpose</tt> attribute</th>
@@ -1419,8 +1419,8 @@ project or authority associated with the contents of the
 
 <section anchor="xml-schema-for-ebml-schema"><name>XML Schema for EBML Schema</name>
 <t>The following provides an XML Schema <xref target="XML-SCHEMA"></xref> for
-facilitating verification of an EBML Schema to the definition described in
-<xref target="ebml-header"></xref>.</t>
+facilitating verification of an EBML Schema described in
+<xref target="ebml-schema"></xref>.</t>
 
 <sourcecode type="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;xs:schema xmlns=&quot;https://ietf.org/cellar/ebml&quot;
@@ -1627,11 +1627,11 @@ for interpretation.</t>
 <t>When a float value is represented textually in an EBML Schema, such as
 within a default or range value, the float values <bcp14>MUST</bcp14> be
 expressed as Hexadecimal Floating-Point Constants as defined in the C11
-standard <xref target="ISO.9899"></xref> (see section 6.4.4.2 on Floating
+standard <xref target="ISO9899"></xref> (see Section 6.4.4.2 on Floating
 Constants). <xref target="tableFloatExamples"></xref> provides examples of
 expressions of float ranges.</t>
 <table anchor="tableFloatExamples"><name>Example of Floating-Point values and
-ranges as decimal and Hexadecimal Floating-Point Constants </name>
+ranges as decimal and Hexadecimal Floating-Point Constants</name>
 <thead>
 <tr>
 <th align="left">as decimal</th>
@@ -1694,7 +1694,7 @@ EBML Element <bcp14>MUST</bcp14> be written, according to whether the default va
 is declared, the value of the EBML Element is equal to the declared default
 value, and/or the Parent Element is used.</t>
 <table anchor="tableVintRequirements"><name>Demonstration of the conditional
-requirements of VINT Storage </name>
+requirements of VINT Storage</name>
 <thead>
 <tr>
 <th align="center">Is the default value declared?</th>
@@ -2069,7 +2069,7 @@ itself. When the CRC-32 Element is present, the CRC-32 Element
 Element for easier reading. All Top-Level Elements of an EBML Document that
 are Master Elements <bcp14>SHOULD</bcp14> include a CRC-32 Element as a Child
 Element. The CRC in use is the IEEE-CRC-32 algorithm as used in the
-<xref target="ISO.3309.1979"></xref> standard and in section 8.1.1.6.2 of
+<xref target="ISO3309"></xref> standard and in Section 8.1.1.6.2 of
 <xref target="ITU.V42"></xref>, with initial value of 0xFFFFFFFF. The CRC value
 <bcp14>MUST</bcp14> be computed on a little-endian bytestream and
 <bcp14>MUST</bcp14> use little-endian storage.</dd>
@@ -2157,7 +2157,7 @@ value terminated by one or more Null Octets are semantically equal.</t>
 and validation for the use of Null Octets. Values to represent Stored Values
 and the Semantic Meaning as represented as hexadecimal values.</t>
 <table anchor="tableNullOctetSemantics"><name>Examples of semantics for Null
-Octets in VINT_DATA </name>
+Octets in VINT_DATA</name>
 <thead>
 <tr>
 <th align="left">Stored Value</th>
@@ -2213,7 +2213,7 @@ permitted length, then the Element Data Size of that Element
 before and after the change, the EBML Element maintains the same length of 8
 octets, and data around the Element does not need to be moved.</t>
 <table anchor="tableShortenVintOneOctet"><name>Example of editing a VINT to
-reduce VINT_DATA length by one octet </name>
+reduce VINT_DATA length by one octet</name>
 <thead>
 <tr>
 <th>Status</th>
@@ -2253,7 +2253,7 @@ is to be rewritten to a two-octet length, then another octet can be taken from
 Element Data Size so that there is enough space to add a two-octet Void
 Element.</t>
 <table anchor="tableShortenVintMoreThanOneOctet"><name>Example of editing a
-VINT to reduce VINT_DATA length by more than one octet </name>
+VINT to reduce VINT_DATA length by more than one octet</name>
 <thead>
 <tr>
 <th>Status</th>
@@ -2292,7 +2292,7 @@ long is changed to a value three octets long, followed by a Null Octet; the
 Element Data Size includes any Null Octets used to terminate Element Data and therefore
 remains unchanged.</t>
 <table anchor="tableExampleNullPadding"><name>Example of terminating VINT_DATA
-with a Null Octet when reducing VINT length during an edit </name>
+with a Null Octet when reducing VINT length during an edit</name>
 <thead>
 <tr>
 <th>Status</th>
@@ -2412,8 +2412,8 @@ accepted as valid EBML IDs in order to skip such elements.</t>
 
 <section anchor="iana-considerations"><name>IANA Considerations</name>
 
-<section anchor="ebml-element-id-registry"><name>EBML Element ID Registry</name>
-<t>This document creates a new IANA Registry called the
+<section anchor="ebml-element-ids-registry"><name>EBML Element IDs Registry</name>
+<t>This document creates a new IANA registry called the
 &quot;EBML Element IDs&quot; registry.</t>
 <t>Element IDs are described in <xref target="element-id"></xref>. Element
 IDs are encoded using the VINT mechanism described in
@@ -2577,21 +2577,65 @@ These can be assigned via the &quot;IESG Approval&quot; or &quot;RFC Required&qu
 <back>
 <displayreference target="I-D.ietf-cellar-matroska" to="Matroska"/>
 <references><name>Normative References</name>
-<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5234.xml"/>
-<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml"/>
-<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3629.xml"/>
-<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7405.xml"/>
-<reference anchor="ITU.V42" target="https://www.itu.int/rec/T-REC-V.42/en">
+<reference anchor="IEEE.754" target="https://standards.ieee.org/standard/754-2019.html">
+  <front>
+    <title>IEEE Standard for Binary Floating-Point Arithmetic</title>
+    <author>
+      <organization>IEEE</organization>
+    </author>
+    <date year="2019" month="June" day="13"></date>
+  </front>
+</reference>
+<reference anchor="ISO3309" target="https://www.iso.org/standard/8558.html">
+  <front>
+    <title>Data communication -- High-level data link control procedures -- Frame structure</title>
+    <author>
+      <organization>International Organization for Standardization</organization>
+    </author>
+    <date year="1984" month="October"></date>
+  </front>
+  <seriesInfo name="ISO" value="3309, 3rd Edition"></seriesInfo>
+</reference>
+<reference anchor="ISO9899" target="https://www.iso.org/standard/57853.html">
+  <front>
+    <title>Information technology -- Programming languages -- C</title>
+    <author>
+      <organization>International Organization for Standardization</organization>
+    </author>
+    <date year="2011"></date>
+  </front>
+  <seriesInfo name="ISO/IEC" value="9899:2011"></seriesInfo>
+</reference>
+<reference anchor="ITU.V42" target="https://www.itu.int/rec/T-REC-V.42">
   <front>
     <title>Error-correcting procedures for DCEs using asynchronous-to-synchronous conversion</title>
     <author>
       <organization>International Telecommunications Union</organization>
     </author>
-    <date year="1994"></date>
+    <date year="2002" month="March"></date>
   </front>
   <seriesInfo name="ITU-T Recommendation" value="V.42"></seriesInfo>
 </reference>
-<reference anchor="XML" target="http://www.w3.org/TR/2008/REC-xml-20081126/">
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.0020.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.2119.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3339.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3629.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5234.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5646.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7405.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8126.xml"/>
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8174.xml"/>
+<reference anchor="XHTML" target="https://www.w3.org/TR/2018/SPSD-xhtml-basic-20180327/">
+  <front>
+    <title>XHTML(tm) Basic 1.1 -- Second Edition</title>
+    <author fullname="Shane McCarron" initials="S." surname="McCarron">
+      
+    </author>
+    <date year="2018" month="March" day="27"></date>
+  </front>
+  <seriesInfo name="Latest version available at" value="https://www.w3.org/TR/xhtml-basic"></seriesInfo>
+</reference>
+<reference anchor="XML" target="https://www.w3.org/TR/2008/REC-xml-20081126/">
   <front>
     <title>Extensible Markup Language (XML) 1.0 (Fifth Edition)</title>
     <author initials="T." surname="Bray" role="editor">
@@ -2611,7 +2655,7 @@ These can be assigned via the &quot;IESG Approval&quot; or &quot;RFC Required&qu
     </author>
     <date year="2008" month="November" day="26"></date>
   </front>
-  <seriesInfo name="Latest version available at" value="http://www.w3.org/TR/xml/"></seriesInfo>
+  <seriesInfo name="Latest version available at" value="https://www.w3.org/TR/xml/"></seriesInfo>
 </reference>
 <reference anchor="XML-SCHEMA" target="https://www.w3.org/TR/2004/REC-xmlschema-0-20041028/">
   <front>
@@ -2626,54 +2670,10 @@ These can be assigned via the &quot;IESG Approval&quot; or &quot;RFC Required&qu
   </front>
   <seriesInfo name="Latest version available at" value="http://www.w3.org/TR/xmlschema-0/"></seriesInfo>
 </reference>
-<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8174.xml"/>
-<reference anchor="ISO.9899" target="https://www.iso.org/standard/57853.html">
-  <front>
-    <title>Information technology -- Programming languages -- C</title>
-    <author>
-      <organization>International Organization for Standardization</organization>
-    </author>
-    <date year="2011"></date>
-  </front>
-  <seriesInfo name="ISO/IEC" value="9899:2011"></seriesInfo>
-</reference>
-<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.0020.xml"/>
-<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.3339.xml"/>
-<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.5646.xml"/>
-<reference anchor="XHTML" target="http://www.w3.org/TR/2018/SPSD-xhtml-basic-20180327/">
-  <front>
-    <title>XHTML(tm) Basic 1.1 -- Second Edition</title>
-    <author fullname="Shane McCarron" initials="S." surname="McCarron">
-      
-    </author>
-    <date year="2018" month="March" day="27"></date>
-  </front>
-  <seriesInfo name="Latest version available at" value="http://www.w3.org/TR/xhtml-basic"></seriesInfo>
-</reference>
-<reference anchor="ISO.3309.1979" target="">
-  <front>
-    <title>Data communication -- High-level data link control procedures -- Frame structure</title>
-    <author>
-      <organization>International Organization for Standardization</organization>
-    </author>
-    <date year="1979"></date>
-  </front>
-  <seriesInfo name="ISO" value="Standard 3309"></seriesInfo>
-</reference>
-<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.8126.xml"/>
-<reference anchor="IEEE.754" target="https://standards.ieee.org/standard/754-2019.html">
-  <front>
-    <title>IEEE Standard for Binary Floating-Point Arithmetic</title>
-    <author>
-      <organization>IEEE</organization>
-    </author>
-    <date></date>
-  </front>
-</reference>
 </references>
 <references><name>Informative References</name>
 
-
+<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml-ids/reference.I-D.ietf-cellar-matroska.xml"/>
 
 <reference anchor="WebM" target="https://www.webmproject.org/docs/container/">
   <front>
@@ -2685,12 +2685,7 @@ These can be assigned via the &quot;IESG Approval&quot; or &quot;RFC Required&qu
   </front>
 </reference>
 
-
-
-
-<xi:include href="https://xml2rfc.ietf.org/public/rfc/bibxml-ids/reference.I-D.ietf-cellar-matroska.xml"/>
-
-<reference anchor="XPath" target="http://www.w3.org/TR/1999/REC-xpath-19991116">
+<reference anchor="XPath" target="https://www.w3.org/TR/1999/REC-xpath-19991116">
   <front>
     <title>XML Path Language (XPath) Version 1.0</title>
     <author initials="J." surname="Clark" role="editor">
@@ -2701,12 +2696,8 @@ These can be assigned via the &quot;IESG Approval&quot; or &quot;RFC Required&qu
     </author>
     <date year="1999" month="November" day="16"></date>
   </front>
-  <seriesInfo name="Latest version available at" value="http://www.w3.org/TR/xpath"></seriesInfo>
+  <seriesInfo name="Latest version available at" value="https://www.w3.org/TR/xpath"></seriesInfo>
 </reference>
-
-
-
-
 
 </references>
 
