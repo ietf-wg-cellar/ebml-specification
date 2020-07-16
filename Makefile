@@ -1,4 +1,4 @@
-VERSION := 19
+VERSION := 20
 STATUS := draft-
 OUTPUT := $(STATUS)ietf-cellar-ebml-$(VERSION)
 
