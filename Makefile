@@ -22,7 +22,7 @@ $(OUTPUT).md: specification.markdown rfc_frontmatter.markdown rfc_backmatter.mar
 
 rfc8794.xml: $(OUTPUT).xml
 	sed -e 's/<?xml version="1.0" encoding="utf-8"?>/<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE rfc SYSTEM "rfc2629-xhtml.ent">/' \
-	-e "s/docName=\"8794\"/docName=\"$(OUTPUT)\"/" \
+	-e "s/docName=\"8794\"/docName=\"$(OUTPUT)\" sortRefs=\"true\"/" \
 	-e "s@\"http://www.w3.org/2001/XInclude\"@\"http://www.w3.org/2001/XInclude\" tocInclude=\"true\" symRefs=\"true\"@" \
 	-e 's@<organization></organization>@@' \
 	-e 's@<street></street>@@' \
