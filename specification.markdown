@@ -222,8 +222,8 @@ A Variable-Size Integer may be rendered at octet lengths larger
 than needed to store the data in order to facilitate overwriting it at a later
 date -- e.g., when its final size isn't known in advance. In
 [@tableVariousSizes], an integer `2` (with a 
-corresponding binary value of 0b10) is shown encoded as different Variable 
-Size Integers with lengths from one octet to four octets. All four encoded
+corresponding binary value of 0b10) is shown encoded as different Variable-Size
+Integers with lengths from one octet to four octets. All four encoded
 examples have identical semantic meaning, though the VINT\_WIDTH and the padding
 of the VINT\_DATA vary.
 
