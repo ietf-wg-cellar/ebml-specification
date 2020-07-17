@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<xs:schema xmlns="https://ietf.org/cellar/ebml"
-  targetNamespace="https://ietf.org/cellar/ebml"
+<xs:schema xmlns="urn:ietf:rfc:8794"
+  targetNamespace="urn:ietf:rfc:8794"
   xmlns:xs="http://www.w3.org/2001/XMLSchema"
   xmlns:xhtml="http://www.w3.org/1999/xhtml"
   elementFormDefault="qualified" version="01">

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<EBMLSchema xmlns="https://ietf.org/cellar/ebml"
+<EBMLSchema xmlns="urn:ietf:rfc:8794"
   docType="files-in-ebml-demo" version="1">
  <!-- constraints to the range of two EBML Header Elements -->
  <element name="EBMLReadVersion" path="\EBML\EBMLReadVersion"
