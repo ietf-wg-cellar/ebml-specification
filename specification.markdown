@@ -568,7 +568,7 @@ subelements.
 ### `<EBMLSchema>` Namespace
 
 The namespace URI for elements of the EBML Schema is a URN as defined by
-[@!RFC2141] that uses the namespace identifier 'ietf' defined by [@!RFC2648]
+[@!RFC8141] that uses the namespace identifier 'ietf' defined by [@!RFC2648]
 and extended by [@!RFC3688]. This URN is `urn:ietf:rfc:8794`.
 
 ### `<EBMLSchema>` Attributes
