@@ -2,7 +2,7 @@
 	<element name="EBML" path="\EBML" id="0x1A45DFA3" type="master" minOccurs="1" maxOccurs="1">
 		<documentation lang="en" purpose="definition">Set the EBML characteristics of the data to follow. Each EBML document has to start with this.</documentation>
 	</element>
-	<element name="EBMLVersion" path="\EBML\EBMLVersion" id="0x4286" type="uinteger" range="1-8" default="1" minOccurs="1" maxOccurs="1">
+	<element name="EBMLVersion" path="\EBML\EBMLVersion" id="0x4286" type="uinteger" range="not 0" default="1" minOccurs="1" maxOccurs="1">
 		<documentation lang="en" purpose="definition">The version of EBML parser used to create the file.</documentation>
 	</element>
 	<element name="EBMLReadVersion" path="\EBML\EBMLReadVersion" id="0x42F7" type="uinteger" range="1" default="1" minOccurs="1" maxOccurs="1">
@@ -14,48 +14,29 @@
 	<element name="EBMLMaxSizeLength" path="\EBML\EBMLMaxSizeLength" id="0x42F3" type="uinteger" range="1-8" default="8" minOccurs="1" maxOccurs="1">
 		<documentation lang="en" purpose="definition">The maximum length of the sizes you'll find in this file (8 or less in Matroska). This does not override the element size indicated at the beginning of an element. Elements that have an indicated size which is larger than what is allowed by EBMLMaxSizeLength shall be considered invalid.</documentation>
 	</element>
-	<element name="DocType" path="\EBML\DocType" id="0x4282" type="string" default="ebml" minOccurs="1" maxOccurs="1">
+	<element name="DocType" path="\EBML\DocType" id="0x4282" type="string" default="ebml" length="&gt;0" minOccurs="1" maxOccurs="1">
 		<documentation lang="en" purpose="definition">A string that describes the type of document that follows this EBML header. 'matroska' in our case or 'webm' for webm files.</documentation>
 	</element>
-	<element name="DocTypeVersion" path="\EBML\DocTypeVersion" id="0x4287" type="uinteger" range="1-8" default="1" minOccurs="1" maxOccurs="1">
+	<element name="DocTypeVersion" path="\EBML\DocTypeVersion" id="0x4287" type="uinteger" range="not 0" default="1" minOccurs="1" maxOccurs="1">
 		<documentation lang="en" purpose="definition">The version of DocType interpreter used to create the file.</documentation>
 	</element>
-	<element name="DocTypeReadVersion" path="\EBML\DocTypeReadVersion" id="0x4285" type="uinteger" range="1-8" default="1" minOccurs="1" maxOccurs="1">
+	<element name="DocTypeReadVersion" path="\EBML\DocTypeReadVersion" id="0x4285" type="uinteger" range="not 0" default="1" minOccurs="1" maxOccurs="1">
 		<documentation lang="en" purpose="definition">The minimum DocType version an interpreter has to support to read this file.</documentation>
 	</element>
-
-	<element name="SignatureSlot" path="\EBML\SignatureSlot" id="0x1B538667" type="master">
-		<documentation lang="en" purpose="definition">Contain signature of some (coming) elements in the stream.</documentation>
+	<element name="DocTypeExtension" path="\EBML\DocTypeExtension" id="0x4281" type="master">
+		<documentation lang="en" purpose="definition">A DocTypeExtension adds extra Elements to the main DocType+DocTypeVersion	tuple it's attached to. An EBML Reader **MAY** know these extra Elements and how to use them. A DocTypeExtension **MAY** be used to iterate between	experimental Elements before they are integrated into a regular	DocTypeVersion. Reading one DocTypeExtension version of a DocType+DocTypeVersion tuple doesn't imply one should be able to read upper versions of this DocTypeExtension.</documentation>
 	</element>
-	<element name="SignatureAlgo" path="\EBML\SignatureSlot\SignatureAlgo" id="0x7E8A" type="uinteger">
-		<documentation lang="en" purpose="definition">Signature algorithm used (1=RSA, 2=elliptic).</documentation>
+	<element name="DocTypeExtensionName" path="\EBML\DocTypeExtension\DocTypeExtensionName" id="0x4283" type="string" length="&gt;0" minOccurs="1" maxOccurs="1">
+		<documentation lang="en" purpose="definition">The name of the DocTypeExtension to differentiate it from other DocTypeExtensions of the same DocType+DocTypeVersion tuple. A DocTypeExtensionName value **MUST** be unique within the EBML Header.</documentation>
 	</element>
-	<element name="SignatureHash" path="\EBML\SignatureSlot\SignatureHash" id="0x7E9A" type="uinteger">
-		<documentation lang="en" purpose="definition">Hash algorithm used (1=SHA1-160, 2=MD5).</documentation>
-	</element>
-	<element name="SignaturePublicKey" path="\EBML\SignatureSlot\SignaturePublicKey" id="0x7EA5" type="binary">
-		<documentation lang="en" purpose="definition">The public key to use with the algorithm (in the case of a PKI-based signature).</documentation>
-	</element>
-	<element name="Signature" path="\EBML\SignatureSlot\Signature" id="0x7EB5" type="binary">
-		<documentation lang="en" purpose="definition">The signature of the data (until a new.</documentation>
+	<element name="DocTypeExtensionVersion" path="\EBML\DocTypeExtension\DocTypeExtensionVersion" id="0x4284" type="uinteger" range="not 0" minOccurs="1" maxOccurs="1">
+		<documentation lang="en" purpose="definition">The version of the DocTypeExtension. Different DocTypeExtensionVersion values of the same DocType + DocTypeVersion + DocTypeExtensionName tuple **MAY** contain completely different sets of extra Elements. An EBML Reader **MAY** support multiple versions	of the same tuple, only one version of the tuple, or not support the tuple at all.</documentation>
 	</element>
 
-	<element name="SignatureElements" path="\EBML\SignatureElements" id="0x7E5B" type="master">
-		<documentation lang="en" purpose="definition">Contains elements that will be used to compute the signature.</documentation>
-	</element>
-	<element name="SignatureElementList" path="\EBML\SignatureElements\SignatureElementList" id="0x7E7B" type="master">
-		<documentation lang="en" purpose="definition">
-			A list consists of a number of consecutive elements that represent one case where data is used in signature. Ex: Cluster|Block|BlockAdditional means that the BlockAdditional of all Blocks in all Clusters is used for encryption.
-		</documentation>
-	</element>
-	<element name="SignedElement" path="\EBML\SignatureElements\SignatureElementList\SignedElement" id="0x6532" type="binary" >
-		<documentation lang="en" purpose="definition">An element ID whose data will be used to compute the signature.</documentation>
-	</element>
-
-	<element name="Void" path="\(-\)Void" id="0xEC" type="binary">
+	<element name="Void" path="\(-\)Void" id="0xEC" type="binary" maxOccurs="1">
 		<documentation lang="en" purpose="definition">Used to void damaged data, to avoid unexpected behaviors when using damaged data. The content is discarded. Also used to reserve space in a sub-element for later use.</documentation>
 	</element>
-	<element name="CRC-32" path="\(1-\)CRC-32" id="0xBF" type="binary">
+	<element name="CRC-32" path="\(1-\)CRC-32" id="0xBF" type="binary" length="4" maxOccurs="1">
 		<documentation lang="en" purpose="definition">The CRC is computed on all the data of the Master element it's in. The CRC element should be the first in it's parent master for easier reading. All level 1 elements should include a CRC-32. The CRC in use is the IEEE CRC32 Little Endian.</documentation>
 	</element>
 </EBMLSchema>
