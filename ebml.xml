@@ -11,7 +11,7 @@
 	<element name="EBMLMaxIDLength" path="\EBML\EBMLMaxIDLength" id="0x42F2" type="uinteger" range="4" default="4" minOccurs="1" maxOccurs="1">
 		<documentation lang="en" purpose="definition">The maximum length of the IDs you'll find in this file (4 or less in Matroska).</documentation>
 	</element>
-	<element name="EBMLMaxSizeLength" path="\EBML\EBMLMaxSizeLength" id="0x42F3" type="uinteger" range="1-8" default="8" minOccurs="1" maxOccurs="1">
+	<element name="EBMLMaxSizeLength" path="\EBML\EBMLMaxSizeLength" id="0x42F3" type="uinteger" range="not 0" default="8" minOccurs="1" maxOccurs="1">
 		<documentation lang="en" purpose="definition">The maximum length of the sizes you'll find in this file (8 or less in Matroska). This does not override the element size indicated at the beginning of an element. Elements that have an indicated size which is larger than what is allowed by EBMLMaxSizeLength shall be considered invalid.</documentation>
 	</element>
 	<element name="DocType" path="\EBML\DocType" id="0x4282" type="string" default="ebml" length="&gt;0" minOccurs="1" maxOccurs="1">
