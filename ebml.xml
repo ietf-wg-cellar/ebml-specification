@@ -8,7 +8,7 @@
 	<element name="EBMLReadVersion" path="\EBML\EBMLReadVersion" id="0x42F7" type="uinteger" range="1" default="1" minOccurs="1" maxOccurs="1">
 		<documentation lang="en" purpose="definition">The minimum EBML version a parser has to support to read this file.</documentation>
 	</element>
-	<element name="EBMLMaxIDLength" path="\EBML\EBMLMaxIDLength" id="0x42F2" type="uinteger" range="&gt;4" default="4" minOccurs="1" maxOccurs="1">
+	<element name="EBMLMaxIDLength" path="\EBML\EBMLMaxIDLength" id="0x42F2" type="uinteger" range="&ge;4" default="4" minOccurs="1" maxOccurs="1">
 		<documentation lang="en" purpose="definition">The maximum length of the IDs you'll find in this file (4 or less in Matroska).</documentation>
 	</element>
 	<element name="EBMLMaxSizeLength" path="\EBML\EBMLMaxSizeLength" id="0x42F3" type="uinteger" range="not 0" default="8" minOccurs="1" maxOccurs="1">
