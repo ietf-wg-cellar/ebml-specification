@@ -789,9 +789,8 @@ The semantic meaning of `minOccurs` within an EBML Schema is analogous to the me
 Within an EBML Schema, the XPath of the `@maxOccurs` attribute is
 `/EBMLSchema/element/@maxOccurs`.
 
-`maxOccurs` is a nonnegative integer, or the term "unbounded" expressing
-the maximum permitted number of occurrences of this EBML Element within its
-Parent Element.
+`maxOccurs` is a nonnegative integer expressing the maximum permitted number
+of occurrences of this EBML Element within its Parent Element.
 
 Each instance of the Parent Element **MUST** contain at most
 this many instances of this EBML Element, including the unwritten mandatory
@@ -801,18 +800,15 @@ If the EBML Element has an empty EBMLParentPath, then `maxOccurs` refers to
 constraints on the occurrence of the EBML Element within the EBML
 Document.
 
-If the value of `maxOccurs` is "unbounded", then there is no upper bound for the
-permitted number of occurrences of this EBML Element within its Parent Element
-or within the EBML Document, depending on whether or not the EBMLParentPath of
-the EBML Element is empty.
-
-The `maxOccurs` attribute is **OPTIONAL**. The default value of `maxOccurs`
-is "unbounded". There for, when `maxOccurs` attribute is not present the maximum
-occurence of this EBML Element is not limited.
+The `maxOccurs` attribute is **OPTIONAL**. If the `maxOccurs`
+attribute is not present, then there is no upper bound for the permitted
+number of occurrences of this EBML Element within its Parent Element or within
+the EBML Document, depending on whether or not the EBMLParentPath of the EBML Element
+is empty.
 
 The semantic meaning of `maxOccurs` within an EBML Schema is analogous to the
-meaning of `maxOccurs` within an XML Schema. The only difference is their default
-value.
+meaning of `maxOccurs` within an XML Schema; when it is not present, it's
+similar to xml:maxOccurs="unbounded" in an XML Schema.
 
 #### range
 
