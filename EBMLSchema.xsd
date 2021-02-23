@@ -61,11 +61,20 @@
         </xs:restriction>
       </xs:simpleType>
     </xs:attribute>
-    <xs:attribute name="maxOccurs" default="1">
+    <xs:attribute name="maxOccurs" default="unbounded">
       <xs:simpleType>
-        <xs:restriction base="xs:integer">
-          <xs:minInclusive value="0"/>
-        </xs:restriction>
+        <xs:union>
+          <xs:simpleType>
+            <xs:restriction base="xs:integer">
+              <xs:minInclusive value="0"/>
+            </xs:restriction>
+          </xs:simpleType>
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="unbounded"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:union>
       </xs:simpleType>
     </xs:attribute>
     <xs:attribute name="range"/>
