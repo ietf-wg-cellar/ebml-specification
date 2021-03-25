@@ -33,7 +33,7 @@
 		<documentation lang="en" purpose="definition">The version of the DocTypeExtension. Different DocTypeExtensionVersion values of the same DocType + DocTypeVersion + DocTypeExtensionName tuple **MAY** contain completely different sets of extra Elements. An EBML Reader **MAY** support multiple versions	of the same tuple, only one version of the tuple, or not support the tuple at all.</documentation>
 	</element>
 
-	<element name="Void" path="\(-\)Void" id="0xEC" type="binary" maxOccurs="1">
+	<element name="Void" path="\(-\)Void" id="0xEC" type="binary">
 		<documentation lang="en" purpose="definition">Used to void damaged data, to avoid unexpected behaviors when using damaged data. The content is discarded. Also used to reserve space in a sub-element for later use.</documentation>
 	</element>
 	<element name="CRC-32" path="\(1-\)CRC-32" id="0xBF" type="binary" length="4" maxOccurs="1">
