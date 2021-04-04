@@ -139,6 +139,7 @@
     </xs:sequence>
     <xs:attribute name="label"/>
     <xs:attribute name="value" use="required"/>
+    <xs:attribute name="minver"/>
   </xs:complexType>
 
   <xs:complexType name="documentationType" mixed="true">
