@@ -146,11 +146,12 @@
     </xs:sequence>
     <xs:attribute name="label"/>
     <xs:attribute name="value" use="required"/>
+    <xs:attribute name="minver"/>
   </xs:complexType>
 
   <xs:complexType name="documentationType" mixed="true">
     <xs:sequence>
-      <xs:element name="a"      type="xhtml:xhtml.a.type" 
+      <xs:element name="a"      type="xhtml:xhtml.a.type"
         minOccurs="0" maxOccurs="unbounded"/>
       <xs:element name="br"     type="xhtml:xhtml.br.type"
         minOccurs="0" maxOccurs="unbounded"/>
