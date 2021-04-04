@@ -70,6 +70,23 @@ The `added` attribute is **OPTIONAL** within the <EBMLSchema> Element and the EB
 If the `added` attribute is not present the element is considered to have always
 been present in `minver` [@!RFC8794, section 11.1.6.13] version of the format it's defined for.
 
+# New `<enum>` Attributes
+
+## minver Attribute
+
+A new attribute is added to the list of `<enum>` attributes found in [@?RFC8794, section 11.1.13].
+
+Within an EBML Schema, the XPath of the `@value` attribute is
+`/EBMLSchema/element/restriction/enum/@minver`.
+
+The `minver` (minimum version) attribute stores a nonnegative integer that
+represents the first version of the docType to support the enum value. The value
+**MUST** be greater than or equal to the EBML Element's minimum version ([@!RFC8794, section 11.1.6.13]) this enum belongs to.
+
+The `minver` attribute is **OPTIONAL**. If the `minver`
+attribute is not present, the enum's minimum version is the same as the
+EBML Element's minimum version this enum belongs to.
+
 # Updated EBML Schema
 
 The following provides the updated XML Schema [@!XML-SCHEMA] of the EBML Schema
