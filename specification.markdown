@@ -510,7 +510,7 @@ The version of the EBML Header is found in EBMLVersion. An EBML parser can read 
 
 ## EBML Document Version
 
-The version of the EBML Body is found in EBMLDocTypeVersion. A parser for the particular DocType format can read the EBML Document if it can read either the EBMLDocTypeVersion version of that format or a version equal or higher than the one found in EBMLDocTypeReadVersion.
+The version of the EBML Body is found in DocTypeVersion. A parser for the particular DocType format can read the EBML Document if it can read either the DocTypeVersion version of that format or a version equal or higher than the one found in DocTypeReadVersion.
 
 # Elements semantics
 
@@ -1850,17 +1850,17 @@ Elements of an EBML format **SHOULD** be designed with backward and forward comp
 
 Backward compatibility of new EBML Elements can be achieved by using default values for mandatory elements. The default value **MUST** represent the state that was assumed for previous versions of the EBML Schema, without this new EBML Element. If such a state doesn't make sense for previous versions, then the new EBML Element **SHOULD NOT** be mandatory.
 
-Non-mandatory EBML Elements can be added in a new EBMLDocTypeVersion. Since
+Non-mandatory EBML Elements can be added in a new DocTypeVersion. Since
 they are not mandatory, they won't be found in older versions of the
-EBMLDocTypeVersion, just as they might not be found in newer versions. This
+DocTypeVersion, just as they might not be found in newer versions. This
 causes no compatibility issue.
 
 ## Forward Compatibility
 
 EBML Elements **MAY** be marked as deprecated in a new
-EBMLDocTypeVersion using the `maxver` attribute of the EBML Schema. If such an
+DocTypeVersion using the `maxver` attribute of the EBML Schema. If such an
 Element is found in an EBML Document with a newer version of the
-EBMLDocTypeVersion, it **SHOULD** be discarded.
+DocTypeVersion, it **SHOULD** be discarded.
 
 # Security Considerations
 
