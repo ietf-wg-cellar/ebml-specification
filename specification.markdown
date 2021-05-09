@@ -243,7 +243,7 @@ one octet to four octets in length, although Element IDs of greater lengths
 **MAY** be used if the EBMLMaxIDLength Element of the EBML Header
 is set to a value greater than four (see
 (#ebmlmaxidlength-element)). The bits of the VINT\_DATA component
-of the Element ID **MUST NOT** be all `0` values or all
+of the Element ID **MUST NOT** be all
  `1` values. The VINT\_DATA component of the Element ID 
 **MUST** be encoded at the shortest valid length. For example, an
 Element ID with binary encoding of `1011 1111` is valid, whereas an
@@ -1929,14 +1929,13 @@ in the EBML Header, thus including Global Elements. Elements only
 found in the EBML Body have their own set of independent Element IDs
 and are not part of this IANA registry.
 
-One-octet Element IDs **MUST** be between 0x81 and
+One-octet Element IDs **MUST** be between 0x80 and
 0xFE. These items are valuable because they are short, and they need
 to be used for commonly repeated elements. Element IDs are to be
 allocated within this range according to the "RFC Required"
 policy [@!RFC8126].
 
-The following one-octet Element IDs are RESERVED: 0xFF and
-0x80.
+The following one-octet Element ID is RESERVED: 0xFF.
 
 Values in the one-octet range of 0x00 to 0x7F are not valid for use
 as an Element ID.
@@ -1946,18 +1945,16 @@ Two-octet Element IDs **MUST** be between 0x407F and
 the "Specification Required" policy
 [@!RFC8126].
 
-The following two-octet Element IDs are RESERVED: 0x7FFF and
-0x4000.
+The following two-octet Element ID is RESERVED: 0x7FFF.
 
-Values in the two-octet ranges of 0x0000 to 0x3FFF and 0x8000 to 0xFFFF are
+Values in the two-octet ranges of 0x0000 to 0x4000 and 0x8000 to 0xFFFF are
 not valid for use as an Element ID.
 
 Three-octet Element IDs **MUST** be between 0x203FFF and 0x3FFFFE. Element IDs are to be allocated within this range according to the "First Come First Served" policy [@!RFC8126].
 
-The following three-octet Element IDs are RESERVED: 0x3FFFFF and
-0x200000.
+The following three-octet Element ID is RESERVED: 0x3FFFFF.
 
-Values in the three-octet ranges of 0x000000 to 0x1FFFFF and
+Values in the three-octet ranges of 0x000000 to 0x200000 and
 0x400000 to 0xFFFFFF are not valid for use as an Element ID.
 
 Four-octet Element IDs **MUST** be between 0x101FFFFF
@@ -1979,9 +1976,9 @@ when ALL having values between 0x20 (32, ASCII Space) and 0x7E (126, ASCII
 
 Other four-octet Element IDs may be allocated by the "First Come First Served" policy.
 
-The following four-octet Element IDs are RESERVED:  0x1FFFFFFF and 0x10000000.
+The following four-octet Element ID is RESERVED:  0x1FFFFFFF.
 
-Values in the four-octet ranges of 0x00000000 to 0x0FFFFFFF and 0x20000000
+Values in the four-octet ranges of 0x00000000 to 0x10000000 and 0x20000000
 to 0xFFFFFFFF are not valid for use as an Element ID.
 
 Five-octet Element IDs (values from 0x080FFFFFFF to 0x0FFFFFFFFE) are RESERVED according to the "Experimental Use" policy [@!RFC8126]: they may be used by anyone at any time, but there is no coordination.
