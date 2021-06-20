@@ -275,7 +275,7 @@ octet length. Examples of this are provided in
 
 Element ID Octet Length | Range of Valid Element IDs   | Number of Valid Element IDs
 :----------------------:|:----------------------------:|-------------:
-1                       |       0x81 - 0xFE            |           126
+1                       |       0x80 - 0xFE            |           127
 2                       |     0x407F - 0x7FFE          |        16,256
 3                       |   0x203FFF - 0x3FFFFE        |     2,080,768
 4                       | 0x101FFFFF - 0x1FFFFFFE      |   268,338,304
