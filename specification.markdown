@@ -453,6 +453,8 @@ This provides a possible expression of time from 1708-09-22T00:12:43.145224192 U
 The integer stored represents the number of nanoseconds between the date to express and 2001-01-01T00:00:00.000000000 UTC, not counting leap seconds.
 That is 86,400,000,000,000 nanoseconds for each day. Conversions from other date systems should ensure leap seconds are not counted in EBML values.
 
+The 2001-01-01T00:00:00.000000000 UTC date also corresponds to 978307200 seconds in Unix time [@?POSIX].
+
 ## Master Element
 
 A Master Element **MUST** declare a length in octets from zero to VINTMAX or be of unknown length. See (#element-data-size) for rules that apply to elements of unknown length.
