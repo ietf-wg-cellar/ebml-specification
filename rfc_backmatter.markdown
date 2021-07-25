@@ -44,6 +44,19 @@
   <seriesInfo name="ITU-T Recommendation" value="V.42" />
 </reference>
 
+<reference anchor="POSIX" target="https://standards.ieee.org/standard/1003_1-2017.html">
+  <front>
+    <title>Portable Operating System Interface (POSIX(R)) Base Specifications, Issue 7</title>
+    <author>
+      <organization>IEEE and The Open Group</organization>
+    </author>
+    <date year="2018"  month="Jan" day="31" />
+  </front>
+  <seriesInfo name="IEEE" value="1003.1-2017" />
+  <seriesInfo name="DOI" value="10.1109/IEEESTD.2018.8277153" />
+</reference>
+
+
 <reference anchor="WebM" target="https://www.webmproject.org/docs/container/">
   <front>
     <title>WebM Container Guidelines</title>
