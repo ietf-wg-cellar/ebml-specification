@@ -450,6 +450,9 @@ A Date Element **MUST** declare a length of either zero octets or eight octets. 
 The Date Element stores an integer in the same format as the Signed Integer Element that expresses a point in time referenced in nanoseconds from the precise beginning of the third millennium of the Gregorian Calendar in Coordinated Universal Time (also known as 2001-01-01T00:00:00.000000000 UTC).
 This provides a possible expression of time from 1708-09-22T00:12:43.145224192 UTC to 2293-04-11T23:47:16.854775807 UTC.
 
+The integer stored represents the number of nanoseconds between the date to express and 2001-01-01T00:00:00.000000000 UTC, not counting leap seconds.
+That is 86,400,000,000,000 nanoseconds for each day. Conversions from other date systems should ensure leap seconds are not counted in EBML values.
+
 ## Master Element
 
 A Master Element **MUST** declare a length in octets from zero to VINTMAX or be of unknown length. See (#element-data-size) for rules that apply to elements of unknown length.
