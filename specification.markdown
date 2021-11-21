@@ -680,7 +680,7 @@ EBMLElement            = [IsRecursive] EBMLAtomName
 
 PathDelimiter          = "\"
 IsRecursive            = "+"
-EBMLAtomName           = ALPHA / DIGIT 0*EBMLNameChar
+EBMLAtomName           = (ALPHA / DIGIT) 0*EBMLNameChar
 EBMLNameChar           = ALPHA / DIGIT / "-" / "."
 
 GlobalPlaceholder      = "(" GlobalParentOccurrence "\)"
