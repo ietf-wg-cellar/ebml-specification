@@ -15,7 +15,7 @@
 		<documentation lang="en" purpose="definition">The maximum length of the sizes you'll find in this file (8 or less in Matroska). This does not override the element size indicated at the beginning of an element. Elements that have an indicated size which is larger than what is allowed by EBMLMaxSizeLength shall be considered invalid.</documentation>
 	</element>
 	<element name="DocType" path="\EBML\DocType" id="0x4282" type="string" length="&gt;0" minOccurs="1" maxOccurs="1">
-		<documentation lang="en" purpose="definition">A string that describes the type of document that follows this EBML header. 'matroska' in our case or 'webm' for webm files.</documentation>
+		<documentation lang="en" purpose="definition">A string that describes the type of document that follows this EBML header, for example 'matroska' or 'webm'.</documentation>
 	</element>
 	<element name="DocTypeVersion" path="\EBML\DocTypeVersion" id="0x4287" type="uinteger" range="not 0" default="1" minOccurs="1" maxOccurs="1">
 		<documentation lang="en" purpose="definition">The version of DocType interpreter used to create the file.</documentation>
