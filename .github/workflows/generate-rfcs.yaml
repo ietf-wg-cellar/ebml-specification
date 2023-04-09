@@ -27,7 +27,7 @@ jobs:
       - name: XML Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: ietf-xmls
+          name: ebml-ietf-xmls
           path: |
             rfc8794.xml
             draft-ietf-cellar-ebml-*.xml
