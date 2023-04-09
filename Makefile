@@ -1,5 +1,5 @@
-VERSION := 21
-STATUS := draft-
+VERSION := errata-9
+STATUS := rfc8794-
 OUTPUT := $(STATUS)ietf-cellar-ebml-$(VERSION)
 
 XML2RFC_CALL := xml2rfc
