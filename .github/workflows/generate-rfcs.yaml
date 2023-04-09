@@ -5,7 +5,7 @@ on: [push, pull_request]
 jobs:
   build:
     name: "Build RFCS"
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Get pushed code
         uses: actions/checkout@v1
