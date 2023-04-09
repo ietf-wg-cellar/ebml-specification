@@ -2,7 +2,13 @@
 
 ## About
 
-This repository contains the formal and official specification for the Extensible Binary Meta Language (EBML). Discussion of the plans for standardization is regulated on the [CELLAR listserv](https://datatracker.ietf.org/wg/cellar/charter/). Approved changes should be submitted to this repository as a pull request. The latest draft published from these specifications can be found at the [IETF Datatracker](https://datatracker.ietf.org/doc/draft-ietf-cellar-ebml/). The specification can be found in the file [specification.markdown](specification.markdown).
+This repository contains a work in progress version of the Extensible Binary Meta Language (EBML) specification. 
+
+**The documents corresponding to [RFC 8794](https://www.rfc-editor.org/rfc/rfc8794) and its errata can be found in branch [rfc8794](https://github.com/ietf-wg-cellar/ebml-specification/tree/rfc8794).**
+
+Discussion is regulated on the [CELLAR listserv](https://datatracker.ietf.org/wg/cellar/charter/). Approved changes should be submitted to this repository as a Pull Request. The latest draft published from these specifications can be found at the [IETF Datatracker](https://datatracker.ietf.org/doc/draft-ietf-cellar-ebml/).
+
+The main contain of the document specification can be found in the file [specification.markdown](specification.markdown).
 
 ## Code of conduct
 
