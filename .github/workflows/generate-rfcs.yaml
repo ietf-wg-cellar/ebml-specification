@@ -24,13 +24,10 @@ jobs:
       - name: Build
         run: make
 
-      - name: Move Generated files
-        run: |
-          mkdir -p artifacts
-          mv draft-ietf-cellar-ebml-??.xml rfc8794.xml artifacts
-
       - name: XML Artifact
-        uses: actions/upload-artifact@master
+        uses: actions/upload-artifact@v3
         with:
           name: ietf-xmls
-          path: artifacts
+          path: |
+            rfc8794.xml
+            draft-ietf-cellar-ebml-*.xml
