@@ -27,7 +27,7 @@ jobs:
       - name: RFC8794 With Errata
         uses: actions/upload-artifact@v3
         with:
-          name: rfc8797-with-errata
+          name: rfc8794-with-errata
           path: |
             rfc8794-ietf-cellar-ebml-errata-*.xml
             rfc8794-ietf-cellar-ebml-errata-*.html
