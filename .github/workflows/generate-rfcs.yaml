@@ -2,7 +2,7 @@ name: "Generate the EBML RFC"
 # Trigger the workflow on push or pull request
 on:
   push:
-    branches: [ master ]
+    branches: [ master, rfc8794 ]
   pull_request:
 
 jobs:
