@@ -1,6 +1,8 @@
 VERSION := 21
+VERSION_UPDATE1 := 00
 STATUS := draft-
 OUTPUT := $(STATUS)ietf-cellar-ebml-$(VERSION)
+OUTPUT_UPDATE1 := draft-ietf-cellar-ebml-update1-$(VERSION_UPDATE1)
 
 XML2RFC_CALL := xml2rfc
 MMARK_CALL := mmark
@@ -10,11 +12,15 @@ MMARK_CALL := mmark
 XML2RFC := $(XML2RFC_CALL) --v3
 MMARK := $(MMARK_CALL)
 
-all: $(OUTPUT).html $(OUTPUT).txt $(OUTPUT).xml
+all: $(OUTPUT).html $(OUTPUT).txt $(OUTPUT).xml $(OUTPUT_UPDATE1).html $(OUTPUT_UPDATE1).txt $(OUTPUT_UPDATE1).xml
 	$(info RFC rendering has been tested with mmark version 2.2.8 and xml2rfc 2.46.0, please ensure these are installed and recent enough.)
 
 $(OUTPUT).md: specification.markdown rfc_frontmatter.markdown rfc_backmatter.markdown EBMLSchema8794.xsd ebml_schema_example.xml
 	cat rfc_frontmatter.markdown $< rfc_backmatter.markdown | sed "s/@BUILD_DATE@/$(shell date +'%F')/" > $(OUTPUT).md
+
+$(OUTPUT_UPDATE1).md: update1/update1_frontmatter.markdown update1/update1.markdown update1/update1_backmatter.markdown EBMLSchema.xsd
+	cat update1/update1_frontmatter.markdown update1/update1.markdown update1/update1_backmatter.markdown | sed -e "s/@BUILD_DATE@/$(shell date +'%F')/" \
+	             -e "s/@BUILD_VERSION@/$(OUTPUT_UPDATE1)/" > $@
 
 %.xml: %.md
 	$(MMARK) $< > $@
@@ -34,11 +40,12 @@ rfc8794.xml: $(OUTPUT).xml
 	-e 's@<back>@<back>\n<displayreference target="I-D.ietf-cellar-matroska" to="Matroska"/>@' \
 	$< > $@
 
-%.html: rfc8794.xml
+%.html: %.xml
 	$(XML2RFC) --html $< -o $@
 
-%.txt: rfc8794.xml
+%.txt: %.xml
 	$(XML2RFC) $< -o $@
 
 clean:
 	rm -f $(OUTPUT).txt $(OUTPUT).html $(OUTPUT).md $(OUTPUT).xml
+	rm -f $(OUTPUT_UPDATE1).txt $(OUTPUT_UPDATE1).html $(OUTPUT_UPDATE1).md $(OUTPUT_UPDATE1).xml
