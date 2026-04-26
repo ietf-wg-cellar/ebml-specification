@@ -6,3 +6,4 @@ bootstrap.mak
 /runtimes.mak
 metadata.min.js
 /rfc8794.xml
+xml2rfc-venv/

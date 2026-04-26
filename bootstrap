@@ -6,21 +6,21 @@ export LC_ALL=
 FOUND=
 NEEDED=
 
-MMARK_VERSION=2.2.30
-XML2RFC_VERSION=2.46.0
+MMARK_VERSION=2.2.48
+XML2RFC_VERSION=3.33.0
 
 BOOTSTRAP_MAKE=bootstrap.mak
 RUNTIMES_MAKE=runtimes.mak
 
 check_version() {
     gotver=$2
-    gotmajor=`echo $gotver|cut -d. -f1`
-    gotminor=`echo $gotver|cut -d. -f2|cut -d+ -f1`
-    gotmicro=`echo $gotver|cut -d. -f3|cut -d+ -f1`
+    gotmajor=$(echo $gotver|cut -d. -f1)
+    gotminor=$(echo $gotver|cut -d. -f2|cut -d+ -f1)
+    gotmicro=$(echo $gotver|cut -d. -f3|cut -d+ -f1)
     [ -z "$gotmicro" ] && gotmicro=0
-    needmajor=`echo $3|cut -d. -f1`
-    needminor=`echo $3|cut -d. -f2`
-    needmicro=`echo $3|cut -d. -f3`
+    needmajor=$(echo $3|cut -d. -f1)
+    needminor=$(echo $3|cut -d. -f2)
+    needmicro=$(echo $3|cut -d. -f3)
     [ -z "$needmicro" ] && needmicro=0
     if [ "$needmajor" -ne "$gotmajor" \
          -o "$needmajor" -eq "$gotmajor" -a "$needminor" -gt "$gotminor" \
@@ -41,11 +41,11 @@ check() {
         NEEDED="$NEEDED $1"
     else
         # found, need to check version ?
-        if [ -z "$2" ];then
+        if [ -z "$2" ]; then
             FOUND="$FOUND $(command -v $1)"
             echo "found $1"
         else
-            gotver=`$1 --version | head -1 | sed s/'.* '//`
+            gotver=$($1 --version | head -1 | sed s/'.* '//)
             check_version $1 $gotver $2
         fi
     fi
@@ -58,7 +58,7 @@ check xml2rfc $XML2RFC_VERSION
 cat > $BOOTSTRAP_MAKE << EOF
 # Generated from boostrap
 
-PREFIX=\$(abspath ./build)
+PREFIX=\$(realpath ./build)
 EOF
 
 echo > $RUNTIMES_MAKE << EOF
@@ -68,7 +68,8 @@ echo > $RUNTIMES_MAKE << EOF
 EOF
 
 for t in $FOUND; do
-    echo ".$t:" >> $BOOTSTRAP_MAKE
+    FOUND_NAME=$(echo "$(basename $t)")
+    echo ".$FOUND_NAME:" >> $BOOTSTRAP_MAKE
     VAR_NAME=$(echo "$(basename $t)" | awk '{ tool = sprintf("%s_CALL", toupper($0)); print tool }')
     echo "$VAR_NAME := $t" >> $RUNTIMES_MAKE
 done
@@ -78,8 +79,9 @@ for t in $NEEDED; do
     PACKAGES="$PACKAGES $t"
     TARGETS="$TARGETS .build$t"
     if [ $t = "xml2rfc" ]; then
-        # installed in the Python local user dir
-        PYTHON_USER_PATH=$(python3 -m site --user-base)
+        # installed in the Python local virtual environment
+        python3 -m venv xml2rfc-venv || exit 1
+        PYTHON_USER_PATH=$(realpath xml2rfc-venv)
         echo PYTHON_USER_PATH=$PYTHON_USER_PATH >> $RUNTIMES_MAKE
         echo "$t" | awk '{ tool = sprintf("%s_CALL := $(PYTHON_USER_PATH)/bin/%s", toupper($0), $0); print tool }' >> $RUNTIMES_MAKE
     else
@@ -89,7 +91,7 @@ done
 
 [ -n "$PACKAGES" ] && echo "Out of date packages: $PACKAGES"
 
-case `uname` in
+case $(uname) in
 	Linux)
 		MMARK_OS=linux
 	;;
@@ -100,11 +102,11 @@ case `uname` in
 		MMARK_OS=windows
 	;;
 	*)
-		echo Unsupported build OS `uname`
+		echo "Unsupported build OS $(uname)"
 		exit 1
 	;;
 esac
-case `uname -m` in
+case $(uname -m) in
 	x86_64)
 		MMARK_MACHINE=amd64
 	;;
@@ -115,20 +117,21 @@ case `uname -m` in
 		MMARK_MACHINE=arm
 	;;
 	*)
-		echo Unsupported build CPU `uname -m`
+		echo "Unsupported build CPU $(uname -m)"
 		exit 1
 	;;
 esac
 
 cat >> $BOOTSTRAP_MAKE << EOF
 all: $TARGETS
-	@echo "You are ready to build EBML specifications"
+	@echo "You are ready to build Matroska specifications"
 
 MMARK_VERSION=$MMARK_VERSION
 MMARK_OS=$MMARK_OS
 MMARK_MACHINE=$MMARK_MACHINE
 XML2RFC_VERSION=$XML2RFC_VERSION
 
+include runtimes.mak
 include tools.mak
 EOF
 
