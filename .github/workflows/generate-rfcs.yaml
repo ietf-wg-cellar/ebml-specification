@@ -8,15 +8,10 @@ on:
 jobs:
   build:
     name: "Build RFCS"
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - name: Get pushed code
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 1
-
-      - name: Get python (for xml2rfc)
-        uses: actions/setup-python@v4
+        uses: actions/checkout@v6
 
       - name: Setup toolchain
         run: ./bootstrap
@@ -25,7 +20,7 @@ jobs:
         run: make
 
       - name: XML Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v7
         with:
           name: ebml-ietf-xmls
           path: |
