@@ -192,8 +192,6 @@
               <xs:enumeration value="default"/>
               <xs:enumeration value="minver"/>
               <xs:enumeration value="maxver"/>
-              <xs:enumeration value="update"/>
-              <xs:enumeration value="added"/>
             </xs:restriction>
           </xs:simpleType>
         </xs:attribute>
