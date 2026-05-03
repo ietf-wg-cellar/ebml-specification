@@ -38,7 +38,7 @@ The syntax of the `update` values is defined using this Augmented Backus-Naur Fo
 update           = 1*DIGIT
 ```
 
-The `update` attribute is **OPTIONAL** within the <EBMLSchema> Element and the EBML Element text definition.
+The `update` attribute is **OPTIONAL** within the `<EBMLSchema>` Element and the EBML Element text definition.
 If the `update` attribute is not present the element is considered to have always
 been present in `minver` [@!RFC8794, section 11.1.6.13] version of the format it's defined for.
 
@@ -66,7 +66,7 @@ date-mday       = 2DIGIT  ; 01-28, 01-29, 01-30, 01-31 based on
 added           = date-fullyear date-month date-mday
 ```
 
-The `added` attribute is **OPTIONAL** within the <EBMLSchema> Element and the EBML Element text definition.
+The `added` attribute is **OPTIONAL** within the `<EBMLSchema>` Element and the EBML Element text definition.
 If the `added` attribute is not present the element is considered to have always
 been present in `minver` [@!RFC8794, section 11.1.6.13] version of the format it's defined for.
 
