@@ -30,7 +30,7 @@ A new attribute is added to the list of attributes found in [@?RFC8794, section 
 
 Within an EBML Schema, the XPath of the new `@update` attribute is `/EBMLSchema/@update`.
 
-`update` is a nonnegative integer expressing the update version in which a given element was added to the EBML Schema of an `EBML DocType`.
+`update` is a nonnegative and non-zero integer expressing the update version in which a given element was added to the EBML Schema of an `EBML DocType`.
 
 The syntax of the `update` values is defined using this Augmented Backus-Naur Form (ABNF) [@!RFC5234] notation:
 
