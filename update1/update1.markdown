@@ -104,6 +104,54 @@ The `maxver` attribute is **OPTIONAL**. If the `maxver`
 attribute is not present, the enum's maximum version is the same as the
 EBML Element's maximum version this enum belongs to.
 
+## update Attribute
+
+A new attribute is added to the list of `<enum>` attributes found in [@?RFC8794, section 11.1.13].
+
+Within an EBML Schema, the XPath of the new `@update` attribute is `/EBMLSchema/element/restriction/enum/@update`.
+
+`update` is a nonnegative and non-zero integer integer expressing the update version in which a given enum value was added to the EBML Schema of an `EBML DocType`.
+The format is the same as the `added` attribute in (#added-attribute).
+
+The syntax of the `update` values is defined using this Augmented Backus-Naur Form (ABNF) [@!RFC5234] notation:
+
+```abnf
+update           = 1*DIGIT
+```
+
+The `update` attribute is **OPTIONAL** within the `<enum>` Element and the enum text definition.
+If the `update` attribute is not present the enum value is considered to have always
+been present in `minver` [@!RFC8794, section 11.1.6.13] version of the enum it's defined for.
+
+## added Attribute
+
+A new attribute is added to the list of `<enum>` attributes found in [@?RFC8794, section 11.1.13].
+
+Within an EBML Schema, the XPath of the new `@added` attribute is `/EBMLSchema/element/restriction/enum/@added`.
+
+`added` is a nonnegative integer expressing the date when a given enum value was added to the EBML Schema of an `EBML DocType`.
+The format is the same as the `update` attribute in (#update-attribute).
+The value is in the form "YYYYMMDD" where YYYY represents the year similar to the `date-fullyear` in [@!RFC3339, section 5.6],
+"MM" represents the month similar to the `date-month` in [@!RFC3339, section 5.6],
+and "DD" represents the month similar to the `date-mday` in [@!RFC3339, section 5.6].
+
+The "-" separator is not included for easier comparison in XSLT.
+
+The syntax of the `added` values is defined using this Augmented Backus-Naur Form (ABNF) [@!RFC5234] notation:
+
+```abnf
+date-fullyear   = 4DIGIT
+date-month      = 2DIGIT  ; 01-12
+date-mday       = 2DIGIT  ; 01-28, 01-29, 01-30, 01-31 based on
+                          ; month/year
+
+added           = date-fullyear date-month date-mday
+```
+
+The `added` attribute is **OPTIONAL** within the `<enum>` Element and the enum text definition.
+If the `added` attribute is not present the enum value is considered to have always
+been present in `minver` [@!RFC8794, section 11.1.6.13] version of the enum it's defined for.
+
 # Updated EBML Schema
 
 The following provides the updated XML Schema [@!XML-SCHEMA] of the EBML Schema
