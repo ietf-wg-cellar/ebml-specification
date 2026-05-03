@@ -26,7 +26,7 @@ when, and only when, they appear in all capitals, as shown here.
 
 ## update Attribute
 
-A new attribute is added to the list of attributes found in [@?RFC8794, section 11.1.4].
+A new attribute is added to the list of `<EBMLSchema>` attributes found in [@?RFC8794, section 11.1.4].
 
 Within an EBML Schema, the XPath of the new `@update` attribute is `/EBMLSchema/@update`.
 
@@ -44,7 +44,7 @@ been present in `minver` [@!RFC8794, section 11.1.6.13] version of the format it
 
 ## added Attribute
 
-A new attribute is added to the list of attributes found in [@?RFC8794, section 11.1.4].
+A new attribute is added to the list of `<EBMLSchema>` attributes found in [@?RFC8794, section 11.1.4].
 
 Within an EBML Schema, the XPath of the new `@added` attribute is `/EBMLSchema/@added`.
 
