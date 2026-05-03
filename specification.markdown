@@ -1161,6 +1161,34 @@ The value represents data that **MAY** be stored within the EBML Element.
 
 The `value` attribute is **REQUIRED**.
 
+#### minver
+
+Within an EBML Schema, the XPath of the `@value` attribute is
+`/EBMLSchema/element/restriction/enum/@minver`.
+
+The `minver` (minimum version) attribute stores a nonnegative integer that
+represents the first version of the docType to support the enum value. The value
+**MUST** be greater than or equal to the EBML Element's minimum version this enum belongs to.
+
+The `minver` attribute is **OPTIONAL**. If the `minver`
+attribute is not present, the enum's minimum version is the same as the 
+EBML Element's minimum version this enum belongs to.
+
+#### maxver
+
+Within an EBML Schema, the XPath of the `@value` attribute is
+`/EBMLSchema/element/restriction/enum/@maxver`.
+
+The `maxver` (maximum version) attribute stores a nonnegative integer that
+represents the last or most recent version of the docType to support
+the enum value. `maxver` **MUST** be greater than or equal to 
+the first version of the docType to support the enum value, whether it's set
+in the `minver` attribute of the enum or implied.
+
+The `maxver` attribute is **OPTIONAL**. If the `maxver`
+attribute is not present, the enum's maximum version is the same as the 
+EBML Element's maximum version this enum belongs to.
+
 ### `<extension>` Element
 
 Within an EBML Schema, the XPath of the `<extension>`
