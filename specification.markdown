@@ -1195,7 +1195,7 @@ The following provides an XML Schema [@!XML-SCHEMA] for
 facilitating verification of an EBML Schema described in
 (#ebml-schema).
 
-<{{EBMLSchema.xsd}}
+<{{EBMLSchema8794.xsd}}
 
 ### Identically Recurring Elements
 
